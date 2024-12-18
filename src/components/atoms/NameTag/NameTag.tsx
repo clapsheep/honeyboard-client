@@ -1,11 +1,19 @@
 import Icon from '../Icon/Icon';
 
 interface NameTagProps {
-    children: React.ReactNode;
+    children: string;
     isLeader?: boolean;
     color?: 'green' | 'red' | 'gray' | 'black';
+    cancel?: boolean;
+    onCancel?: () => void;
 }
-const NameTag = ({ isLeader, children, color = 'black' }: NameTagProps) => {
+const NameTag = ({
+    isLeader,
+    children,
+    color = 'black',
+    cancel,
+    onCancel,
+}: NameTagProps) => {
     const BG_COLOR = {
         green: 'bg-success-25 border border-success-500',
         red: 'bg-error-25 border border-error-500',
@@ -27,6 +35,11 @@ const NameTag = ({ isLeader, children, color = 'black' }: NameTagProps) => {
             <span className={`text-text-md font-semibold ${TEXT_COLOR[color]}`}>
                 {children}
             </span>
+            {cancel && (
+                <button onClick={onCancel} aria-label={`${children} 삭제`}>
+                    <Icon id="cancle-circle" />
+                </button>
+            )}
         </div>
     );
 };

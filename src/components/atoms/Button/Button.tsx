@@ -10,7 +10,7 @@ const Button = ({
     children,
     type = 'button',
     color = 'blue',
-    disabled,
+    disabled = false,
     onClick,
 }: ButtonProps) => {
     const COLOR_PROS = {
@@ -25,7 +25,7 @@ const Button = ({
             onClick={onClick}
             type={type}
             disabled={disabled}
-            className={`text-text-md text-gray-25 rounded-sm px-4 py-1 font-semibold ${COLOR_PROS[color]}`}
+            className={`rounded-sm px-4 py-1 text-text-md font-semibold text-gray-25 ${COLOR_PROS[color]}`}
         >
             {children}
         </button>

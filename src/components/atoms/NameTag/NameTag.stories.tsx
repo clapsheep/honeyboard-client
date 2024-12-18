@@ -18,3 +18,12 @@ export const Default: Story = {
         isLeader: true,
     },
 };
+export const Cancel: Story = {
+    args: {
+        children: '박성문',
+        isLeader: true,
+        color: 'red',
+        cancel: true,
+        onCancel: () => alert('삭제'),
+    },
+};

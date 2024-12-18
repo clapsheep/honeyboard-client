@@ -8,7 +8,7 @@ interface IconProps extends React.SVGProps<SVGSVGElement> {
 
 const Icon = ({
     id,
-    size = 24,
+    size = 16,
     color = 'currentColor',
     ...props
 }: IconProps) => {
