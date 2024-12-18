@@ -17,13 +17,13 @@ export const Default: Story = {
     args: {
         children: '버튼',
         color: 'blue',
-        onClick: () => alert('작동'),
+        onClick: () => alert('default'),
     },
 };
 
 export const Disabled: Story = {
     args: {
-        children: '버튼',
+        children: '비활성화',
         color: 'gray',
         disabled: true,
         onClick: () => alert('작동'),
