@@ -21,6 +21,7 @@ export const Default: Story = {
 
 export const Disabled: Story = {
     args: {
-        onClick: () => alert('클릭되지 않음'),
+        disabled: true,
+        onClick: () => alert('PDF 다운로드 클릭'),
     },
 };
