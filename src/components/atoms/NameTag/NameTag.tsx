@@ -8,7 +8,7 @@ interface NameTagProps {
     onCancel?: () => void;
 }
 const NameTag = ({
-    isLeader,
+    isLeader = false,
     children,
     color = 'black',
     cancel,
@@ -36,7 +36,11 @@ const NameTag = ({
                 {children}
             </span>
             {cancel && (
-                <button onClick={onCancel} aria-label={`${children} 삭제`}>
+                <button
+                    className="ml-1"
+                    onClick={onCancel}
+                    aria-label={`${children} 삭제`}
+                >
                     <Icon id="cancle-circle" />
                 </button>
             )}
