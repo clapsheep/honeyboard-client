@@ -11,7 +11,7 @@ const TabButton = ({ name, onClick, isActive }: TabButtonProps) => {
             aria-selected={isActive}
             className={`border-b-2 text-text-md font-semibold ${
                 isActive
-                    ? 'border-blue-500 text-blue-500'
+                    ? 'border-blue-700 text-blue-700'
                     : 'border-gray-500 text-gray-500'
             }`}
         >
