@@ -21,7 +21,7 @@ export const Default: Story = {
 export const Cancel: Story = {
     args: {
         children: '박성문',
-        isLeader: true,
+        isLeader: false,
         color: 'red',
         cancel: true,
         onCancel: () => alert('삭제'),
