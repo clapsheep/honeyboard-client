@@ -8,7 +8,7 @@ interface NameTagProps {
     onCancel?: () => void;
 }
 const NameTag = ({
-    isLeader = false,
+    isLeader,
     children,
     color = 'black',
     cancel,
@@ -31,16 +31,12 @@ const NameTag = ({
         <div
             className={`flex items-center justify-center gap-1 rounded-sm px-2 py-1 ${BG_COLOR[color]}`}
         >
-            {isLeader && <Icon id="crown"></Icon>}
+            {isLeader && <Icon id="reader"></Icon>}
             <span className={`text-text-md font-semibold ${TEXT_COLOR[color]}`}>
                 {children}
             </span>
             {cancel && (
-                <button
-                    className="ml-1"
-                    onClick={onCancel}
-                    aria-label={`${children} 삭제`}
-                >
+                <button onClick={onCancel} aria-label={`${children} 삭제`}>
                     <Icon id="cancle-circle" />
                 </button>
             )}
