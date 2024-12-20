@@ -24,7 +24,7 @@ const SelectCalender = ({
                     onClick={onClickLeft}
                     aria-label="이전 월"
                 >
-                    <Icon id="left-button" size={20} aria-hidden="true"></Icon>
+                    <Icon id="left" aria-hidden="true"></Icon>
                 </button>
                 <h4 className="w-[3.75rem] text-center text-3xl font-semibold">
                     {month}월
@@ -34,7 +34,7 @@ const SelectCalender = ({
                     onClick={onClickRight}
                     aria-label="다음 월"
                 >
-                    <Icon id="right-button" size={20} aria-hidden="true"></Icon>
+                    <Icon id="right" aria-hidden="true"></Icon>
                 </button>
             </section>
         </section>
