@@ -22,6 +22,6 @@ export const Default: Story = {
 export const Disabled: Story = {
     args: {
         disabled: true,
-        onClick: () => alert('PDF 다운로드 클릭'),
+        onClick: () => alert('disabled false 상태'),
     },
 };
