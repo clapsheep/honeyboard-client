@@ -7,3 +7,5 @@ export { default as Icon } from './Icon/Icon';
 export { default as SelectOption } from './SelectOption/SelectOption';
 export { default as CalendarTag } from './CalendarTag/CalendarTag';
 export { default as TabButton } from './TabButton/TabButton';
+export { default as ButtonPDF } from './ButtonPDF/ButtonPDF';
+export { default as TeamTag } from './TeamTag/TeamTag';
