@@ -19,7 +19,7 @@ const SubNavButton = ({ id, title, isActive, onClick }: SubNavButtonProps) => {
             </button>
 
             <span
-                className={`inline-block h-10 w-[6px] flex-shrink-0 ${isActive ? 'bg-blue-500' : 'bg-gray-200'} group-hover:bg-gray-200`}
+                className={`inline-block h-10 w-[6px] flex-shrink-0 ${isActive ? 'bg-blue-500' : 'bg-gray-100'} group-hover:bg-gray-200`}
             ></span>
         </div>
     );
