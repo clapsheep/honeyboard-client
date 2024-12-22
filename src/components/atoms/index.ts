@@ -9,3 +9,4 @@ export { default as SelectForInput } from './SelectForInput/SelectForInput';
 export { default as CalendarTag } from './CalendarTag/CalendarTag';
 export { default as TabButton } from './TabButton/TabButton';
 export { default as SubNavButton } from './SubNavButton/SubNavButton';
+export { default as ModalButton } from './ModalButton/ModalButton';
