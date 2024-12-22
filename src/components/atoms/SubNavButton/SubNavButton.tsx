@@ -7,7 +7,7 @@ interface SubNavButtonProps {
 
 const SubNavButton = ({ id, title, isActive, onClick }: SubNavButtonProps) => {
     return (
-        <div
+        <section
             className={`group flex items-center hover:font-semibold ${isActive ? 'bg-blue-100 font-semibold' : 'bg-gray-200 font-normal'}`}
         >
             <button
@@ -18,10 +18,11 @@ const SubNavButton = ({ id, title, isActive, onClick }: SubNavButtonProps) => {
                 {title}
             </button>
 
-            <span
+            <button
+                onClick={onClick}
                 className={`inline-block h-10 w-[6px] flex-shrink-0 ${isActive ? 'bg-blue-500' : 'bg-gray-200'} group-hover:bg-bluegray-100`}
-            ></span>
-        </div>
+            ></button>
+        </section>
     );
 };
 
