@@ -5,6 +5,7 @@ interface InputFormProps {
     label: string;
     showLabel?: boolean;
     placeholder?: string;
+    required?: boolean;
     type?: 'text' | 'email' | 'number' | 'password';
     value?: string;
     readonly?: boolean;
@@ -19,6 +20,7 @@ const InputForm = ({
     label,
     showLabel = true,
     placeholder,
+    required = false,
     type,
     value,
     readonly,
@@ -30,7 +32,10 @@ const InputForm = ({
     return (
         <div className="flex flex-col gap-1">
             <div className="flex items-center justify-between">
-                {showLabel && <Label text={label} htmlFor={id} />}
+                <div className="flex items-start">
+                    {showLabel && <Label text={label} htmlFor={id} />}
+                    {required && <span className="text-error-500">*</span>}
+                </div>
                 <ErrorMessage>{errorMessage}</ErrorMessage>
             </div>
             <div className="flex items-center gap-2">
