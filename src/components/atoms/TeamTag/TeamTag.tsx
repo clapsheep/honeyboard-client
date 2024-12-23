@@ -33,7 +33,7 @@ const TeamTag = ({
             {leader && (
                 <div className={`rounded-sm px-2 py-1 text-text-md font-semibold ${tagColor} flex items-center gap-1`}>
                     <Icon 
-                        id="crown" 
+                        id="leader" 
                         size={15} 
                         color="#F6D523" 
                         viewBox="0 0 15 14"
