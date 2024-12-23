@@ -1,4 +1,4 @@
-import Icon from "../Icon/Icon";
+import NameTag from "../NameTag/NameTag";
 
 interface User {
     id: number;
@@ -17,12 +17,8 @@ const TeamTag = ({
     team = [],
     onClick,
 }: TeamTagProps) => {
-    const COLOR_PROS = {
-        red: 'text-error-800 border border-error-500 bg-error-25',
-        green: 'text-success-800 border border-success-500 bg-success-25',
-    };
 
-    const tagColor = isSubmit ? COLOR_PROS.green : COLOR_PROS.red;
+    const tagColor = isSubmit ? 'green' : 'red';
     const leader = team.find(member => member.role === 'leader');
     const members = team.filter(member => member.role === 'member');
 
@@ -31,23 +27,20 @@ const TeamTag = ({
         onClick={onClick}
         className="rounded-md px-3 py-2 border border-gray-300 bg-gray-25 flex items-center gap-2">
             {leader && (
-                <div className={`rounded-sm px-2 py-1 text-text-md font-semibold ${tagColor} flex items-center gap-1`}>
-                    <Icon 
-                        id="leader" 
-                        size={15} 
-                        color="#F6D523" 
-                        viewBox="0 0 15 14"
-                    />
-                    <span>{leader.name}</span>
-                </div>
+                <NameTag 
+                    isLeader={true}
+                    color={tagColor}
+                >
+                    {leader.name}
+                </NameTag>
             )}
             {members.length > 0 && members.map(member => (
-                <div 
+                <NameTag 
                     key={member.id}
-                    className={`rounded-sm px-2 py-1 text-text-md font-semibold ${tagColor}`}
+                    color={tagColor}
                 >
-                    <span>{member.name}</span>
-                </div>
+                    {member.name}
+                </NameTag>
             ))}
         </div>
     );
