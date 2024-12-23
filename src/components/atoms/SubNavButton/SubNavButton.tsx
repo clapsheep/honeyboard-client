@@ -7,22 +7,13 @@ interface SubNavButtonProps {
 
 const SubNavButton = ({ id, title, isActive, onClick }: SubNavButtonProps) => {
     return (
-        <section
-            className={`group flex items-center hover:font-semibold ${isActive ? 'bg-blue-100 font-semibold' : 'bg-gray-200 font-normal'}`}
+        <button
+            id={id}
+            className={`flex items-center justify-start hover:font-semibold ${isActive ? 'border-r-[6px] border-r-blue-700 bg-blue-100 font-semibold' : 'bg-gray-200 font-normal hover:bg-bluegray-100'} h-10 w-60 flex-shrink-0 gap-2 pl-[68px] pr-2 text-text-md text-gray-900`}
+            onClick={onClick}
         >
-            <button
-                id={id}
-                className="h-10 w-60 flex-shrink-0 gap-2 pl-[68px] pr-2 text-text-md text-gray-900 group-hover:bg-bluegray-100"
-                onClick={onClick}
-            >
-                {title}
-            </button>
-
-            <button
-                onClick={onClick}
-                className={`inline-block h-10 w-[6px] flex-shrink-0 ${isActive ? 'bg-blue-500' : 'bg-gray-200'} group-hover:bg-bluegray-100`}
-            ></button>
-        </section>
+            {title}
+        </button>
     );
 };
 
