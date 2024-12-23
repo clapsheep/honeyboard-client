@@ -31,7 +31,7 @@ const NameTag = ({
         <div
             className={`flex items-center justify-center gap-1 rounded-sm px-2 py-1 ${BG_COLOR[color]}`}
         >
-            {isLeader && <Icon id="crown"></Icon>}
+            {isLeader && <Icon id="leader"></Icon>}
             <span className={`text-text-md font-semibold ${TEXT_COLOR[color]}`}>
                 {children}
             </span>
