@@ -1,4 +1,4 @@
-import NameTag from "../NameTag/NameTag";
+import { NameTag } from '@/components/atoms';
 
 interface User {
     id: number;
