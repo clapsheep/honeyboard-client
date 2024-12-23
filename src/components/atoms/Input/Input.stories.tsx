@@ -17,5 +17,14 @@ type Story = StoryObj<typeof Input>;
 export const Default: Story = {
     args: {
         id: 'input',
+        placeholder: '이름을 입력하세요.',
+    },
+};
+
+export const Search: Story = {
+    args: {
+        id: 'input',
+        iconId: 'search',
+        placeholder: '이름을 입력하세요.',
     },
 };

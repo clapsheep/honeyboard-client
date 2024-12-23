@@ -13,3 +13,5 @@ export { default as TabButton } from './TabButton/TabButton';
 export { default as SubNavButton } from './SubNavButton/SubNavButton';
 export { default as ModalButton } from './ModalButton/ModalButton';
 export { default as SocialLoginButton } from './SocialLoginButton/SocialLoginButton';
+export { default as ButtonPDF } from './ButtonPDF/ButtonPDF';
+export { default as TeamTag } from './TeamTag/TeamTag';

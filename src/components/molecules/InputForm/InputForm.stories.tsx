@@ -28,6 +28,24 @@ export const Default: Story = {
     },
 };
 
+export const Required: Story = {
+    args: {
+        id: 'input',
+        label: '레이블',
+        placeholder: 'placeholder',
+        required: true,
+        type: 'text',
+        readonly: false,
+        buttonName: 'button',
+        value: '',
+        onClick: () => {
+            alert('클릭!');
+        },
+        errorMessage: '에러가 발생했습니다.',
+        showLabel: true,
+    },
+};
+
 export const WithoutButton: Story = {
     args: {
         id: 'input',
