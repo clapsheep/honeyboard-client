@@ -3,10 +3,10 @@ import { Icon } from '@/components/atoms';
 interface WebSiteCardProps {
     title: string;
     subTitle: string; // 날짜
-    site: string;
+    site?: string;
     isBookmarked: boolean;
-    onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
-    onBookmarkClick: (e: React.MouseEvent<HTMLDivElement>) => void;
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onBookmarkClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const WebSiteCard = ({
@@ -18,16 +18,17 @@ const WebSiteCard = ({
     onBookmarkClick,
 }: WebSiteCardProps) => {
     return (
-        <div
+        <button
+            type="button"
             onClick={onClick}
-            className="w-[16.875rem] rounded border border-gray-300 bg-gray-25 shadow-lg"
+            className="h-full w-full rounded border border-gray-300 bg-gray-25 shadow-lg"
         >
-            <div className="flex flex-col px-4 py-3">
-                <div className="flex justify-between">
+            <div className="flex w-full flex-col items-start px-4 py-3">
+                <div className="flex w-full justify-between">
                     <p className="text-text-sm font-semibold text-gray-900">
                         {title}
                     </p>
-                    <div
+                    <button
                         onClick={(e) => {
                             e.stopPropagation();
                             onBookmarkClick(e);
@@ -38,22 +39,28 @@ const WebSiteCard = ({
                         ) : (
                             <Icon id="star-empty" size={24} />
                         )}
-                    </div>
+                    </button>
                 </div>
                 <p className="text-text-xs font-medium text-gray-500">
                     {subTitle}
                 </p>
             </div>
-            <div className="px-4 pb-3">
-                <a
-                    href={site}
-                    onClick={(e) => e.stopPropagation()}
-                    className="block truncate text-text-xs font-medium text-blue-600"
-                >
-                    {site}
-                </a>
+            <div className="flex px-4 pb-3">
+                {site ? (
+                    <a
+                        href={site}
+                        onClick={(e) => e.stopPropagation()}
+                        className="block truncate text-text-xs font-medium text-blue-600"
+                    >
+                        {site}
+                    </a>
+                ) : (
+                    <p className="text-text-xs font-medium text-gray-500">
+                        첨부 링크 없음
+                    </p>
+                )}
             </div>
-        </div>
+        </button>
     );
 };
 
