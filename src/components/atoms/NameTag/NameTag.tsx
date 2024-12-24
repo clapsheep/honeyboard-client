@@ -5,7 +5,7 @@ interface NameTagProps {
     isLeader?: boolean;
     color?: 'green' | 'red' | 'gray' | 'black';
     cancel?: boolean;
-    onCancel?: () => void;
+    onCancel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 const NameTag = ({
     isLeader = false,

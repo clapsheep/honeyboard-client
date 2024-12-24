@@ -4,6 +4,7 @@ interface ButtonProps {
     type?: 'button' | 'submit' | 'reset';
     color?: 'red' | 'blue' | 'green' | 'gray';
     disabled?: boolean;
+    className?: string;
 }
 
 const Button = ({
@@ -12,6 +13,7 @@ const Button = ({
     color = 'blue',
     disabled = false,
     onClick,
+    className,
 }: ButtonProps) => {
     const COLOR_PROS = {
         red: 'bg-error-500',
@@ -25,7 +27,7 @@ const Button = ({
             onClick={onClick}
             type={type}
             disabled={disabled}
-            className={`rounded-sm px-4 py-1 text-text-md font-semibold text-gray-25 ${COLOR_PROS[color]}`}
+            className={`rounded-sm px-4 py-1 text-text-md font-semibold text-gray-25 ${COLOR_PROS[color]} ${className}`}
         >
             {children}
         </button>

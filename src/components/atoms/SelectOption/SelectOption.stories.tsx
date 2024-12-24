@@ -20,9 +20,12 @@ const gisuOptions: Record<string | number, string> = {
 
 export const Default: Story = {
     args: {
-        id: 'selectedGisu',
-        name: 'selectedGisu',
+        id: 'selectGisu',
+        name: 'selectGisu',
         options: gisuOptions,
         placeholder: '기수 선택',
+        onChange: (e: React.ChangeEvent<HTMLSelectElement>) => {
+            console.log(e.target.value);
+        },
     },
 };

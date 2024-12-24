@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CalendarTag from './CalendarTag';
+import { fn } from '@storybook/test';
 
 const meta = {
     title: 'Components/Atoms/CalendarTag',
@@ -16,6 +17,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         children: 'Vue 관통',
-        onClick: () => alert('작동'),
+        onClick: fn(() => alert('작동')),
     },
 };
