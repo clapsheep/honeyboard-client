@@ -11,3 +11,5 @@ export { default as CalendarTag } from './CalendarTag/CalendarTag';
 export { default as TabButton } from './TabButton/TabButton';
 export { default as ButtonPDF } from './ButtonPDF/ButtonPDF';
 export { default as SocialLoginButton } from './SocialLoginButton/SocialLoginButton';
+export { default as Pagenation } from "./Pagenation/Pagenation";
+export { default as NavButton } from "./NavButton/NavButton";
