@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import TeamTag from './TeamTag';
 
 const meta = {
-    title: 'Components/Atoms/TeamTag',
+    title: 'Components/Molecules/TeamTag',
     component: TeamTag,
     parameters: {
         layout: 'centered',

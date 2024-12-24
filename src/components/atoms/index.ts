@@ -15,3 +15,4 @@ export { default as ModalButton } from './ModalButton/ModalButton';
 export { default as SocialLoginButton } from './SocialLoginButton/SocialLoginButton';
 export { default as ButtonPDF } from './ButtonPDF/ButtonPDF';
 export { default as TeamTag } from './TeamTag/TeamTag';
+export { default as SocialLoginButton } from './SocialLoginButton/SocialLoginButton';
