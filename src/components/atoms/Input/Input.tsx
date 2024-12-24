@@ -31,6 +31,7 @@ const Input = ({
                 }`}
                 type={type}
                 id={id}
+                name={id}
                 onChange={onChange}
                 value={value}
                 readOnly={readonly}
