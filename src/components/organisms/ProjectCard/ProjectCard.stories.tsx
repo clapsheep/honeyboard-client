@@ -8,6 +8,13 @@ const meta: Meta = {
     parameters: {
         layout: 'centered',
     },
+    decorators: [
+        (Story) => (
+            <div className="flex h-[250px] w-[270px] items-center justify-center">
+                <Story />
+            </div>
+        ),
+    ],
 } satisfies Meta<typeof ProjectCard>;
 
 export default meta;
