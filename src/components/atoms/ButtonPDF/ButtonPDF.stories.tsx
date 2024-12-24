@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ButtonPDF from './ButtonPDF';
+import { fn } from '@storybook/test';
 
 const meta = {
     title: 'Components/Atoms/ButtonPDF',
@@ -15,13 +16,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        onClick: () => alert('PDF 다운로드 클릭'),
+        onClick: fn(() => alert('PDF 다운로드 클릭')),
     },
 };
 
 export const Disabled: Story = {
     args: {
         disabled: true,
-        onClick: () => alert('disabled false 상태'),
+        onClick: fn(() => alert('disabled false 상태')),
     },
 };

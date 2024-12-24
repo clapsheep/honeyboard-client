@@ -1,70 +1,36 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import InputForm from './InputForm';
-const meta: Meta = {
+
+const meta = {
     title: 'Components/Molecules/InputForm',
     component: InputForm,
-    tags: ['autodocs'],
     parameters: {
         layout: 'centered',
     },
 } satisfies Meta<typeof InputForm>;
-export default meta;
 
+export default meta;
 type Story = StoryObj<typeof InputForm>;
+
 export const Default: Story = {
     args: {
-        id: 'input',
-        label: '레이블',
-        placeholder: 'placeholder',
-        type: 'text',
-        readonly: false,
-        buttonName: 'button',
-        value: '',
-        onClick: () => {
-            alert('클릭!');
-        },
-        errorMessage: '에러가 발생했습니다.',
-        showLabel: true,
+        label: '이메일',
+
+        type: 'email',
+        placeholder: '이메일을 입력해주세요.',
+        onChange: fn((e) => console.log(e.target.value)),
     },
 };
 
-export const Required: Story = {
+export const WithError: Story = {
     args: {
-        id: 'input',
-        label: '레이블',
-        placeholder: 'placeholder',
-        required: true,
-        type: 'text',
-        readonly: false,
-        buttonName: 'button',
-        value: '',
-        onClick: () => {
-            alert('클릭!');
-        },
-        errorMessage: '에러가 발생했습니다.',
-        showLabel: true,
-    },
-};
+        label: '이메일',
 
-export const WithoutButton: Story = {
-    args: {
-        id: 'input',
-        label: '레이블',
-        placeholder: 'placeholder',
-        type: 'text',
-        errorMessage: '에러가 발생했습니다.',
-        readonly: false,
-        showLabel: true,
-    },
-};
-export const WithoutLabel: Story = {
-    args: {
-        id: 'input',
-        label: '레이블',
-        showLabel: false,
-        placeholder: 'placeholder',
-        type: 'text',
-        errorMessage: '에러가 발생했습니다.',
-        readonly: false,
+        type: 'email',
+        placeholder: '이메일을 입력해주세요.',
+        onChange: fn((e) => console.log(e.target.value)),
+
+        errorMessage: '이메일 형식이 올바르지 않습니다.',
     },
 };
