@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Button from './Button';
+import { fn } from '@storybook/test';
 
 const meta = {
     title: 'Components/Atoms/Button',
@@ -17,7 +18,7 @@ export const Default: Story = {
     args: {
         children: '버튼',
         color: 'blue',
-        onClick: () => alert('default'),
+        onClick: fn(() => alert('default')),
     },
 };
 
