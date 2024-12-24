@@ -1,8 +1,8 @@
 interface ProjectCardProps {
     title: string;
     subTitle: string; // 파이널에서는 깃주소, 관통 포함 그 외는 날짜
-    teams?: string[];
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    teams?: string[];
     img?: string;
 }
 
