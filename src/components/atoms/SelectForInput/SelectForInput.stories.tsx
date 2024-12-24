@@ -25,6 +25,7 @@ export const Default: Story = {
         id: 'searchOption',
         name: 'searchOption',
         options: searchOptions,
-        placeholder: '전체',
+        selectedValue: Object.keys(searchOptions)[0],
+        onChange: (value) => alert(value),
     },
 };

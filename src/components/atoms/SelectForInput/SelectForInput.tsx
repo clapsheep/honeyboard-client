@@ -1,31 +1,26 @@
-import { useState } from 'react';
-
 interface SelectForInputProps {
     id: string;
     name: string;
     options: Record<string | number, string>;
-    placeholder: string;
+    selectedValue: string; // options의 value와의 구별을 위해 selectedValue로 네이밍
+    onChange: (value: string) => void;
 }
 
 const SelectForInput = ({
     id,
     name,
     options,
-    placeholder,
+    selectedValue,
+    onChange,
 }: SelectForInputProps) => {
-    const [selectedOption, setSelectedOption] = useState<string>(
-        Object.keys(options)[0] || placeholder,
-    );
-
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedOption(e.target.value);
+        onChange(e.target.value);
     };
-
     return (
         <select
             id={id}
             name={name}
-            value={selectedOption}
+            value={selectedValue}
             onChange={handleChange}
             aria-label={name}
             className="mr-4 gap-1 border border-gray-300 bg-white py-2 pl-3 pr-4 text-text-md text-gray-900"
@@ -34,7 +29,7 @@ const SelectForInput = ({
                 <option
                     key={key}
                     value={key}
-                    className={`gap-2 py-2 pl-3 text-text-md text-gray-500 ${selectedOption === key ? 'text-gray-900' : ''}`}
+                    className={`gap-2 py-2 pl-3 text-text-md text-gray-500 ${selectedValue === key ? 'text-gray-900' : ''}`}
                 >
                     {value}
                 </option>

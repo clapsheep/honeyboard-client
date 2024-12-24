@@ -1,6 +1,6 @@
 interface ModalButtonProps {
     action: 'delete' | 'confirm' | 'cancel';
-    onClick: (e: React.MouseEvent) => void;
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const ModalButton = ({ action, onClick }: ModalButtonProps) => {
