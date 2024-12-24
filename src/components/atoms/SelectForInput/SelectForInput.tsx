@@ -3,7 +3,7 @@ interface SelectForInputProps {
     name: string;
     options: Record<string | number, string>;
     selectedValue: string; // options의 value와의 구별을 위해 selectedValue로 네이밍
-    onChange: React.Dispatch<React.SetStateAction<string>>;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const SelectForInput = ({
@@ -13,15 +13,12 @@ const SelectForInput = ({
     selectedValue,
     onChange,
 }: SelectForInputProps) => {
-    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        onChange(e.target.value);
-    };
     return (
         <select
             id={id}
             name={name}
             value={selectedValue}
-            onChange={handleChange}
+            onChange={onChange}
             aria-label={name}
             className="mr-4 gap-1 border border-gray-300 bg-white py-2 pl-3 pr-4 text-text-md text-gray-900"
         >

@@ -26,6 +26,6 @@ export const Default: Story = {
         name: 'searchOption',
         options: searchOptions,
         selectedValue: Object.keys(searchOptions)[1],
-        onChange: (value) => alert(value),
+        onChange: () => alert('변경 확인'),
     },
 };
