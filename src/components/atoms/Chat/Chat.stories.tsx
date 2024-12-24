@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import Chat from './Chat';
 
 const meta = {
-    title: 'Components/Chat',
+    title: 'Components/atoms/Chat',
     component: Chat,
     tags: ['autodocs'],
     parameters: {
