@@ -25,7 +25,7 @@ export const Default: Story = {
         id: 'searchOption',
         name: 'searchOption',
         options: searchOptions,
-        selectedValue: Object.keys(searchOptions)[0],
+        selectedValue: Object.keys(searchOptions)[1],
         onChange: (value) => alert(value),
     },
 };

@@ -3,7 +3,7 @@ interface SelectForInputProps {
     name: string;
     options: Record<string | number, string>;
     selectedValue: string; // options의 value와의 구별을 위해 selectedValue로 네이밍
-    onChange: (value: string) => void;
+    onChange: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const SelectForInput = ({
