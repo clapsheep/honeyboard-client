@@ -18,5 +18,3 @@ export { default as SocialLoginButton } from './SocialLoginButton/SocialLoginBut
 export { default as ChatInput } from './ChatInput/ChatInput';
 
 export { default as TeamTag } from './TeamTag/TeamTag';
-
-
