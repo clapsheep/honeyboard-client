@@ -27,7 +27,6 @@ export const HasSub: Story = {
         id: '1',
         title: '메인 페이지',
         icon: <Icon id="calendar" />,
-        hasSub: true,
         isActive: false,
         link: '/main',
         items: [
@@ -44,10 +43,6 @@ export const NoSub: Story = {
         id: '1',
         title: '메인 페이지',
         icon: <Icon id="calendar" />,
-        hasSub: false,
-        items: [
-            { id: '1', title: '메인페이지', isActive: false, link: '/home' },
-        ],
         isActive: false,
     },
 };
@@ -57,7 +52,6 @@ export const Logout: Story = {
         id: '1',
         title: '로그아웃',
         icon: <Icon id="circle-close-red" />,
-        hasSub: false,
         items: [
             { id: '1', title: '메인페이지', isActive: false, link: '/home' },
         ],

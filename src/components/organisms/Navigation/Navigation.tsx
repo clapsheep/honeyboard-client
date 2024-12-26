@@ -62,11 +62,6 @@ const Navigation = ({ generation, name }: NavigationProps) => {
             path: '/student',
             icon: 'edit-user',
         },
-        {
-            name: '마이페이지',
-            path: '/mypage',
-            icon: 'user',
-        },
     ];
 
     const handleLogout = () => {};
@@ -78,6 +73,12 @@ const Navigation = ({ generation, name }: NavigationProps) => {
             </h1>
             <Persona generation={generation} name={name} />
             <NavMenu menus={navItem} />
+            <NavButton
+                id="마이페이지"
+                title="마이페이지"
+                icon={<Icon id="user" />}
+                link="/mypage"
+            />
             <NavButton
                 id="로그아웃"
                 title="로그아웃"

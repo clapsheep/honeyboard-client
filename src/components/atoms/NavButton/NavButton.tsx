@@ -6,7 +6,6 @@ interface NavButtonProps {
     id: string;
     title: string;
     icon?: React.ReactNode;
-    hasSub?: boolean;
     link?: string;
     items?: SubNavButtonProps[];
     isActive?: boolean;
@@ -20,7 +19,6 @@ const NavButton = ({
     id,
     title,
     icon = null,
-    hasSub = false,
     link = '/',
     items,
     isActive = false,
@@ -69,7 +67,7 @@ const NavButton = ({
             <Component
                 to={link}
                 onClick={onClick}
-                className={`flex h-10 w-60 items-center gap-1 pl-9 ${hasSub ? HAS_SUB_CONTENT_COLOR : NO_SUB_CONTENT_COLOR}`}
+                className={`flex h-10 w-60 items-center gap-1 pl-9 ${items ? HAS_SUB_CONTENT_COLOR : NO_SUB_CONTENT_COLOR}`}
             >
                 {icon}
                 <span
@@ -77,7 +75,7 @@ const NavButton = ({
                 >
                     {title}
                 </span>
-                {hasSub ? HAS_SUB_CONTENT : NO_SUB_CONTENT}
+                {items ? HAS_SUB_CONTENT : NO_SUB_CONTENT}
             </Component>
             {items ? (
                 <ul
