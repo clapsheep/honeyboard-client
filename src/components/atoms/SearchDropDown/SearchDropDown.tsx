@@ -10,7 +10,7 @@ const SearchDropDown = ({ results, onClick }: SearchDropDownProps) => {
                 <button
                     key={result.id}
                     onClick={onClick}
-                    className="flex w-[784px] items-center gap-1 px-3 py-1 text-text-md text-gray-700"
+                    className="flex w-full items-center gap-1 px-3 py-1 text-text-md text-gray-700"
                 >
                     {result.name}
                 </button>
