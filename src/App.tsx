@@ -1,8 +1,6 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import MainLayout from './layouts/MainLayout';
-import Login from './pages/Login';
-import { Error404, SignUp } from './pages';
-import AdditionalInfoOauth from './pages/AdditionalInfoOauth';
+import { AdditionalInfoOAuth, Error404, Login, SignUp } from './pages';
 
 function App() {
     return (
@@ -16,7 +14,7 @@ function App() {
                 />
                 <Route
                     path="/oauth/:domain/additional"
-                    element={<AdditionalInfoOauth />}
+                    element={<AdditionalInfoOAuth />}
                 />
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<div>Calender Page</div>} />
