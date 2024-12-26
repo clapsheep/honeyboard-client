@@ -18,8 +18,12 @@ const NavMenu = ({ menus }: NavMenuProps) => {
 
     const [active, setActive] = useState<string[]>([]);
 
-    const handleMenu = (menuName: string) => {
+    const handleMenu = (menuName: string, menuPath: string) => {
         setActive((prev) => {
+            if (location.pathname.startsWith(menuPath)) {
+                return [...prev];
+            }
+
             return prev.includes(menuName)
                 ? prev.filter((name) => name !== menuName)
                 : [...prev, menuName];
@@ -28,7 +32,8 @@ const NavMenu = ({ menus }: NavMenuProps) => {
 
     const NAVIGATION = menus.map((menu) => {
         const isActive = menu.children
-            ? active.includes(menu.name)
+            ? active.includes(menu.name) ||
+              location.pathname.startsWith(menu.path)
             : location.pathname.startsWith(menu.path);
 
         const childrenProps = menu.children && {
@@ -49,13 +54,15 @@ const NavMenu = ({ menus }: NavMenuProps) => {
             isActive,
             ...childrenProps,
             ...(menu.icon && { icon: <Icon id={menu.icon} /> }),
-            ...(menu.children && { onClick: () => handleMenu(menu.name) }),
+            ...(menu.children && {
+                onClick: () => handleMenu(menu.name, menu.path),
+            }),
         };
 
         return <NavButton {...navProps} />;
     });
 
-    return <nav>{NAVIGATION}</nav>;
+    return <nav className="mb-4">{NAVIGATION}</nav>;
 };
 
 export default NavMenu;
