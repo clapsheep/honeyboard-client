@@ -16,7 +16,3 @@ export { default as ButtonPDF } from './ButtonPDF/ButtonPDF';
 
 export { default as SocialLoginButton } from './SocialLoginButton/SocialLoginButton';
 export { default as ChatInput } from './ChatInput/ChatInput';
-
-export { default as TeamTag } from './TeamTag/TeamTag';
-
-
