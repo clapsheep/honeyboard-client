@@ -4,9 +4,9 @@ import Icon from '../Icon/Icon';
 interface PagenationProps {
     total: number;
     now: number;
-    onClickLeft: (e: React.MouseEvent) => void;
-    onClickRight: (e: React.MouseEvent) => void;
-    onClick: (e: React.MouseEvent) => void;
+    onClickLeft: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onClickRight: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Pagenation = ({

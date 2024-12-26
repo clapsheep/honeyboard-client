@@ -20,21 +20,7 @@ const meta = {
 } satisfies Meta<typeof NavButton>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const NoSub: Story = {
-    args: {
-        id: '1',
-        title: '메인 페이지',
-        icon: <Icon id="calendar" />,
-        hasSub: false,
-        isActive: false,
-        link: '/main',
-        onClick: () => {
-            alert('하위 메뉴 열기!');
-        },
-    },
-};
+type Story = StoryObj<typeof NavButton>;
 
 export const HasSub: Story = {
     args: {
@@ -43,6 +29,42 @@ export const HasSub: Story = {
         icon: <Icon id="calendar" />,
         hasSub: true,
         isActive: false,
-        onClick: () => {},
+        link: '/main',
+        items: [
+            { id: '1', title: '메인페이지', isActive: false, link: '/home' },
+        ],
+        onClick: () => {
+            alert('하위 메뉴 열기!');
+        },
+    },
+};
+
+export const NoSub: Story = {
+    args: {
+        id: '1',
+        title: '메인 페이지',
+        icon: <Icon id="calendar" />,
+        hasSub: false,
+        items: [
+            { id: '1', title: '메인페이지', isActive: false, link: '/home' },
+        ],
+        isActive: false,
+    },
+};
+
+export const Logout: Story = {
+    args: {
+        id: '1',
+        title: '로그아웃',
+        icon: <Icon id="circle-close-red" />,
+        hasSub: false,
+        items: [
+            { id: '1', title: '메인페이지', isActive: false, link: '/home' },
+        ],
+        isActive: false,
+        onClick: () => {
+            alert('로그아웃');
+        },
+        color: 'text-error-500',
     },
 };
