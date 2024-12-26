@@ -13,6 +13,7 @@ interface NavButtonProps {
         e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => void;
     color?: string;
+    className?: string;
 }
 
 const NavButton = ({
@@ -24,6 +25,7 @@ const NavButton = ({
     isActive = false,
     onClick,
     color,
+    className,
 }: NavButtonProps) => {
     const Component = onClick ? 'button' : Link;
 
@@ -63,7 +65,10 @@ const NavButton = ({
         : null;
 
     return (
-        <li key={id} className={`box-border list-none`}>
+        <li
+            key={id}
+            className={`box-border list-none ${className ? className : ''}`}
+        >
             <Component
                 to={link}
                 onClick={onClick}

@@ -37,12 +37,10 @@ export const Default: Story = {
                     {
                         name: '관통프로젝트',
                         path: '/project/track',
-                        children: [],
                     },
                     {
                         name: '파이널프로젝트',
                         path: '/project/final',
-                        children: [],
                     },
                 ],
             },
@@ -54,12 +52,10 @@ export const Default: Story = {
                     {
                         name: '알고리즘',
                         path: '/study/algorithm',
-                        children: [],
                     },
                     {
                         name: '웹',
                         path: '/study/web',
-                        children: [],
                     },
                 ],
             },

@@ -72,7 +72,7 @@ const NavMenu = ({ menus }: NavMenuProps) => {
         return <NavButton {...navProps} />;
     });
 
-    return <nav className="mb-4">{NAVIGATION}</nav>;
+    return <>{NAVIGATION}</>;
 };
 
 export default NavMenu;

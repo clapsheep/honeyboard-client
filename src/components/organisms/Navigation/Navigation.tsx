@@ -67,25 +67,31 @@ const Navigation = ({ generation, name }: NavigationProps) => {
     const handleLogout = () => {};
 
     return (
-        <section className="flex h-lvh flex-col items-center gap-1 border border-gray-400 pt-7">
+        <section className="flex h-lvh flex-col items-center gap-1 border border-gray-400 pb-[6.25rem] pt-7">
             <h1>
                 <img src="src\assets\images\logo.png" alt="Honey Board" />
             </h1>
             <Persona generation={generation} name={name} />
-            <NavMenu menus={navItem} />
-            <NavButton
-                id="마이페이지"
-                title="마이페이지"
-                icon={<Icon id="user" />}
-                link="/mypage"
-            />
-            <NavButton
-                id="로그아웃"
-                title="로그아웃"
-                icon={<Icon id="circle-close-red" />}
-                color="text-error-500"
-                onClick={handleLogout}
-            />
+            <nav className="h-full">
+                <ul className="flex h-full flex-col">
+                    <NavMenu menus={navItem} />
+                    <NavButton
+                        id="마이페이지"
+                        title="마이페이지"
+                        icon={<Icon id="user" />}
+                        link="/mypage"
+                        className="mt-auto"
+                    />
+                    <NavButton
+                        id="로그아웃"
+                        title="로그아웃"
+                        icon={<Icon id="circle-close-red" />}
+                        color="text-error-500"
+                        onClick={handleLogout}
+                        className="mt-4"
+                    />
+                </ul>
+            </nav>
         </section>
     );
 };
