@@ -30,62 +30,68 @@ const Login = () => {
     };
 
     return (
-        <div className="flex h-screen w-full flex-col items-center justify-center bg-gray-50">
-            <figure className="flex items-center justify-center">
-                <img src={logo} alt="HoneyBoard" />
-            </figure>
-            <h1 className="py-6 text-display-md font-bold text-gray-900">
-                로그인
-            </h1>
-            <div className="flex gap-3 pb-6">
-                <SocialLoginButton
-                    type="google"
-                    onClick={() => requestOAuthAPI('google')}
-                />
-                <SocialLoginButton
-                    type="naver"
-                    onClick={() => requestOAuthAPI('naver')}
-                />
-            </div>
-            <form
-                className="flex flex-col items-center gap-6 py-3"
-                onSubmit={handleSubmit(onSubmit)}
-            >
-                <InputForm
-                    id="email"
-                    label="이메일"
-                    type="email"
-                    placeholder="이메일을 입력해주세요"
-                    {...register('email')}
-                />
-                <InputForm
-                    id="password"
-                    label="비밀번호"
-                    placeholder="8자 이상 + 영문 + 숫자"
-                    type="password"
-                    {...register('password')}
-                />
-                {(errors.email || errors.password || errors.root) && (
-                    <ErrorMessage>
-                        {errors.email?.message ||
-                            errors.password?.message ||
-                            errors.root?.message}
-                    </ErrorMessage>
-                )}
-                <Button type="submit">로그인</Button>
-            </form>
-            <div className="flex flex-col items-center gap-3 py-6 text-text-md text-gray-700">
-                <span>
-                    회원이 아니신가요?{' '}
-                    <Link to="/signup" className="font-medium underline">
-                        회원가입
+        <main className="mx-auto flex h-screen w-full min-w-[418px] items-center justify-center bg-gray-50">
+            <div className="flex w-[418px] flex-col items-center justify-center">
+                <figure className="w-full">
+                    <img
+                        src={logo}
+                        alt="HoneyBoard"
+                        className="h-auto w-full object-contain"
+                    />
+                </figure>
+                <h1 className="py-6 text-display-md font-bold text-gray-900">
+                    로그인
+                </h1>
+                <div className="flex gap-3 pb-6">
+                    <SocialLoginButton
+                        type="google"
+                        onClick={() => requestOAuthAPI('google')}
+                    />
+                    <SocialLoginButton
+                        type="naver"
+                        onClick={() => requestOAuthAPI('naver')}
+                    />
+                </div>
+                <form
+                    className="flex w-full flex-col items-center gap-6 py-3"
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    <InputForm
+                        id="email"
+                        label="이메일"
+                        type="email"
+                        placeholder="이메일을 입력해주세요"
+                        {...register('email')}
+                    />
+                    <InputForm
+                        id="password"
+                        label="비밀번호"
+                        placeholder="8자 이상 + 영문 + 숫자"
+                        type="password"
+                        {...register('password')}
+                    />
+                    {(errors.email || errors.password || errors.root) && (
+                        <ErrorMessage>
+                            {errors.email?.message ||
+                                errors.password?.message ||
+                                errors.root?.message}
+                        </ErrorMessage>
+                    )}
+                    <Button type="submit">로그인</Button>
+                </form>
+                <div className="flex flex-col items-center gap-3 py-6 text-text-md text-gray-700">
+                    <span>
+                        회원이 아니신가요?{' '}
+                        <Link to="/signup" className="font-medium underline">
+                            회원가입
+                        </Link>
+                    </span>
+                    <Link to="/find-password" className="font-medium underline">
+                        비밀번호 찾기
                     </Link>
-                </span>
-                <Link to="/find-password" className="font-medium underline">
-                    비밀번호 찾기
-                </Link>
+                </div>
             </div>
-        </div>
+        </main>
     );
 };
 
