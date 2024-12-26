@@ -1,5 +1,5 @@
 import { Icon, NavButton } from '@/components/atoms';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
 interface MenuProps {
@@ -18,6 +18,10 @@ const NavMenu = ({ menus }: NavMenuProps) => {
 
     const [active, setActive] = useState<string[]>([]);
 
+    useEffect(() => {
+        setActive([]);
+    }, [location.pathname]);
+
     const isPathActive = (path: string) => {
         if (path === '/') {
             return location.pathname === '/';
@@ -33,7 +37,7 @@ const NavMenu = ({ menus }: NavMenuProps) => {
 
             return prev.includes(menuName)
                 ? prev.filter((name) => name !== menuName)
-                : [...prev, menuName];
+                : [menuName];
         });
     };
 

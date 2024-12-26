@@ -30,8 +30,8 @@ const NavButton = ({
     const SUB_NAV_HEIGHT = items ? items?.length * 44 + 4 : 0;
 
     const HAS_SUB_CONTENT_COLOR = isActive
-        ? 'border-2 border-bluegray-400 bg-gray-25 '
-        : 'border border-gray-200 bg-gray-25 hover:border-bluegray-400';
+        ? 'border bg-gray-25 hover:bg-bluegray-100'
+        : 'border border-gray-200 bg-gray-25 hover:bg-bluegray-100';
 
     const NO_SUB_CONTENT_COLOR = isActive
         ? 'bg-blue-100 border border-gray-200'
@@ -40,7 +40,7 @@ const NavButton = ({
     const HAS_SUB_CONTENT = (
         <Icon
             id="down"
-            className={`ml-auto mr-6 transition-transform duration-500 ${isActive ? 'rotate-180' : ''}`}
+            className={`ml-auto mr-6 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`}
         />
     );
 
