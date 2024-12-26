@@ -18,9 +18,16 @@ const NavMenu = ({ menus }: NavMenuProps) => {
 
     const [active, setActive] = useState<string[]>([]);
 
+    const isPathActive = (path: string) => {
+        if (path === '/') {
+            return location.pathname === '/';
+        }
+        return location.pathname.startsWith(path);
+    };
+
     const handleMenu = (menuName: string, menuPath: string) => {
         setActive((prev) => {
-            if (location.pathname.startsWith(menuPath)) {
+            if (isPathActive(menuPath)) {
                 return [...prev];
             }
 
@@ -32,9 +39,8 @@ const NavMenu = ({ menus }: NavMenuProps) => {
 
     const NAVIGATION = menus.map((menu) => {
         const isActive = menu.children
-            ? active.includes(menu.name) ||
-              location.pathname.startsWith(menu.path)
-            : location.pathname.startsWith(menu.path);
+            ? active.includes(menu.name) || isPathActive(menu.path)
+            : isPathActive(menu.path);
 
         const childrenProps = menu.children && {
             hasSub: true,
@@ -42,7 +48,7 @@ const NavMenu = ({ menus }: NavMenuProps) => {
                 id: subMenu.name,
                 title: subMenu.name,
                 link: subMenu.path,
-                isActive: location.pathname.startsWith(subMenu.path),
+                isActive: isPathActive(subMenu.path),
             })),
         };
 

@@ -26,7 +26,7 @@ export const Default: Story = {
         menus: [
             {
                 name: '메인페이지',
-                path: '/main',
+                path: '/',
                 icon: 'calendar',
             },
             {
