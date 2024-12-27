@@ -13,6 +13,7 @@ export { default as TabButton } from './TabButton/TabButton';
 export { default as SubNavButton } from './SubNavButton/SubNavButton';
 export { default as ModalButton } from './ModalButton/ModalButton';
 export { default as ButtonPDF } from './ButtonPDF/ButtonPDF';
-
 export { default as SocialLoginButton } from './SocialLoginButton/SocialLoginButton';
+export { default as Pagenation } from "./Pagenation/Pagenation";
+export { default as NavButton } from "./NavButton/NavButton";
 export { default as ChatInput } from './ChatInput/ChatInput';
