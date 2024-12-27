@@ -1,49 +1,45 @@
+import logo from '/assets/images/logo.png';
 import { Icon, NavButton, Persona } from '@/components/atoms';
 import NavMenu from '@/components/molecules/NavMenu/NavMenu';
 
 interface NavigationProps {
     generation: string;
     name: string;
+    role: string;
 }
 
 const Navigation = ({ generation, name }: NavigationProps) => {
     const navItem = [
         {
             name: '메인페이지',
-            path: '/main',
+            path: '/',
             icon: 'calendar',
         },
         {
             name: '프로젝트',
-            path: '/project',
             icon: 'document',
             children: [
                 {
-                    name: '관통프로젝트',
-                    path: '/project/track',
-                    children: [],
+                    name: '관통 프로젝트',
+                    path: '/track/',
                 },
                 {
-                    name: '파이널프로젝트',
-                    path: '/project/final',
-                    children: [],
+                    name: '파이널 프로젝트',
+                    path: '/final',
                 },
             ],
         },
         {
             name: '학습',
-            path: '/study',
             icon: 'pen',
             children: [
                 {
                     name: '알고리즘',
-                    path: '/study/algorithm',
-                    children: [],
+                    path: '/algorithm',
                 },
                 {
                     name: '웹',
-                    path: '/study/web',
-                    children: [],
+                    path: '/web',
                 },
             ],
         },
@@ -53,13 +49,8 @@ const Navigation = ({ generation, name }: NavigationProps) => {
             icon: 'music',
         },
         {
-            name: '미니게임',
-            path: '/game',
-            icon: 'ball',
-        },
-        {
             name: '학생관리',
-            path: '/student',
+            path: '/admin',
             icon: 'edit-user',
         },
     ];
@@ -69,7 +60,7 @@ const Navigation = ({ generation, name }: NavigationProps) => {
     return (
         <section className="flex h-lvh flex-col items-center gap-1 border border-gray-400 pb-[6.25rem] pt-7">
             <h1>
-                <img src="src\assets\images\logo.png" alt="Honey Board" />
+                <img src={logo} alt="Honey Board" />
             </h1>
             <Persona generation={generation} name={name} />
             <nav className="h-full">
