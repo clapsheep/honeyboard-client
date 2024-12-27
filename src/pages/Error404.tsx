@@ -1,6 +1,6 @@
 import { Button } from '@/components/atoms';
 import { useNavigate } from 'react-router';
-import logo from '@/assets/images/logo.png';
+import logo from '/assets/images/logo.png';
 
 const Error404 = () => {
     const navigate = useNavigate();

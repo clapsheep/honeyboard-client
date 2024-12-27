@@ -1,4 +1,4 @@
-import logo from '@/assets/images/logo.png';
+import logo from '/assets/images/logo.png';
 import { Button } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { EmailVerificationModal } from '@/components/organisms/';
