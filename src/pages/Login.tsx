@@ -1,4 +1,4 @@
-import logo from '@/assets/images/logo.png';
+import logo from '/assets/images/logo.png';
 import { Button, ErrorMessage, SocialLoginButton } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { loginAPI, requestOAuth } from '@/services/auth';

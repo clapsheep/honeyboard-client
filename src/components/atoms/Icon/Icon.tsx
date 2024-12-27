@@ -20,7 +20,7 @@ const Icon = ({
             viewBox="0 0 16 16"
             {...props}
         >
-            <use href={`/src/assets/icons/_sprite.svg#${id}`} />
+            <use href={`/assets/icons/_sprite.svg#${id}`} />
         </svg>
     );
 };
