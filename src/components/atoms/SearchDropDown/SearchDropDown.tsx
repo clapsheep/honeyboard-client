@@ -3,9 +3,10 @@ interface SearchDropDownProps {
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
+// max-h-44 지정시 5개, max-h-60 지정시 7개
 const SearchDropDown = ({ results, onClick }: SearchDropDownProps) => {
     return (
-        <section className="flex-col items-start gap-1 self-stretch rounded-sm border border-gray-300 bg-gray-50 p-2 shadow-md shadow-gray-300">
+        <section className="max-h-60 flex-col items-start gap-1 self-stretch overflow-y-auto rounded-sm border border-gray-300 bg-gray-50 p-2 shadow-md shadow-gray-300">
             {results.map((result) => (
                 <button
                     key={result.id}
