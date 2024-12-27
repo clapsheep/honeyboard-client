@@ -16,10 +16,10 @@ const Button = ({
     className,
 }: ButtonProps) => {
     const COLOR_PROS = {
-        red: 'bg-error-500',
-        blue: 'bg-blue-500',
+        red: 'bg-error-600',
+        blue: 'bg-blue-700',
         green: 'bg-success-500',
-        gray: 'bg-gray-500',
+        gray: 'bg-gray-300',
     };
 
     return (

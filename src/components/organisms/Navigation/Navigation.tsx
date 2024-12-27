@@ -1,6 +1,7 @@
 import logo from '/assets/images/logo.png';
 import { Icon, NavButton, Persona } from '@/components/atoms';
 import NavMenu from '@/components/molecules/NavMenu/NavMenu';
+import { logoutAPI } from '@/services/auth';
 
 interface NavigationProps {
     generation: string;
@@ -21,7 +22,7 @@ const Navigation = ({ generation, name }: NavigationProps) => {
             children: [
                 {
                     name: '관통 프로젝트',
-                    path: '/track/',
+                    path: '/track',
                 },
                 {
                     name: '파이널 프로젝트',
@@ -55,7 +56,14 @@ const Navigation = ({ generation, name }: NavigationProps) => {
         },
     ];
 
-    const handleLogout = () => {};
+    const handleLogout = async () => {
+        try {
+            await logoutAPI();
+            window.location.href = '/login';
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <section className="flex h-lvh flex-col items-center gap-1 border border-gray-400 pb-[6.25rem] pt-7">
