@@ -5,4 +5,6 @@ export { default as MusicTrack } from './MusicTrack/MusicTrack';
 export { default as YoutubeCard } from './YoutubeCard/YoutubeCard';
 export { default as InputForm } from './InputForm/InputForm';
 export { default as TeamTag } from './TeamTag/TeamTag';
+export { default as NavMenu } from "./NavMenu/NavMenu";
+export { default as StudentInfo } from './StudentInfo/StudentInfo';
 
