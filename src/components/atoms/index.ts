@@ -19,4 +19,3 @@ export { default as Pagenation } from './Pagenation/Pagenation';
 export { default as NavButton } from './NavButton/NavButton';
 export { default as ChatInput } from './ChatInput/ChatInput';
 export { default as TeamTag } from './TeamTag/TeamTag';
-export { default as Chat } from './Chat/Chat';
