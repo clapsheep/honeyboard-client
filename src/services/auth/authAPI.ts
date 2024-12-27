@@ -1,38 +1,33 @@
 import axios, { AxiosResponse } from 'axios';
 import {
-    LoginRequest,
-    RegisterRequest,
-    AuthResponse,
-    OAuthDomain,
+    LoginRequestType,
+    RegisterRequestType,
+    OAuthDomainType,
+    AuthResponseType,
 } from './types';
 
-const { VITE_BASE_API, VITE_BASE_URI } = import.meta.env;
+const { VITE_BASE_API } = import.meta.env;
 
 // credential 로그인 요청
 export const loginAPI = async (
-    data: LoginRequest,
-): Promise<AxiosResponse<AuthResponse>> => {
-    return axios.post<AuthResponse>(`${VITE_BASE_API}/auth/login`, data);
+    data: LoginRequestType,
+): Promise<AxiosResponse<AuthResponseType>> => {
+    return axios.post<AuthResponseType>(`${VITE_BASE_API}/auth/login`, data);
 };
 
 // credential 회원가입 요청
 export const signupAPI = async (
-    data: RegisterRequest,
-): Promise<AxiosResponse<AuthResponse>> => {
-    return axios.post<AuthResponse>(`${VITE_BASE_API}/auth/signup`, data);
-};
-
-// oauth 로그인 요청
-export const requestOAuthAPI = (domain: OAuthDomain): void => {
-    window.location.href = `${VITE_BASE_URI}/oauth2/authorization/${domain}`;
+    data: RegisterRequestType,
+): Promise<AxiosResponse<AuthResponseType>> => {
+    return axios.post<AuthResponseType>(`${VITE_BASE_API}/auth/signup`, data);
 };
 
 // oauth 회원가입 요청
 export const OAuthAPI = async (
-    domain: OAuthDomain,
+    domain: OAuthDomainType,
     name: string,
-): Promise<AxiosResponse<AuthResponse>> => {
-    return axios.post<AuthResponse>(
+): Promise<AxiosResponse<AuthResponseType>> => {
+    return axios.post<AuthResponseType>(
         `${VITE_BASE_API}/auth/${domain}/signup`,
         {
             name,

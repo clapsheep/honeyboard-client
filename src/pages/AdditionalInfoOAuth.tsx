@@ -1,8 +1,7 @@
 import logo from '@/assets/images/logo.png';
 import { Button, ErrorMessage } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
-import { OAuthAPI } from '@/services/auth/authAPI';
-import { OAuthDomain } from '@/services/auth/types';
+import { OAuthAPI, OAuthDomainType } from '@/services/auth';
 import {
     additionalInfoSchema,
     type AdditionalInfoSchema,
@@ -29,7 +28,7 @@ const AdditionalInfoOAuth = () => {
 
     const onSubmit: SubmitHandler<AdditionalInfoSchema> = async ({ name }) => {
         try {
-            await OAuthAPI(domain as OAuthDomain, name);
+            await OAuthAPI(domain as OAuthDomainType, name);
         } catch {
             setError('root', {
                 message: '추가 정보 입력에 실패했습니다',

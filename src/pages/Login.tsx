@@ -1,7 +1,7 @@
 import logo from '@/assets/images/logo.png';
 import { Button, ErrorMessage, SocialLoginButton } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
-import { loginAPI, requestOAuthAPI } from '@/services/auth/authAPI';
+import { loginAPI, requestOAuth } from '@/services/auth';
 import { loginSchema, type LoginSchema } from '@/types/schemas/authSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -45,11 +45,11 @@ const Login = () => {
                 <div className="flex gap-3 pb-6">
                     <SocialLoginButton
                         type="google"
-                        onClick={() => requestOAuthAPI('google')}
+                        onClick={() => requestOAuth('google')}
                     />
                     <SocialLoginButton
                         type="naver"
-                        onClick={() => requestOAuthAPI('naver')}
+                        onClick={() => requestOAuth('naver')}
                     />
                 </div>
                 <form
