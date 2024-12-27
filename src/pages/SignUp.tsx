@@ -2,100 +2,31 @@ import logo from '/assets/images/logo.png';
 import { Button } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { EmailVerificationModal } from '@/components/organisms/';
-import { sendEmailAPI, verifyEmailAPI } from '@/services/auth';
-import { registerSchema, RegisterSchema } from '@/types/auth';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
+import { useSignUp } from '@/hooks/useSignUp';
 
 const SignUp = () => {
-    const [currentStep, setCurrentStep] = useState(1);
-    const [isEmailVerified, setIsEmailVerified] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const {
+        currentStep,
+        isEmailVerified,
+        isModalOpen,
         register,
         handleSubmit,
-        watch,
-        trigger,
-        formState: { errors, isValid, touchedFields },
-    } = useForm<RegisterSchema>({
-        resolver: zodResolver(registerSchema),
-        mode: 'onTouched',
-        reValidateMode: 'onChange',
-    });
-
-    // Watch form values for validation
-    const nameValue = watch('name');
-    const emailValue = watch('email');
-    const passwordValue = watch('password');
-    const confirmPasswordValue = watch('confirmPassword');
-
-    // Step progression handlers
-    const handleNameStep = async (e?: React.FormEvent) => {
-        e?.preventDefault();
-        const isNameValid = await trigger('name');
-        if (isNameValid) {
-            setCurrentStep(2);
-        }
-    };
-
-    const handleEmailStep = async (e?: React.FormEvent) => {
-        e?.preventDefault();
-        const isEmailValid = await trigger('email');
-        if (isEmailValid) {
-            try {
-                const res = await sendEmailAPI(emailValue);
-                if (res.status === 200) {
-                    setIsModalOpen(true);
-                }
-            } catch (error) {
-                console.error('Email verification error:', error);
-            }
-        }
-    };
-
-    const handleVerification = async (code: string) => {
-        try {
-            const res = await verifyEmailAPI(emailValue, code);
-            if (res.status === 200) {
-                setIsModalOpen(false);
-                setIsEmailVerified(true);
-                setCurrentStep(3);
-            }
-        } catch (error) {
-            console.error('Email verification error:', error);
-        }
-        console.log('Verification code:', code);
-    };
-
-    const handlePasswordStep = async (e?: React.FormEvent) => {
-        e?.preventDefault();
-        const isPasswordValid = await trigger('password');
-        if (isPasswordValid) {
-            setCurrentStep(4);
-        }
-    };
-
-    const handleKeyDown = (
-        e: React.KeyboardEvent<HTMLInputElement>,
-        handler: (e: React.FormEvent) => Promise<void>,
-        disabled: boolean,
-    ) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            if (!disabled) {
-                handler(e);
-            }
-        }
-    };
-
-    const onSubmit = (data: RegisterSchema) => {
-        if (isEmailVerified && isValid) {
-            console.log(data);
-            // TODO: Implement actual signup logic
-        }
-    };
+        errors,
+        touchedFields,
+        nameValue,
+        emailValue,
+        passwordValue,
+        confirmPasswordValue,
+        handleNameStep,
+        handleEmailStep,
+        handleVerification,
+        handlePasswordStep,
+        handleKeyDown,
+        onSubmit,
+        setIsModalOpen,
+        isValid,
+    } = useSignUp();
 
     return (
         <main className="mx-auto flex h-screen w-full min-w-[418px] items-center justify-center bg-gray-50">
@@ -162,9 +93,7 @@ const SignUp = () => {
                                 label="이메일"
                                 type="email"
                                 errorMessage={
-                                    touchedFields.email
-                                        ? errors.email?.message
-                                        : undefined
+                                    errors.email?.message || undefined
                                 }
                                 placeholder="이메일을 입력해주세요"
                                 readonly={isEmailVerified}

@@ -5,10 +5,12 @@ import { OAuthAPI, OAuthDomainType } from '@/services/auth';
 import { additionalInfoSchema, type AdditionalInfoSchema } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { Navigate, useParams } from 'react-router';
+import { Navigate, useParams, useNavigate } from 'react-router';
+import { useUserStore } from '@/stores/userStore';
 
 const AdditionalInfoOAuth = () => {
     const { domain } = useParams();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -17,6 +19,7 @@ const AdditionalInfoOAuth = () => {
     } = useForm<AdditionalInfoSchema>({
         resolver: zodResolver(additionalInfoSchema),
     });
+    const setUserInfo = useUserStore((state) => state.setUserInfo);
 
     // domain 유효성 검사
     if (!domain || !['google', 'naver', 'kakao'].includes(domain)) {
@@ -25,7 +28,9 @@ const AdditionalInfoOAuth = () => {
 
     const onSubmit: SubmitHandler<AdditionalInfoSchema> = async ({ name }) => {
         try {
-            await OAuthAPI(domain as OAuthDomainType, name);
+            const { data } = await OAuthAPI(domain as OAuthDomainType, name);
+            setUserInfo(data);
+            navigate('/');
         } catch {
             setError('root', {
                 message: '추가 정보 입력에 실패했습니다',
