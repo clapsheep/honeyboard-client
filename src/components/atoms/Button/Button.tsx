@@ -1,5 +1,5 @@
 interface ButtonProps {
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     children: React.ReactNode;
     type?: 'button' | 'submit' | 'reset';
     color?: 'red' | 'blue' | 'green' | 'gray';
