@@ -1,10 +1,7 @@
+import { UserInfo } from '@/stores/userStore';
 import { LoginSchema, RegisterSchema } from '@/types/auth/schema';
 
-export interface AuthResponseType {
-    accessToken: string;
-    refreshToken: string;
-}
-
+export type AuthResponseType = UserInfo;
 export type LoginRequestType = LoginSchema;
-export type RegisterRequestType = RegisterSchema;
+export type RegisterRequestType = Omit<RegisterSchema, 'confirmPassword'>;
 export type OAuthDomainType = 'google' | 'kakao' | 'naver';

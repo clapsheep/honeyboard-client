@@ -35,7 +35,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 )}
                 <input
                     ref={ref}
-                    className={`w-full border border-gray-300 bg-gray-25 px-2 py-1 text-text-md shadow-xs placeholder:text-gray-500 ${
+                    className={`h-10 w-full border border-gray-300 bg-gray-25 px-2 py-1 text-text-md shadow-xs placeholder:text-gray-500 ${
                         iconId ? 'pl-8' : ''
                     }`}
                     type={type}

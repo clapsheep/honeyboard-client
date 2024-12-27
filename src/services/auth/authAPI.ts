@@ -1,25 +1,32 @@
-import axios, { AxiosResponse } from 'axios';
+import { api } from '@/services/common/axiosInstance';
 import {
     LoginRequestType,
     RegisterRequestType,
     OAuthDomainType,
     AuthResponseType,
 } from '@/types/auth';
-
-const { VITE_BASE_API } = import.meta.env;
+import { AxiosResponse } from 'axios';
 
 // credential 로그인 요청
 export const loginAPI = async (
     data: LoginRequestType,
 ): Promise<AxiosResponse<AuthResponseType>> => {
-    return axios.post<AuthResponseType>(`${VITE_BASE_API}/auth/login`, data);
+    const formData = new URLSearchParams();
+    formData.append('username', data.email);
+    formData.append('password', data.password);
+
+    return api.post<AuthResponseType>('/auth/login', formData, {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+    });
 };
 
 // credential 회원가입 요청
 export const signupAPI = async (
     data: RegisterRequestType,
 ): Promise<AxiosResponse<AuthResponseType>> => {
-    return axios.post<AuthResponseType>(`${VITE_BASE_API}/auth/signup`, data);
+    return api.post<AuthResponseType>('/auth/signup', data);
 };
 
 // oauth 회원가입 요청
@@ -27,31 +34,25 @@ export const OAuthAPI = async (
     domain: OAuthDomainType,
     name: string,
 ): Promise<AxiosResponse<AuthResponseType>> => {
-    return axios.post<AuthResponseType>(
-        `${VITE_BASE_API}/auth/${domain}/signup`,
-        {
-            name,
-        },
-        { withCredentials: true },
-    );
+    return api.post<AuthResponseType>(`/auth/${domain}/signup`, { name });
 };
 
 // logout 요청
 export const logoutAPI = async (): Promise<AxiosResponse<void>> => {
-    return axios.post(`${VITE_BASE_API}/auth/logout`);
+    return api.post('/auth/logout');
 };
 
 // email 전송 요청
 export const sendEmailAPI = async (
     email: string,
 ): Promise<AxiosResponse<boolean>> => {
-    return axios.post(`${VITE_BASE_API}/auth/email/send`, { email });
+    return api.post('/auth/email/send', { email });
 };
 
-// Todo: email verify 타입 만들어서 적용
+// email verify 요청
 export const verifyEmailAPI = async (
     email: string,
     code: string,
 ): Promise<AxiosResponse<boolean>> => {
-    return axios.post(`${VITE_BASE_API}/auth/email/verify`, { email, code });
+    return api.post('/auth/email/verify', { email, code });
 };
