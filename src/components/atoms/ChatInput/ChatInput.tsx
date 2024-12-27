@@ -6,6 +6,7 @@ interface ChatInputProps {
     textareaRef: React.RefObject<HTMLTextAreaElement>;
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 }
 
 const ChatInput = ({
@@ -14,6 +15,7 @@ const ChatInput = ({
     textareaRef,
     onChange,
     onClick,
+    onKeyDown,
 }: ChatInputProps) => {
     return (
         <div className="relative flex items-center">
@@ -25,7 +27,12 @@ const ChatInput = ({
                 ref={textareaRef}
                 rows={1}
                 onChange={onChange}
-                className="w-full resize-none overflow-hidden rounded-2xl border border-gray-400 px-5 py-4 pr-14 shadow-md placeholder:text-gray-500"
+                onKeyDown={onKeyDown}
+                className="max-h-[235px] w-full resize-none overflow-y-auto rounded-2xl border border-gray-400 px-5 py-4 pr-14 shadow-md placeholder:text-gray-500"
+                style={{
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                }}
             />
             <button
                 type="button"

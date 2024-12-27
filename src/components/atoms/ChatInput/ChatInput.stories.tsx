@@ -24,6 +24,7 @@ interface ChatInputProps {
     textareaRef: React.RefObject<HTMLTextAreaElement>;
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 }
 
 const RenderChatInput = (args: ChatInputProps) => {
@@ -75,7 +76,12 @@ export const Default: Story = {
         onChange: fn((e: React.ChangeEvent<HTMLTextAreaElement>) => {
             return e.target.value;
         }),
-
+        onKeyDown: fn((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                alert('엔터 제출');
+            }
+        }),
         onClick: fn(() => alert('작동')),
     },
 };
