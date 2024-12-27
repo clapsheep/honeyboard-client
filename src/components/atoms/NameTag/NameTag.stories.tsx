@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import NameTag from './NameTag';
+import { fn } from '@storybook/test';
 
 const meta = {
     title: 'Components/Atoms/NameTag',
@@ -24,6 +25,6 @@ export const Cancel: Story = {
         isLeader: false,
         color: 'red',
         cancel: true,
-        onCancel: () => alert('삭제'),
+        onCancel: fn(() => alert('삭제')),
     },
 };
