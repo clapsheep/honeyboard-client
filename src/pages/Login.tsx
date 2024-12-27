@@ -2,7 +2,7 @@ import logo from '@/assets/images/logo.png';
 import { Button, ErrorMessage, SocialLoginButton } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { loginAPI, requestOAuth } from '@/services/auth';
-import { loginSchema, type LoginSchema } from '@/types/auth/schema';
+import { loginSchema, type LoginSchema } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router';
