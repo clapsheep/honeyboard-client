@@ -1,3 +1,3 @@
 export * from './authService';
-export * from './types';
+export * from '../../types/auth/types';
 export * from './authAPI';

@@ -1,4 +1,4 @@
-import { LoginSchema, RegisterSchema } from '@/types/schemas/authSchema';
+import { LoginSchema, RegisterSchema } from '@/types/auth/schema';
 
 export interface AuthResponseType {
     accessToken: string;

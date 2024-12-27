@@ -4,7 +4,7 @@ import {
     RegisterRequestType,
     OAuthDomainType,
     AuthResponseType,
-} from './types';
+} from '@/types/auth';
 
 const { VITE_BASE_API } = import.meta.env;
 

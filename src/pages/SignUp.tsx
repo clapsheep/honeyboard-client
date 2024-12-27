@@ -3,7 +3,7 @@ import { Button } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { EmailVerificationModal } from '@/components/organisms/';
 import { sendEmailAPI, verifyEmailAPI } from '@/services/auth';
-import { registerSchema, RegisterSchema } from '@/types/schemas/authSchema';
+import { registerSchema, RegisterSchema } from '@/types/auth/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';

@@ -5,7 +5,7 @@ import { OAuthAPI, OAuthDomainType } from '@/services/auth';
 import {
     additionalInfoSchema,
     type AdditionalInfoSchema,
-} from '@/types/schemas/authSchema';
+} from '@/types/auth/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { Navigate, useParams } from 'react-router';
