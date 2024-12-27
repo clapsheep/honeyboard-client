@@ -1,5 +1,5 @@
-import { Button } from '@/components/atoms';
-import { useState, useRef, useEffect } from 'react';
+import { ModalButton } from '@/components/atoms';
+import { useEffect, useRef, useState } from 'react';
 
 interface EmailVerificationModalProps {
     email: string;
@@ -86,21 +86,17 @@ const EmailVerificationModal = ({
                 </div>
                 <div className="flex justify-center space-x-2">
                     {/* 모달 버튼 제작 시 추후 수정 */}
-                    <Button
+                    <ModalButton
                         type="button"
+                        action="confirm"
                         onClick={handleSubmit}
-                        color={
-                            code.every((digit) => digit !== '')
-                                ? 'blue'
-                                : 'gray'
-                        }
                         disabled={!code.every((digit) => digit !== '')}
-                    >
-                        확인
-                    </Button>
-                    <Button type="button" color="gray" onClick={onClose}>
-                        취소
-                    </Button>
+                    />
+                    <ModalButton
+                        type="button"
+                        action="cancel"
+                        onClick={onClose}
+                    />
                 </div>
             </div>
         </div>

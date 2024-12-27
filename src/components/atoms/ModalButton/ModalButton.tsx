@@ -1,9 +1,16 @@
 interface ModalButtonProps {
+    type: 'button' | 'submit' | 'reset';
     action: 'delete' | 'confirm' | 'cancel';
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    disabled?: boolean;
 }
 
-const ModalButton = ({ action, onClick }: ModalButtonProps) => {
+const ModalButton = ({
+    type,
+    action,
+    onClick,
+    disabled = false,
+}: ModalButtonProps) => {
     const content =
         action === 'delete' ? '삭제' : action === 'confirm' ? '확인' : '취소';
 
@@ -14,8 +21,10 @@ const ModalButton = ({ action, onClick }: ModalButtonProps) => {
     };
     return (
         <button
+            disabled={disabled}
+            type={type}
             onClick={onClick}
-            className={`flex justify-center gap-2 rounded-lg px-[18px] py-[10px] text-text-md font-semibold shadow-xs ${COLOR_PROS[action]}`}
+            className={`flex w-full justify-center gap-2 rounded-lg px-[18px] py-[10px] text-text-md font-semibold shadow-xs disabled:opacity-50 ${COLOR_PROS[action]}`}
         >
             {content}
         </button>
