@@ -1,10 +1,10 @@
 import type { Meta, StoryFn, StoryObj } from '@storybook/react';
-import SubNavButton from './SubNavButton';
+import Navigation from './Navigation';
 import { BrowserRouter } from 'react-router';
 
 const meta = {
-    title: 'Components/Atoms/SubNavButton',
-    component: SubNavButton,
+    title: 'Components/Organisms/Navigation',
+    component: Navigation,
     parameters: {
         layout: 'centered',
     },
@@ -16,25 +16,14 @@ const meta = {
             </BrowserRouter>
         ),
     ],
-} satisfies Meta<typeof SubNavButton>;
+} satisfies Meta<typeof Navigation>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const on: Story = {
-    args: {
-        id: 'on',
-        title: 'on',
-        isActive: true,
-        link: '/',
-    },
-};
-
 export const Default: Story = {
     args: {
-        id: 'default',
-        title: 'default',
-        isActive: false,
-        link: '/',
+        generation: '12',
+        name: '박성문',
     },
 };
