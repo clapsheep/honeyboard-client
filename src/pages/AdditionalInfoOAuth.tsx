@@ -1,16 +1,16 @@
-import logo from '/assets/images/logo.png';
 import { Button, ErrorMessage } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
-import { OAuthAPI, OAuthDomainType } from '@/services/auth';
+import { OAuthAPI } from '@/services/auth';
+import { OAuthDomainType } from '@/types/auth';
 import { additionalInfoSchema, type AdditionalInfoSchema } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { Navigate, useParams, useNavigate } from 'react-router';
-import { useUserStore } from '@/stores/userStore';
+import { Navigate, useParams } from 'react-router';
+import logo from '/assets/images/logo.png';
 
 const AdditionalInfoOAuth = () => {
     const { domain } = useParams();
-    const navigate = useNavigate();
+
     const {
         register,
         handleSubmit,
@@ -19,7 +19,6 @@ const AdditionalInfoOAuth = () => {
     } = useForm<AdditionalInfoSchema>({
         resolver: zodResolver(additionalInfoSchema),
     });
-    const setUserInfo = useUserStore((state) => state.setUserInfo);
 
     // domain 유효성 검사
     if (!domain || !['google', 'naver', 'kakao'].includes(domain)) {
@@ -28,9 +27,7 @@ const AdditionalInfoOAuth = () => {
 
     const onSubmit: SubmitHandler<AdditionalInfoSchema> = async ({ name }) => {
         try {
-            const { data } = await OAuthAPI(domain as OAuthDomainType, name);
-            setUserInfo(data);
-            navigate('/');
+            await OAuthAPI(domain as OAuthDomainType, name);
         } catch {
             setError('root', {
                 message: '추가 정보 입력에 실패했습니다',

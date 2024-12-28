@@ -1,7 +1,8 @@
-import logo from '/assets/images/logo.png';
 import { Icon, NavButton, Persona } from '@/components/atoms';
 import NavMenu from '@/components/molecules/NavMenu/NavMenu';
-import { logoutAPI } from '@/services/auth';
+import { handleLogout } from '@/services/auth';
+import { useUserStore } from '@/stores/userStore';
+import logo from '/assets/images/logo.png';
 
 interface NavigationProps {
     generation: string;
@@ -10,6 +11,7 @@ interface NavigationProps {
 }
 
 const Navigation = ({ generation, name }: NavigationProps) => {
+    const { setUserInfo } = useUserStore();
     const navItem = [
         {
             name: '메인페이지',
@@ -56,15 +58,6 @@ const Navigation = ({ generation, name }: NavigationProps) => {
         },
     ];
 
-    const handleLogout = async () => {
-        try {
-            await logoutAPI();
-            window.location.href = '/login';
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     return (
         <section className="flex h-lvh flex-col items-center gap-1 border border-gray-400 pb-[6.25rem] pt-7">
             <h1>
@@ -86,7 +79,7 @@ const Navigation = ({ generation, name }: NavigationProps) => {
                         title="로그아웃"
                         icon={<Icon id="circle-close-red" />}
                         color="text-error-500"
-                        onClick={handleLogout}
+                        onClick={() => handleLogout(setUserInfo)}
                         className="mt-4"
                     />
                 </ul>
