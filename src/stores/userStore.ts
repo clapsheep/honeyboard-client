@@ -1,17 +1,32 @@
 import { create } from 'zustand';
-export type UserInfo = {
+import { persist, devtools } from 'zustand/middleware';
+
+export interface UserInfo {
     userId: string;
     name: string;
     role: string;
-    generation: string;
-};
-
-interface UserState {
-    userInfo: UserInfo | null;
-    setUserInfo: (userInfo: UserInfo) => void;
+    generationId: string;
+    generationName: string;
 }
 
-export const useUserStore = create<UserState>((set) => ({
-    userInfo: null,
-    setUserInfo: (userInfo) => set({ userInfo }),
-}));
+export interface UserStoreType {
+    userInfo: UserInfo | null;
+    setUserInfo: (userInfo: UserInfo | null) => void;
+}
+
+export const useUserStore = create<UserStoreType>()(
+    devtools(
+        persist(
+            (set) => ({
+                userInfo: null,
+                setUserInfo: (userInfo) => set({ userInfo }),
+            }),
+            {
+                name: 'user-storage',
+            },
+        ),
+        {
+            name: 'User Store',
+        },
+    ),
+);
