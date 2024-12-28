@@ -14,8 +14,10 @@
     },
     "dependencies": {
         "@hookform/resolvers": "^3.9.1",
+        "@stomp/stompjs": "^7.0.0",
         "@tanstack/react-query": "^5.62.7",
         "@tanstack/react-query-devtools": "^5.62.7",
+        "@types/sockjs-client": "^1.5.4",
         "@zodios/core": "^10.9.6",
         "axios": "^1.7.9",
         "honeyboard-client": "file:",
@@ -23,6 +25,7 @@
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.54.0",
         "react-router": "^7.0.2",
+        "sockjs-client": "^1.6.1",
         "zod": "^3.24.1",
         "zustand": "^5.0.2"
     },
