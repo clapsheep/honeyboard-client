@@ -1,6 +1,6 @@
-import bojIcon from '@/assets/images/bojIcon.png';
-import sweaIcon from '@/assets/images/sweaIcon.png';
-import programmersIcon from '@/assets/images/programmersIcon.png';
+import bojIcon from '/assets/images/bojIcon.png';
+import sweaIcon from '/assets/images/sweaIcon.png';
+import programmersIcon from '/assets/images/programmersIcon.png';
 export const getPlatformInfo = (link: string) => {
     if (link.includes('www.acmicpc')) {
         return { platform: 'boj', icon: bojIcon };

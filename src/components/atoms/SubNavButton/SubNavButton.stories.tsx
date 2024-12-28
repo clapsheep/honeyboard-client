@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryFn, StoryObj } from '@storybook/react';
 import SubNavButton from './SubNavButton';
+import { BrowserRouter } from 'react-router';
 
 const meta = {
     title: 'Components/Atoms/SubNavButton',
@@ -8,6 +9,13 @@ const meta = {
         layout: 'centered',
     },
     tags: ['autodocs'],
+    decorators: [
+        (Story: StoryFn) => (
+            <BrowserRouter>
+                <Story />
+            </BrowserRouter>
+        ),
+    ],
 } satisfies Meta<typeof SubNavButton>;
 
 export default meta;
@@ -18,7 +26,7 @@ export const on: Story = {
         id: 'on',
         title: 'on',
         isActive: true,
-        onClick: () => alert('on'),
+        link: '/',
     },
 };
 
@@ -27,6 +35,6 @@ export const Default: Story = {
         id: 'default',
         title: 'default',
         isActive: false,
-        onClick: () => alert('default'),
+        link: '/',
     },
 };
