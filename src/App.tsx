@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import MainLayout from './layouts/MainLayout';
 import { AdditionalInfoOAuth, Error404, Login, SignUp } from './pages';
+import ToastUIReactCalendar from './pages/MainCalendar';
 
 function App() {
     return (
@@ -17,7 +18,7 @@ function App() {
                     element={<AdditionalInfoOAuth />}
                 />
                 <Route element={<MainLayout />}>
-                    <Route path="/" element={<div>Calender Page</div>} />
+                    <Route path="/" element={<ToastUIReactCalendar />} />
                     <Route
                         path="track"
                         element={<div>모든 트랙 프로젝트 리스트</div>}
