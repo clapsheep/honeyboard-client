@@ -16,7 +16,10 @@ interface InputFormProps {
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     errorMessage?: string;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 230a514faf9fe12e17142dc64115cfff462f5529
 const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
     (
         {
@@ -60,6 +63,10 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
                     {buttonName && onClick && (
                         <Button onClick={onClick}>{buttonName}</Button>
                     )}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 230a514faf9fe12e17142dc64115cfff462f5529
                 </div>
             </div>
         );
