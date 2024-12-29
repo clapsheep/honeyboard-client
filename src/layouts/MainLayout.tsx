@@ -1,15 +1,22 @@
 import { Navigation } from '@/components/organisms';
 import { Outlet } from 'react-router';
+import PrivateRoute from './PrivateRoute';
+import { useUserStore } from '@/stores/userStore';
 
 const MainLayout = () => {
+    const { userInfo } = useUserStore();
     return (
         <div className="flex min-h-screen">
-            {/* Left Navigation */}
-            <Navigation generation="12" name="박성문" role="admin" />
+            <Navigation
+                generation={userInfo!.generationName}
+                name={userInfo!.name}
+                role={userInfo!.role}
+            />
 
-            {/* Main Content */}
             <main className="flex-1 bg-gray-100 p-8">
-                <Outlet />
+                <PrivateRoute isAuthenticated={!!userInfo}>
+                    <Outlet />
+                </PrivateRoute>
             </main>
         </div>
     );

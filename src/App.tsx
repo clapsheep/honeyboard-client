@@ -1,6 +1,13 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import MainLayout from './layouts/MainLayout';
-import { AdditionalInfoOAuth, Error404, Login, SignUp } from './pages';
+import {
+    AdditionalInfoOAuth,
+    Error404,
+    Login,
+    PlayList,
+    SignUp,
+} from './pages';
+import LoginCallback from './pages/LoginCallback';
 
 function App() {
     return (
@@ -8,6 +15,7 @@ function App() {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
+                <Route path="/login/callback" element={<LoginCallback />} />
                 <Route
                     path="/find-password"
                     element={<div>Find Password</div>}
@@ -16,6 +24,7 @@ function App() {
                     path="/oauth/:domain/additional"
                     element={<AdditionalInfoOAuth />}
                 />
+
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<div>Calender Page</div>} />
                     <Route
@@ -182,12 +191,9 @@ function App() {
                             </Route>
                         </Route>
                     </Route>
-                    <Route path="music" element={<div>Music</div>}>
+                    <Route path="music">
                         <Route index element={<Navigate to="/music/list" />} />
-                        <Route
-                            path="list"
-                            element={<div>Music play list Create</div>}
-                        />
+                        <Route path="list" element={<PlayList />} />
                         <Route
                             path="search"
                             element={<div>Search Music</div>}

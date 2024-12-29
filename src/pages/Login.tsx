@@ -1,4 +1,3 @@
-import logo from '/assets/images/logo.png';
 import { Button, ErrorMessage, SocialLoginButton } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { requestOAuth } from '@/services/auth';
@@ -7,8 +6,10 @@ import { loginSchema, type LoginSchema } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
+import logo from '/assets/images/logo.png';
 
 const Login = () => {
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -18,11 +19,10 @@ const Login = () => {
         resolver: zodResolver(loginSchema),
         mode: 'onChange',
     });
-    const navigate = useNavigate();
+
     const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
         try {
-            await handleLogin(data);
-            navigate('/');
+            await handleLogin(data, navigate);
         } catch {
             setError('root', {
                 message: '이메일 또는 비밀번호를 확인해주세요',

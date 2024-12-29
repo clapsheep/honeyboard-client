@@ -7,6 +7,11 @@ import {
 } from '@/types/auth';
 import { AxiosResponse } from 'axios';
 
+export const getUserInfoAPI = async (): Promise<
+    AxiosResponse<AuthResponseType>
+> => {
+    return api.get('/user/info');
+};
 // credential 로그인 요청
 export const loginAPI = async (
     data: LoginRequestType,
@@ -19,6 +24,7 @@ export const loginAPI = async (
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
+        maxRedirects: 0,
     });
 };
 
