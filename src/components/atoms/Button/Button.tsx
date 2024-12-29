@@ -1,5 +1,5 @@
 interface ButtonProps {
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     children: React.ReactNode;
     type?: 'button' | 'submit' | 'reset';
     color?: 'red' | 'blue' | 'green' | 'gray';
@@ -16,10 +16,10 @@ const Button = ({
     className,
 }: ButtonProps) => {
     const COLOR_PROS = {
-        red: 'bg-error-500',
-        blue: 'bg-blue-500',
+        red: 'bg-error-600',
+        blue: 'bg-blue-700',
         green: 'bg-success-500',
-        gray: 'bg-gray-500',
+        gray: 'bg-gray-300',
     };
 
     return (

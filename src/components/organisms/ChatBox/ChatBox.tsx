@@ -12,7 +12,7 @@ export interface Chat {
 interface ChatBoxProps {
     chatList: Chat[];
     inputValue: string;
-    onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onSendClick: () => void;
 }
 
@@ -37,30 +37,7 @@ const shouldShowDate = (
     const nextDate = new Date(nextTime).toDateString();
     return currentDate !== nextDate;
 };
-const customScrollStyle = `
-  /* 스크롤바 전체 */
-  .custom-scroll::-webkit-scrollbar {
-    width: 8px; /* 스크롤 너비 */
-  }
 
-  /* 스크롤 트랙 */
-  .custom-scroll::-webkit-scrollbar-track {
-    background: #f1f1f1; /* 트랙 배경색 */
-    border-radius: 8px; /* 둥근 모서리 */
-  }
-
-  /* 스크롤바 손잡이 */
-  .custom-scroll::-webkit-scrollbar-thumb {
-    background: #888; /* 손잡이 색상 */
-    border-radius: 8px; /* 둥근 모서리 */
-    border: 2px solid #f1f1f1; /* 트랙과의 간격 */
-  }
-
-  /* 호버 시 손잡이 스타일 */
-  .custom-scroll::-webkit-scrollbar-thumb:hover {
-    background: #555; /* 호버 시 색상 변경 */
-  }
-`;
 const ChatBox = ({
     chatList,
     inputValue,
@@ -68,6 +45,7 @@ const ChatBox = ({
     onSendClick,
 }: ChatBoxProps) => {
     const chatListRef = useRef<HTMLDivElement>(null);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
         if (chatListRef.current) {
@@ -77,7 +55,6 @@ const ChatBox = ({
 
     return (
         <>
-            <style>{customScrollStyle}</style>
             <div className="gap-4rounded-xl flex h-full w-full flex-col border-[2px] border-gray-300 bg-gray-25 px-4 pb-3 pt-4 shadow-md">
                 <div
                     ref={chatListRef}
@@ -93,7 +70,7 @@ const ChatBox = ({
                         );
 
                         return (
-                            <React.Fragment key={chat.id}>
+                            <>
                                 {/* 채팅 먼저, 그다음 날짜 div */}
                                 <Chat
                                     isMe={chat.isMe}
@@ -109,7 +86,7 @@ const ChatBox = ({
                                             .slice(0, 10)}
                                     </div>
                                 )}
-                            </React.Fragment>
+                            </>
                         );
                     })}
                 </div>
@@ -118,8 +95,15 @@ const ChatBox = ({
                     <ChatInput
                         id="chat-input"
                         value={inputValue}
+                        textareaRef={textareaRef} // 추가
                         onChange={onInputChange}
                         onClick={onSendClick}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault();
+                                onSendClick();
+                            }
+                        }}
                     />
                 </div>
             </div>
