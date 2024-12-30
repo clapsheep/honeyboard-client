@@ -1,7 +1,14 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import MainLayout from './layouts/MainLayout';
-import { AdditionalInfoOAuth, Error404, Login, SignUp } from './pages';
-import ToastUIReactCalendar from './pages/MainCalendar';
+import {
+    AdditionalInfoOAuth,
+    Error404,
+    Login,
+    PlayList,
+    SignUp,
+} from './pages';
+import LoginCallback from './pages/LoginCallback';
+import Schedule from './pages/Schedule';
 
 function App() {
     return (
@@ -9,6 +16,7 @@ function App() {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
+                <Route path="/login/callback" element={<LoginCallback />} />
                 <Route
                     path="/find-password"
                     element={<div>Find Password</div>}
@@ -17,8 +25,9 @@ function App() {
                     path="/oauth/:domain/additional"
                     element={<AdditionalInfoOAuth />}
                 />
+
                 <Route element={<MainLayout />}>
-                    <Route path="/" element={<ToastUIReactCalendar />} />
+                    <Route path="/" element={<Schedule />} />
                     <Route
                         path="track"
                         element={<div>모든 트랙 프로젝트 리스트</div>}
@@ -183,12 +192,9 @@ function App() {
                             </Route>
                         </Route>
                     </Route>
-                    <Route path="music" element={<div>Music</div>}>
+                    <Route path="music">
                         <Route index element={<Navigate to="/music/list" />} />
-                        <Route
-                            path="list"
-                            element={<div>Music play list Create</div>}
-                        />
+                        <Route path="list" element={<PlayList />} />
                         <Route
                             path="search"
                             element={<div>Search Music</div>}

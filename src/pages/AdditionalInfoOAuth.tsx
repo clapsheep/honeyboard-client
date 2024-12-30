@@ -1,14 +1,16 @@
-import logo from '/assets/images/logo.png';
 import { Button, ErrorMessage } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
-import { OAuthAPI, OAuthDomainType } from '@/services/auth';
+import { OAuthAPI } from '@/services/auth';
+import { OAuthDomainType } from '@/types/auth';
 import { additionalInfoSchema, type AdditionalInfoSchema } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { Navigate, useParams } from 'react-router';
+import logo from '/assets/images/logo.png';
 
 const AdditionalInfoOAuth = () => {
     const { domain } = useParams();
+
     const {
         register,
         handleSubmit,
