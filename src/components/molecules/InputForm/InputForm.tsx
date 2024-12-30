@@ -16,7 +16,10 @@ interface InputFormProps {
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     errorMessage?: string;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 230a514faf9fe12e17142dc64115cfff462f5529
 const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
     (
         {
@@ -39,7 +42,7 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
         return (
             <div className="flex w-full flex-col gap-1">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-start">
+                    <div className="ml-1 flex items-start">
                         {showLabel && <Label text={label} htmlFor={id} />}
                         {required && <span className="text-error-500">*</span>}
                     </div>
@@ -60,6 +63,10 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
                     {buttonName && onClick && (
                         <Button onClick={onClick}>{buttonName}</Button>
                     )}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 230a514faf9fe12e17142dc64115cfff462f5529
                 </div>
             </div>
         );
