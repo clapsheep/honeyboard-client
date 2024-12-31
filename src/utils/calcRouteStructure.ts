@@ -50,7 +50,7 @@ const calcRouteStructure = (pathname: string) => {
             isActive: boolean;
         }>,
     );
-    return routeStructure;
+    return routeStructure.slice(0, -1);
 };
 
 export default calcRouteStructure;

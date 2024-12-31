@@ -1,11 +1,11 @@
 import { Button } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 const AlgorithmProblem = () => {
     const { pathname } = useLocation();
-
+    const navigate = useNavigate();
     const ROUTES = [
         {
             path: 'study/algorithm/concept',
@@ -22,7 +22,7 @@ const AlgorithmProblem = () => {
     return (
         <div>
             <Header
-                titleProps={{ title: '알고리즘 개념' }}
+                titleProps={{ title: '알고리즘 문제풀이' }}
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-between">
@@ -30,7 +30,9 @@ const AlgorithmProblem = () => {
                         <TabNavigation routes={ROUTES} />
                     </div>
                     <div className="flex items-end gap-4">
-                        <Button onClick={() => {}}>글작성</Button>
+                        <Button onClick={() => navigate('create')}>
+                            글작성
+                        </Button>
                     </div>
                 </div>
             </Header>
