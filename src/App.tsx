@@ -8,6 +8,7 @@ import {
     SignUp,
 } from './pages';
 import LoginCallback from './pages/LoginCallback';
+import Project from './pages/Project';
 
 function App() {
     return (
@@ -27,10 +28,7 @@ function App() {
 
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<div>Calender Page</div>} />
-                    <Route
-                        path="track"
-                        element={<div>모든 트랙 프로젝트 리스트</div>}
-                    >
+                    <Route path="track" element={<Project />}>
                         <Route
                             path="create"
                             element={<div>트랙 프로젝트 생성</div>}
