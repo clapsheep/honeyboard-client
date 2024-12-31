@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import StudentList from './StudentList';
 
 const meta = {
-    title: 'Components/organisms/StudentList',
+    title: 'Components/Organisms/StudentList',
     component: StudentList,
     parameters: {
         layout: 'fullscreen',

@@ -24,7 +24,7 @@ export const Default: Story = {
     args: {
         title: 'HoneyBoard',
         subTitle: '2024-12-21',
-        onClick: () => alert('이동'),
+        id: '1',
     },
 };
 
@@ -32,7 +32,7 @@ export const Finale: Story = {
     args: {
         title: 'HoneyBoard',
         subTitle: 'https://github.com/clapsheep/honeyboard-client',
-        onClick: () => alert('이동'),
+        id: '1',
         teams: ['박수양', '지유림', '서주원'],
         img: 'https://picsum.photos/184',
     },

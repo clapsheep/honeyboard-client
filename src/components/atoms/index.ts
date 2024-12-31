@@ -18,3 +18,4 @@ export { default as SocialLoginButton } from './SocialLoginButton/SocialLoginBut
 export { default as Pagenation } from './Pagenation/Pagenation';
 export { default as NavButton } from './NavButton/NavButton';
 export { default as ChatInput } from './ChatInput/ChatInput';
+export { default as Chat } from './Chat/Chat';

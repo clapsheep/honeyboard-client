@@ -39,7 +39,7 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
         return (
             <div className="flex w-full flex-col gap-1">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-start">
+                    <div className="ml-1 flex items-start">
                         {showLabel && <Label text={label} htmlFor={id} />}
                         {required && <span className="text-error-500">*</span>}
                     </div>
