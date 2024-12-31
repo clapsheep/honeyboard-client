@@ -76,7 +76,7 @@ const Schedule = () => {
     };
 
     return (
-        <div className="flex h-full flex-col gap-4">
+        <div className="flex h-full flex-col gap-4 px-6 pb-9 pt-6">
             <SelectCalender
                 year={date.year}
                 month={date.month}
