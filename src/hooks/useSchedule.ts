@@ -21,7 +21,6 @@ interface ScheduleDate {
 
 export const useSchedule = () => {
     const scheduleRef = useRef<ScheduleRef['current']>(null);
-
     const [date, setDate] = useState<ScheduleDate>(() => {
         const now = new Date();
         return {
@@ -30,6 +29,7 @@ export const useSchedule = () => {
         };
     });
 
+    // 현재 표시된 년,월
     useEffect(() => {
         if (scheduleRef.current) {
             scheduleRef.current
@@ -59,5 +59,28 @@ export const useSchedule = () => {
         date,
         decreaseDate,
         increaseDate,
+        calendars: [
+            {
+                id: 'NORMAL',
+                name: 'NORMAL',
+                color: '#039855',
+                backgroundColor: '#ECFDF3',
+                borderColor: '#039855',
+            },
+            {
+                id: 'TRACK',
+                name: 'TRACK',
+                color: '#F04438',
+                backgroundColor: '#FEE4E2',
+                borderColor: '#F04438',
+            },
+            {
+                id: 'PROJECT',
+                name: 'PROJECT',
+                color: '#175CD3',
+                backgroundColor: '#D1E9FF',
+                borderColor: '#175CD3',
+            },
+        ],
     };
 };

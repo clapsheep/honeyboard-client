@@ -1,54 +1,76 @@
 import {
-    getScheduleEventsAPI,
     addScheduleEventsAPI,
     updateScheduleEventsAPI,
     deleteScheduleEventsAPI,
+    getScheduleEventsAPI,
 } from '@/services/schedule';
 import { useEffect, useState } from 'react';
-import { Event } from '@/types/schedule';
+import { ScheduleEvent } from '@/types/schedule';
 import { EventObject } from '@toast-ui/calendar/types/types/events';
+import { useUserStore } from '@/stores/userStore';
 
 interface UseScheduleEventsReturn {
-    events: Event[];
-    isLoading: boolean;
+    events: ScheduleEvent[];
     error: string | null;
+    fetchEvents: (year: number, month: number) => Promise<void>;
     onBeforeCreateEvent: (event: EventObject) => Promise<boolean>;
     onBeforeUpdateEvent: (event: EventObject) => Promise<boolean>;
     onBeforeDeleteEvent: (event: EventObject) => Promise<boolean>;
 }
 
 export const useScheduleEvents = (): UseScheduleEventsReturn => {
-    const [events, setEvents] = useState<Event[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const { userInfo } = useUserStore();
+    const userId = userInfo?.userId;
+    const generationId = userInfo?.generationId;
+
+    const [events, setEvents] = useState<EventObject[]>([]);
     const [error, setError] = useState<string | null>(null);
 
-    const fetchEvents = async () => {
+    // 일정 조회
+    const fetchEvents = async (year: number, month: number) => {
         try {
-            const { data } = await getScheduleEventsAPI();
-            setEvents(data);
+            const { data } = await getScheduleEventsAPI(year, month);
+
+            // 일정목록이 비었는지 확인
+            const events = Array.isArray(data) ? data : [];
+
+            const formattedEvents = events.map((event) => ({
+                id: String(event.scheduleId),
+                calendarId: event.scheduleType,
+                title: event.content,
+                start: new Date(event.startDate),
+                end: new Date(event.endDate),
+                category: 'allday',
+                isAllday: true,
+                isPrivate: event.publicAccess,
+                attendees: '',
+                state: '',
+            }));
+            setEvents(formattedEvents);
         } catch (error) {
-            console.error(error);
+            console.error('일정 조회 실패:', error);
             setError('일정 조회를 실패했습니다.');
-        } finally {
-            setIsLoading(false);
         }
     };
 
+    // 현재 월의 일정 자동 조회
     useEffect(() => {
-        fetchEvents();
+        const now = new Date();
+        fetchEvents(now.getFullYear(), now.getMonth() + 1);
     }, []);
 
+    // 일정 등록
     const onBeforeCreateEvent = async (eventData: EventObject) => {
         try {
-            const newEvent: Event = {
+            const newEvent: ScheduleEvent = {
                 scheduleId: eventData.id as string,
                 content: eventData.title,
                 startDate: new Date(eventData.start),
                 endDate: new Date(eventData.end),
                 scheduleType: eventData.calendarId,
                 publicAccess: eventData.isPrivate,
-                userId: '',
-                generationId: '',
+                userId: userId!,
+                generationId: generationId!,
             };
 
             const { data } = await addScheduleEventsAPI(newEvent);
@@ -61,17 +83,18 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
         }
     };
 
+    // 일정 수정
     const onBeforeUpdateEvent = async (eventData: EventObject) => {
         try {
-            const updatedEvent: Event = {
+            const updatedEvent: ScheduleEvent = {
                 scheduleId: eventData.id as string,
                 content: eventData.title,
                 startDate: new Date(eventData.start),
                 endDate: new Date(eventData.end),
                 scheduleType: eventData.calendarId,
                 publicAccess: true,
-                userId: '',
-                generationId: '',
+                userId: userId!,
+                generationId: generationId!,
             };
 
             const { data } = await updateScheduleEventsAPI(updatedEvent);
@@ -88,6 +111,7 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
         }
     };
 
+    // 일정 삭제
     const onBeforeDeleteEvent = async (eventData: EventObject) => {
         try {
             await deleteScheduleEventsAPI(eventData.id as string);
@@ -104,8 +128,8 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
 
     return {
         events,
-        isLoading,
         error,
+        fetchEvents,
         onBeforeCreateEvent,
         onBeforeUpdateEvent,
         onBeforeDeleteEvent,

@@ -5,33 +5,22 @@ import 'tui-time-picker/dist/tui-time-picker.css';
 import { SelectCalender } from '@/components/atoms';
 import { useSchedule } from '@/hooks/useSchedule';
 import { useScheduleEvents } from '@/hooks/useScheduleEvents';
+import { useEffect } from 'react';
 
 const Schedule = () => {
-    const { scheduleRef, date, decreaseDate, increaseDate } = useSchedule();
+    const { scheduleRef, date, decreaseDate, increaseDate, calendars } =
+        useSchedule();
     const {
         events,
+        fetchEvents,
         onBeforeCreateEvent,
         onBeforeUpdateEvent,
         onBeforeDeleteEvent,
     } = useScheduleEvents();
 
-    // 일정 카테고리
-    const calendars = [
-        {
-            id: 'NORMAL',
-            name: 'NORMAL',
-            color: '#039855',
-            backgroundColor: '#ECFDF3',
-            borderColor: '#039855',
-        },
-        {
-            id: 'PROJECT',
-            name: 'PROJECT',
-            color: '#F04438',
-            backgroundColor: '#FEE4E2',
-            borderColor: '#F04438',
-        },
-    ];
+    useEffect(() => {
+        fetchEvents(date.year, date.month);
+    }, [date.year, date.month]);
 
     // 테마 커스텀
     const theme = {
