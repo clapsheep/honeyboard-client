@@ -1,6 +1,5 @@
 import { Navigation } from '@/components/organisms';
 import { Outlet } from 'react-router';
-import PrivateRoute from './PrivateRoute';
 import { useUserStore } from '@/stores/userStore';
 
 const MainLayout = () => {
@@ -13,10 +12,8 @@ const MainLayout = () => {
                 role={userInfo!.role}
             />
 
-            <main className="flex-1 bg-gray-100 p-8">
-                <PrivateRoute isAuthenticated={!!userInfo}>
-                    <Outlet />
-                </PrivateRoute>
+            <main className="flex-1 bg-gray-100">
+                <Outlet />
             </main>
         </div>
     );
