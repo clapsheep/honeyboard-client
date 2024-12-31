@@ -68,6 +68,13 @@ export const useSchedule = () => {
                 borderColor: '#039855',
             },
             {
+                id: 'TRACK',
+                name: 'TRACK',
+                color: '#F04438',
+                backgroundColor: '#FEE4E2',
+                borderColor: '#F04438',
+            },
+            {
                 id: 'PROJECT',
                 name: 'PROJECT',
                 color: '#175CD3',

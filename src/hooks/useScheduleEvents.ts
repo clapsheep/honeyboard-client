@@ -74,6 +74,11 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
                 generationId: generationId!,
             };
 
+            if (newEvent.scheduleType === 'TRACK') {
+                alert('관통 프로젝트 일정은 자동 등록됩니다.');
+                return false;
+            }
+
             await addScheduleEventsAPI(newEvent);
 
             const currentDate = new Date();

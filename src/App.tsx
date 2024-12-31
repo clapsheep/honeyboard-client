@@ -21,6 +21,7 @@ import {
     TrackList,
     WebConceptList,
     WebRecommendList,
+    Schedule,
 } from './pages';
 
 import { useUserStore } from './stores/userStore';
