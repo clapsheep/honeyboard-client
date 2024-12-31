@@ -23,6 +23,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
+        role: 'user',
         generation: '12',
         name: '박성문',
     },

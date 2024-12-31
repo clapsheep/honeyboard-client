@@ -1,13 +1,15 @@
+import { Link } from 'react-router';
+
 interface TabButtonProps {
     name: string;
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void; // 클릭 이벤트 핸들러
+    path: string;
     isActive?: boolean;
 }
 
-const TabButton = ({ name, onClick, isActive }: TabButtonProps) => {
+const TabButton = ({ name, path, isActive }: TabButtonProps) => {
     return (
-        <button
-            onClick={onClick}
+        <Link
+            to={`/${path}`}
             aria-selected={isActive}
             className={`border-b-2 text-text-md font-semibold ${
                 isActive
@@ -16,7 +18,7 @@ const TabButton = ({ name, onClick, isActive }: TabButtonProps) => {
             }`}
         >
             {name}
-        </button>
+        </Link>
     );
 };
 
