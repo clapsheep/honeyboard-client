@@ -1,4 +1,5 @@
-import { Meta, StoryObj } from '@storybook/react/*';
+import { Meta, StoryObj } from '@storybook/react';
+import { BrowserRouter } from 'react-router';
 import Breadcrumb from './Breadcrumb';
 
 const meta = {
@@ -8,6 +9,13 @@ const meta = {
     parameters: {
         layout: 'centered',
     },
+    decorators: [
+        (Story) => (
+            <BrowserRouter>
+                <Story />
+            </BrowserRouter>
+        ),
+    ],
 } satisfies Meta<typeof Breadcrumb>;
 
 export default meta;
@@ -15,9 +23,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        routes: [
-            { path: '/', name: 'Home' },
-            { path: '/about', name: 'About' },
-        ],
+        pathname: '/study/web/concept',
     },
 };
