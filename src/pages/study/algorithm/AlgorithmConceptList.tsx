@@ -2,11 +2,12 @@ import { Button, SelectOption } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
 import { useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 const AlgorithmConceptList = () => {
     const [generation, setGeneration] = useState<string>('');
     const { pathname } = useLocation();
+    const navigate = useNavigate();
 
     const ROUTES = [
         {
@@ -38,7 +39,13 @@ const AlgorithmConceptList = () => {
                         <TabNavigation routes={ROUTES} />
                     </div>
                     <div className="flex items-end gap-4">
-                        <Button onClick={() => {}}>글작성</Button>
+                        <Button
+                            onClick={() => {
+                                navigate('create');
+                            }}
+                        >
+                            글작성
+                        </Button>
 
                         <SelectOption
                             id="generation"

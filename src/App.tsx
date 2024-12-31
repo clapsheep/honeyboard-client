@@ -4,7 +4,14 @@ import PrivateRoute from './layouts/PrivateRoute';
 import {
     AdditionalInfoOAuth,
     AlgorithmConceptList,
-    AlgorithmProblem,
+    AlgorithmProblemList,
+    CreateAlgorithmConcept,
+    CreateAlgorithmProblem,
+    CreateAlgorithmProblemSolution,
+    CreateFinalTeam,
+    CreateTrackProject,
+    CreateWebConcept,
+    CreateWebRecommend,
     Error404,
     FinalList,
     Login,
@@ -42,77 +49,61 @@ function App() {
                                 index
                                 element={<Navigate to="/project/track" />}
                             />
-                            <Route path="track" element={<TrackList />}>
+                            <Route
+                                path="track/create"
+                                element={<CreateTrackProject />}
+                            />
+                            <Route path="track" element={<TrackList />} />
+                            <Route
+                                path="track/:trackId"
+                                element={<div>트랙 중 특정 트랙 프로젝트</div>}
+                            >
                                 <Route
-                                    path="create"
-                                    element={<div>트랙 프로젝트 생성</div>}
+                                    path="track/:trackId/create"
+                                    element={<div>팀 생성 및 게시글 작성</div>}
                                 />
                                 <Route
-                                    path=":trackId"
-                                    element={
-                                        <div>트랙 중 특정 트랙 프로젝트</div>
-                                    }
+                                    path="track/:trackId/:projectId"
+                                    element={<div>특정 프로젝트 팀의 보드</div>}
                                 >
                                     <Route
-                                        path="create"
+                                        path="track/:trackId/:projectId/edit"
                                         element={
-                                            <div>팀 생성 및 게시글 작성</div>
+                                            <div>
+                                                특정 프로젝트 팀의 보드 수정
+                                            </div>
                                         }
                                     />
-                                    <Route
-                                        path=":projectId"
-                                        element={
-                                            <div>특정 프로젝트 팀의 보드</div>
-                                        }
-                                    >
-                                        <Route
-                                            path="edit"
-                                            element={
-                                                <div>
-                                                    특정 프로젝트 팀의 보드 수정
-                                                </div>
-                                            }
-                                        />
-                                    </Route>
                                 </Route>
                             </Route>
-                            <Route path="final" element={<FinalList />}>
+
+                            <Route path="final" element={<FinalList />} />
+                            <Route
+                                path="final/:teamId"
+                                element={<div>파이널 팀의 보드 리스트</div>}
+                            />
+                            <Route
+                                path="final/create"
+                                element={<CreateFinalTeam />}
+                            />
+
+                            <Route
+                                path="final/:teamId/edit"
+                                element={<div>파이널 팀의 정보 수정</div>}
+                            />
+                            <Route
+                                path="final/:teamId/:boardId"
+                                element={<div>파이널 팀의 보드 Detail</div>}
+                            >
                                 <Route
-                                    path=":teamId"
-                                    element={<div>파이널 팀의 보드 리스트</div>}
-                                >
-                                    <Route
-                                        path="create"
-                                        element={<div>파이널 팀생성</div>}
-                                    />
+                                    path="final/:teamId/create"
+                                    element={<div>파이널 팀의 보드생성</div>}
+                                />
 
-                                    <Route
-                                        path="edit"
-                                        element={
-                                            <div>파이널 팀의 정보 수정</div>
-                                        }
-                                    />
-                                    <Route
-                                        path=":boardId"
-                                        element={
-                                            <div>파이널 팀의 보드 Detail</div>
-                                        }
-                                    >
-                                        <Route
-                                            path="create"
-                                            element={
-                                                <div>파이널 팀의 보드생성</div>
-                                            }
-                                        />
-
-                                        <Route
-                                            path="edit"
-                                            element={
-                                                <div>파이널 팀의 보드 수정</div>
-                                            }
-                                        />
-                                    </Route>
-                                </Route>
+                                <Route
+                                    path="final/:teamId/:boardId/edit"
+                                    element={<div>파이널 팀의 보드 수정</div>}
+                                />
                             </Route>
                         </Route>
                         <Route path="study">
@@ -133,89 +124,64 @@ function App() {
                                 <Route
                                     path="concept"
                                     element={<AlgorithmConceptList />}
-                                >
-                                    <Route
-                                        path="create"
-                                        element={
-                                            <div>Algorithm Concept Create</div>
-                                        }
-                                    />
-                                    <Route
-                                        path=":conceptId"
-                                        element={
-                                            <div>Algorithm Concept Detail</div>
-                                        }
-                                    />
-                                    <Route
-                                        path="edit"
-                                        element={
-                                            <div>Algorithm Concept Edit</div>
-                                        }
-                                    />
-                                </Route>
+                                />
+                                <Route
+                                    path="concept/create"
+                                    element={<CreateAlgorithmConcept />}
+                                />
+                                <Route
+                                    path="concept/:conceptId"
+                                    element={
+                                        <div>Algorithm Concept Detail</div>
+                                    }
+                                />
+                                <Route
+                                    path="concept/:conceptId/edit"
+                                    element={<div>Algorithm Concept Edit</div>}
+                                />
+
                                 <Route
                                     path="problem"
-                                    element={<AlgorithmProblem />}
-                                >
-                                    <Route
-                                        path="create"
-                                        element={
-                                            <div>Algorithm Problem Create</div>
-                                        }
-                                    />
-                                    <Route
-                                        path=":problemId"
-                                        element={
-                                            <div>Algorithm Problem Detail</div>
-                                        }
-                                    >
-                                        <Route
-                                            path="edit"
-                                            element={
-                                                <div>
-                                                    Algorithm Problem Edit
-                                                </div>
-                                            }
-                                        />
-                                    </Route>
+                                    element={<AlgorithmProblemList />}
+                                />
+                                <Route
+                                    path="problem/create"
+                                    element={<CreateAlgorithmProblem />}
+                                />
+                                <Route
+                                    path="problem/:problemId/edit"
+                                    element={<div>Algorithm Problem Edit</div>}
+                                />
+                                <Route
+                                    path="problem/:problemId"
+                                    element={
+                                        <div>
+                                            Algorithm Problem Solution List
+                                        </div>
+                                    }
+                                />
 
-                                    <Route
-                                        path="solution"
-                                        element={
-                                            <div>
-                                                Algorithm Problem Solution
-                                            </div>
-                                        }
-                                    >
-                                        <Route
-                                            path="create"
-                                            element={
-                                                <div>
-                                                    Algorithm Problem Solution
-                                                </div>
-                                            }
-                                        />
-                                        <Route
-                                            path=":solutionId"
-                                            element={
-                                                <div>
-                                                    Algorithm Problem Solution
-                                                </div>
-                                            }
-                                        >
-                                            <Route
-                                                path="edit"
-                                                element={
-                                                    <div>
-                                                        Algorithm Problem
-                                                        Solution
-                                                    </div>
-                                                }
-                                            />
-                                        </Route>
-                                    </Route>
-                                </Route>
+                                <Route
+                                    path="problem/:problemId/:solutionId"
+                                    element={
+                                        <div>Algorithm Problem Solution</div>
+                                    }
+                                />
+                                <Route
+                                    path="problem/:problemId/create"
+                                    element={<CreateAlgorithmProblemSolution />}
+                                />
+
+                                <Route
+                                    path="problem/:problemId/:solutionId/edit"
+                                    element={
+                                        <div>
+                                            Algorithm Problem Solution Edit
+                                        </div>
+                                    }
+                                />
                             </Route>
+
                             <Route path="web">
                                 <Route
                                     index
@@ -226,39 +192,37 @@ function App() {
                                 <Route
                                     path="concept"
                                     element={<WebConceptList />}
+                                />
+                                <Route
+                                    path="concept/create"
+                                    element={<CreateWebConcept />}
+                                />
+                                <Route
+                                    path="concept/:conceptId"
+                                    element={<div>Web Detail</div>}
                                 >
                                     <Route
-                                        path="create"
-                                        element={<div>Web Create</div>}
+                                        path="concept/:conceptId/edit"
+                                        element={<div>Web Edit</div>}
                                     />
-                                    <Route
-                                        path=":conceptId"
-                                        element={<div>Web Detail</div>}
-                                    >
-                                        <Route
-                                            path="edit"
-                                            element={<div>Web Edit</div>}
-                                        />
-                                    </Route>
                                 </Route>
+
                                 <Route
                                     path="recommend"
                                     element={<WebRecommendList />}
-                                >
-                                    <Route
-                                        path="create"
-                                        element={<div>Web Create</div>}
-                                    />
-                                    <Route
-                                        path=":recomendId"
-                                        element={<div>Web Detail</div>}
-                                    >
-                                        <Route
-                                            path="edit"
-                                            element={<div>Web Edit</div>}
-                                        />
-                                    </Route>
-                                </Route>
+                                />
+                                <Route
+                                    path="recommend/create"
+                                    element={<CreateWebRecommend />}
+                                />
+                                <Route
+                                    path="recommend/:recomendId"
+                                    element={<div>Web Detail</div>}
+                                />
+                                <Route
+                                    path="recommend/:recomendId/edit"
+                                    element={<div>Web Edit</div>}
+                                />
                             </Route>
                         </Route>
                         <Route path="music">

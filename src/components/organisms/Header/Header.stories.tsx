@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Header from './Header';
 import { BrowserRouter } from 'react-router';
+import Header from './Header';
 
 const meta: Meta<typeof Header> = {
     component: Header,
@@ -23,59 +23,35 @@ const meta: Meta<typeof Header> = {
 export default meta;
 
 type Story = StoryObj<typeof Header>;
-const ROUTES = [
-    {
-        path: '/',
-        name: '프로젝트',
-        isActive: true,
-
-        children: [
-            {
-                path: '/알고리즘/개념',
-                name: '개념',
-                isActive: false,
-            },
-            {
-                path: '/알고리즘/문제풀이',
-                name: '문제풀이',
-                isActive: true,
-            },
-        ],
-    },
-    {
-        path: '/about',
-        name: '알고리즘',
-        isActive: false,
-        children: [
-            {
-                path: '/알고리즘/개념',
-                name: '개념',
-                isActive: false,
-            },
-            {
-                path: '/알고리즘/문제풀이',
-                name: '문제풀이',
-                isActive: false,
-            },
-        ],
-    },
-];
 
 export const Default: Story = {
     args: {
-        BreadcrumbProps: {
-            routes: ROUTES,
-        },
+        BreadcrumbProps: { pathname: '/study/web/concept' },
         titleProps: {
-            title: 'Header',
+            title: '웹 개발 기초',
             subTitle: {
-                subTitle1: 'subTitle1',
+                subTitle1: 'Web Development Fundamentals',
             },
             description: {
-                description1: 'description1',
+                description1: '웹 개발의 기본 개념을 학습합니다.',
             },
             onClickLike: () => {
-                console.log('clicked');
+                console.log('clicked like');
+            },
+        },
+    },
+};
+
+export const WithoutSubtitle: Story = {
+    args: {
+        BreadcrumbProps: { pathname: '/study/algorithm' },
+        titleProps: {
+            title: '알고리즘 학습',
+            description: {
+                description1: '알고리즘 문제 해결 능력을 키웁니다.',
+            },
+            onClickLike: () => {
+                console.log('clicked like');
             },
         },
     },

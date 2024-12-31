@@ -2,10 +2,11 @@ import { Button, SelectOption } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
 import { useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 const FinalList = () => {
     const { pathname } = useLocation();
+    const navigate = useNavigate();
     const [generation, setGeneration] = useState<string>('');
     const ROUTES = [{ path: '/final', name: '프로젝트', isActive: true }];
 
@@ -26,7 +27,13 @@ const FinalList = () => {
                         <TabNavigation routes={ROUTES} />
                     </div>
                     <div className="flex items-end gap-4">
-                        <Button onClick={() => {}}>팀 생성</Button>
+                        <Button
+                            onClick={() => {
+                                navigate('create');
+                            }}
+                        >
+                            팀 생성
+                        </Button>
 
                         <SelectOption
                             id="generation"

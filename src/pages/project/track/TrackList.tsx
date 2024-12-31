@@ -3,9 +3,10 @@ import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
 import { useUserStore } from '@/stores/userStore';
 import { useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 const TrackList = () => {
+    const navigate = useNavigate();
     const { pathname } = useLocation();
     const [generation, setGeneration] = useState<string>('');
     const ROUTES = [{ path: '/track', name: '프로젝트', isActive: true }];
@@ -29,7 +30,13 @@ const TrackList = () => {
                     </div>
                     <div className="flex items-end gap-4">
                         {userInfo?.role === 'ADMIN' ? (
-                            <Button onClick={() => {}}>프로젝트 생성</Button>
+                            <Button
+                                onClick={() => {
+                                    navigate('create');
+                                }}
+                            >
+                                프로젝트 생성
+                            </Button>
                         ) : null}
                         <SelectOption
                             id="generation"
