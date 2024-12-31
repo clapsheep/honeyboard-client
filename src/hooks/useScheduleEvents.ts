@@ -35,7 +35,7 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
             const events = Array.isArray(data) ? data : [];
 
             const formattedEvents = events.map((event) => ({
-                id: String(event.scheduleId),
+                id: event.scheduleId,
                 calendarId: event.scheduleType,
                 title: event.content,
                 start: new Date(event.startDate),
@@ -103,7 +103,7 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
             const event = eventData.event;
 
             const updatedEvent: ScheduleEvent = {
-                scheduleId: Number(event.id),
+                scheduleId: event.id,
                 content: changes?.title || event.title,
                 startDate: new Date(changes?.start || event.start),
                 endDate: new Date(changes?.end || event.end),
