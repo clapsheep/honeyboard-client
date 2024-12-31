@@ -25,7 +25,7 @@ export const addScheduleEventsAPI = async (
 export const updateScheduleEventsAPI = async (
     event: ScheduleEvent,
 ): Promise<AxiosResponse<ScheduleEvent>> => {
-    return api.post(`${VITE_BASE_API}/schedule/${event.scheduleId}`, event);
+    return api.put(`${VITE_BASE_API}/schedule/${event.scheduleId}`, event);
 };
 
 // 일정 삭제 API

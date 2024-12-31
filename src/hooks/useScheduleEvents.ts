@@ -42,10 +42,12 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
                 end: new Date(event.endDate),
                 category: 'allday',
                 isAllday: true,
-                isPrivate: event.publicAccess,
+                isPrivate: !event.publicAccess,
+                isVisible: true,
                 attendees: '',
                 state: '',
             }));
+
             setEvents(formattedEvents);
         } catch (error) {
             console.error('일정 조회 실패:', error);
@@ -63,21 +65,26 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
     const onBeforeCreateEvent = async (eventData: EventObject) => {
         try {
             const newEvent: ScheduleEvent = {
-                scheduleId: eventData.id as string,
                 content: eventData.title,
                 startDate: new Date(eventData.start),
                 endDate: new Date(eventData.end),
                 scheduleType: eventData.calendarId,
-                publicAccess: eventData.isPrivate,
+                publicAccess: !eventData.isPrivate,
                 userId: userId!,
                 generationId: generationId!,
             };
 
-            const { data } = await addScheduleEventsAPI(newEvent);
-            setEvents((prev) => [...prev, data]);
+            await addScheduleEventsAPI(newEvent);
+
+            const currentDate = new Date();
+            await fetchEvents(
+                currentDate.getFullYear(),
+                currentDate.getMonth() + 1,
+            );
+
             return true;
         } catch (error) {
-            console.error(error);
+            console.error('일정 등록 에러:', error);
             setError('일정 등록을 실패했습니다.');
             return false;
         }
@@ -86,26 +93,32 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
     // 일정 수정
     const onBeforeUpdateEvent = async (eventData: EventObject) => {
         try {
+            // 변경사항 유무에 따라 변경 값 혹은 기존 값 사용
+            const changes = eventData.changes;
+            const event = eventData.event;
+
             const updatedEvent: ScheduleEvent = {
-                scheduleId: eventData.id as string,
-                content: eventData.title,
-                startDate: new Date(eventData.start),
-                endDate: new Date(eventData.end),
-                scheduleType: eventData.calendarId,
-                publicAccess: true,
+                scheduleId: Number(event.id),
+                content: changes?.title || event.title,
+                startDate: new Date(changes?.start || event.start),
+                endDate: new Date(changes?.end || event.end),
+                scheduleType: changes?.calendarId || event.calendarId,
+                publicAccess: !(changes?.isPrivate ?? event.isPrivate),
                 userId: userId!,
                 generationId: generationId!,
             };
 
-            const { data } = await updateScheduleEventsAPI(updatedEvent);
-            setEvents((prev) =>
-                prev.map((event) =>
-                    event.scheduleId === data.scheduleId ? data : event,
-                ),
+            await updateScheduleEventsAPI(updatedEvent);
+
+            const currentDate = new Date();
+            await fetchEvents(
+                currentDate.getFullYear(),
+                currentDate.getMonth() + 1,
             );
+
             return true;
         } catch (error) {
-            console.error(error);
+            console.error('일정 수정 에러:', error);
             setError('일정 수정을 실패했습니다.');
             return false;
         }
@@ -115,9 +128,13 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
     const onBeforeDeleteEvent = async (eventData: EventObject) => {
         try {
             await deleteScheduleEventsAPI(eventData.id as string);
-            setEvents((prev) =>
-                prev.filter((event) => event.scheduleId !== eventData.id),
+
+            const currentDate = new Date();
+            await fetchEvents(
+                currentDate.getFullYear(),
+                currentDate.getMonth() + 1,
             );
+
             return true;
         } catch (error) {
             console.error(error);

@@ -1,5 +1,5 @@
 export type ScheduleEvent = {
-    scheduleId: string;
+    scheduleId?: number;
     content: string;
     startDate: Date;
     endDate: Date;
