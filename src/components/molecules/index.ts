@@ -1,5 +1,6 @@
 export { default as AlgoDetailCard } from './AlgoDetailCard/AlgoDetailCard';
 export { default as AlgoProblemCard } from './AlgoProblemCard/AlgoProblemCard';
+export { default as AlgoProblemCardSkeleton } from './AlgoProblemCard/AlgoProblemCardSkeleton';
 export { default as InputForm } from './InputForm/InputForm';
 export { default as MusicTrack } from './MusicTrack/MusicTrack';
 export { default as NavMenu } from './NavMenu/NavMenu';
