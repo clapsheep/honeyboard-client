@@ -9,3 +9,4 @@ export { default as WebSiteCard } from './WebSiteCard/WebSiteCard';
 export { default as YoutubeCard } from './YoutubeCard/YoutubeCard';
 export { default as Breadcrumb } from './Breadcrumb/Breadcrumb';
 export { default as TabNavigation } from './TabNavigation/TabNavigation';
+export { default as SearchBar } from "./SearchBar/SearchBar";
