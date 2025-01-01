@@ -16,6 +16,7 @@ interface InputFormProps {
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     errorMessage?: string;
 }
+
 const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
     (
         {

@@ -12,7 +12,7 @@ const PlayList = () => {
     const { messages, isLoading, sendMessage } = useChat(generationId!);
 
     const [text, setText] = useState('');
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
     };
     if (isLoading)

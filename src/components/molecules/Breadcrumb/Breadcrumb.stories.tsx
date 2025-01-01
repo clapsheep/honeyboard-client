@@ -1,30 +1,28 @@
-import type { Meta, StoryFn, StoryObj } from '@storybook/react';
-import Navigation from './Navigation';
+import { Meta, StoryObj } from '@storybook/react';
 import { BrowserRouter } from 'react-router';
+import Breadcrumb from './Breadcrumb';
 
 const meta = {
-    title: 'Components/Organisms/Navigation',
-    component: Navigation,
+    title: 'Components/Molecules/Breadcrumb',
+    component: Breadcrumb,
+    tags: ['autodocs'],
     parameters: {
         layout: 'centered',
     },
-    tags: ['autodocs'],
     decorators: [
-        (Story: StoryFn) => (
+        (Story) => (
             <BrowserRouter>
                 <Story />
             </BrowserRouter>
         ),
     ],
-} satisfies Meta<typeof Navigation>;
+} satisfies Meta<typeof Breadcrumb>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        role: 'user',
-        generation: '12',
-        name: '박성문',
+        pathname: '/study/web/concept',
     },
 };
