@@ -2,60 +2,31 @@ import { SelectOption } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
 import { Header, StudentEditModal, StudentList } from '@/components/organisms';
 import StudentInfoSkeletonList from '@/components/templates/Skeletons/StudentInfoSkeletonList';
-import { updateStudentAPI } from '@/services/admin/adminAPI';
-import { StudentType } from '@/services/admin/types';
+import { useStudentEdit } from '@/hooks/useStudentEdit';
 import { useGenerationStore } from '@/stores/generationStore';
 import { convertSelectType } from '@/utils/convertSelectType';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Suspense, useState } from 'react';
 import { useLocation } from 'react-router';
 
 const StudentMangement = () => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [selectedStudent, setSelectedStudent] = useState<StudentType | null>(
-        null,
-    );
-
-    const { generationList } = useGenerationStore();
-    const [generationId, setGenerationId] = useState<number | null>(
-        generationList.find((g) => g.active)?.id ?? null,
-    );
     const { pathname } = useLocation();
+    const { generationList } = useGenerationStore();
     const ROUTES = [
         { path: 'admin/student', name: '학생목록', isActive: true },
     ];
+    const [generationId, setGenerationId] = useState<number | null>(
+        generationList.find((g) => g.active)?.id ?? null,
+    );
 
-    const queryClient = useQueryClient();
+    const {
+        isOpen,
+        selectedStudent,
+        isPending,
+        handleEdit,
+        handleCancelClick,
+        handleConfirmClick,
+    } = useStudentEdit(generationId);
 
-    const handleEdit = (student: StudentType) => {
-        setSelectedStudent(student);
-        setIsOpen(true);
-    };
-
-    const handleCancelClick = () => {
-        setIsOpen(false);
-        setSelectedStudent(null);
-    };
-
-    const { mutateAsync: updateStudent, isPending } = useMutation({
-        mutationFn: (formData: StudentType) => {
-            return updateStudentAPI(selectedStudent!.userId, formData);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: ['students', generationId],
-            });
-        },
-    });
-    const handleConfirmClick = async (formData: StudentType) => {
-        try {
-            await updateStudent(formData);
-            setIsOpen(false);
-            setSelectedStudent(null);
-        } catch (error) {
-            console.error('학생 정보 업데이트 실패:', error);
-        }
-    };
     return (
         <div>
             <Header
