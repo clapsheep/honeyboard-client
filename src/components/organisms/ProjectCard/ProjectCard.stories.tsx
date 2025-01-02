@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import ProjectCard from './ProjectCard';
+import { BrowserRouter } from 'react-router';
 
 const meta: Meta = {
     title: 'Components/Organisms/ProjectCard',
@@ -10,9 +11,11 @@ const meta: Meta = {
     },
     decorators: [
         (Story) => (
-            <div className="flex h-[250px] w-[270px] items-center justify-center">
-                <Story />
-            </div>
+            <BrowserRouter>
+                <div className="flex w-[180px] items-center justify-center">
+                    <Story />
+                </div>
+            </BrowserRouter>
         ),
     ],
 } satisfies Meta<typeof ProjectCard>;
@@ -25,6 +28,7 @@ export const Default: Story = {
         title: 'HoneyBoard',
         subTitle: '2024-12-21',
         id: '1',
+        img: 'https://picsum.photos/184',
     },
 };
 

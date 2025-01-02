@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import WebSiteCard from './WebSiteCard';
 import { useState } from 'react';
+import { BrowserRouter } from 'react-router';
 
 const meta: Meta = {
     title: 'Components/Molecules/WebSiteCard',
@@ -12,9 +13,11 @@ const meta: Meta = {
     decorators: [
         (Story) => {
             return (
-                <div className="flex h-[96px] w-[270px] items-center justify-center">
-                    <Story />
-                </div>
+                <BrowserRouter>
+                    <div className="flex h-[96px] w-[270px] items-center justify-center">
+                        <Story />
+                    </div>
+                </BrowserRouter>
             );
         },
     ],

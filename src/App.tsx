@@ -19,14 +19,19 @@ import {
     PlayList,
     SignUp,
     TrackList,
+    WebConceptDetail,
     WebConceptList,
+    WebRecommendDetail,
     WebRecommendList,
 } from './pages';
 
 import { useUserStore } from './stores/userStore';
+import { BasicModal } from './components/organisms';
+import { useModalStore } from './stores/modalStore';
 
 function App() {
     const { userInfo } = useUserStore();
+    const { closeModal, isOpen, modalProps } = useModalStore();
     return (
         <BrowserRouter>
             <Routes>
@@ -57,25 +62,21 @@ function App() {
                             <Route
                                 path="track/:trackId"
                                 element={<div>트랙 중 특정 트랙 프로젝트</div>}
-                            >
-                                <Route
-                                    path="track/:trackId/create"
-                                    element={<div>팀 생성 및 게시글 작성</div>}
-                                />
-                                <Route
-                                    path="track/:trackId/:projectId"
-                                    element={<div>특정 프로젝트 팀의 보드</div>}
-                                >
-                                    <Route
-                                        path="track/:trackId/:projectId/edit"
-                                        element={
-                                            <div>
-                                                특정 프로젝트 팀의 보드 수정
-                                            </div>
-                                        }
-                                    />
-                                </Route>
-                            </Route>
+                            />
+                            <Route
+                                path="track/:trackId/create"
+                                element={<div>팀 생성 및 게시글 작성</div>}
+                            />
+                            <Route
+                                path="track/:trackId/:projectId"
+                                element={<div>특정 프로젝트 팀의 보드</div>}
+                            />
+                            <Route
+                                path="track/:trackId/:projectId/edit"
+                                element={
+                                    <div>특정 프로젝트 팀의 보드 수정</div>
+                                }
+                            />
 
                             <Route path="final" element={<FinalList />} />
                             <Route
@@ -94,17 +95,16 @@ function App() {
                             <Route
                                 path="final/:teamId/:boardId"
                                 element={<div>파이널 팀의 보드 Detail</div>}
-                            >
-                                <Route
-                                    path="final/:teamId/create"
-                                    element={<div>파이널 팀의 보드생성</div>}
-                                />
+                            />
+                            <Route
+                                path="final/:teamId/create"
+                                element={<div>파이널 팀의 보드생성</div>}
+                            />
 
-                                <Route
-                                    path="final/:teamId/:boardId/edit"
-                                    element={<div>파이널 팀의 보드 수정</div>}
-                                />
-                            </Route>
+                            <Route
+                                path="final/:teamId/:boardId/edit"
+                                element={<div>파이널 팀의 보드 수정</div>}
+                            />
                         </Route>
                         <Route path="study">
                             <Route
@@ -199,13 +199,12 @@ function App() {
                                 />
                                 <Route
                                     path="concept/:conceptId"
-                                    element={<div>Web Detail</div>}
-                                >
-                                    <Route
-                                        path="concept/:conceptId/edit"
-                                        element={<div>Web Edit</div>}
-                                    />
-                                </Route>
+                                    element={<WebConceptDetail />}
+                                />
+                                <Route
+                                    path="concept/:conceptId/edit"
+                                    element={<div>Web Edit</div>}
+                                />
 
                                 <Route
                                     path="recommend"
@@ -217,7 +216,7 @@ function App() {
                                 />
                                 <Route
                                     path="recommend/:recomendId"
-                                    element={<div>Web Detail</div>}
+                                    element={<WebRecommendDetail />}
                                 />
                                 <Route
                                     path="recommend/:recomendId/edit"
@@ -302,6 +301,15 @@ function App() {
                 </Route>
                 <Route path="*" element={<Error404 />} />
             </Routes>
+            <BasicModal
+                isOpen={isOpen}
+                title={modalProps?.title ?? ''}
+                icon={modalProps?.icon}
+                subTitle={modalProps?.subTitle}
+                onConfirmClick={modalProps?.onConfirmClick}
+                onDeleteClick={modalProps?.onDeleteClick}
+                onCancelClick={closeModal}
+            />
         </BrowserRouter>
     );
 }
