@@ -2,6 +2,9 @@ import { Button } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
 import { useLocation, useNavigate } from 'react-router';
+import { AlgoProblemCards } from '@/components/templates';
+import { AlgoProblemCardSkeletonList } from '@/components/templates';
+import { Suspense } from 'react';
 
 const AlgorithmProblem = () => {
     const { pathname } = useLocation();
@@ -31,11 +34,17 @@ const AlgorithmProblem = () => {
                     </div>
                     <div className="flex items-end gap-4">
                         <Button onClick={() => navigate('create')}>
-                            글작성
+                            문제 생성
                         </Button>
                     </div>
                 </div>
             </Header>
+            <div className="flex flex-col items-center justify-center gap-6 p-6">
+                <div>서치 바 들어가는 자리</div>
+                <Suspense fallback={<AlgoProblemCardSkeletonList />}>
+                    <AlgoProblemCards />
+                </Suspense>
+            </div>
         </div>
     );
 };
