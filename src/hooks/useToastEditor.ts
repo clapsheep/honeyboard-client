@@ -2,13 +2,27 @@ import { useEffect, useRef, useState } from 'react';
 import Editor, { EditorOptions } from '@toast-ui/editor';
 import type { HookCallback } from '@toast-ui/editor/types/editor';
 import { deleteImageAPI, uploadImageAPI } from '@/services/image/imageAPI';
+import {
+    ImageOptimizationOptions,
+    DEFAULT_OPTIMIZATION_OPTIONS,
+    optimizeImageToWebP,
+    formatAnalysis,
+    ImageAnalysis,
+} from '@/utils/imageOptimization';
 
 interface UseEditorProps {
     editorId: string;
     initialContent: string;
+    optimizationOptions?: ImageOptimizationOptions;
+    onImageOptimized?: (analysis: ImageAnalysis) => void;
 }
 
-const useToastEditor = ({ editorId, initialContent }: UseEditorProps) => {
+const useToastEditor = ({
+    editorId,
+    initialContent,
+    optimizationOptions = DEFAULT_OPTIMIZATION_OPTIONS,
+    onImageOptimized,
+}: UseEditorProps) => {
     const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>([]);
     const [isSubmit, setIsSubmit] = useState(false);
     const editorRef = useRef<HTMLDivElement>(null);
@@ -20,9 +34,6 @@ const useToastEditor = ({ editorId, initialContent }: UseEditorProps) => {
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
             if (!isSubmit && uploadedImageUrls.length > 0) {
                 e.preventDefault();
-                e.returnValue =
-                    '작성 중인 내용이 있습니다. 페이지를 나가시겠습니까?';
-
                 uploadedImageUrls.forEach((url) => deleteImageAPI(url));
             }
         };
@@ -68,20 +79,46 @@ const useToastEditor = ({ editorId, initialContent }: UseEditorProps) => {
                     callback: HookCallback,
                 ) => {
                     try {
-                        const imageFile =
+                        // 최적화 전 원본 이미지 업로드
+                        const originalFile =
                             blob instanceof File
                                 ? blob
                                 : new File(
                                       [blob],
-                                      `${editorId}-image-${Date.now()}.png`,
+                                      `${editorId}-original-${Date.now()}`,
+                                      {
+                                          type: blob.type,
+                                      },
                                   );
+                        await uploadImageAPI(originalFile);
+
+                        // 이미지 최적화 및 분석
+                        const { optimizedBlob, analysis } =
+                            await optimizeImageToWebP(
+                                blob,
+                                optimizationOptions,
+                            );
+
+                        console.log(formatAnalysis(analysis));
+
+                        // 콜백으로 분석 결과 전달
+                        onImageOptimized?.(analysis);
+
+                        const imageFile = new File(
+                            [optimizedBlob],
+                            `${editorId}-image-${Date.now()}.webp`,
+                            { type: 'image/webp' },
+                        );
+
                         const response = await uploadImageAPI(imageFile);
                         const imageUrl = response.data.url;
+
                         setUploadedImageUrls((prev) =>
                             prev.includes(imageUrl)
                                 ? prev
                                 : [...prev, imageUrl],
                         );
+
                         callback(imageUrl, 'image');
                     } catch (error) {
                         console.error('이미지 업로드 실패:', error);
