@@ -14,7 +14,7 @@ const WebRecommendCards = ({
     size,
 }: WebRecommendCardsProps) => {
     const { data } = useSuspenseQuery({
-        queryKey: ['webConcepts', generationId, page, size],
+        queryKey: ['webRecommends', generationId, page, size],
         queryFn: () =>
             getWebRecommendsAPI(generationId || null, page || 1, size || 16),
     });

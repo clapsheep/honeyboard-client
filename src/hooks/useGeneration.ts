@@ -1,25 +1,59 @@
 import { getGenerationListAPI } from '@/services/common/generation/generationAPI';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 import { useGenerationStore } from '@/stores/generationStore';
+import {
+    activeGenerationAPI,
+    addGenerationAPI,
+    deleteGenerationAPI,
+} from '@/services/admin/settingGeneration';
 
-// React Query 훅
 export const useGenerationQuery = () => {
     const setGenerationList = useGenerationStore(
         (state) => state.setGenerationList,
     );
 
-    const { data, isSuccess, isLoading } = useQuery({
+    const query = useQuery({
         queryKey: ['generations'],
         queryFn: getGenerationListAPI,
-        staleTime: 0, // 항상 'stale' 상태로 설정
-        refetchOnMount: true, // 마운트 시 재요청
+        staleTime: 0,
+        refetchOnMount: true,
         gcTime: 10 * 60 * 1000,
     });
 
-    if (isSuccess && data) {
-        setGenerationList(data);
-    }
+    useEffect(() => {
+        if (query.data) {
+            setGenerationList(query.data);
+        }
+    }, [query.data]);
 
-    return { data, isSuccess, isLoading };
+    return query;
+};
+
+export const useGenerationMutations = () => {
+    const queryClient = useQueryClient();
+
+    const addMutation = useMutation({
+        mutationFn: addGenerationAPI,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['generations'] });
+        },
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: deleteGenerationAPI,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['generations'] });
+        },
+    });
+
+    const activeMutation = useMutation({
+        mutationFn: activeGenerationAPI,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['generations'] });
+        },
+    });
+
+    return { addMutation, deleteMutation, activeMutation };
 };
