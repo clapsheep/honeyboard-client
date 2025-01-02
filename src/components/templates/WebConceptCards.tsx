@@ -13,12 +13,10 @@ const WebConceptCards = ({
     page,
     size,
 }: WebConceptCardsProps) => {
-    console.log(generationId);
-
     const { data } = useSuspenseQuery({
         queryKey: ['webConcepts', generationId, page, size],
         queryFn: () =>
-            getWebConceptsAPI(generationId || null, page || 1, size || 16),
+            getWebConceptsAPI(generationId || null, page || 1, size || 8),
     });
 
     if (!data?.content?.length) {
@@ -39,7 +37,7 @@ const WebConceptCards = ({
                         title={item.title}
                         subTitle={item.updatedAt}
                         id={item.id}
-                        img={item.thumbnailUrl}
+                        img={item.thumbnail}
                     />
                 </li>
             ))}

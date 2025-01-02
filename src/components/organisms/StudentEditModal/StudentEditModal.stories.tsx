@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import StudentEditModal from './StudentEditModal';
-import { StudentType } from '@/services/admin/types';
+import { StudentType } from '@/types/admin/types';
 
 // Meta 타입 정의
 const meta: Meta<typeof StudentEditModal> = {

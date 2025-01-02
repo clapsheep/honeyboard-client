@@ -1,6 +1,7 @@
 import { api } from '../common/axiosInstance';
-import { GenerationType } from '../common/generation';
-import { StudentType } from './types';
+
+import { StudentType } from '../../types/admin/types';
+import { GenerationType } from '@/types/common/type';
 
 // 학생관리
 export const getStudentsAPI = async (

@@ -1,6 +1,6 @@
 import { StudentInfo } from '@/components/molecules';
 import { getStudentsAPI } from '@/services/admin/adminAPI';
-import { StudentType } from '@/services/admin/types';
+import { StudentType } from '@/types/admin/types';
 import { getGenerationName } from '@/services/common/generation';
 import { useSuspenseQuery } from '@tanstack/react-query';
 

@@ -4,21 +4,21 @@ import {
     WebConceptDetail,
     WebRecommend,
     WebRecommendDetail,
-} from './type';
+} from '../../../types/study/type';
 import { PageResponse } from '@/types/common/type';
 
 //웹 개념
 export const getWebConceptsAPI = async (
     generationId: string | null,
-    page: number,
-    size: number,
+    currentPage: number,
+    pageSize: number,
     title?: string,
 ): Promise<PageResponse<WebConcept>> => {
     const { data } = await api.get('/web/guide', {
         params: {
             generationId: generationId || null,
-            page,
-            size,
+            currentPage,
+            pageSize,
             ...(title && { title }),
         },
     });
@@ -53,15 +53,15 @@ export const deleteWebConceptAPI = async (
 // 웹 추천
 export const getWebRecommendsAPI = async (
     generationId: string | null,
-    page: number,
-    size: number,
+    currentPage: number,
+    pageSize: number,
     title?: string,
 ): Promise<PageResponse<WebRecommend>> => {
     const { data } = await api.get('/web/recommend', {
         params: {
             generationId: generationId || null,
-            page,
-            size,
+            currentPage,
+            pageSize,
             ...(title && { title }),
         },
     });

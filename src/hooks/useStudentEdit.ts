@@ -1,5 +1,5 @@
 import { updateStudentAPI } from '@/services/admin/adminAPI';
-import { StudentType } from '@/services/admin/types';
+import { StudentType } from '@/types/admin/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 

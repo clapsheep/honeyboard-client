@@ -1,4 +1,4 @@
-import { GenerationType } from '@/services/common/generation/types';
+import { GenerationType } from '@/types/common/type';
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
