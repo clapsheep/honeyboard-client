@@ -14,6 +14,45 @@ const useToastEditor = ({ editorId, initialContent }: UseEditorProps) => {
     const editorRef = useRef<HTMLDivElement>(null);
     const editorInstanceRef = useRef<Editor | null>(null);
 
+    // 글 작성 중 뒤로가기 및 창 닫기 시 이미지 삭제
+    useEffect(() => {
+        // 창 닫기/새로고침
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (!isSubmit && uploadedImageUrls.length > 0) {
+                e.preventDefault();
+                e.returnValue =
+                    '작성 중인 내용이 있습니다. 페이지를 나가시겠습니까?';
+
+                uploadedImageUrls.forEach((url) => deleteImageAPI(url));
+            }
+        };
+
+        // 뒤로가기
+        const handlePopState = () => {
+            if (!isSubmit && uploadedImageUrls.length > 0) {
+                if (
+                    window.confirm(
+                        '작성 중인 내용이 있습니다. 페이지를 나가시겠습니까?',
+                    )
+                ) {
+                    uploadedImageUrls.forEach((url) => deleteImageAPI(url));
+                } else {
+                    // 뒤로가기 취소
+                    window.history.pushState(null, '', window.location.href);
+                }
+            }
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [isSubmit, uploadedImageUrls]);
+
+    // 에디터 기능
     useEffect(() => {
         if (!editorRef.current) return;
 
@@ -55,23 +94,9 @@ const useToastEditor = ({ editorId, initialContent }: UseEditorProps) => {
         editorInstanceRef.current = new Editor(editorOptions);
 
         return () => {
-            // 사용자가 글을 미등록했다면 업로드된 이미지 삭제
-            if (!isSubmit) {
-                const cleanup = async () => {
-                    try {
-                        await Promise.all(
-                            uploadedImageUrls.map((url) => deleteImageAPI(url)),
-                        );
-                    } catch (error) {
-                        console.error('이미지 정리 중 오류:', error);
-                    }
-                };
-                cleanup();
-            }
-
             editorInstanceRef.current?.destroy();
         };
-    }, [editorId, initialContent, isSubmit]);
+    }, [editorId, initialContent]);
 
     // 글 등록과 함께 이미지 삭제 처리 및 썸네일 선정
     const onSubmit = async () => {
