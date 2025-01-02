@@ -218,11 +218,11 @@ function App() {
                                     element={<CreateWebRecommend />}
                                 />
                                 <Route
-                                    path="recommend/:recomendId"
+                                    path="recommend/:recommendId"
                                     element={<WebRecommendDetail />}
                                 />
                                 <Route
-                                    path="recommend/:recomendId/edit"
+                                    path="recommend/:recommendId/edit"
                                     element={<div>Web Edit</div>}
                                 />
                             </Route>
