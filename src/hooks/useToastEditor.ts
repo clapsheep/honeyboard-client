@@ -6,7 +6,6 @@ import {
     ImageOptimizationOptions,
     DEFAULT_OPTIMIZATION_OPTIONS,
     optimizeImageToWebP,
-    formatAnalysis,
     ImageAnalysis,
 } from '@/utils/imageOptimization';
 
@@ -41,16 +40,7 @@ const useToastEditor = ({
         // 뒤로가기
         const handlePopState = () => {
             if (!isSubmit && uploadedImageUrls.length > 0) {
-                if (
-                    window.confirm(
-                        '작성 중인 내용이 있습니다. 페이지를 나가시겠습니까?',
-                    )
-                ) {
-                    uploadedImageUrls.forEach((url) => deleteImageAPI(url));
-                } else {
-                    // 뒤로가기 취소
-                    window.history.pushState(null, '', window.location.href);
-                }
+                uploadedImageUrls.forEach((url) => deleteImageAPI(url));
             }
         };
 
@@ -69,7 +59,7 @@ const useToastEditor = ({
 
         const editorOptions: EditorOptions = {
             el: editorRef.current,
-            previewStyle: 'vertical',
+            previewStyle: 'tab',
             initialEditType: 'markdown',
             hideModeSwitch: true,
             initialValue: initialContent,
@@ -79,27 +69,12 @@ const useToastEditor = ({
                     callback: HookCallback,
                 ) => {
                     try {
-                        // 최적화 전 원본 이미지 업로드
-                        const originalFile =
-                            blob instanceof File
-                                ? blob
-                                : new File(
-                                      [blob],
-                                      `${editorId}-original-${Date.now()}`,
-                                      {
-                                          type: blob.type,
-                                      },
-                                  );
-                        await uploadImageAPI(originalFile);
-
                         // 이미지 최적화 및 분석
                         const { optimizedBlob, analysis } =
                             await optimizeImageToWebP(
                                 blob,
                                 optimizationOptions,
                             );
-
-                        console.log(formatAnalysis(analysis));
 
                         // 콜백으로 분석 결과 전달
                         onImageOptimized?.(analysis);

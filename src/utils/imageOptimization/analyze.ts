@@ -10,7 +10,7 @@ export async function analyzeImage(
                 height: img.height,
             });
         };
-        img.onerror = () => reject(new Error('이미지 분석에 실패했습니다.'));
+        img.onerror = () => reject(new Error('Failed to analyze image'));
         img.src = URL.createObjectURL(blob);
     });
 }
