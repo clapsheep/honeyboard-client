@@ -11,11 +11,17 @@ export interface WebRecommend {
 export interface WebConcept {
     id: string;
     title: string;
-    content: string;
     userId: string;
     thumbnail: string;
     generationId: string;
     createdAt: string;
     updatedAt: string;
     deleted: boolean;
+}
+
+export interface WebRecommendDetail extends WebRecommend {
+    content: string;
+}
+export interface WebConceptDetail extends WebConcept {
+    content: string;
 }

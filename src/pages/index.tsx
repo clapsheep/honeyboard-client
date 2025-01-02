@@ -19,3 +19,5 @@ export { default as CreateAlgorithmProblemSolution } from './study/algorithm/Cre
 export { default as CreateWebConcept } from './study/web/CreateWebConcept';
 export { default as CreateWebRecommend } from './study/web/CreateWebRecommend';
 export { default as Schedule } from './Schedule';
+export { default as WebConceptDetail } from './study/web/WebConceptDetail';
+export { default as WebRecommendDetail } from './study/web/WebRecommendDetail';
