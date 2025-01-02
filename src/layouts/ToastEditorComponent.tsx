@@ -1,19 +1,12 @@
-import useToastEditor from '@/hooks/useToastEditor';
-
 interface ToastEditorComponentProps {
     editorId: string;
-    content: string;
+    editorRef: React.RefObject<HTMLDivElement>;
 }
 
 const ToastEditorComponent = ({
     editorId,
-    content,
+    editorRef,
 }: ToastEditorComponentProps) => {
-    const { editorRef } = useToastEditor({
-        editorId,
-        content,
-    });
-
     return <div id={editorId} ref={editorRef}></div>;
 };
 

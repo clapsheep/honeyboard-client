@@ -17,6 +17,12 @@ export const getWebConceptsAPI = async (
     return data;
 };
 
+export const createWebConceptAPI = async (
+    WebConcept: WebConcept,
+): Promise<WebConcept> => {
+    return await api.post('/web/guide', WebConcept);
+};
+
 export const getWebRecommendsAPI = async (
     generationId: string,
     page: number,

@@ -11,7 +11,7 @@ export const uploadImageAPI = async (
     const formData = new FormData();
     formData.append('file', file);
 
-    return api.post(`${VITE_BASE_API}/upload`, formData, {
+    return api.post(`${VITE_BASE_API}/image`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -22,7 +22,7 @@ export const uploadImageAPI = async (
 export const deleteImageAPI = async (
     imageUrl: string,
 ): Promise<AxiosResponse<void>> => {
-    return api.delete(`${VITE_BASE_API}/upload`, {
+    return api.delete(`${VITE_BASE_API}/image`, {
         params: {
             imageUrl: imageUrl,
         },

@@ -1,3 +1,3 @@
 export type Image = {
-    imageUrl: string;
+    url: string;
 };
