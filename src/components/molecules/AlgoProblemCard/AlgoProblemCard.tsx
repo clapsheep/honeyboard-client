@@ -1,27 +1,29 @@
 import { CalendarTag } from '@/components/atoms';
 import { getPlatformInfo } from '@/utils/getPlatformInfo';
+import { Link } from 'react-router';
 
 interface AlgoProblemCardProps {
+    id: string;
     title: string;
     description: string;
     link: string;
     tags: string[];
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    // onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const AlgoProblemCard = ({
+    id,
     title,
     description,
     link,
     tags,
-    onClick,
 }: AlgoProblemCardProps) => {
     const platformInfo = getPlatformInfo(link);
 
     return (
-        <button
+        <Link
             type="button"
-            onClick={onClick}
+            to={`/study/algorithm/problem/${id}`}
             className="flex h-full w-full flex-col items-center justify-center rounded border border-gray-300 px-4 shadow-lg"
         >
             <div className="flex w-full items-center justify-between py-2">
@@ -53,7 +55,7 @@ const AlgoProblemCard = ({
                     </ul>
                 )}
             </div>
-        </button>
+        </Link>
     );
 };
 export default AlgoProblemCard;

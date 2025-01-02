@@ -1,27 +1,27 @@
 import { Icon } from '@/components/atoms';
+import { Link } from 'react-router';
 
 interface WebSiteCardProps {
+    id: string;
     title: string;
-    subTitle: string; // 날짜
+    subTitle: string;
     site?: string;
     isBookmarked: boolean;
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onBookmarkClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const WebSiteCard = ({
+    id,
     title,
     subTitle,
     site,
     isBookmarked,
-    onClick,
     onBookmarkClick,
 }: WebSiteCardProps) => {
     return (
-        <button
-            type="button"
-            onClick={onClick}
-            className="h-full w-full rounded border border-gray-300 bg-gray-25 shadow-lg"
+        <Link
+            to={`/study/web/recommend/${id}`}
+            className="block h-full w-full rounded border border-gray-300 bg-gray-25 shadow-lg"
         >
             <div className="flex w-full flex-col items-start px-4 py-3">
                 <div className="flex w-full justify-between">
@@ -60,7 +60,7 @@ const WebSiteCard = ({
                     </p>
                 )}
             </div>
-        </button>
+        </Link>
     );
 };
 

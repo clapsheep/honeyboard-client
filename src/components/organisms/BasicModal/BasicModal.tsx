@@ -3,6 +3,7 @@ import { Icon, ModalButton } from '@/components/atoms';
 interface BasicModalProps {
     icon?: string;
     title: string;
+    isOpen: boolean;
     subTitle?: string;
     onConfirmClick?: (e: React.MouseEvent) => void;
     onDeleteClick?: (e: React.MouseEvent) => void;
@@ -10,6 +11,7 @@ interface BasicModalProps {
 }
 
 const BasicModal = ({
+    isOpen,
     icon,
     title,
     subTitle,
@@ -18,7 +20,11 @@ const BasicModal = ({
     onCancelClick,
 }: BasicModalProps) => {
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+        <div
+            className={`fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50 ${
+                isOpen ? 'block' : 'hidden'
+            }`}
+        >
             <div className="w-full max-w-[352px] rounded-xl border bg-gray-25 p-6">
                 <section className="flex justify-center pb-5">
                     {icon && <Icon id={icon} size={48} />}
