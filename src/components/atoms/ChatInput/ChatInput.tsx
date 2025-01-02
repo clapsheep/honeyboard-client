@@ -1,22 +1,23 @@
 import Icon from '../Icon/Icon';
+import { useRef } from 'react';
 
 interface ChatInputProps {
     id: string;
     value: string;
-    textareaRef: React.RefObject<HTMLTextAreaElement>;
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 }
 
-const ChatInput = ({
-    id,
-    value,
-    textareaRef,
-    onChange,
-    onClick,
-    onKeyDown,
-}: ChatInputProps) => {
+const ChatInput = ({ id, value, onChange, onClick }: ChatInputProps) => {
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            onClick(e as unknown as React.MouseEvent<HTMLButtonElement>);
+        }
+    };
+
     return (
         <div className="relative flex items-center">
             <textarea
@@ -27,7 +28,7 @@ const ChatInput = ({
                 ref={textareaRef}
                 rows={1}
                 onChange={onChange}
-                onKeyDown={onKeyDown}
+                onKeyDown={handleKeyDown}
                 className="max-h-[235px] w-full resize-none overflow-y-auto rounded-2xl border border-gray-400 px-5 py-4 pr-14 shadow-md placeholder:text-gray-500"
                 style={{
                     scrollbarWidth: 'none',

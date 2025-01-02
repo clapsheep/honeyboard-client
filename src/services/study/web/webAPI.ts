@@ -9,14 +9,14 @@ import { PageResponse } from '@/types/common/type';
 
 //웹 개념
 export const getWebConceptsAPI = async (
-    generationId: string,
+    generationId: string | null,
     page: number,
     size: number,
     title?: string,
 ): Promise<PageResponse<WebConcept>> => {
     const { data } = await api.get('/web/guide', {
         params: {
-            generationId,
+            generationId: generationId || null,
             page,
             size,
             ...(title && { title }),
@@ -52,14 +52,14 @@ export const deleteWebConceptAPI = async (
 
 // 웹 추천
 export const getWebRecommendsAPI = async (
-    generationId: string,
+    generationId: string | null,
     page: number,
     size: number,
     title?: string,
 ): Promise<PageResponse<WebRecommend>> => {
     const { data } = await api.get('/web/recommend', {
         params: {
-            generationId,
+            generationId: generationId || null,
             page,
             size,
             ...(title && { title }),

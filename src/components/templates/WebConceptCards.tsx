@@ -1,10 +1,9 @@
 import { ProjectCard } from '@/components/organisms';
 import { getWebConceptsAPI } from '@/services/study/web';
-import { useUserStore } from '@/stores/userStore';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 interface WebConceptCardsProps {
-    generationId?: string;
+    generationId?: string | null;
     page?: number;
     size?: number;
 }
@@ -14,15 +13,12 @@ const WebConceptCards = ({
     page,
     size,
 }: WebConceptCardsProps) => {
-    const { userInfo } = useUserStore();
+    console.log(generationId);
+
     const { data } = useSuspenseQuery({
         queryKey: ['webConcepts', generationId, page, size],
         queryFn: () =>
-            getWebConceptsAPI(
-                generationId || userInfo!.generationId,
-                page || 1,
-                size || 16,
-            ),
+            getWebConceptsAPI(generationId || null, page || 1, size || 16),
     });
 
     if (!data?.content?.length) {

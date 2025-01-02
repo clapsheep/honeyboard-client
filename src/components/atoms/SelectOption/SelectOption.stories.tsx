@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import SelectOption from './SelectOption';
+import { SelectOptionType } from '@/services/common/generation';
 
 const meta = {
     title: 'Components/Atoms/SelectOption',
@@ -13,10 +14,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const gisuOptions: Record<string | number, string> = {
-    '1': '12기',
-    '2': '11기',
-};
+const gisuOptions: SelectOptionType[] = [
+    { value: '12', label: '12기' },
+    { value: '11', label: '11기' },
+];
 
 export const Default: Story = {
     args: {
@@ -24,6 +25,7 @@ export const Default: Story = {
         name: 'selectGisu',
         options: gisuOptions,
         placeholder: '기수 선택',
+        defaultValue: gisuOptions[0].value,
         onChange: (e: React.ChangeEvent<HTMLSelectElement>) => {
             console.log(e.target.value);
         },

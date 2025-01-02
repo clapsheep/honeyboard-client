@@ -1,6 +1,5 @@
 import { WebSiteCard } from '@/components/molecules';
 import { getWebRecommendsAPI } from '@/services/study/web';
-import { useUserStore } from '@/stores/userStore';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 interface WebRecommendCardsProps {
@@ -14,15 +13,10 @@ const WebRecommendCards = ({
     page,
     size,
 }: WebRecommendCardsProps) => {
-    const { userInfo } = useUserStore();
     const { data } = useSuspenseQuery({
         queryKey: ['webConcepts', generationId, page, size],
         queryFn: () =>
-            getWebRecommendsAPI(
-                generationId || userInfo!.generationId,
-                page || 1,
-                size || 16,
-            ),
+            getWebRecommendsAPI(generationId || null, page || 1, size || 16),
     });
 
     if (!data?.content?.length) {
@@ -34,6 +28,7 @@ const WebRecommendCards = ({
             </div>
         );
     }
+    console.log(data);
 
     return (
         <ul className="grid w-full grid-cols-4 gap-6">

@@ -5,13 +5,16 @@ import {
     ProjectCardSkeletonList,
     WebConceptCards,
 } from '@/components/templates';
+import { useGenerationStore } from '@/stores/generationStore';
 import { useUserStore } from '@/stores/userStore';
+import { convertSelectType } from '@/utils/convertSelectType';
 import { Suspense, useState } from 'react';
 import { useLocation } from 'react-router';
 
 const WebConceptList = () => {
     const { userInfo } = useUserStore();
-    const [generation, setGeneration] = useState<string>(
+    const { generationList } = useGenerationStore();
+    const [generationId, setGenerationId] = useState<string | null>(
         userInfo!.generationId,
     );
     const { pathname } = useLocation();
@@ -26,12 +29,6 @@ const WebConceptList = () => {
             name: '웹 추천',
             isActive: false,
         },
-    ];
-
-    const GENERATION_OPTIONS = [
-        { value: '13', label: '13기' },
-        { value: '12', label: '12기' },
-        { value: '11', label: '11기' },
     ];
 
     return (
@@ -51,10 +48,10 @@ const WebConceptList = () => {
                             id="generation"
                             name="generation"
                             placeholder="기수"
-                            options={GENERATION_OPTIONS}
-                            defaultValue={userInfo!.generationId}
+                            options={convertSelectType(generationList)}
+                            defaultValue={generationId}
                             onChange={(e) => {
-                                setGeneration(e.target.value);
+                                setGenerationId(e.target.value);
                             }}
                         />
                     </div>
@@ -63,7 +60,7 @@ const WebConceptList = () => {
             <div className="flex flex-col items-center justify-center gap-6 p-6">
                 <div>서치 바 들어가는 자리</div>
                 <Suspense fallback={<ProjectCardSkeletonList />}>
-                    <WebConceptCards generationId={generation} />
+                    <WebConceptCards generationId={generationId} />
                 </Suspense>
             </div>
         </div>
