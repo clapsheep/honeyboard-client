@@ -1,4 +1,5 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+@import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

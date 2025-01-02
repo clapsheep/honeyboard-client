@@ -12,11 +12,11 @@ const TrackList = () => {
     const ROUTES = [{ path: '/track', name: '프로젝트', isActive: true }];
 
     const { userInfo } = useUserStore();
-    const GENERATION_OPTIONS = {
-        '13기': '13기',
-        '12기': '12기',
-        '11기': '11기',
-    };
+    const GENERATION_OPTIONS = [
+        { value: '13', label: '13기' },
+        { value: '12', label: '12기' },
+        { value: '11', label: '11기' },
+    ];
 
     return (
         <div>
