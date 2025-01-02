@@ -34,7 +34,6 @@ const WebConceptCards = ({
             </div>
         );
     }
-    console.log(data);
 
     return (
         <ul className="grid w-full grid-cols-4 gap-6">
