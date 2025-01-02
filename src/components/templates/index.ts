@@ -4,3 +4,4 @@ export { default as WebRecommendSkeletonList } from './Skeletons/WebSiteCardSkel
 export { default as ProjectCardSkeletonList } from './Skeletons/ProjectCardSkeletonList';
 export { default as AlgoProblemCards } from './AlgoProblemCards';
 export { default as AlgoProblemCardSkeletonList } from './Skeletons/AlgoProblemCardSkeletonList';
+export { default as AlgorithmConceptCards } from './AlgorithmConceptCards';

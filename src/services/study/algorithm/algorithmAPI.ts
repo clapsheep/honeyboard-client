@@ -1,13 +1,23 @@
 import { api } from '@/services/common/axiosInstance';
 import { PageResponse } from '@/types/common/type';
-import { AlgorithmProblem } from './type';
+import { AlgorithmProblem, AlgorithmConcept } from './type';
 
-export const getAlgorithmConceptsAPI = async (generationId: string) => {
-    return api.get('/algorithm/concept', {
+export const getAlgorithmConceptsAPI = async (
+    generationId: string,
+    page: number,
+    size: number,
+    title?: string,
+): Promise<PageResponse<AlgorithmConcept>> => {
+    const { data } = await api.get('algorithm/guide', {
         params: {
             generationId,
+            page,
+            size,
+            ...(title && { title }),
         },
     });
+
+    return data;
 };
 
 export const getAlgorithmProblemsAPI = async (

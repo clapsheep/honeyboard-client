@@ -13,3 +13,14 @@ export interface AlgorithmProblem {
     deleted: boolean;
     tags: Tag[];
 }
+
+export interface AlgorithmConcept {
+    id: string;
+    title: string;
+    userId: string;
+    generationId: string;
+    thumbnailUrl: string;
+    createdAt: string;
+    updatedAt: string;
+    deleted: boolean;
+}

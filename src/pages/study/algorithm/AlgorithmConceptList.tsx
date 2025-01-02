@@ -1,11 +1,19 @@
 import { Button, SelectOption } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
-import { useState } from 'react';
+import {
+    ProjectCardSkeletonList,
+    AlgorithmConceptCards,
+} from '@/components/templates';
+import { Suspense, useState } from 'react';
+import { useUserStore } from '@/stores/userStore';
 import { useLocation, useNavigate } from 'react-router';
 
 const AlgorithmConceptList = () => {
-    const [generation, setGeneration] = useState<string>('');
+    const { userInfo } = useUserStore();
+    const [generation, setGeneration] = useState<string>(
+        userInfo!.generationId,
+    );
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
@@ -51,6 +59,7 @@ const AlgorithmConceptList = () => {
                             name="generation"
                             placeholder="기수"
                             options={GENERATION_OPTIONS}
+                            defaultValue={userInfo!.generationId}
                             onChange={(e) => {
                                 setGeneration(e.target.value);
                             }}
@@ -58,6 +67,12 @@ const AlgorithmConceptList = () => {
                     </div>
                 </div>
             </Header>
+            <div className="flex flex-col items-center justify-center gap-6 p-6">
+                <div>서치 바 들어가는 자리</div>
+                <Suspense fallback={<ProjectCardSkeletonList />}>
+                    <AlgorithmConceptCards generationId={generation} />
+                </Suspense>
+            </div>
         </div>
     );
 };
