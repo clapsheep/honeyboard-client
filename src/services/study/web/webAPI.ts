@@ -33,14 +33,14 @@ export const getWebConceptDetailAPI = async (
 };
 
 export const createWebConceptAPI = async (
-    webConcept: WebConcept,
-): Promise<WebConcept> => {
+    webConcept: WebConceptDetail,
+): Promise<WebConceptDetail> => {
     const { data } = await api.post('/web/guide', webConcept);
     return data;
 };
 export const updateWebConceptAPI = async (
-    webConcept: WebConcept,
-): Promise<WebConcept> => {
+    webConcept: WebConceptDetail,
+): Promise<WebConceptDetail> => {
     const { data } = await api.put(`/web/guide/${webConcept.id}`, webConcept);
     return data;
 };
@@ -76,14 +76,14 @@ export const getWebRecommendDetailAPI = async (
 };
 
 export const createWebRecommendAPI = async (
-    webRecommend: WebRecommend,
-): Promise<WebRecommend> => {
+    webRecommend: WebRecommendDetail,
+): Promise<WebRecommendDetail> => {
     const { data } = await api.post('/web/recommend', webRecommend);
     return data;
 };
 export const updateWebRecommendAPI = async (
-    webRecommend: WebRecommend,
-): Promise<WebRecommend> => {
+    webRecommend: WebRecommendDetail,
+): Promise<WebRecommendDetail> => {
     const { data } = await api.put(
         `/web/recommend/${webRecommend.id}`,
         webRecommend,
