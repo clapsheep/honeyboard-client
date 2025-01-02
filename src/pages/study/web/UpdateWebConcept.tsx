@@ -103,7 +103,7 @@ const UpdateWebConcept = () => {
                         <Button color="red" onClick={handleCancel}>
                             취소
                         </Button>
-                        <Button onClick={handleUpdate}>게시글수정</Button>
+                        <Button onClick={handleUpdate}>게시글 수정</Button>
                     </div>
                 </div>
             </Header>

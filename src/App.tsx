@@ -31,6 +31,7 @@ import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
 import UpdateWebConcept from './pages/study/web/UpdateWebConcept';
 import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
+import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
 
 function App() {
     const { userInfo } = useUserStore();
@@ -140,7 +141,7 @@ function App() {
                                 />
                                 <Route
                                     path="concept/:conceptId/edit"
-                                    element={<div>Algorithm Concept Edit</div>}
+                                    element={<UpdateAlgorithmConcept />}
                                 />
 
                                 <Route

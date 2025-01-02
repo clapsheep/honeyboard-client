@@ -4,44 +4,46 @@ import { Header } from '@/components/organisms';
 import useToastEditor from '@/hooks/useToastEditor';
 import ToastEditorComponent from '@/layouts/ToastEditorComponent';
 import {
-    getWebRecommendDetailAPI,
-    updateWebRecommendAPI,
-    WebRecommendDetail,
-} from '@/services/study/web';
+    getAlgorithmConceptDetailAPI,
+    updateAlgorithmConceptAPI,
+} from '@/services/study/algorithm';
+import { AlgorithmConceptDetail } from '@/services/study/algorithm/type';
 import { useUserStore } from '@/stores/userStore';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
-const UpdateWebRecommend = () => {
-    const { recommendId } = useParams();
+const UpdateAlgorithmConcept = () => {
+    const { conceptId } = useParams();
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
-    const [url, setUrl] = useState('');
-    const [detail, setDetail] = useState<WebRecommendDetail | null>(null);
+    const [detail, setDetail] = useState<AlgorithmConceptDetail | null>(null);
 
     const { userInfo } = useUserStore();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
+    const bookmark = false; // 추후 수정
 
     useEffect(() => {
-        if (!recommendId) {
+        if (!conceptId) {
             alert('존재하지 않는 글입니다.');
             return;
         }
 
         const fetchContent = async () => {
-            const data = await getWebRecommendDetailAPI(recommendId);
+            const data = await getAlgorithmConceptDetailAPI(
+                conceptId,
+                bookmark,
+            );
             setDetail(data);
             setTitle(data.title);
-            setUrl(data.url);
         };
 
         fetchContent();
-    }, [recommendId]);
+    }, [conceptId]);
 
     const { onSubmit, onCancel, editorRef } = useToastEditor({
-        editorId: 'webRecommendEditor',
+        editorId: 'algorithmConceptEditor',
         initialContent: detail?.content || '',
     });
 
@@ -69,19 +71,19 @@ const UpdateWebRecommend = () => {
         }
 
         try {
-            const { content } = await onSubmit();
+            const { content, thumbnail } = await onSubmit();
             const currentDate = new Date().toISOString();
 
-            await updateWebRecommendAPI({
+            await updateAlgorithmConceptAPI(detail.id, {
                 id: detail.id,
                 title: title.trim(),
                 content,
                 userId,
-                url,
+                thumbnail,
                 generationId,
                 createdAt: detail.createdAt,
                 updatedAt: currentDate,
-                deleted: false,
+                isDeleted: false,
             });
 
             navigate(-1);
@@ -92,10 +94,6 @@ const UpdateWebRecommend = () => {
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
-    };
-
-    const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUrl(e.target.value);
     };
 
     return (
@@ -115,7 +113,7 @@ const UpdateWebRecommend = () => {
             </Header>
             <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
-                    id="webRecommendTitle"
+                    id="algorithmConceptTitle"
                     label="제목"
                     placeholder="제목을 입력하세요"
                     required={true}
@@ -123,17 +121,9 @@ const UpdateWebRecommend = () => {
                     value={title}
                     onChange={handleTitleChange}
                 />
-                <InputForm
-                    id="webRecommendUrl"
-                    label="주소"
-                    placeholder="사이트 주소를 입력하세요"
-                    type="text"
-                    value={url}
-                    onChange={handleUrlChange}
-                />
                 <div className="flex-1">
                     <ToastEditorComponent
-                        editorId="webRecommendEditor"
+                        editorId="algorithmConceptEditor"
                         editorRef={editorRef}
                     />
                 </div>
@@ -142,4 +132,4 @@ const UpdateWebRecommend = () => {
     );
 };
 
-export default UpdateWebRecommend;
+export default UpdateAlgorithmConcept;
