@@ -12,7 +12,7 @@ export interface WebConcept {
     id: string;
     title: string;
     userId: string;
-    thumbnailUrl: string;
+    thumbnail: string;
     generationId: string;
     createdAt: string;
     updatedAt: string;
