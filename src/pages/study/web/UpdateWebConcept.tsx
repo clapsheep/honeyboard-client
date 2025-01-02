@@ -46,7 +46,7 @@ const UpdateWebConcept = () => {
     const handleCancel = async () => {
         const confirm = await onCancel();
         if (confirm) {
-            navigate('-1');
+            navigate(-1);
         }
     };
 
@@ -82,9 +82,9 @@ const UpdateWebConcept = () => {
                 deleted: false,
             });
 
-            navigate('/web/concept');
+            navigate(-1);
         } catch (error) {
-            console.error('게시글 작성을 실패했습니다:', error);
+            console.error('게시글 수정을 실패했습니다:', error);
         }
     };
 
@@ -95,7 +95,7 @@ const UpdateWebConcept = () => {
     return (
         <div>
             <Header
-                titleProps={{ title: '글수정' }}
+                titleProps={{ title: '게시글 수정' }}
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-end">
@@ -103,11 +103,11 @@ const UpdateWebConcept = () => {
                         <Button color="red" onClick={handleCancel}>
                             취소
                         </Button>
-                        <Button onClick={handleUpdate}>글수정</Button>
+                        <Button onClick={handleUpdate}>게시글수정</Button>
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-1 flex-col gap-4 p-4">
+            <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
                     id="webConceptTitle"
                     label="제목"

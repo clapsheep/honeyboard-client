@@ -30,6 +30,7 @@ import { useUserStore } from './stores/userStore';
 import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
 import UpdateWebConcept from './pages/study/web/UpdateWebConcept';
+import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
 
 function App() {
     const { userInfo } = useUserStore();
@@ -217,12 +218,12 @@ function App() {
                                     element={<CreateWebRecommend />}
                                 />
                                 <Route
-                                    path="recommend/:recomendId"
+                                    path="recommend/:recommendId"
                                     element={<WebRecommendDetail />}
                                 />
                                 <Route
-                                    path="recommend/:recomendId/edit"
-                                    element={<div>Web Edit</div>}
+                                    path="recommend/:recommendId/edit"
+                                    element={<UpdateWebRecommend />}
                                 />
                             </Route>
                         </Route>

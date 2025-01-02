@@ -1,26 +1,48 @@
 import { Button } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { Header } from '@/components/organisms';
-import ToastEditorComponent from '@/layouts/ToastEditorComponent';
-import { useLocation, useNavigate } from 'react-router';
-import { useState } from 'react';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import { useUserStore } from '@/stores/userStore';
 import useToastEditor from '@/hooks/useToastEditor';
-import { createWebConceptAPI } from '@/services/study/web';
+import ToastEditorComponent from '@/layouts/ToastEditorComponent';
+import {
+    getWebRecommendDetailAPI,
+    updateWebRecommendAPI,
+    WebRecommendDetail,
+} from '@/services/study/web';
+import { useUserStore } from '@/stores/userStore';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router';
 
-const CreateWebConcept = () => {
+const UpdateWebRecommend = () => {
+    const { recommendId } = useParams();
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
+    const [url, setUrl] = useState('');
+    const [detail, setDetail] = useState<WebRecommendDetail | null>(null);
 
     const { userInfo } = useUserStore();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
 
+    useEffect(() => {
+        if (!recommendId) {
+            alert('존재하지 않는 글입니다.');
+            return;
+        }
+
+        const fetchContent = async () => {
+            const data = await getWebRecommendDetailAPI(recommendId);
+            setDetail(data);
+            setTitle(data.title);
+            setUrl(data.url);
+        };
+
+        fetchContent();
+    }, [recommendId]);
+
     const { onSubmit, onCancel, editorRef } = useToastEditor({
-        editorId: 'webConceptEditor',
-        initialContent: '',
+        editorId: 'webRecommendEditor',
+        initialContent: detail?.content || '',
     });
 
     const handleCancel = async () => {
@@ -30,7 +52,7 @@ const CreateWebConcept = () => {
         }
     };
 
-    const handleCreate = async () => {
+    const handleUpdate = async () => {
         if (!title.trim()) {
             alert('제목을 입력해주세요.');
             return;
@@ -41,25 +63,30 @@ const CreateWebConcept = () => {
             return;
         }
 
+        if (!detail) {
+            alert('글을 불러오지 못했습니다.');
+            return;
+        }
+
         try {
-            const { content, thumbnail } = await onSubmit();
+            const { content } = await onSubmit();
             const currentDate = new Date().toISOString();
 
-            await createWebConceptAPI({
-                id: '',
+            await updateWebRecommendAPI({
+                id: detail.id,
                 title: title.trim(),
                 content,
                 userId,
-                thumbnail,
+                url,
                 generationId,
-                createdAt: currentDate,
+                createdAt: detail.createdAt,
                 updatedAt: currentDate,
                 deleted: false,
             });
 
             navigate(-1);
         } catch (error) {
-            console.error('게시글 작성을 실패했습니다:', error);
+            console.error('게시글 수정을 실패했습니다:', error);
         }
     };
 
@@ -67,10 +94,14 @@ const CreateWebConcept = () => {
         setTitle(e.target.value);
     };
 
+    const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUrl(e.target.value);
+    };
+
     return (
         <div>
             <Header
-                titleProps={{ title: '게시글 작성' }}
+                titleProps={{ title: '게시글 수정' }}
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-end">
@@ -78,13 +109,13 @@ const CreateWebConcept = () => {
                         <Button color="red" onClick={handleCancel}>
                             취소
                         </Button>
-                        <Button onClick={handleCreate}>게시글 작성</Button>
+                        <Button onClick={handleUpdate}>게시글수정</Button>
                     </div>
                 </div>
             </Header>
             <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
-                    id="webConceptTitle"
+                    id="webRecommendTitle"
                     label="제목"
                     placeholder="제목을 입력하세요"
                     required={true}
@@ -92,9 +123,17 @@ const CreateWebConcept = () => {
                     value={title}
                     onChange={handleTitleChange}
                 />
+                <InputForm
+                    id="webRecommendUrl"
+                    label="주소"
+                    placeholder="사이트 주소를 입력하세요"
+                    type="text"
+                    value={url}
+                    onChange={handleUrlChange}
+                />
                 <div className="flex-1">
                     <ToastEditorComponent
-                        editorId="webConceptEditor"
+                        editorId="webRecommendEditor"
                         editorRef={editorRef}
                     />
                 </div>
@@ -103,4 +142,4 @@ const CreateWebConcept = () => {
     );
 };
 
-export default CreateWebConcept;
+export default UpdateWebRecommend;
