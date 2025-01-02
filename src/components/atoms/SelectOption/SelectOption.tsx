@@ -3,6 +3,7 @@ interface SelectOptionProps {
     name: string;
     options: { value: string | number; label: string }[];
     placeholder: string;
+    placeholderDisabled?: boolean;
     defaultValue: string | number | null;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
@@ -12,6 +13,7 @@ const SelectOption = ({
     name,
     options,
     placeholder,
+    placeholderDisabled,
     defaultValue,
     onChange,
 }: SelectOptionProps) => {
@@ -28,6 +30,7 @@ const SelectOption = ({
             onChange={handleSelectChange}
         >
             <option
+                disabled={placeholderDisabled}
                 value=""
                 className="text-text-sm font-semibold text-gray-600"
             >

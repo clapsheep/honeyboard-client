@@ -48,6 +48,7 @@ const WebRecommendList = () => {
                             id="generation"
                             name="generation"
                             placeholder="기수"
+                            placeholderDisabled
                             defaultValue={generationId}
                             options={convertSelectType(generationList)}
                             onChange={(e) => {

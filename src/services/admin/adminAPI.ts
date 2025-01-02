@@ -13,7 +13,7 @@ export const getStudentsAPI = async (
     });
     return response.data;
 };
-export const updateStudentAPI = async (id: string, data: StudentType) => {
+export const updateStudentAPI = async (id: number, data: StudentType) => {
     const response = await api.put(`/admin/user/${id}`, data);
     return response.data;
 };
