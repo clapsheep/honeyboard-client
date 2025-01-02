@@ -29,6 +29,7 @@ import {
 import { useUserStore } from './stores/userStore';
 import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
+import UpdateWebConcept from './pages/study/web/UpdateWebConcept';
 
 function App() {
     const { userInfo } = useUserStore();
@@ -204,7 +205,7 @@ function App() {
                                 />
                                 <Route
                                     path="concept/:conceptId/edit"
-                                    element={<div>Web Edit</div>}
+                                    element={<UpdateWebConcept />}
                                 />
 
                                 <Route

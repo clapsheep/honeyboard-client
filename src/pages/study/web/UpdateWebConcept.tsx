@@ -1,26 +1,46 @@
 import { Button } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { Header } from '@/components/organisms';
-import ToastEditorComponent from '@/layouts/ToastEditorComponent';
-import { useLocation, useNavigate } from 'react-router';
-import { useState } from 'react';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import { useUserStore } from '@/stores/userStore';
 import useToastEditor from '@/hooks/useToastEditor';
-import { createWebConceptAPI } from '@/services/study/web';
+import ToastEditorComponent from '@/layouts/ToastEditorComponent';
+import {
+    getWebConceptDetailAPI,
+    updateWebConceptAPI,
+    WebConceptDetail,
+} from '@/services/study/web';
+import { useUserStore } from '@/stores/userStore';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router';
 
-const CreateWebConcept = () => {
+const UpdateWebConcept = () => {
+    const { conceptId } = useParams();
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
+    const [detail, setDetail] = useState<WebConceptDetail | null>(null);
 
     const { userInfo } = useUserStore();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
 
+    useEffect(() => {
+        if (!conceptId) {
+            alert('존재하지 않는 글입니다.');
+            return;
+        }
+
+        const fetchContent = async () => {
+            const data = await getWebConceptDetailAPI(conceptId);
+            setDetail(data);
+            setTitle(data.title);
+        };
+
+        fetchContent();
+    }, [conceptId]);
+
     const { onSubmit, onCancel, editorRef } = useToastEditor({
         editorId: 'webConceptEditor',
-        initialContent: '',
+        initialContent: detail?.content || '',
     });
 
     const handleCancel = async () => {
@@ -30,7 +50,7 @@ const CreateWebConcept = () => {
         }
     };
 
-    const handleCreate = async () => {
+    const handleUpdate = async () => {
         if (!title.trim()) {
             alert('제목을 입력해주세요.');
             return;
@@ -41,18 +61,23 @@ const CreateWebConcept = () => {
             return;
         }
 
+        if (!detail) {
+            alert('글을 불러오지 못했습니다.');
+            return;
+        }
+
         try {
             const { content, thumbnail } = await onSubmit();
             const currentDate = new Date().toISOString();
 
-            await createWebConceptAPI({
-                id: '',
+            await updateWebConceptAPI({
+                id: detail.id,
                 title: title.trim(),
                 content,
                 userId,
                 thumbnail,
                 generationId,
-                createdAt: currentDate,
+                createdAt: detail.createdAt,
                 updatedAt: currentDate,
                 deleted: false,
             });
@@ -70,7 +95,7 @@ const CreateWebConcept = () => {
     return (
         <div>
             <Header
-                titleProps={{ title: '글작성' }}
+                titleProps={{ title: '글수정' }}
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-end">
@@ -78,7 +103,7 @@ const CreateWebConcept = () => {
                         <Button color="red" onClick={handleCancel}>
                             취소
                         </Button>
-                        <Button onClick={handleCreate}>글쓰기</Button>
+                        <Button onClick={handleUpdate}>글수정</Button>
                     </div>
                 </div>
             </Header>
@@ -103,4 +128,4 @@ const CreateWebConcept = () => {
     );
 };
 
-export default CreateWebConcept;
+export default UpdateWebConcept;
