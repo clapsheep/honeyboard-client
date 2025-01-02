@@ -23,6 +23,7 @@ import {
     WebConceptList,
     WebRecommendDetail,
     WebRecommendList,
+    Schedule,
 } from './pages';
 
 import { useUserStore } from './stores/userStore';
@@ -48,7 +49,7 @@ function App() {
                 />
                 <Route element={<PrivateRoute isAuthenticated={!!userInfo} />}>
                     <Route element={<MainLayout />}>
-                        <Route path="/" element={<div>Calender Page</div>} />
+                        <Route path="/" element={<Schedule />} />
                         <Route path="project">
                             <Route
                                 index
