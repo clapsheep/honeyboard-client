@@ -1,5 +1,5 @@
-import { Button, NameTag, SelectOption } from '@/components/atoms';
-import { TabNavigation, TeamTag } from '@/components/molecules';
+import { Button, NameTag } from '@/components/atoms';
+import { TeamTag } from '@/components/molecules';
 import { Header, ProjectCard } from '@/components/organisms';
 import { useGenerationStore } from '@/stores/generationStore';
 import { useUserStore } from '@/stores/userStore';

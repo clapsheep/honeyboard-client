@@ -17,11 +17,6 @@ const TrackList = () => {
     );
     const ROUTES = [{ path: '/track', name: '프로젝트', isActive: true }];
 
-    const GENERATION_OPTIONS = [
-        { value: '13', label: '13기' },
-        { value: '12', label: '12기' },
-        { value: '11', label: '11기' },
-    ];
     const ProjectList = [
         {
             title: '무슨무슨 서비스',
