@@ -30,7 +30,11 @@ import {
 
 import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
+import UpdateWebConcept from './pages/study/web/UpdateWebConcept';
+import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
+import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
 import { useUserStore } from './stores/userStore';
+import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
 
 function App() {
     const { userInfo } = useUserStore();
@@ -140,7 +144,7 @@ function App() {
                                 />
                                 <Route
                                     path="concept/:conceptId/edit"
-                                    element={<div>Algorithm Concept Edit</div>}
+                                    element={<UpdateAlgorithmConcept />}
                                 />
 
                                 <Route
@@ -177,11 +181,7 @@ function App() {
 
                                 <Route
                                     path="problem/:problemId/:solutionId/edit"
-                                    element={
-                                        <div>
-                                            Algorithm Problem Solution Edit
-                                        </div>
-                                    }
+                                    element={<UpdateAlgorithmProblemSolution />}
                                 />
                             </Route>
 
@@ -206,7 +206,7 @@ function App() {
                                 />
                                 <Route
                                     path="concept/:conceptId/edit"
-                                    element={<div>Web Edit</div>}
+                                    element={<UpdateWebConcept />}
                                 />
 
                                 <Route
@@ -223,7 +223,7 @@ function App() {
                                 />
                                 <Route
                                     path="recommend/:recommendId/edit"
-                                    element={<div>Web Edit</div>}
+                                    element={<UpdateWebRecommend />}
                                 />
                             </Route>
                         </Route>
