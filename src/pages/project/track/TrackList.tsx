@@ -1,23 +1,21 @@
 import { Button, SelectOption } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
+import { useGenerationStore } from '@/stores/generationStore';
 import { useUserStore } from '@/stores/userStore';
+import { convertSelectType } from '@/utils/convertSelectType';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 const TrackList = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
-    const [generation, setGeneration] = useState<string>('');
-    const ROUTES = [{ path: '/track', name: '프로젝트', isActive: true }];
-
     const { userInfo } = useUserStore();
-    const GENERATION_OPTIONS = [
-        { value: '13', label: '13기' },
-        { value: '12', label: '12기' },
-        { value: '11', label: '11기' },
-    ];
-
+    const { generationList } = useGenerationStore();
+    const [generation, setGeneration] = useState<string>(
+        userInfo?.generationId ?? '',
+    );
+    const ROUTES = [{ path: '/track', name: '프로젝트', isActive: true }];
     return (
         <div>
             <Header
@@ -42,7 +40,8 @@ const TrackList = () => {
                             id="generation"
                             name="generation"
                             placeholder="기수"
-                            options={GENERATION_OPTIONS}
+                            options={convertSelectType(generationList)}
+                            defaultValue={generation}
                             onChange={(e) => {
                                 setGeneration(e.target.value);
                             }}

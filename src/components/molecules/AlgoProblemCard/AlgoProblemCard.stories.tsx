@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { BrowserRouter } from 'react-router';
 import AlgoProblemCard from './AlgoProblemCard';
 
 const meta: Meta = {
@@ -11,9 +11,11 @@ const meta: Meta = {
     },
     decorators: [
         (Story) => (
-            <div className="flex h-[120px] w-[270px] items-center justify-center">
-                <Story />
-            </div>
+            <BrowserRouter>
+                <div className="flex h-[120px] w-[270px] items-center justify-center">
+                    <Story />
+                </div>
+            </BrowserRouter>
         ),
     ],
 } satisfies Meta<typeof AlgoProblemCard>;
@@ -27,10 +29,7 @@ export const BOJ: Story = {
         description: '2024-12-23',
         link: 'https://www.acmicpc.net/problem/1',
         tags: ['DFS', 'BFS', '그래프', 'DP', '시뮬레이션', '브루트포스'],
-        onClick: fn((e: React.MouseEvent<HTMLButtonElement>) => {
-            e.preventDefault();
-            alert(e.currentTarget.querySelector('span')?.textContent);
-        }),
+        id: '1',
     },
 };
 
@@ -40,10 +39,7 @@ export const SWEA: Story = {
         description: '2024-12-23',
         link: 'https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZND_C7q8SIDFAWB&categoryId=AZND_C7q8SIDFAWB&categoryType=CODE&&&',
         tags: ['DFS', 'BFS', '그래프', 'DP', '시뮬레이션', '브루트포스'],
-        onClick: fn((e: React.MouseEvent<HTMLButtonElement>) => {
-            e.preventDefault();
-            alert(e.currentTarget.querySelector('span')?.textContent);
-        }),
+        id: '1',
     },
 };
 
@@ -53,10 +49,7 @@ export const Programmers: Story = {
         description: '2024-12-23',
         link: 'https://school.programmers.co.kr/learn/courses/30/lessons/3402131',
         tags: ['DFS', 'BFS', '그래프', 'DP', '시뮬레이션', '브루트포스'],
-        onClick: fn((e: React.MouseEvent<HTMLButtonElement>) => {
-            e.preventDefault();
-            alert(e.currentTarget.querySelector('span')?.textContent);
-        }),
+        id: '1',
     },
 };
 
@@ -67,10 +60,7 @@ export const WithoutTag: Story = {
         description: '2024-12-23',
         link: 'https://school.programmers.co.kr/learn/courses/30/lessons/3402131',
         tags: [],
-        onClick: fn((e: React.MouseEvent<HTMLButtonElement>) => {
-            e.preventDefault();
-            alert(e.currentTarget.querySelector('span')?.textContent);
-        }),
+        id: '1',
     },
 };
 export const WithoutLink: Story = {
@@ -78,10 +68,6 @@ export const WithoutLink: Story = {
         title: 'Programmers 1번',
         description: '2024-12-23',
         link: 'https://www.naver.com',
-
-        onClick: fn((e: React.MouseEvent<HTMLButtonElement>) => {
-            e.preventDefault();
-            alert(e.currentTarget.querySelector('span')?.textContent);
-        }),
+        id: '1',
     },
 };
