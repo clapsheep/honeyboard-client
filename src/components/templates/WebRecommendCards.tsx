@@ -1,18 +1,21 @@
 import { WebSiteCard } from '@/components/molecules';
+import usePagination from '@/hooks/usePagination';
 import { getWebRecommendsAPI } from '@/services/study/web';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Pagination } from '../atoms';
 
 interface WebRecommendCardsProps {
     generationId?: string;
-    page?: number;
-    size?: number;
 }
 // TODO: 북마크 관련 기능 개발
-const WebRecommendCards = ({
-    generationId,
-    page,
-    size,
-}: WebRecommendCardsProps) => {
+const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
+    const {
+        handlePageChange,
+        currentPage: page,
+        sizeState: size,
+    } = usePagination({
+        size: 16,
+    });
     const { data } = useSuspenseQuery({
         queryKey: ['webRecommends', generationId, page, size],
         queryFn: () =>
@@ -30,19 +33,32 @@ const WebRecommendCards = ({
     }
 
     return (
-        <ul className="grid w-full grid-cols-4 gap-6">
-            {data.content.map((i) => (
-                <li key={i.id}>
-                    <WebSiteCard
-                        title={i.title}
-                        subTitle={i.updatedAt}
-                        isBookmarked={false}
-                        id={i.id}
-                        onBookmarkClick={() => {}}
-                    />
-                </li>
-            ))}
-        </ul>
+        <>
+            <ul className="grid w-full grid-cols-4 gap-6">
+                {data.content.map((i) => (
+                    <li key={i.id}>
+                        <WebSiteCard
+                            title={i.title}
+                            subTitle={i.updatedAt}
+                            isBookmarked={false}
+                            id={i.id}
+                            onBookmarkClick={() => {}}
+                        />
+                    </li>
+                ))}
+            </ul>
+            <Pagination
+                total={data.pageInfo.totalPages}
+                now={page}
+                onClickLeft={() => handlePageChange(Math.max(1, page - 5))}
+                onClickRight={() =>
+                    handlePageChange(
+                        Math.min(data.pageInfo.totalPages, page + 5),
+                    )
+                }
+                onClick={(e) => handlePageChange(Number(e.currentTarget.value))}
+            />
+        </>
     );
 };
 

@@ -9,11 +9,12 @@ import { useGenerationStore } from '@/stores/generationStore';
 import { useUserStore } from '@/stores/userStore';
 import { convertSelectType } from '@/utils/convertSelectType';
 import { Suspense, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 const WebConceptList = () => {
     const { userInfo } = useUserStore();
     const { generationList } = useGenerationStore();
+    const navigate = useNavigate();
     const [generationId, setGenerationId] = useState<string | null>(
         userInfo!.generationId,
     );
@@ -42,7 +43,13 @@ const WebConceptList = () => {
                         <TabNavigation routes={ROUTES} />
                     </div>
                     <div className="flex items-end gap-4">
-                        <Button onClick={() => {}}>글작성</Button>
+                        <Button
+                            onClick={() => {
+                                navigate('create');
+                            }}
+                        >
+                            글작성
+                        </Button>
 
                         <SelectOption
                             id="generation"
