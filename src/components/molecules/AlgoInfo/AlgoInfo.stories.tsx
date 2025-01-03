@@ -25,6 +25,7 @@ type AlgoInfoHooksProps = {
     memory: string;
     runtime: string;
     languageId: string;
+    readOnly?: boolean;
 };
 
 const AlgoInfoWithHooks = (args: AlgoInfoHooksProps) => {
@@ -47,6 +48,7 @@ const AlgoInfoWithHooks = (args: AlgoInfoHooksProps) => {
             memory={memory}
             runtime={runtime}
             languageId={languageId}
+            readOnly={args.readOnly}
             onMemoryChange={handleMemoryChange}
             onRuntimeChange={handleRuntimeChange}
             onLanguageClick={(langId) => setlanguageId(langId)}
@@ -59,12 +61,14 @@ export const Default: Story = {
         memory: '19396',
         runtime: '125',
         languageId: '1',
+        readOnly: false,
     },
     render: (args) => (
         <AlgoInfoWithHooks
             memory={args.memory}
             runtime={args.runtime}
             languageId={args.languageId}
+            readOnly={args.readOnly}
         />
     ),
 };
@@ -74,12 +78,31 @@ export const WithoutValue: Story = {
         memory: '',
         runtime: '',
         languageId: '1',
+        readOnly: false,
     },
     render: (args) => (
         <AlgoInfoWithHooks
             memory={args.memory}
             runtime={args.runtime}
             languageId={args.languageId}
+            readOnly={args.readOnly}
+        />
+    ),
+};
+
+export const ReadOnly: Story = {
+    args: {
+        memory: '19396',
+        runtime: '125',
+        languageId: '1',
+        readOnly: true,
+    },
+    render: (args) => (
+        <AlgoInfoWithHooks
+            memory={args.memory}
+            runtime={args.runtime}
+            languageId={args.languageId}
+            readOnly={args.readOnly}
         />
     ),
 };
