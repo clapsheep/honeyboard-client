@@ -63,8 +63,9 @@ export const getAlgorithmProblemsAPI = async (
 
 export const getAlgorithmSolutionAPI = async (
     problemId: string,
+    solutionId: string,
 ): Promise<AlgorithmSolutionDetail> => {
-    const { data } = await api.get(`/algorithm/problem/${problemId}/solution`);
+    const { data } = await api.get(`/algorithm/problem/${problemId}/solution/${solutionId}`);
     return data;
 };
 
@@ -93,6 +94,7 @@ export const updateAlgorithmSolutionAPI = async (
 
 export const deleteAlgorithmSolutionAPI = async (
     problemId: string,
+    solutionId: string,
 ): Promise<void> => {
-    await api.delete(`/algorithm/problem/${problemId}/solution`);
+    await api.delete(`/algorithm/problem/${problemId}/solution/${solutionId}`);
 };

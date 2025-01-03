@@ -11,14 +11,14 @@ import {
 
 const AlgorithmProblemDetail = () => {
     const { pathname } = useLocation();
-    const { problemId } = useParams();
+    const { problemId, solutionId } = useParams();
 
     const { data, handleDelete, handleEdit, handleLike } = useContentDetail({
             contentType: 'algo_solution',
-            contentId: problemId!,
-            getDetailAPI: getAlgorithmSolutionAPI,
-            deleteAPI: deleteAlgorithmSolutionAPI,
-            navigateAfterDelete: '/study/web/problem',
+            contentId: solutionId!,
+            getDetailAPI: (id: string) => getAlgorithmSolutionAPI(problemId!, id),
+            deleteAPI: (id: string) => deleteAlgorithmSolutionAPI(problemId!, id),
+            navigateAfterDelete: '/study/algorithm/problem/${problemId}/solution',
         });
 
         if (!data) return null;
