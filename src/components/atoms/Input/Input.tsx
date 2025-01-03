@@ -33,7 +33,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         return (
             <div className="relative w-full">
                 {iconId && (
-                    <div className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-600">
+                    <div className="absolute text-gray-600 -translate-y-1/2 left-2 top-1/2">
                         <Icon id={iconId} size={20} aria-hidden="true" />
                     </div>
                 )}

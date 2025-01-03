@@ -4,7 +4,7 @@ import {
     WebConceptDetail,
     WebRecommend,
     WebRecommendDetail,
-} from '../../../types/study/type';
+} from '@/types/study';
 import { PageResponse } from '@/types/common/type';
 
 //웹 개념

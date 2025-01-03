@@ -8,7 +8,7 @@ const CreateTrackProject = () => {
         console.log('프로젝트 생성');
     };
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '관통 프로젝트 생성' }}
                 BreadcrumbProps={{ pathname }}
@@ -19,7 +19,7 @@ const CreateTrackProject = () => {
                     </Button>
                 </div>
             </Header>
-        </div>
+        </>
     );
 };
 

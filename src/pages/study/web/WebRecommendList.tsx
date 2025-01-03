@@ -32,7 +32,7 @@ const WebRecommendList = () => {
     ];
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '웹 추천' }}
                 BreadcrumbProps={{ pathname }}
@@ -58,13 +58,10 @@ const WebRecommendList = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col items-center justify-center gap-6 p-6">
-                <div>서치 바 들어가는 자리</div>
-                <Suspense fallback={<WebSiteCardSkeletonList />}>
-                    <WebRecommendCards generationId={generationId} />
-                </Suspense>
-            </div>
-        </div>
+            <Suspense fallback={<WebSiteCardSkeletonList />}>
+                <WebRecommendCards generationId={generationId} />
+            </Suspense>
+        </>
     );
 };
 

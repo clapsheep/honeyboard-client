@@ -23,7 +23,7 @@ const AlgorithmProblem = () => {
     ];
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '알고리즘 문제풀이' }}
                 BreadcrumbProps={{ pathname }}
@@ -39,13 +39,10 @@ const AlgorithmProblem = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col items-center justify-center gap-6 p-6">
-                <div>서치 바 들어가는 자리</div>
-                <Suspense fallback={<AlgoProblemCardSkeletonList />}>
-                    <AlgoProblemCards />
-                </Suspense>
-            </div>
-        </div>
+            <Suspense fallback={<AlgoProblemCardSkeletonList />}>
+                <AlgoProblemCards />
+            </Suspense>
+        </>
     );
 };
 

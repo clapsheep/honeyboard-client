@@ -17,7 +17,7 @@ const TrackList = () => {
     );
     const ROUTES = [{ path: '/track', name: '프로젝트', isActive: true }];
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '관통 프로젝트' }}
                 BreadcrumbProps={{ pathname }}
@@ -49,7 +49,7 @@ const TrackList = () => {
                     </div>
                 </div>
             </Header>
-        </div>
+        </>
     );
 };
 

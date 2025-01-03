@@ -119,7 +119,7 @@ const GenerationManagement = () => {
     };
 
     return (
-        <div className="flex h-screen flex-col">
+        <>
             <Header
                 titleProps={{ title: '기수관리' }}
                 BreadcrumbProps={{ pathname }}
@@ -229,7 +229,7 @@ const GenerationManagement = () => {
                     </div>
                 </section>
             </div>
-        </div>
+        </>
     );
 };
 

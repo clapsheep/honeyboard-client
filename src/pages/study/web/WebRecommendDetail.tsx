@@ -1,12 +1,12 @@
 import { Button } from '@/components/atoms';
 import { Header } from '@/components/organisms';
 import { useContentDetail } from '@/hooks/useContentDetail';
+import ToastViewerComponent from '@/layouts/ToastViewerComponent';
 import {
     deleteWebRecommendAPI,
     getWebRecommendDetailAPI,
 } from '@/services/study/web';
 import { useLocation, useParams } from 'react-router';
-import ToastViewerComponent from '@/layouts/ToastViewerComponent';
 
 const WebRecommendDetail = () => {
     const { pathname } = useLocation();
@@ -22,7 +22,7 @@ const WebRecommendDetail = () => {
 
     if (!data) return null;
     return (
-        <div className="max-h-screen min-h-screen">
+        <>
             <Header
                 titleProps={{
                     title: data.title,
@@ -40,13 +40,9 @@ const WebRecommendDetail = () => {
                     </div>
                 </div>
             </Header>
-            <section className="my-6 max-h-[calc(100vh-200px)] flex-1 overflow-auto bg-gray-25 px-6 py-4">
-                <ToastViewerComponent
-                    content={data.content}
-                    viewerId="viewer"
-                />
-            </section>
-        </div>
+
+            <ToastViewerComponent content={data.content} viewerId="viewer" />
+        </>
     );
 };
 
