@@ -43,6 +43,7 @@ import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
 import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
 
 import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
+import UpdateTrackProjectBoard from './pages/project/track/UpdateTrackProjectBoard';
 import { useAuth } from './hooks/useAuth';
 
 function App() {
@@ -91,9 +92,7 @@ function App() {
                             />
                             <Route
                                 path="track/:trackId/:projectId/edit"
-                                element={
-                                    <div>특정 프로젝트 팀의 보드 수정</div>
-                                }
+                                element={<UpdateTrackProjectBoard />}
                             />
 
                             <Route path="final" element={<FinalList />} />

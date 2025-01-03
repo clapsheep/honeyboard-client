@@ -1,5 +1,6 @@
-import { Button, CalendarTag } from '@/components/atoms';
+import { Button } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
+import AlgoInfo from '@/components/molecules/AlgoInfo/AlgoInfo';
 import { Header } from '@/components/organisms';
 import { useAuth } from '@/hooks/useAuth';
 import useToastEditor from '@/hooks/useToastEditor';
@@ -21,16 +22,10 @@ const CreateAlgorithmProblemSolution = () => {
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
     const [solutionDetail, setSolutionDetail] = useState<SolutionDetail>({
-        runtime: '',
         memory: '',
+        runtime: '',
         languageId: '1',
     });
-
-    const LANGUAGE_OPTIONS = [
-        { id: '1', name: 'Java' },
-        { id: '2', name: 'Python' },
-        { id: '3', name: 'C++' },
-    ];
 
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
@@ -123,68 +118,16 @@ const CreateAlgorithmProblemSolution = () => {
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex items-start justify-between">
-                    <div className="flex gap-6">
-                        <div className="flex items-center gap-1">
-                            <span className="text-text-md font-bold text-gray-700">
-                                Memory
-                            </span>
-                            <input
-                                id="memory"
-                                placeholder="0"
-                                type="text"
-                                value={solutionDetail.memory}
-                                onChange={(e) => handleNumberInput('memory', e)}
-                                className="w-24 rounded-sm border border-gray-300 px-2 py-1 shadow-sm"
-                            />
-                            <span className="text-text-md font-medium text-gray-700">
-                                kb
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <span className="text-text-md font-bold text-gray-700">
-                                Time
-                            </span>
-                            <input
-                                id="runtime"
-                                placeholder="0"
-                                type="text"
-                                value={solutionDetail.runtime}
-                                onChange={(e) =>
-                                    handleNumberInput('runtime', e)
-                                }
-                                className="w-24 rounded-sm border border-gray-300 px-2 py-1 shadow-sm"
-                            />
-                            <span className="text-text-md font-medium text-gray-700">
-                                ms
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <span className="text-text-md font-bold text-gray-700">
-                                Language
-                            </span>
-                            <div className="flex gap-3">
-                                {LANGUAGE_OPTIONS.map((lang) => (
-                                    <CalendarTag
-                                        key={lang.id}
-                                        onClick={() =>
-                                            handleDetailChange(
-                                                'languageId',
-                                                lang.id,
-                                            )
-                                        }
-                                        color={
-                                            solutionDetail.languageId ===
-                                            lang.id
-                                                ? 'blue'
-                                                : 'regular'
-                                        }
-                                    >
-                                        {lang.name}
-                                    </CalendarTag>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    <AlgoInfo
+                        memory={solutionDetail.memory}
+                        runtime={solutionDetail.runtime}
+                        languageId={solutionDetail.languageId}
+                        onMemoryChange={(e) => handleNumberInput('memory', e)}
+                        onRuntimeChange={(e) => handleNumberInput('runtime', e)}
+                        onLanguageClick={(langId) =>
+                            handleDetailChange('languageId', langId)
+                        }
+                    ></AlgoInfo>
                     <div className="flex gap-4">
                         <Button color="red" onClick={handleCancel}>
                             취소
@@ -193,7 +136,7 @@ const CreateAlgorithmProblemSolution = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-1 flex-col gap-4 p-6">
+            <div className="flex flex-col flex-1 gap-4 p-6">
                 <InputForm
                     id="AlgorithmSolutionTitle"
                     label="제목"
