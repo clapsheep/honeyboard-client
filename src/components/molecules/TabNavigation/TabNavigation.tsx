@@ -15,7 +15,7 @@ const TabNavigation = ({ routes }: TabNavigationProps) => {
     const activeParentRoute = routes.find((route) => route.isActive);
 
     return (
-        <div className="flex flex-col">
+        <div className="relative">
             <ul className="flex flex-row gap-6">
                 {routes.map((route) => (
                     <li key={route.path}>
@@ -28,24 +28,26 @@ const TabNavigation = ({ routes }: TabNavigationProps) => {
                 ))}
             </ul>
 
-            {/* 활성화된 상위 라우트의 자식들 */}
+            {/* active된 부모 route에 자식이 있을 경우에만 네비게이션 렌더링 */}
             {activeParentRoute?.children && (
-                <ul className="flex h-12 w-full flex-row items-center gap-4 bg-bluegray-50">
-                    {activeParentRoute.children.map((child) => (
-                        <li key={child.path}>
-                            <Link
-                                to={`/${child.path}`}
-                                className={`text-md font-semibold ${
-                                    child.isActive
-                                        ? 'text-gray-900'
-                                        : 'text-gray-400 hover:text-gray-700'
-                                }`}
-                            >
-                                {child.name}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                <nav className="top-100 absolute left-0 w-full">
+                    <ul className="flex h-12 w-full flex-row items-center gap-4">
+                        {activeParentRoute.children.map((child) => (
+                            <li key={child.path}>
+                                <Link
+                                    to={`/${child.path}`}
+                                    className={`text-md font-semibold ${
+                                        child.isActive
+                                            ? 'text-gray-900'
+                                            : 'text-gray-400 hover:text-gray-700'
+                                    }`}
+                                >
+                                    {child.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
             )}
         </div>
     );
