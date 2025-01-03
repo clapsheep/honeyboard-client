@@ -14,3 +14,4 @@ export { default as TabNavigation } from './TabNavigation/TabNavigation';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export { default as SearchBarSkeleton } from './SearchBar/SearchBarSkeleton';
 export { default as Pagination } from './Pagination/Pagination';
+export { default as AlgoInfo } from './AlgoInfo/AlgoInfo';

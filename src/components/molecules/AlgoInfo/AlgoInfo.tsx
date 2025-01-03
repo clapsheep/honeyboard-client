@@ -3,14 +3,16 @@ import { CalendarTag } from '@/components/atoms';
 export interface AlgoInfoProps {
     memory: string;
     runtime: string;
+    languageId: string;
     onMemoryChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onRuntimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onLanguageClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onLanguageClick: (languageId: string) => void;
 }
 
 const AlgoInfo = ({
     memory,
     runtime,
+    languageId,
     onMemoryChange,
     onRuntimeChange,
     onLanguageClick,
@@ -61,7 +63,11 @@ const AlgoInfo = ({
                 </span>
                 <div className="flex gap-3">
                     {LANGUAGE_OPTIONS.map((lang) => (
-                        <CalendarTag key={lang.id} onClick={onLanguageClick}>
+                        <CalendarTag
+                            key={lang.id}
+                            onClick={() => onLanguageClick(lang.id)}
+                            color={languageId === lang.id ? 'blue' : 'regular'}
+                        >
                             {lang.name}
                         </CalendarTag>
                     ))}

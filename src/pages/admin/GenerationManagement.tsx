@@ -124,7 +124,7 @@ const GenerationManagement = () => {
                 titleProps={{ title: '기수관리' }}
                 BreadcrumbProps={{ pathname }}
             >
-                <div className="flex items-center justify-between">
+                <div className="flex items-end justify-between">
                     <TabNavigation routes={ROUTES} />
                     <Button
                         onClick={() =>

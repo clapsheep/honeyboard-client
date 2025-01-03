@@ -28,11 +28,9 @@ const AlgorithmProblem = () => {
                 titleProps={{ title: '알고리즘 문제풀이' }}
                 BreadcrumbProps={{ pathname }}
             >
-                <div className="flex justify-between">
-                    <div className="pt-6">
-                        <TabNavigation routes={ROUTES} />
-                    </div>
-                    <div className="flex items-end gap-4">
+                <div className="flex items-end justify-between">
+                    <TabNavigation routes={ROUTES} />
+                    <div className="flex gap-4">
                         <Button onClick={() => navigate('create')}>
                             문제 생성
                         </Button>

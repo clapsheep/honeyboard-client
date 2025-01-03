@@ -1,8 +1,8 @@
 import { Button, SelectOption } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
+import { useAuth } from '@/hooks/useAuth';
 import { useGenerationStore } from '@/stores/generationStore';
-import { useUserStore } from '@/stores/userStore';
 import { convertSelectType } from '@/utils/convertSelectType';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
@@ -11,7 +11,7 @@ const FinalList = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const { generationList } = useGenerationStore();
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
     const [generation, setGeneration] = useState<string>(
         userInfo?.generationId ?? '',
     );
@@ -23,11 +23,9 @@ const FinalList = () => {
                 titleProps={{ title: '파이널 프로젝트' }}
                 BreadcrumbProps={{ pathname }}
             >
-                <div className="flex justify-between">
-                    <div className="pt-6">
-                        <TabNavigation routes={ROUTES} />
-                    </div>
-                    <div className="flex items-end gap-4">
+                <div className="flex items-end justify-between">
+                    <TabNavigation routes={ROUTES} />
+                    <div className="flex gap-4">
                         <Button
                             onClick={() => {
                                 navigate('create');
