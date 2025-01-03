@@ -125,7 +125,7 @@ const CreateAlgorithmProblemSolution = () => {
                 <div className="flex items-start justify-between">
                     <div className="flex gap-6">
                         <div className="flex items-center gap-1">
-                            <span className="text-text-md font-bold text-gray-700">
+                            <span className="font-bold text-gray-700 text-text-md">
                                 Memory
                             </span>
                             <input
@@ -134,14 +134,14 @@ const CreateAlgorithmProblemSolution = () => {
                                 type="text"
                                 value={solutionDetail.memory}
                                 onChange={(e) => handleNumberInput('memory', e)}
-                                className="w-24 rounded-sm border border-gray-300 px-2 py-1 shadow-sm"
+                                className="w-24 px-2 py-1 border border-gray-300 rounded-sm shadow-sm"
                             />
-                            <span className="text-text-md font-medium text-gray-700">
+                            <span className="font-medium text-gray-700 text-text-md">
                                 kb
                             </span>
                         </div>
                         <div className="flex items-center gap-1">
-                            <span className="text-text-md font-bold text-gray-700">
+                            <span className="font-bold text-gray-700 text-text-md">
                                 Time
                             </span>
                             <input
@@ -152,14 +152,14 @@ const CreateAlgorithmProblemSolution = () => {
                                 onChange={(e) =>
                                     handleNumberInput('runtime', e)
                                 }
-                                className="w-24 rounded-sm border border-gray-300 px-2 py-1 shadow-sm"
+                                className="w-24 px-2 py-1 border border-gray-300 rounded-sm shadow-sm"
                             />
-                            <span className="text-text-md font-medium text-gray-700">
+                            <span className="font-medium text-gray-700 text-text-md">
                                 ms
                             </span>
                         </div>
                         <div className="flex items-center gap-1">
-                            <span className="text-text-md font-bold text-gray-700">
+                            <span className="font-bold text-gray-700 text-text-md">
                                 Language
                             </span>
                             <div className="flex gap-3">
@@ -193,7 +193,7 @@ const CreateAlgorithmProblemSolution = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-1 flex-col gap-4 p-6">
+            <div className="flex flex-col flex-1 gap-4 p-6">
                 <InputForm
                     id="AlgorithmSolutionTitle"
                     label="제목"
