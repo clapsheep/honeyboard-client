@@ -1,5 +1,5 @@
-import { LoginSchema, OAuthDomainType } from '@/types/auth';
 import { loginAPI } from '@/services/auth/authAPI';
+import { LoginSchema, OAuthDomainType } from '@/types/auth';
 import { NavigateFunction } from 'react-router';
 
 const { VITE_BASE_URI } = import.meta.env;

@@ -43,11 +43,11 @@ import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
 import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
 
 import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
-import { useAuth } from './hooks/useAuth';
+
 import UpdateTrackProjectBoard from './pages/project/track/UpdateTrackProjectBoard';
+import { useAuth } from './hooks/useAuth';
 
 function App() {
-    const { isAuthenticated } = useAuth();
     const { closeModal, isOpen, modalProps } = useModalStore();
     return (
         <BrowserRouter>
@@ -63,9 +63,7 @@ function App() {
                     path="/oauth/:domain/additional"
                     element={<AdditionalInfoOAuth />}
                 />
-                <Route
-                    element={<PrivateRoute isAuthenticated={isAuthenticated} />}
-                >
+                <Route element={<PrivateRoute />}>
                     <Route element={<MainLayout />}>
                         <Route path="/" element={<Schedule />} />
                         <Route path="project">
