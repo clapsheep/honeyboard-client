@@ -3,9 +3,10 @@ import { InputForm } from '@/components/molecules';
 import { Header } from '@/components/organisms';
 import useToastEditor from '@/hooks/useToastEditor';
 import ToastEditorComponent from '@/layouts/ToastEditorComponent';
-import { createAlgorithmSolutionAPI } from '@/services/study/algorithm';
+import { updateAlgorithmSolutionAPI } from '@/services/study/algorithm';
 import { useUserStore } from '@/stores/userStore';
-import { useState } from 'react';
+import { AlgorithmSolutionDetail } from '@/types/study';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
 interface SolutionDetail {
@@ -14,8 +15,8 @@ interface SolutionDetail {
     languageId: string;
 }
 
-const CreateAlgorithmProblemSolution = () => {
-    const { problemId } = useParams();
+const UpdateAlgorithmProblemSolution = () => {
+    const { problemId, solutionId } = useParams();
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
@@ -25,6 +26,7 @@ const CreateAlgorithmProblemSolution = () => {
         memory: '',
         languageId: '1',
     });
+    const [detail, setDetail] = useState<AlgorithmSolutionDetail | null>(null);
 
     const LANGUAGE_OPTIONS = [
         { id: '1', name: 'Java' },
@@ -36,9 +38,43 @@ const CreateAlgorithmProblemSolution = () => {
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
 
+    useEffect(() => {
+        if (!problemId || !solutionId) {
+            alert('글을 불러오지 못했습니다.');
+            return;
+        }
+
+        const dummyData = {
+            solutionId: solutionId,
+            problemId: problemId,
+            title: '테스트 제목',
+            summary: '테스트 요약',
+            content: '테스트 내용',
+            runtime: '100',
+            memory: '16384',
+            languageId: '1',
+            Author: '테스트 작성자',
+            userId: '1',
+            generationId: '1',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+            isDeleted: false,
+            isBookmarked: false,
+        };
+
+        setDetail(dummyData);
+        setTitle(dummyData.title);
+        setSummary(dummyData.summary);
+        setSolutionDetail({
+            runtime: dummyData.runtime,
+            memory: dummyData.memory,
+            languageId: dummyData.languageId,
+        });
+    }, [problemId, solutionId]);
+
     const { onSubmit, onCancel, editorRef } = useToastEditor({
         editorId: 'AlgorithmSolutionEditor',
-        initialContent: '',
+        initialContent: detail?.content || '',
     });
 
     const handleCancel = async () => {
@@ -59,8 +95,8 @@ const CreateAlgorithmProblemSolution = () => {
             return;
         }
 
-        if (!problemId) {
-            alert('알고리즘 문제를 불러오지 못했습니다.');
+        if (!detail) {
+            alert('알고리즘 풀이를 불러오지 못했습니다.');
             return;
         }
 
@@ -68,21 +104,25 @@ const CreateAlgorithmProblemSolution = () => {
             const { content } = await onSubmit();
             const currentDate = new Date().toISOString();
 
-            await createAlgorithmSolutionAPI(problemId, {
-                solutionId: '',
-                problemId,
-                title: title.trim(),
-                summary,
-                ...solutionDetail,
-                content,
-                Author: userInfo.name,
-                userId,
-                generationId,
-                createdAt: currentDate,
-                updatedAt: currentDate,
-                isDeleted: false,
-                isBookmarked: false,
-            });
+            await updateAlgorithmSolutionAPI(
+                detail.solutionId,
+                detail.problemId,
+                {
+                    solutionId: detail.solutionId,
+                    problemId: detail.problemId,
+                    title: title.trim(),
+                    summary,
+                    ...solutionDetail,
+                    content,
+                    Author: userInfo.name,
+                    userId,
+                    generationId,
+                    createdAt: currentDate,
+                    updatedAt: currentDate,
+                    isDeleted: false,
+                    isBookmarked: false,
+                },
+            );
 
             navigate(-1);
         } catch (error) {
@@ -115,7 +155,6 @@ const CreateAlgorithmProblemSolution = () => {
             [field]: value,
         }));
     };
-
     return (
         <div>
             <Header
@@ -222,5 +261,4 @@ const CreateAlgorithmProblemSolution = () => {
         </div>
     );
 };
-
-export default CreateAlgorithmProblemSolution;
+export default UpdateAlgorithmProblemSolution;

@@ -8,6 +8,7 @@ import {
     optimizeImageToWebP,
     ImageAnalysis,
 } from '@/utils/imageOptimization';
+import { useModalStore } from '@/stores/modalStore';
 
 interface UseEditorProps {
     editorId: string;
@@ -26,6 +27,7 @@ const useToastEditor = ({
     const [isSubmit, setIsSubmit] = useState(false);
     const editorRef = useRef<HTMLDivElement>(null);
     const editorInstanceRef = useRef<Editor | null>(null);
+    const { openModal, closeModal } = useModalStore();
 
     // 글 작성 중 뒤로가기 및 창 닫기 시 이미지 삭제
     useEffect(() => {
@@ -52,6 +54,33 @@ const useToastEditor = ({
             window.removeEventListener('popstate', handlePopState);
         };
     }, [isSubmit, uploadedImageUrls]);
+
+    // 취소 버튼 누를 시 업로드 된 된 이미지 삭제
+    const cleanupImages = () => {
+        if (!isSubmit && uploadedImageUrls.length > 0) {
+            uploadedImageUrls.forEach((url) => deleteImageAPI(url));
+            setUploadedImageUrls([]);
+        }
+    };
+
+    const onCancel = () => {
+        return new Promise<boolean>((resolve) => {
+            openModal({
+                icon: 'warning',
+                title: '작성 취소',
+                subTitle: '정말 취소하시겠습니까?',
+                onConfirmClick: () => {
+                    cleanupImages();
+                    closeModal();
+                    resolve(true);
+                },
+                onCancelClick: () => {
+                    closeModal();
+                    resolve(false);
+                },
+            });
+        });
+    };
 
     // 에디터 기능
     useEffect(() => {
@@ -148,6 +177,7 @@ const useToastEditor = ({
     return {
         editorRef,
         onSubmit,
+        onCancel,
     };
 };
 
