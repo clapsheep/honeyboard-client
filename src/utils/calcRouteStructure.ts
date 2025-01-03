@@ -37,6 +37,15 @@ const calcRouteStructure = (pathname: string) => {
                 case 'bookmark':
                     name = '북마크';
                     break;
+                case 'music':
+                    name = '음악';
+                    break;
+                case 'list':
+                    name = '플레이리스트';
+                    break;
+                case 'search':
+                    name = '검색';
+                    break;
             }
 
             const path = routeList

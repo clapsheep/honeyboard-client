@@ -10,7 +10,6 @@ export const useAuth = () => {
         gcTime: 1000 * 60 * 30,
         retry: false,
     });
-    console.log(data);
 
     const logout = async () => {
         await logoutAPI();
