@@ -9,8 +9,10 @@ import { AxiosResponse } from 'axios';
 
 export const getUserInfoAPI = async (): Promise<AuthResponseType> => {
     const { data } = await api.get('/user/info');
+    console.log(data);
     return { userInfo: data, isAuthenticated: true };
 };
+
 // credential 로그인 요청
 export const loginAPI = async (
     data: LoginRequestType,
@@ -18,7 +20,7 @@ export const loginAPI = async (
     const formData = new URLSearchParams();
     formData.append('username', data.email);
     formData.append('password', data.password);
-
+    console.log(formData);
     return api.post<AuthResponseType>('/auth/login', formData, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

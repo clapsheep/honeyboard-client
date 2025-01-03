@@ -43,8 +43,8 @@ import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
 import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
 
 import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
-import UpdateTrackProjectBoard from './pages/project/track/UpdateTrackProjectBoard';
 import { useAuth } from './hooks/useAuth';
+import UpdateTrackProjectBoard from './pages/project/track/UpdateTrackProjectBoard';
 
 function App() {
     const { isAuthenticated } = useAuth();
