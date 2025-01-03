@@ -68,7 +68,7 @@ const CreateWebConcept = () => {
     };
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '게시글 작성' }}
                 BreadcrumbProps={{ pathname }}
@@ -92,14 +92,13 @@ const CreateWebConcept = () => {
                     value={title}
                     onChange={handleTitleChange}
                 />
-                <div className="flex-1">
-                    <ToastEditorComponent
-                        editorId="webConceptEditor"
-                        editorRef={editorRef}
-                    />
-                </div>
+
+                <ToastEditorComponent
+                    editorId="webConceptEditor"
+                    editorRef={editorRef}
+                />
             </div>
-        </div>
+        </>
     );
 };
 

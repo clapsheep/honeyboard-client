@@ -16,7 +16,7 @@ const Navigation = ({ generation, name }: NavigationProps) => {
     const { setUserInfo } = useUserStore();
 
     return (
-        <section className="flex h-lvh flex-col items-center gap-1 border border-gray-400 pb-[6.25rem] pt-7">
+        <section className="fixed flex h-screen flex-col items-center gap-1 border border-gray-400 pb-[6.25rem] pt-7">
             <h1 aria-label="Honey Board">
                 <Link to="/">
                     <img src={logo} alt="Honey Board" />

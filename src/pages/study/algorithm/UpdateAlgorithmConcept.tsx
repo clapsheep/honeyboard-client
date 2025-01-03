@@ -97,7 +97,7 @@ const UpdateAlgorithmConcept = () => {
     };
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '게시글 수정' }}
                 BreadcrumbProps={{ pathname }}
@@ -111,7 +111,7 @@ const UpdateAlgorithmConcept = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col flex-1 gap-4 p-6">
+            <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
                     id="algorithmConceptTitle"
                     label="제목"
@@ -121,14 +121,13 @@ const UpdateAlgorithmConcept = () => {
                     value={title}
                     onChange={handleTitleChange}
                 />
-                <div className="flex-1">
-                    <ToastEditorComponent
-                        editorId="algorithmConceptEditor"
-                        editorRef={editorRef}
-                    />
-                </div>
+
+                <ToastEditorComponent
+                    editorId="algorithmConceptEditor"
+                    editorRef={editorRef}
+                />
             </div>
-        </div>
+        </>
     );
 };
 

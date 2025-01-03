@@ -156,7 +156,7 @@ const UpdateAlgorithmProblemSolution = () => {
         }));
     };
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '풀이 작성' }}
                 BreadcrumbProps={{ pathname }}
@@ -164,7 +164,7 @@ const UpdateAlgorithmProblemSolution = () => {
                 <div className="flex items-start justify-between">
                     <div className="flex gap-6">
                         <div className="flex items-center gap-1">
-                            <span className="font-bold text-gray-700 text-text-md">
+                            <span className="text-text-md font-bold text-gray-700">
                                 Memory
                             </span>
                             <input
@@ -173,14 +173,14 @@ const UpdateAlgorithmProblemSolution = () => {
                                 type="text"
                                 value={solutionDetail.memory}
                                 onChange={(e) => handleNumberInput('memory', e)}
-                                className="w-24 px-2 py-1 border border-gray-300 rounded-sm shadow-sm"
+                                className="w-24 rounded-sm border border-gray-300 px-2 py-1 shadow-sm"
                             />
-                            <span className="font-medium text-gray-700 text-text-md">
+                            <span className="text-text-md font-medium text-gray-700">
                                 kb
                             </span>
                         </div>
                         <div className="flex items-center gap-1">
-                            <span className="font-bold text-gray-700 text-text-md">
+                            <span className="text-text-md font-bold text-gray-700">
                                 Time
                             </span>
                             <input
@@ -191,14 +191,14 @@ const UpdateAlgorithmProblemSolution = () => {
                                 onChange={(e) =>
                                     handleNumberInput('runtime', e)
                                 }
-                                className="w-24 px-2 py-1 border border-gray-300 rounded-sm shadow-sm"
+                                className="w-24 rounded-sm border border-gray-300 px-2 py-1 shadow-sm"
                             />
-                            <span className="font-medium text-gray-700 text-text-md">
+                            <span className="text-text-md font-medium text-gray-700">
                                 ms
                             </span>
                         </div>
                         <div className="flex items-center gap-1">
-                            <span className="font-bold text-gray-700 text-text-md">
+                            <span className="text-text-md font-bold text-gray-700">
                                 Language
                             </span>
                             <div className="flex gap-3">
@@ -232,7 +232,7 @@ const UpdateAlgorithmProblemSolution = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col flex-1 gap-4 p-6">
+            <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
                     id="AlgorithmSolutionTitle"
                     label="제목"
@@ -251,14 +251,13 @@ const UpdateAlgorithmProblemSolution = () => {
                     value={summary}
                     onChange={handleSummaryChange}
                 />
-                <div className="flex-1">
-                    <ToastEditorComponent
-                        editorId="AlgorithmSolutionEditor"
-                        editorRef={editorRef}
-                    />
-                </div>
+
+                <ToastEditorComponent
+                    editorId="AlgorithmSolutionEditor"
+                    editorRef={editorRef}
+                />
             </div>
-        </div>
+        </>
     );
 };
 export default UpdateAlgorithmProblemSolution;

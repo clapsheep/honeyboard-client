@@ -33,7 +33,7 @@ const WebConceptList = () => {
     ];
 
     return (
-        <div className="flex flex-col">
+        <>
             <Header
                 titleProps={{ title: '웹 개념' }}
                 BreadcrumbProps={{ pathname }}
@@ -66,7 +66,7 @@ const WebConceptList = () => {
             <Suspense fallback={<ProjectCardSkeletonList />}>
                 <WebConceptCards generationId={generationId} />
             </Suspense>
-        </div>
+        </>
     );
 };
 

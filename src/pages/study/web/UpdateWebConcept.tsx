@@ -93,7 +93,7 @@ const UpdateWebConcept = () => {
     };
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '게시글 수정' }}
                 BreadcrumbProps={{ pathname }}
@@ -107,7 +107,7 @@ const UpdateWebConcept = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col flex-1 gap-4 p-6">
+            <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
                     id="webConceptTitle"
                     label="제목"
@@ -117,14 +117,13 @@ const UpdateWebConcept = () => {
                     value={title}
                     onChange={handleTitleChange}
                 />
-                <div className="flex-1">
-                    <ToastEditorComponent
-                        editorId="webConceptEditor"
-                        editorRef={editorRef}
-                    />
-                </div>
+
+                <ToastEditorComponent
+                    editorId="webConceptEditor"
+                    editorRef={editorRef}
+                />
             </div>
-        </div>
+        </>
     );
 };
 

@@ -72,7 +72,7 @@ const CreateWebRecommend = () => {
     };
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '게시글 작성' }}
                 BreadcrumbProps={{ pathname }}
@@ -104,14 +104,13 @@ const CreateWebRecommend = () => {
                     value={url}
                     onChange={handleUrlChange}
                 />
-                <div className="flex-1">
-                    <ToastEditorComponent
-                        editorId="webRecommendEditor"
-                        editorRef={editorRef}
-                    />
-                </div>
+
+                <ToastEditorComponent
+                    editorId="webRecommendEditor"
+                    editorRef={editorRef}
+                />
             </div>
-        </div>
+        </>
     );
 };
 
