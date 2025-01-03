@@ -1,13 +1,13 @@
 import {
     addScheduleEventsAPI,
-    updateScheduleEventsAPI,
     deleteScheduleEventsAPI,
     getScheduleEventsAPI,
+    updateScheduleEventsAPI,
 } from '@/services/schedule';
-import { useEffect, useState } from 'react';
 import { ScheduleEvent } from '@/types/schedule';
 import { EventObject } from '@toast-ui/calendar/types/types/events';
-import { useUserStore } from '@/stores/userStore';
+import { useEffect, useState } from 'react';
+import { useAuth } from './useAuth';
 
 interface UseScheduleEventsReturn {
     events: ScheduleEvent[];
@@ -19,7 +19,7 @@ interface UseScheduleEventsReturn {
 }
 
 export const useScheduleEvents = (): UseScheduleEventsReturn => {
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
 

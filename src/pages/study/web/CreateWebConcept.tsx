@@ -1,20 +1,20 @@
 import { Button } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { Header } from '@/components/organisms';
-import ToastEditorComponent from '@/layouts/ToastEditorComponent';
-import { useLocation, useNavigate } from 'react-router';
-import { useState } from 'react';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import { useUserStore } from '@/stores/userStore';
+import { useAuth } from '@/hooks/useAuth';
 import useToastEditor from '@/hooks/useToastEditor';
+import ToastEditorComponent from '@/layouts/ToastEditorComponent';
 import { createWebConceptAPI } from '@/services/study/web';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 
 const CreateWebConcept = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
 
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
 
