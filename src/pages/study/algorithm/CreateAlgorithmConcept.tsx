@@ -81,7 +81,7 @@ const CreateAlgorithmConcept = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-1 flex-col gap-4 p-6">
+            <div className="flex flex-col flex-1 gap-4 p-6">
                 <InputForm
                     id="webConceptTitle"
                     label="제목"

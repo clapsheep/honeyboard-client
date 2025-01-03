@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import TabButton from './TabButton';
+import { BrowserRouter } from 'react-router';
 
 const meta = {
     title: 'Components/Atoms/TabButton',
@@ -8,6 +9,13 @@ const meta = {
         layout: 'centered',
     },
     tags: ['autodocs'],
+    decorators: [
+        (Story) => (
+            <BrowserRouter>
+                <Story />
+            </BrowserRouter>
+        ),
+    ],
 } satisfies Meta<typeof TabButton>;
 
 export default meta;
@@ -17,7 +25,7 @@ export const Default: Story = {
     args: {
         name: 'Active Tab',
         isActive: true,
-        onClick: () => alert('Active tab 클릭'),
+        path: 'active',
     },
 };
 
@@ -25,6 +33,6 @@ export const Inactive: Story = {
     args: {
         name: 'Inactive Tab',
         isActive: false,
-        onClick: () => alert('Inactive tab 클릭'),
+        path: 'inactive',
     },
 };

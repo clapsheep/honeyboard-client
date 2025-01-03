@@ -1,6 +1,10 @@
 import { api } from '@/services/common/axiosInstance';
 import { PageResponse } from '@/types/common/type';
-import { AlgorithmConceptDetail, AlgorithmProblem } from './type';
+import {
+    AlgorithmConceptDetail,
+    AlgorithmProblem,
+    AlgorithmSolutionDetail,
+} from '@/types/study';
 
 export const getAlgorithmConceptsAPI = async (generationId: string) => {
     const { data } = await api.get('/algorithm/guide', {
@@ -52,5 +56,28 @@ export const getAlgorithmProblemsAPI = async (
             size,
         },
     });
+    return data;
+};
+
+export const createAlgorithmSolutionAPI = async (
+    problemId: string,
+    algorithmSolution: AlgorithmSolutionDetail,
+): Promise<AlgorithmSolutionDetail> => {
+    const { data } = await api.post(
+        `/algorithm/problem/${problemId}/solution`,
+        algorithmSolution,
+    );
+    return data;
+};
+
+export const updateAlgorithmSolutionAPI = async (
+    problemId: string,
+    solutionId: string,
+    algorithmSolution: AlgorithmSolutionDetail,
+): Promise<AlgorithmSolutionDetail> => {
+    const { data } = await api.put(
+        `/algorithm/problem/${problemId}/solution/${solutionId}`,
+        algorithmSolution,
+    );
     return data;
 };

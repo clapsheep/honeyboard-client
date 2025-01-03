@@ -1,6 +1,7 @@
-import { addBookMarkAPI, contentType } from '@/services/user';
+import { addBookMarkAPI } from '@/services/user';
 import { useModalStore } from '@/stores/modalStore';
 import { useUserStore } from '@/stores/userStore';
+import { contentType } from '@/types/study/types';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 

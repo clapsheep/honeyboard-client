@@ -21,3 +21,5 @@ export { default as CreateWebRecommend } from './study/web/CreateWebRecommend';
 export { default as Schedule } from './Schedule';
 export { default as WebConceptDetail } from './study/web/WebConceptDetail';
 export { default as WebRecommendDetail } from './study/web/WebRecommendDetail';
+export { default as StudentManagement } from './admin/StudentManagement';
+export { default as GenerationManagement } from './admin/GenerationManagement';

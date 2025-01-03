@@ -14,24 +14,27 @@ import {
     CreateWebRecommend,
     Error404,
     FinalList,
+    GenerationManagement,
     Login,
     LoginCallback,
     PlayList,
+    Schedule,
     SignUp,
+    StudentManagement,
     TrackList,
     WebConceptDetail,
     WebConceptList,
     WebRecommendDetail,
     WebRecommendList,
-    Schedule,
 } from './pages';
 
-import { useUserStore } from './stores/userStore';
 import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
 import UpdateWebConcept from './pages/study/web/UpdateWebConcept';
 import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
 import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
+import { useUserStore } from './stores/userStore';
+import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
 
 function App() {
     const { userInfo } = useUserStore();
@@ -178,11 +181,7 @@ function App() {
 
                                 <Route
                                     path="problem/:problemId/:solutionId/edit"
-                                    element={
-                                        <div>
-                                            Algorithm Problem Solution Edit
-                                        </div>
-                                    }
+                                    element={<UpdateAlgorithmProblemSolution />}
                                 />
                             </Route>
 
@@ -239,7 +238,7 @@ function App() {
                                 element={<div>Search Music</div>}
                             />
                         </Route>
-                        <Route path="admin" element={<div>Admin</div>}>
+                        <Route path="admin">
                             <Route
                                 index
                                 element={
@@ -248,11 +247,11 @@ function App() {
                             />
                             <Route
                                 path="student"
-                                element={<div>Admin Student</div>}
+                                element={<StudentManagement />}
                             />
                             <Route
                                 path="generation"
-                                element={<div>generation Student</div>}
+                                element={<GenerationManagement />}
                             />
                         </Route>
                         <Route path="mypage" element={<div>My Page</div>}>

@@ -7,8 +7,8 @@ import {
     getAlgorithmConceptDetailAPI,
     updateAlgorithmConceptAPI,
 } from '@/services/study/algorithm';
-import { AlgorithmConceptDetail } from '@/services/study/algorithm/type';
 import { useUserStore } from '@/stores/userStore';
+import { AlgorithmConceptDetail } from '@/types/study';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
@@ -26,7 +26,7 @@ const UpdateAlgorithmConcept = () => {
 
     useEffect(() => {
         if (!conceptId) {
-            alert('존재하지 않는 글입니다.');
+            alert('글을 불러오지 못했습니다.');
             return;
         }
 
@@ -111,7 +111,7 @@ const UpdateAlgorithmConcept = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-1 flex-col gap-4 p-6">
+            <div className="flex flex-col flex-1 gap-4 p-6">
                 <InputForm
                     id="algorithmConceptTitle"
                     label="제목"

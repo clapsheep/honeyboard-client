@@ -1,11 +1,18 @@
 import { Button, SelectOption } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
+import { useGenerationStore } from '@/stores/generationStore';
+import { useUserStore } from '@/stores/userStore';
+import { convertSelectType } from '@/utils/convertSelectType';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 const AlgorithmConceptList = () => {
-    const [generation, setGeneration] = useState<string>('');
+    const { generationList } = useGenerationStore();
+    const { userInfo } = useUserStore();
+    const [generation, setGeneration] = useState<string>(
+        userInfo?.generationId ?? '',
+    );
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
@@ -20,11 +27,6 @@ const AlgorithmConceptList = () => {
             name: '알고리즘 문제풀이',
             isActive: false,
         },
-    ];
-    const GENERATION_OPTIONS = [
-        { value: '13', label: '13기' },
-        { value: '12', label: '12기' },
-        { value: '11', label: '11기' },
     ];
 
     return (
@@ -48,9 +50,10 @@ const AlgorithmConceptList = () => {
 
                         <SelectOption
                             id="generation"
+                            defaultValue={generation}
                             name="generation"
                             placeholder="기수"
-                            options={GENERATION_OPTIONS}
+                            options={convertSelectType(generationList)}
                             onChange={(e) => {
                                 setGeneration(e.target.value);
                             }}

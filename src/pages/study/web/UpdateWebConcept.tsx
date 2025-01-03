@@ -6,9 +6,9 @@ import ToastEditorComponent from '@/layouts/ToastEditorComponent';
 import {
     getWebConceptDetailAPI,
     updateWebConceptAPI,
-    WebConceptDetail,
 } from '@/services/study/web';
 import { useUserStore } from '@/stores/userStore';
+import { WebConceptDetail } from '@/types/study';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
@@ -25,7 +25,7 @@ const UpdateWebConcept = () => {
 
     useEffect(() => {
         if (!conceptId) {
-            alert('존재하지 않는 글입니다.');
+            alert('글을 불러오지 못했습니다.');
             return;
         }
 
@@ -107,7 +107,7 @@ const UpdateWebConcept = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-1 flex-col gap-4 p-6">
+            <div className="flex flex-col flex-1 gap-4 p-6">
                 <InputForm
                     id="webConceptTitle"
                     label="제목"

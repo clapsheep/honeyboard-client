@@ -1,4 +1,4 @@
-import { bookMarkType, contentType } from '.';
+import { bookMarkType, contentType } from '@/types/study/types';
 import { api } from '../common/axiosInstance';
 
 export const addBookMarkAPI = async (
