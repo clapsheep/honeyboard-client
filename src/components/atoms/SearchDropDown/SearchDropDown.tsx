@@ -1,5 +1,9 @@
+export interface Result {
+    id: string;
+    name: string;
+}
 interface SearchDropDownProps {
-    results: result[];
+    results: Result[];
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -10,8 +14,10 @@ const SearchDropDown = ({ results, onClick }: SearchDropDownProps) => {
             {results.map((result) => (
                 <button
                     key={result.id}
+                    data-id={result.id}
+                    data-name={result.name}
                     onClick={onClick}
-                    className="flex w-full items-center gap-1 px-3 py-1 text-text-md text-gray-700"
+                    className="flex w-full items-center gap-1 px-3 py-1 text-text-md text-gray-700 hover:bg-gray-200"
                 >
                     {result.name}
                 </button>
