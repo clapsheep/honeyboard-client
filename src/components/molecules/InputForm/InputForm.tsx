@@ -7,14 +7,16 @@ interface InputFormProps {
     showLabel?: boolean;
     placeholder?: string;
     required?: boolean;
+    defaultValue?: string | number;
     type?: 'text' | 'email' | 'number' | 'password';
-    value?: string;
+    value?: string | number;
     readonly?: boolean;
     buttonName?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     errorMessage?: string;
+    disabled?: boolean;
 }
 
 const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
@@ -26,6 +28,7 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
             placeholder,
             required = false,
             type,
+            defaultValue,
             value,
             readonly,
             buttonName,
@@ -33,6 +36,7 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
             onClick,
             onKeyDown,
             errorMessage,
+            disabled,
         }: InputFormProps,
         ref,
     ) => {
@@ -40,8 +44,13 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
             <div className="flex w-full flex-col gap-1">
                 <div className="flex items-center justify-between">
                     <div className="ml-1 flex items-start">
-                        {showLabel && <Label text={label} htmlFor={id} />}
-                        {required && <span className="text-error-500">*</span>}
+                        {showLabel && (
+                            <Label
+                                text={label}
+                                htmlFor={id}
+                                required={required}
+                            />
+                        )}
                     </div>
                     <ErrorMessage>{errorMessage}</ErrorMessage>
                 </div>
@@ -52,10 +61,12 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
                         placeholder={placeholder}
                         type={type}
                         value={value}
+                        defaultValue={defaultValue}
                         readonly={readonly}
                         aria-label={!showLabel && label}
                         onChange={onChange}
                         onKeyDown={onKeyDown}
+                        disabled={disabled}
                     />
                     {buttonName && onClick && (
                         <Button onClick={onClick}>{buttonName}</Button>

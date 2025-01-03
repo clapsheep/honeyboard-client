@@ -4,21 +4,21 @@ import {
     WebConceptDetail,
     WebRecommend,
     WebRecommendDetail,
-} from './type';
+} from '../../../types/study/type';
 import { PageResponse } from '@/types/common/type';
 
 //웹 개념
 export const getWebConceptsAPI = async (
-    generationId: string,
-    page: number,
-    size: number,
+    generationId: string | null,
+    currentPage: number,
+    pageSize: number,
     title?: string,
 ): Promise<PageResponse<WebConcept>> => {
     const { data } = await api.get('/web/guide', {
         params: {
-            generationId,
-            page,
-            size,
+            generationId: generationId || null,
+            currentPage,
+            pageSize,
             ...(title && { title }),
         },
     });
@@ -33,14 +33,14 @@ export const getWebConceptDetailAPI = async (
 };
 
 export const createWebConceptAPI = async (
-    webConcept: WebConcept,
-): Promise<WebConcept> => {
+    webConcept: WebConceptDetail,
+): Promise<WebConceptDetail> => {
     const { data } = await api.post('/web/guide', webConcept);
     return data;
 };
 export const updateWebConceptAPI = async (
-    webConcept: WebConcept,
-): Promise<WebConcept> => {
+    webConcept: WebConceptDetail,
+): Promise<WebConceptDetail> => {
     const { data } = await api.put(`/web/guide/${webConcept.id}`, webConcept);
     return data;
 };
@@ -52,16 +52,16 @@ export const deleteWebConceptAPI = async (
 
 // 웹 추천
 export const getWebRecommendsAPI = async (
-    generationId: string,
-    page: number,
-    size: number,
+    generationId: string | null,
+    currentPage: number,
+    pageSize: number,
     title?: string,
 ): Promise<PageResponse<WebRecommend>> => {
     const { data } = await api.get('/web/recommend', {
         params: {
-            generationId,
-            page,
-            size,
+            generationId: generationId || null,
+            currentPage,
+            pageSize,
             ...(title && { title }),
         },
     });
@@ -76,14 +76,14 @@ export const getWebRecommendDetailAPI = async (
 };
 
 export const createWebRecommendAPI = async (
-    webRecommend: WebRecommend,
-): Promise<WebRecommend> => {
+    webRecommend: WebRecommendDetail,
+): Promise<WebRecommendDetail> => {
     const { data } = await api.post('/web/recommend', webRecommend);
     return data;
 };
 export const updateWebRecommendAPI = async (
-    webRecommend: WebRecommend,
-): Promise<WebRecommend> => {
+    webRecommend: WebRecommendDetail,
+): Promise<WebRecommendDetail> => {
     const { data } = await api.put(
         `/web/recommend/${webRecommend.id}`,
         webRecommend,

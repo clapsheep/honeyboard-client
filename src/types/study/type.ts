@@ -12,7 +12,7 @@ export interface WebConcept {
     id: string;
     title: string;
     userId: string;
-    thumbnailUrl: string;
+    thumbnail: string;
     generationId: string;
     createdAt: string;
     updatedAt: string;
@@ -25,3 +25,12 @@ export interface WebRecommendDetail extends WebRecommend {
 export interface WebConceptDetail extends WebConcept {
     content: string;
 }
+export interface bookMarkType {
+    contentType: contentType;
+    contentId: string;
+}
+export type contentType =
+    | 'algo_guide'
+    | 'algo_solution'
+    | 'web_guide'
+    | 'web_recommend';

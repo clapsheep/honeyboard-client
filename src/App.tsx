@@ -14,21 +14,23 @@ import {
     CreateWebRecommend,
     Error404,
     FinalList,
+    GenerationManagement,
     Login,
     LoginCallback,
     PlayList,
+    Schedule,
     SignUp,
+    StudentManagement,
     TrackList,
     WebConceptDetail,
     WebConceptList,
     WebRecommendDetail,
     WebRecommendList,
-    Schedule,
 } from './pages';
 
-import { useUserStore } from './stores/userStore';
 import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
+import { useUserStore } from './stores/userStore';
 
 function App() {
     const { userInfo } = useUserStore();
@@ -216,11 +218,11 @@ function App() {
                                     element={<CreateWebRecommend />}
                                 />
                                 <Route
-                                    path="recommend/:recomendId"
+                                    path="recommend/:recommendId"
                                     element={<WebRecommendDetail />}
                                 />
                                 <Route
-                                    path="recommend/:recomendId/edit"
+                                    path="recommend/:recommendId/edit"
                                     element={<div>Web Edit</div>}
                                 />
                             </Route>
@@ -236,7 +238,7 @@ function App() {
                                 element={<div>Search Music</div>}
                             />
                         </Route>
-                        <Route path="admin" element={<div>Admin</div>}>
+                        <Route path="admin">
                             <Route
                                 index
                                 element={
@@ -245,11 +247,11 @@ function App() {
                             />
                             <Route
                                 path="student"
-                                element={<div>Admin Student</div>}
+                                element={<StudentManagement />}
                             />
                             <Route
                                 path="generation"
-                                element={<div>generation Student</div>}
+                                element={<GenerationManagement />}
                             />
                         </Route>
                         <Route path="mypage" element={<div>My Page</div>}>
