@@ -1,10 +1,11 @@
 import { Navigation } from '@/components/organisms';
-import { Outlet } from 'react-router';
-import { useUserStore } from '@/stores/userStore';
+import { useAuth } from '@/hooks/useAuth';
 import { useGenerationQuery } from '@/hooks/useGeneration';
+import { Outlet } from 'react-router';
 
 const MainLayout = () => {
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
+    console.log(userInfo);
     const { isLoading } = useGenerationQuery();
 
     // 기수 정보를 가져오는 동안 렌더링 하지 않음 (추후 로딩여부 표시)

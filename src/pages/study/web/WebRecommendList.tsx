@@ -5,13 +5,13 @@ import { Suspense, useState } from 'react';
 import { useLocation } from 'react-router';
 
 import { WebRecommendCards } from '@/components/templates';
-import { useUserStore } from '@/stores/userStore';
 import WebSiteCardSkeletonList from '@/components/templates/Skeletons/WebSiteCardSkeletonList';
-import { convertSelectType } from '@/utils/convertSelectType';
+import { useAuth } from '@/hooks/useAuth';
 import { useGenerationStore } from '@/stores/generationStore';
+import { convertSelectType } from '@/utils/convertSelectType';
 
 const WebRecommendList = () => {
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
     const { generationList } = useGenerationStore();
     const [generationId, setGenerationId] = useState<string>(
         userInfo!.generationId,
@@ -37,11 +37,9 @@ const WebRecommendList = () => {
                 titleProps={{ title: '웹 추천' }}
                 BreadcrumbProps={{ pathname }}
             >
-                <div className="flex justify-between">
-                    <div className="pt-6">
-                        <TabNavigation routes={ROUTES} />
-                    </div>
-                    <div className="flex items-end gap-4">
+                <div className="flex items-end justify-between">
+                    <TabNavigation routes={ROUTES} />
+                    <div className="flex gap-4">
                         <Button onClick={() => {}}>글작성</Button>
 
                         <SelectOption

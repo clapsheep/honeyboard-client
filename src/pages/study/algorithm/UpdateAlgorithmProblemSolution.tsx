@@ -1,10 +1,10 @@
-import { Button, CalendarTag } from '@/components/atoms';
-import { InputForm } from '@/components/molecules';
+import { Button } from '@/components/atoms';
+import { AlgoInfo, InputForm } from '@/components/molecules';
 import { Header } from '@/components/organisms';
+import { useAuth } from '@/hooks/useAuth';
 import useToastEditor from '@/hooks/useToastEditor';
 import ToastEditorComponent from '@/layouts/ToastEditorComponent';
 import { updateAlgorithmSolutionAPI } from '@/services/study/algorithm';
-import { useUserStore } from '@/stores/userStore';
 import { AlgorithmSolutionDetail } from '@/types/study';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
@@ -28,13 +28,7 @@ const UpdateAlgorithmProblemSolution = () => {
     });
     const [detail, setDetail] = useState<AlgorithmSolutionDetail | null>(null);
 
-    const LANGUAGE_OPTIONS = [
-        { id: '1', name: 'Java' },
-        { id: '2', name: 'Python' },
-        { id: '3', name: 'C++' },
-    ];
-
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
 
@@ -84,7 +78,7 @@ const UpdateAlgorithmProblemSolution = () => {
         }
     };
 
-    const handleCreate = async () => {
+    const handleUpdate = async () => {
         if (!title.trim()) {
             alert('제목을 입력해주세요.');
             return;
@@ -126,7 +120,7 @@ const UpdateAlgorithmProblemSolution = () => {
 
             navigate(-1);
         } catch (error) {
-            console.error('풀이 작성을 실패했습니다:', error);
+            console.error('풀이 수정을 실패했습니다:', error);
         }
     };
 
@@ -158,81 +152,29 @@ const UpdateAlgorithmProblemSolution = () => {
     return (
         <>
             <Header
-                titleProps={{ title: '풀이 작성' }}
+                titleProps={{ title: '풀이 수정' }}
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex items-start justify-between">
-                    <div className="flex gap-6">
-                        <div className="flex items-center gap-1">
-                            <span className="text-text-md font-bold text-gray-700">
-                                Memory
-                            </span>
-                            <input
-                                id="memory"
-                                placeholder="0"
-                                type="text"
-                                value={solutionDetail.memory}
-                                onChange={(e) => handleNumberInput('memory', e)}
-                                className="w-24 rounded-sm border border-gray-300 px-2 py-1 shadow-sm"
-                            />
-                            <span className="text-text-md font-medium text-gray-700">
-                                kb
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <span className="text-text-md font-bold text-gray-700">
-                                Time
-                            </span>
-                            <input
-                                id="runtime"
-                                placeholder="0"
-                                type="text"
-                                value={solutionDetail.runtime}
-                                onChange={(e) =>
-                                    handleNumberInput('runtime', e)
-                                }
-                                className="w-24 rounded-sm border border-gray-300 px-2 py-1 shadow-sm"
-                            />
-                            <span className="text-text-md font-medium text-gray-700">
-                                ms
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <span className="text-text-md font-bold text-gray-700">
-                                Language
-                            </span>
-                            <div className="flex gap-3">
-                                {LANGUAGE_OPTIONS.map((lang) => (
-                                    <CalendarTag
-                                        key={lang.id}
-                                        onClick={() =>
-                                            handleDetailChange(
-                                                'languageId',
-                                                lang.id,
-                                            )
-                                        }
-                                        color={
-                                            solutionDetail.languageId ===
-                                            lang.id
-                                                ? 'blue'
-                                                : 'regular'
-                                        }
-                                    >
-                                        {lang.name}
-                                    </CalendarTag>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    <AlgoInfo
+                        memory={solutionDetail.memory}
+                        runtime={solutionDetail.runtime}
+                        languageId={solutionDetail.languageId}
+                        onMemoryChange={(e) => handleNumberInput('memory', e)}
+                        onRuntimeChange={(e) => handleNumberInput('runtime', e)}
+                        onLanguageClick={(langId) =>
+                            handleDetailChange('languageId', langId)
+                        }
+                    ></AlgoInfo>
                     <div className="flex gap-4">
                         <Button color="red" onClick={handleCancel}>
                             취소
                         </Button>
-                        <Button onClick={handleCreate}>풀이 작성</Button>
+                        <Button onClick={handleUpdate}>풀이 수정</Button>
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-1 flex-col gap-4 p-6">
+            <div className="flex flex-col flex-1 gap-4 p-6">
                 <InputForm
                     id="AlgorithmSolutionTitle"
                     label="제목"

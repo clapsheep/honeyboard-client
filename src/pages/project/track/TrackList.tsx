@@ -1,8 +1,8 @@
 import { Button, SelectOption } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
+import { useAuth } from '@/hooks/useAuth';
 import { useGenerationStore } from '@/stores/generationStore';
-import { useUserStore } from '@/stores/userStore';
 import { convertSelectType } from '@/utils/convertSelectType';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from 'react-router';
 const TrackList = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
     const { generationList } = useGenerationStore();
     const [generation, setGeneration] = useState<string>(
         userInfo?.generationId ?? '',
@@ -22,11 +22,9 @@ const TrackList = () => {
                 titleProps={{ title: '관통 프로젝트' }}
                 BreadcrumbProps={{ pathname }}
             >
-                <div className="flex justify-between">
-                    <div className="pt-6">
-                        <TabNavigation routes={ROUTES} />
-                    </div>
-                    <div className="flex items-end gap-4">
+                <div className="flex items-end justify-between">
+                    <TabNavigation routes={ROUTES} />
+                    <div className="flex gap-4">
                         {userInfo?.role === 'ADMIN' ? (
                             <Button
                                 onClick={() => {

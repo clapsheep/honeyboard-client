@@ -1,10 +1,9 @@
 import { Icon, NavButton, Persona } from '@/components/atoms';
 import NavMenu from '@/components/molecules/NavMenu/NavMenu';
-import { NavItem } from './NavItem';
-import { handleLogout } from '@/services/auth';
-import { useUserStore } from '@/stores/userStore';
-import logo from '/assets/images/logo.png';
+import { useAuth } from '@/hooks/useAuth';
 import { Link } from 'react-router';
+import { NavItem } from './NavItem';
+import logo from '/assets/images/logo.png';
 
 interface NavigationProps {
     generation: string;
@@ -13,7 +12,7 @@ interface NavigationProps {
 }
 
 const Navigation = ({ generation, name }: NavigationProps) => {
-    const { setUserInfo } = useUserStore();
+    const { logout } = useAuth();
 
     return (
         <section className="fixed flex h-screen flex-col items-center gap-1 border border-gray-400 pb-[6.25rem] pt-7">
@@ -40,7 +39,7 @@ const Navigation = ({ generation, name }: NavigationProps) => {
                         title="로그아웃"
                         icon={<Icon id="circle-close-red" />}
                         color="text-error-500"
-                        onClick={() => handleLogout(setUserInfo)}
+                        onClick={logout}
                         className="mt-4"
                     />
                 </ul>

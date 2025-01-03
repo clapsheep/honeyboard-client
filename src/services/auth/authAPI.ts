@@ -7,10 +7,9 @@ import {
 } from '@/types/auth';
 import { AxiosResponse } from 'axios';
 
-export const getUserInfoAPI = async (): Promise<
-    AxiosResponse<AuthResponseType>
-> => {
-    return api.get('/user/info');
+export const getUserInfoAPI = async (): Promise<AuthResponseType> => {
+    const { data } = await api.get('/user/info');
+    return { userInfo: data, isAuthenticated: true };
 };
 // credential 로그인 요청
 export const loginAPI = async (

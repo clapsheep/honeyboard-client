@@ -1,17 +1,17 @@
 import { Header } from '@/components/organisms';
 import { useLocation } from 'react-router';
 
-const PlayList = () => {
+const SearchMusic = () => {
     const { pathname } = useLocation();
 
     return (
         <>
             <Header
-                titleProps={{ title: '플레이리스트' }}
+                titleProps={{ title: '음악 검색' }}
                 BreadcrumbProps={{ pathname }}
             />
         </>
     );
 };
 
-export default PlayList;
+export default SearchMusic;

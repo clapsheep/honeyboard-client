@@ -31,6 +31,12 @@ const calcRouteStructure = (pathname: string) => {
                 case 'problem':
                     name = '문제풀이';
                     break;
+                case 'mypage':
+                    name = '마이페이지';
+                    break;
+                case 'bookmark':
+                    name = '북마크';
+                    break;
             }
 
             const path = routeList
