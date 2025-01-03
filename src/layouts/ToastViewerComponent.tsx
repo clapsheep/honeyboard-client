@@ -14,7 +14,11 @@ const ToastViewerComponent = ({
         viewerId,
     });
 
-    return <div id={viewerId} ref={viewerRef} />;
+    return (
+        <section className="my-6 flex-1 bg-gray-25 px-6 py-4">
+            <div className="min-h-full" id={viewerId} ref={viewerRef} />
+        </section>
+    );
 };
 
 export default ToastViewerComponent;

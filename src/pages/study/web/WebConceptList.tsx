@@ -9,11 +9,12 @@ import { useGenerationStore } from '@/stores/generationStore';
 import { useUserStore } from '@/stores/userStore';
 import { convertSelectType } from '@/utils/convertSelectType';
 import { Suspense, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 const WebConceptList = () => {
     const { userInfo } = useUserStore();
     const { generationList } = useGenerationStore();
+    const navigate = useNavigate();
     const [generationId, setGenerationId] = useState<string | null>(
         userInfo!.generationId,
     );
@@ -32,7 +33,7 @@ const WebConceptList = () => {
     ];
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '웹 개념' }}
                 BreadcrumbProps={{ pathname }}
@@ -42,8 +43,13 @@ const WebConceptList = () => {
                         <TabNavigation routes={ROUTES} />
                     </div>
                     <div className="flex items-end gap-4">
-                        <Button onClick={() => {}}>글작성</Button>
-
+                        <Button
+                            onClick={() => {
+                                navigate('create');
+                            }}
+                        >
+                            글작성
+                        </Button>
                         <SelectOption
                             id="generation"
                             name="generation"
@@ -57,13 +63,10 @@ const WebConceptList = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col items-center justify-center gap-6 p-6">
-                <div>서치 바 들어가는 자리</div>
-                <Suspense fallback={<ProjectCardSkeletonList />}>
-                    <WebConceptCards generationId={generationId} />
-                </Suspense>
-            </div>
-        </div>
+            <Suspense fallback={<ProjectCardSkeletonList />}>
+                <WebConceptCards generationId={generationId} />
+            </Suspense>
+        </>
     );
 };
 

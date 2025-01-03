@@ -67,7 +67,7 @@ const CreateAlgorithmConcept = () => {
     };
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '게시글 작성' }}
                 BreadcrumbProps={{ pathname }}
@@ -81,7 +81,7 @@ const CreateAlgorithmConcept = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col flex-1 gap-4 p-6">
+            <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
                     id="webConceptTitle"
                     label="제목"
@@ -98,7 +98,7 @@ const CreateAlgorithmConcept = () => {
                     />
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import Icon from '../Icon/Icon';
+import Icon from '../../atoms/Icon/Icon';
 
-interface PagenationProps {
+interface PaginationProps {
     total: number;
     now: number;
     onClickLeft: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -9,20 +9,23 @@ interface PagenationProps {
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Pagenation = ({
+const Pagination = ({
     total,
     now,
     onClickLeft,
     onClickRight,
     onClick,
-}: PagenationProps) => {
+}: PaginationProps) => {
     const maxVisible = 5;
 
     const pageNumbers = useMemo(() => {
         const pages = [];
 
-        const start = now > total - maxVisible ? total - maxVisible : now;
-        const finish = now + maxVisible > total ? total : now + maxVisible;
+        const start = Math.max(
+            1,
+            Math.min(now - Math.floor(maxVisible / 2), total - maxVisible + 1),
+        );
+        const finish = Math.min(total, start + maxVisible - 1);
 
         for (let i = start; i <= finish; i++) {
             pages.push(i);
@@ -37,7 +40,7 @@ const Pagenation = ({
     };
 
     return (
-        <section className="flex gap-4">
+        <section className="absolute bottom-10 flex gap-4">
             <button
                 onClick={onClickLeft}
                 aria-label="5페이지 이전"
@@ -70,4 +73,4 @@ const Pagenation = ({
     );
 };
 
-export default Pagenation;
+export default Pagination;

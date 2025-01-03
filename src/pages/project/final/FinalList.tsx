@@ -18,7 +18,7 @@ const FinalList = () => {
     const ROUTES = [{ path: '/final', name: '프로젝트', isActive: true }];
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '파이널 프로젝트' }}
                 BreadcrumbProps={{ pathname }}
@@ -49,7 +49,7 @@ const FinalList = () => {
                     </div>
                 </div>
             </Header>
-        </div>
+        </>
     );
 };
 

@@ -28,7 +28,7 @@ const StudentMangement = () => {
     } = useStudentEdit(generationId);
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '학생관리' }}
                 BreadcrumbProps={{ pathname }}
@@ -51,14 +51,11 @@ const StudentMangement = () => {
                     </div>
                 </div>
             </Header>
-            <section className="my-6 max-h-[calc(100vh-210px)] flex-1 overflow-auto bg-gray-25 px-6 py-4">
-                <Suspense fallback={<StudentInfoSkeletonList />}>
-                    <StudentList
-                        generationId={generationId}
-                        onEdit={handleEdit}
-                    />
-                </Suspense>
-            </section>
+
+            <Suspense fallback={<StudentInfoSkeletonList />}>
+                <StudentList generationId={generationId} onEdit={handleEdit} />
+            </Suspense>
+
             {selectedStudent && (
                 <StudentEditModal
                     isOpen={isOpen}
@@ -68,7 +65,7 @@ const StudentMangement = () => {
                     onCancelClick={handleCancelClick}
                 />
             )}
-        </div>
+        </>
     );
 };
 

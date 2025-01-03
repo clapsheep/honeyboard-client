@@ -30,7 +30,7 @@ const CreateTrackProject = () => {
     } = useFinaleBoard();
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '팀 생성' }}
                 BreadcrumbProps={{ pathname }}
@@ -64,7 +64,7 @@ const CreateTrackProject = () => {
                     onClick={handleTeamMemeber}
                 />
             </section>
-        </div>
+        </>
     );
 };
 

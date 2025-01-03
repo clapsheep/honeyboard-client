@@ -30,7 +30,7 @@ const AlgorithmConceptList = () => {
     ];
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '알고리즘 개념' }}
                 BreadcrumbProps={{ pathname }}
@@ -61,7 +61,7 @@ const AlgorithmConceptList = () => {
                     </div>
                 </div>
             </Header>
-        </div>
+        </>
     );
 };
 

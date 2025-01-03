@@ -12,7 +12,7 @@ const CreateAlgorithmProblem = () => {
         console.log('문제 생성');
     };
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '문제 생성' }}
                 BreadcrumbProps={{ pathname }}
@@ -26,7 +26,7 @@ const CreateAlgorithmProblem = () => {
                     </div>
                 </div>
             </Header>
-        </div>
+        </>
     );
 };
 
