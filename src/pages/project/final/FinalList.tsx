@@ -1,15 +1,17 @@
 import { Button, NameTag, SelectOption } from '@/components/atoms';
 import { TabNavigation, TeamTag } from '@/components/molecules';
-import Title from '@/components/molecules/Title/Title';
 import { Header, ProjectCard } from '@/components/organisms';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
+import { useFinalBoard } from '@/hooks/useFinalBoard'; // 리팩토링된 훅을 사용
+import { useUserStore } from '@/stores/userStore';
 
 const FinalList = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [generation, setGeneration] = useState<string>('');
     const ROUTES = [{ path: '/final', name: '프로젝트', isActive: true }];
+    const userInfo = useUserStore((state) => state.userInfo);
 
     const GENERATION_OPTIONS = [
         { value: '13', label: '13기' },
@@ -132,6 +134,14 @@ const FinalList = () => {
                                 onClick={() => alert('하')}
                             />
                         ))}
+                    {/*                {todaySubmitData &&
+                        todaySubmitData.map((team, index) => (
+                            <TeamTag
+                                key={index}
+                                team={team}
+                                onClick={() => alert('하')}
+                            />
+                        ))} */}
                 </section>
                 <section className="flex w-full gap-2 pt-2">
                     {RemainUser &&
@@ -140,10 +150,18 @@ const FinalList = () => {
                                 {item.name}
                             </NameTag>
                         ))}
+
+                    {/*                    {remainingUsersData &&
+                        remainingUsersData.map((user, index) => (
+                            <NameTag key={index} color="gray">
+                                {user.name}
+                            </NameTag>
+                        ))} */}
                 </section>
             </section>
 
             <section className="grid w-full grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {/* 프로젝트 목록 렌더링 */}
                 {ProjectList &&
                     ProjectList.map((item, index) => (
                         <ProjectCard
