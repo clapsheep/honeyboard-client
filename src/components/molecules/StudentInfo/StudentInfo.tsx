@@ -1,31 +1,29 @@
 import { Button } from '@/components/atoms';
+import { StudentType } from '@/types/admin/types';
 
-interface StudentInfoProps {
-    name: string;
-    gisu: number;
-    email: string;
-    isMember?: boolean;
+interface StudentInfoProps extends StudentType {
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const StudentInfo = ({
     name,
-    gisu,
+    generationName,
     email,
     onClick,
-    isMember = true,
+    ssafy,
 }: StudentInfoProps) => {
     return (
-        <div className="flex h-full w-full items-center justify-between border border-gray-300 bg-gray-25 px-12 py-3">
-            <span className="text-text-md font-semibold">{name}</span>
-            <span>{gisu}</span>
-            <span className="underline">{email}</span>
-            <span>{isMember ? 'O' : 'X'}</span>
-
-            <Button onClick={onClick} color="blue" aria-label="정보 수정">
-                수정하기
-            </Button>
-        </div>
+        <li className="grid w-full grid-cols-[1fr_1fr_2fr_1fr_1fr] items-center border border-gray-300 bg-gray-25 px-12 py-3 text-text-md font-semibold">
+            <div>{name}</div>
+            <div>{generationName}</div>
+            <div className="underline">{email}</div>
+            <div>{ssafy ? 'O' : 'X'}</div>
+            <div>
+                <Button onClick={onClick} color="blue" aria-label="정보 수정">
+                    수정하기
+                </Button>
+            </div>
+        </li>
     );
 };
 

@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import WebSiteCard from './WebSiteCard';
 import { useState } from 'react';
+import { BrowserRouter } from 'react-router';
 
 const meta: Meta = {
     title: 'Components/Molecules/WebSiteCard',
@@ -12,9 +13,11 @@ const meta: Meta = {
     decorators: [
         (Story) => {
             return (
-                <div className="flex h-[96px] w-[270px] items-center justify-center">
-                    <Story />
-                </div>
+                <BrowserRouter>
+                    <div className="flex h-[96px] w-[270px] items-center justify-center">
+                        <Story />
+                    </div>
+                </BrowserRouter>
             );
         },
     ],
@@ -28,6 +31,7 @@ type WebSiteCardHooksProps = {
     subTitle: string;
     site?: string;
     isBookmarked: boolean;
+    id: string;
 };
 
 const WebSiteCardWithHooks = (args: WebSiteCardHooksProps) => {
@@ -38,8 +42,8 @@ const WebSiteCardWithHooks = (args: WebSiteCardHooksProps) => {
             title={args.title}
             subTitle={args.subTitle}
             site={args.site}
+            id={args.id}
             isBookmarked={isBookmarked}
-            onClick={() => alert('작동')}
             onBookmarkClick={() => setIsBookmarked(!isBookmarked)}
         />
     );
@@ -57,6 +61,7 @@ export const Default: Story = {
             title={args.title}
             subTitle={args.subTitle}
             site={args.site}
+            id={args.id}
             isBookmarked={args.isBookmarked}
         />
     ),
@@ -72,6 +77,7 @@ export const WithoutSite: Story = {
         <WebSiteCardWithHooks
             title={args.title}
             subTitle={args.subTitle}
+            id={args.id}
             isBookmarked={args.isBookmarked}
         />
     ),

@@ -1,34 +1,29 @@
+import { Link } from 'react-router';
+
 interface ProjectCardProps {
     title: string;
     subTitle: string; // 파이널에서는 깃주소, 관통 포함 그 외는 날짜
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    id: string;
     teams?: string[];
     img?: string;
 }
 
-const ProjectCard = ({
-    title,
-    subTitle,
-    onClick,
-    teams,
-    img,
-}: ProjectCardProps) => {
+const ProjectCard = ({ title, subTitle, id, teams, img }: ProjectCardProps) => {
     return (
-        <button
-            type="button"
-            onClick={onClick}
+        <Link
+            to={`/study/web/concept/${id}`}
             className="flex h-full w-full flex-col rounded border border-gray-300 bg-gray-50 shadow-md"
         >
-            <div className="w-full flex-1 overflow-hidden">
+            <div className="relative w-full flex-1 overflow-hidden pb-[68%]">
                 {!img ? (
-                    <div className="flex h-full w-full items-center justify-center text-gray-900">
+                    <div className="absolute inset-0 flex items-center justify-center text-gray-900">
                         이미지가 없습니다.
                     </div>
                 ) : (
                     <img
                         src={img}
                         alt={`${title} 이미지`}
-                        className="h-full w-full object-cover"
+                        className="absolute inset-0 h-full w-full object-cover"
                     />
                 )}
             </div>
@@ -63,7 +58,7 @@ const ProjectCard = ({
                     </ul>
                 </div>
             )}
-        </button>
+        </Link>
     );
 };
 

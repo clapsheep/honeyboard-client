@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import Icon from '../Icon/Icon';
 import SubNavButton, { SubNavButtonProps } from '../SubNavButton/SubNavButton';
 
-interface NavButtonProps {
+export interface NavButtonProps {
     id: string;
     title: string;
     icon?: React.ReactNode;
@@ -52,10 +52,9 @@ const NavButton = ({
 
     const SUB_ITEMS = items
         ? items.map((item) => (
-              <li className="mb-1">
+              <li className="mb-1" key={item.id}>
                   <SubNavButton
                       id={item.id}
-                      key={item.id}
                       title={item.title}
                       isActive={item.isActive}
                       link={item.link}

@@ -19,7 +19,7 @@ const LoginCallback = () => {
             }
         };
         handleLoginCallback();
-    }, [navigate, setUserInfo]);
+    }, []);
 
     return null;
 };

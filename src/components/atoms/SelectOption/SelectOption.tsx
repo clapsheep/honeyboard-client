@@ -1,8 +1,10 @@
 interface SelectOptionProps {
     id: string;
     name: string;
-    options: Record<string | number, string>;
+    options: { value: string | number; label: string }[];
     placeholder: string;
+    placeholderDisabled?: boolean;
+    defaultValue: string | number | null;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -11,9 +13,10 @@ const SelectOption = ({
     name,
     options,
     placeholder,
+    placeholderDisabled,
+    defaultValue,
     onChange,
 }: SelectOptionProps) => {
-    const defaultValue = Object.keys(options)[0] || placeholder;
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         onChange(e);
     };
@@ -21,24 +24,25 @@ const SelectOption = ({
         <select
             id={id}
             name={name}
-            defaultValue={defaultValue}
+            defaultValue={defaultValue ?? ''}
             className="rounded border border-gray-300 bg-gray-25 px-3 py-1 text-text-md font-medium text-gray-900"
             aria-label={name}
             onChange={handleSelectChange}
         >
             <option
+                disabled={placeholderDisabled}
                 value=""
                 className="text-text-sm font-semibold text-gray-600"
             >
                 {placeholder}
             </option>
-            {Object.entries(options).map(([key, value]) => (
+            {options.map(({ value, label }) => (
                 <option
-                    key={key}
-                    value={key}
+                    key={value}
+                    value={value}
                     className="py-1 pl-3 text-text-md font-medium text-gray-700"
                 >
-                    {value}
+                    {label}
                 </option>
             ))}
         </select>
