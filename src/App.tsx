@@ -35,6 +35,7 @@ import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
 import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
 import { useUserStore } from './stores/userStore';
 import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
+import TrackListDetail from './pages/project/track/TrackListDetail';
 
 function App() {
     const { userInfo } = useUserStore();
@@ -68,7 +69,7 @@ function App() {
                             <Route path="track" element={<TrackList />} />
                             <Route
                                 path="track/:trackId"
-                                element={<div>트랙 중 특정 트랙 프로젝트</div>}
+                                element={<TrackListDetail />}
                             />
                             <Route
                                 path="track/:trackId/create"
