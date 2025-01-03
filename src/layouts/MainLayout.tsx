@@ -20,7 +20,7 @@ const MainLayout = () => {
                 role={userInfo!.role}
             />
 
-            <main className="flex-1 bg-gray-100">
+            <main className="h-screen flex-1 bg-gray-100">
                 <Outlet />
             </main>
         </div>

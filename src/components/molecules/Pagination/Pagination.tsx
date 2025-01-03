@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import Icon from '../../atoms/Icon/Icon';
+import { Icon } from '@/components/atoms';
 
 interface PaginationProps {
     total: number;

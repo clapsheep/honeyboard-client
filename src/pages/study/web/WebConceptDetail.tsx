@@ -1,6 +1,7 @@
 import { Button } from '@/components/atoms';
 import { Header } from '@/components/organisms';
 import { useContentDetail } from '@/hooks/useContentDetail';
+import { useElementHeight } from '@/hooks/useElementHeight';
 import ToastViewerComponent from '@/layouts/ToastViewerComponent';
 import {
     deleteWebConceptAPI,
@@ -11,6 +12,7 @@ import { useLocation, useParams } from 'react-router';
 const WebConceptDetail = () => {
     const { pathname } = useLocation();
     const { conceptId } = useParams();
+    const { elementRef, height } = useElementHeight();
 
     const { data, handleDelete, handleEdit, handleLike } = useContentDetail({
         contentType: 'web_guide',
@@ -22,8 +24,9 @@ const WebConceptDetail = () => {
 
     if (!data) return null;
     return (
-        <div className="max-h-screen min-h-screen">
+        <div className="flex flex-col">
             <Header
+                ref={elementRef}
                 titleProps={{ title: data.title, onClickLike: handleLike }}
                 BreadcrumbProps={{ pathname }}
             >
@@ -36,7 +39,13 @@ const WebConceptDetail = () => {
                     </div>
                 </div>
             </Header>
-            <section className="my-6 max-h-[calc(100vh-200px)] flex-1 overflow-auto bg-gray-25 px-6 py-4">
+            <section
+                className="my-6 flex-1 overflow-auto bg-gray-25 px-6 py-4"
+                style={{
+                    maxHeight: `calc(100vh - ${height}px)`,
+                    minHeight: `calc(100vh - ${height}px)`,
+                }}
+            >
                 <ToastViewerComponent
                     content={data.content}
                     viewerId="viewer"

@@ -33,7 +33,7 @@ const WebConceptList = () => {
     ];
 
     return (
-        <div>
+        <div className="flex flex-col">
             <Header
                 titleProps={{ title: '웹 개념' }}
                 BreadcrumbProps={{ pathname }}
@@ -50,7 +50,6 @@ const WebConceptList = () => {
                         >
                             글작성
                         </Button>
-
                         <SelectOption
                             id="generation"
                             name="generation"
@@ -64,12 +63,9 @@ const WebConceptList = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col items-center justify-center gap-6 p-6">
-                <div>서치 바 들어가는 자리</div>
-                <Suspense fallback={<ProjectCardSkeletonList />}>
-                    <WebConceptCards generationId={generationId} />
-                </Suspense>
-            </div>
+            <Suspense fallback={<ProjectCardSkeletonList />}>
+                <WebConceptCards generationId={generationId} />
+            </Suspense>
         </div>
     );
 };

@@ -39,12 +39,9 @@ const AlgorithmProblem = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col items-center justify-center gap-6 p-6">
-                <div>서치 바 들어가는 자리</div>
-                <Suspense fallback={<AlgoProblemCardSkeletonList />}>
-                    <AlgoProblemCards />
-                </Suspense>
-            </div>
+            <Suspense fallback={<AlgoProblemCardSkeletonList />}>
+                <AlgoProblemCards />
+            </Suspense>
         </div>
     );
 };
