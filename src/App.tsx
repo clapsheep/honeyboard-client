@@ -41,11 +41,12 @@ import { useModalStore } from './stores/modalStore';
 import UpdateWebConcept from './pages/study/web/UpdateWebConcept';
 import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
 import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
-import { useUserStore } from './stores/userStore';
+
 import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
+import { useAuth } from './hooks/useAuth';
 
 function App() {
-    const { userInfo } = useUserStore();
+    const { isAuthenticated } = useAuth();
     const { closeModal, isOpen, modalProps } = useModalStore();
     return (
         <BrowserRouter>
@@ -61,7 +62,9 @@ function App() {
                     path="/oauth/:domain/additional"
                     element={<AdditionalInfoOAuth />}
                 />
-                <Route element={<PrivateRoute isAuthenticated={!!userInfo} />}>
+                <Route
+                    element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+                >
                     <Route element={<MainLayout />}>
                         <Route path="/" element={<Schedule />} />
                         <Route path="project">

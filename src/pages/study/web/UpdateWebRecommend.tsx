@@ -1,13 +1,13 @@
 import { Button } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { Header } from '@/components/organisms';
+import { useAuth } from '@/hooks/useAuth';
 import useToastEditor from '@/hooks/useToastEditor';
 import ToastEditorComponent from '@/layouts/ToastEditorComponent';
 import {
     getWebRecommendDetailAPI,
     updateWebRecommendAPI,
 } from '@/services/study/web';
-import { useUserStore } from '@/stores/userStore';
 import { WebRecommendDetail } from '@/types/study';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
@@ -20,7 +20,7 @@ const UpdateWebRecommend = () => {
     const [url, setUrl] = useState('');
     const [detail, setDetail] = useState<WebRecommendDetail | null>(null);
 
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
 

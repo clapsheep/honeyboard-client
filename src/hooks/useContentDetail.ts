@@ -1,9 +1,9 @@
 import { addBookMarkAPI } from '@/services/user';
 import { useModalStore } from '@/stores/modalStore';
-import { useUserStore } from '@/stores/userStore';
 import { contentType } from '@/types/study/types';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
+import { useAuth } from './useAuth';
 
 interface UseContentDetailProps<T> {
     contentType: contentType;
@@ -21,7 +21,7 @@ export const useContentDetail = <T>({
     navigateAfterDelete,
 }: UseContentDetailProps<T>) => {
     const navigate = useNavigate();
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
     const { openModal, closeModal } = useModalStore();
 
     const { data } = useQuery<T>({

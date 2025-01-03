@@ -5,14 +5,14 @@ import {
     ProjectCardSkeletonList,
     WebConceptCards,
 } from '@/components/templates';
+import { useAuth } from '@/hooks/useAuth';
 import { useGenerationStore } from '@/stores/generationStore';
-import { useUserStore } from '@/stores/userStore';
 import { convertSelectType } from '@/utils/convertSelectType';
 import { Suspense, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 const WebConceptList = () => {
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
     const { generationList } = useGenerationStore();
     const navigate = useNavigate();
     const [generationId, setGenerationId] = useState<string | null>(

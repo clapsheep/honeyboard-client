@@ -5,13 +5,13 @@ import { Suspense, useState } from 'react';
 import { useLocation } from 'react-router';
 
 import { WebRecommendCards } from '@/components/templates';
-import { useUserStore } from '@/stores/userStore';
 import WebSiteCardSkeletonList from '@/components/templates/Skeletons/WebSiteCardSkeletonList';
-import { convertSelectType } from '@/utils/convertSelectType';
+import { useAuth } from '@/hooks/useAuth';
 import { useGenerationStore } from '@/stores/generationStore';
+import { convertSelectType } from '@/utils/convertSelectType';
 
 const WebRecommendList = () => {
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
     const { generationList } = useGenerationStore();
     const [generationId, setGenerationId] = useState<string>(
         userInfo!.generationId,
