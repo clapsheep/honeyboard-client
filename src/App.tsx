@@ -45,8 +45,6 @@ import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConce
 import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
 
 import UpdateTrackProjectBoard from './pages/project/track/UpdateTrackProjectBoard';
-import { useAuth } from './hooks/useAuth';
-
 
 function App() {
     const { closeModal, isOpen, modalProps } = useModalStore();

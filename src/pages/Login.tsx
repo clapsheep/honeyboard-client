@@ -37,10 +37,10 @@ const Login = () => {
                     <img
                         src={logo}
                         alt="HoneyBoard"
-                        className="h-auto w-full object-contain"
+                        className="object-contain w-full h-auto"
                     />
                 </figure>
-                <h1 className="py-6 text-display-md font-bold text-gray-900">
+                <h1 className="py-6 font-bold text-gray-900 text-display-md">
                     로그인
                 </h1>
                 <div className="flex gap-3 pb-6">
@@ -54,7 +54,7 @@ const Login = () => {
                     />
                 </div>
                 <form
-                    className="flex w-full flex-col items-center gap-6 py-3"
+                    className="flex flex-col items-center w-full gap-6 py-3"
                     onSubmit={handleSubmit(onSubmit)}
                 >
                     <InputForm
@@ -86,7 +86,7 @@ const Login = () => {
                         로그인
                     </Button>
                 </form>
-                <div className="flex flex-col items-center gap-3 py-6 text-text-md text-gray-700">
+                <div className="flex flex-col items-center gap-3 py-6 text-gray-700 text-text-md">
                     <span>
                         회원이 아니신가요?{' '}
                         <Link to="/signup" className="font-medium underline">

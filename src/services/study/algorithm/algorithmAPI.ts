@@ -6,6 +6,7 @@ import {
     AlgorithmSolutionDetail,
 } from '@/types/study';
 
+// 알고리즘 개념
 export const getAlgorithmConceptsAPI = async (generationId: string) => {
     const { data } = await api.get('/algorithm/guide', {
         params: {
@@ -46,6 +47,7 @@ export const updateAlgorithmConceptAPI = async (
     return data;
 };
 
+// 알고리즘 문제
 export const getAlgorithmProblemsAPI = async (
     page: number,
     size: number,
@@ -59,6 +61,11 @@ export const getAlgorithmProblemsAPI = async (
     return data;
 };
 
+// export const createAlgorithmProblemAPI = async(algorithmProblem: AlgorithmProblem): Promise<AlgorithmProblem> => {
+//     return await api.post()
+// };
+
+// 알고리즘 문제풀이
 export const createAlgorithmSolutionAPI = async (
     problemId: string,
     algorithmSolution: AlgorithmSolutionDetail,

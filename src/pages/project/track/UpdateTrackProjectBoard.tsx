@@ -1,13 +1,13 @@
 import { Button } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { Header } from '@/components/organisms';
+import { useAuth } from '@/hooks/useAuth';
 import useToastEditor from '@/hooks/useToastEditor';
 import ToastEditorComponent from '@/layouts/ToastEditorComponent';
 import {
     getTrackProjectBoardAPI,
     updateTrackProjectBoardAPI,
 } from '@/services/project/track';
-import { useUserStore } from '@/stores/userStore';
 import { TrackProjectBoardDetail } from '@/types/project/track';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
@@ -20,7 +20,7 @@ const UpdateTrackProjectBoard = () => {
     const [url, setUrl] = useState('');
     const [detail, setDetail] = useState<TrackProjectBoardDetail | null>(null);
 
-    const { userInfo } = useUserStore();
+    const { userInfo } = useAuth();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
 

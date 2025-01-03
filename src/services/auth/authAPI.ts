@@ -23,7 +23,6 @@ export const loginAPI = async (
     const formData = new URLSearchParams();
     formData.append('username', data.email);
     formData.append('password', data.password);
-
     return api.post<AuthResponseType>('/auth/login', formData, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
