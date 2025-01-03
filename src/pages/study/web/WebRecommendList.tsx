@@ -7,10 +7,13 @@ import { useLocation } from 'react-router';
 import { WebRecommendCards } from '@/components/templates';
 import { useUserStore } from '@/stores/userStore';
 import WebSiteCardSkeletonList from '@/components/templates/Skeletons/WebSiteCardSkeletonList';
+import { convertSelectType } from '@/utils/convertSelectType';
+import { useGenerationStore } from '@/stores/generationStore';
 
 const WebRecommendList = () => {
     const { userInfo } = useUserStore();
-    const [generation, setGeneration] = useState<string>(
+    const { generationList } = useGenerationStore();
+    const [generationId, setGenerationId] = useState<string>(
         userInfo!.generationId,
     );
     const { pathname } = useLocation();
@@ -28,14 +31,8 @@ const WebRecommendList = () => {
         },
     ];
 
-    const GENERATION_OPTIONS = [
-        { value: '13', label: '13기' },
-        { value: '12', label: '12기' },
-        { value: '11', label: '11기' },
-    ];
-
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '웹 추천' }}
                 BreadcrumbProps={{ pathname }}
@@ -51,22 +48,20 @@ const WebRecommendList = () => {
                             id="generation"
                             name="generation"
                             placeholder="기수"
-                            defaultValue={userInfo!.generationId}
-                            options={GENERATION_OPTIONS}
+                            placeholderDisabled
+                            defaultValue={generationId}
+                            options={convertSelectType(generationList)}
                             onChange={(e) => {
-                                setGeneration(e.target.value);
+                                setGenerationId(e.target.value);
                             }}
                         />
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col items-center justify-center gap-6 p-6">
-                <div>서치 바 들어가는 자리</div>
-                <Suspense fallback={<WebSiteCardSkeletonList />}>
-                    <WebRecommendCards generationId={generation} />
-                </Suspense>
-            </div>
-        </div>
+            <Suspense fallback={<WebSiteCardSkeletonList />}>
+                <WebRecommendCards generationId={generationId} />
+            </Suspense>
+        </>
     );
 };
 

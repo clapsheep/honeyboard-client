@@ -1,3 +1,9 @@
+import { Button, SelectOption } from '@/components/atoms';
+import { TabNavigation } from '@/components/molecules';
+import { Header } from '@/components/organisms';
+import { useGenerationStore } from '@/stores/generationStore';
+import { useUserStore } from '@/stores/userStore';
+import { convertSelectType } from '@/utils/convertSelectType';
 import { Button, NameTag, SelectOption } from '@/components/atoms';
 import { TabNavigation, TeamTag } from '@/components/molecules';
 import { Header, ProjectCard } from '@/components/organisms';
@@ -9,7 +15,11 @@ import { useUserStore } from '@/stores/userStore';
 const FinalList = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const [generation, setGeneration] = useState<string>('');
+    const { generationList } = useGenerationStore();
+    const { userInfo } = useUserStore();
+    const [generation, setGeneration] = useState<string>(
+        userInfo?.generationId ?? '',
+    );
     const ROUTES = [{ path: '/final', name: '프로젝트', isActive: true }];
     const userInfo = useUserStore((state) => state.userInfo);
 
@@ -90,7 +100,7 @@ const FinalList = () => {
     ];
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '파이널 프로젝트' }}
                 BreadcrumbProps={{ pathname }}
@@ -112,7 +122,8 @@ const FinalList = () => {
                             id="generation"
                             name="generation"
                             placeholder="기수"
-                            options={GENERATION_OPTIONS}
+                            options={convertSelectType(generationList)}
+                            defaultValue={generation}
                             onChange={(e) => {
                                 setGeneration(e.target.value);
                             }}

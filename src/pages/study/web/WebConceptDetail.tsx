@@ -22,7 +22,7 @@ const WebConceptDetail = () => {
 
     if (!data) return null;
     return (
-        <div className="max-h-screen min-h-screen">
+        <>
             <Header
                 titleProps={{ title: data.title, onClickLike: handleLike }}
                 BreadcrumbProps={{ pathname }}
@@ -36,13 +36,9 @@ const WebConceptDetail = () => {
                     </div>
                 </div>
             </Header>
-            <section className="my-6 max-h-[calc(100vh-200px)] flex-1 overflow-auto bg-gray-25 px-6 py-4">
-                <ToastViewerComponent
-                    content={data.content}
-                    viewerId="viewer"
-                />
-            </section>
-        </div>
+
+            <ToastViewerComponent content={data.content} viewerId="viewer" />
+        </>
     );
 };
 

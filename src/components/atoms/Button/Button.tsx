@@ -5,6 +5,8 @@ interface ButtonProps {
     color?: 'red' | 'blue' | 'green' | 'gray' | 'white';
     disabled?: boolean;
     className?: string;
+    'data-id'?: string;
+    'data-name'?: string;
 }
 
 const Button = ({
@@ -14,6 +16,8 @@ const Button = ({
     disabled = false,
     onClick,
     className,
+    'data-id': dataId,
+    'data-name': dataName,
 }: ButtonProps) => {
     const COLOR_PROS = {
         red: 'bg-error-600',

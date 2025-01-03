@@ -18,16 +18,19 @@ const CreateWebConcept = () => {
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
 
-    const { onSubmit, editorRef } = useToastEditor({
+    const { onSubmit, onCancel, editorRef } = useToastEditor({
         editorId: 'webConceptEditor',
         initialContent: '',
     });
 
-    const handleCancel = () => {
-        navigate('-1');
+    const handleCancel = async () => {
+        const confirm = await onCancel();
+        if (confirm) {
+            navigate(-1);
+        }
     };
 
-    const handleSubmit = async () => {
+    const handleCreate = async () => {
         if (!title.trim()) {
             alert('제목을 입력해주세요.');
             return;
@@ -54,7 +57,7 @@ const CreateWebConcept = () => {
                 deleted: false,
             });
 
-            navigate('/web/concept');
+            navigate(-1);
         } catch (error) {
             console.error('게시글 작성을 실패했습니다:', error);
         }
@@ -65,9 +68,9 @@ const CreateWebConcept = () => {
     };
 
     return (
-        <div>
+        <>
             <Header
-                titleProps={{ title: '글작성' }}
+                titleProps={{ title: '게시글 작성' }}
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-end">
@@ -75,11 +78,11 @@ const CreateWebConcept = () => {
                         <Button color="red" onClick={handleCancel}>
                             취소
                         </Button>
-                        <Button onClick={handleSubmit}>글쓰기</Button>
+                        <Button onClick={handleCreate}>게시글 작성</Button>
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-1 flex-col gap-4 p-4">
+            <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
                     id="webConceptTitle"
                     label="제목"
@@ -89,14 +92,13 @@ const CreateWebConcept = () => {
                     value={title}
                     onChange={handleTitleChange}
                 />
-                <div className="flex-1">
-                    <ToastEditorComponent
-                        editorId="webConceptEditor"
-                        editorRef={editorRef}
-                    />
-                </div>
+
+                <ToastEditorComponent
+                    editorId="webConceptEditor"
+                    editorRef={editorRef}
+                />
             </div>
-        </div>
+        </>
     );
 };
 

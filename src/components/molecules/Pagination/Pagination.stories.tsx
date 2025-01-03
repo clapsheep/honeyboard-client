@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Pagenation from './Pagenation';
+import Pagination from './Pagination';
 
 const meta = {
-    title: 'Components/Atoms/Pagenation',
-    component: Pagenation,
+    title: 'Components/Molecules/Pagination',
+    component: Pagination,
     parameters: {
         layout: 'centered',
     },
     tags: ['autodocs'],
-} satisfies Meta<typeof Pagenation>;
+} satisfies Meta<typeof Pagination>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

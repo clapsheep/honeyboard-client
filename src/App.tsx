@@ -14,21 +14,27 @@ import {
     CreateWebRecommend,
     Error404,
     FinalList,
+    GenerationManagement,
     Login,
     LoginCallback,
     PlayList,
+    Schedule,
     SignUp,
+    StudentManagement,
     TrackList,
     WebConceptDetail,
     WebConceptList,
     WebRecommendDetail,
     WebRecommendList,
-    Schedule,
 } from './pages';
 
-import { useUserStore } from './stores/userStore';
 import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
+import UpdateWebConcept from './pages/study/web/UpdateWebConcept';
+import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
+import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
+import { useUserStore } from './stores/userStore';
+import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
 
 function App() {
     const { userInfo } = useUserStore();
@@ -138,7 +144,7 @@ function App() {
                                 />
                                 <Route
                                     path="concept/:conceptId/edit"
-                                    element={<div>Algorithm Concept Edit</div>}
+                                    element={<UpdateAlgorithmConcept />}
                                 />
 
                                 <Route
@@ -175,11 +181,7 @@ function App() {
 
                                 <Route
                                     path="problem/:problemId/:solutionId/edit"
-                                    element={
-                                        <div>
-                                            Algorithm Problem Solution Edit
-                                        </div>
-                                    }
+                                    element={<UpdateAlgorithmProblemSolution />}
                                 />
                             </Route>
 
@@ -187,7 +189,7 @@ function App() {
                                 <Route
                                     index
                                     element={
-                                        <Navigate to="/study/web/concept" />
+                                        <Navigate to="/study/web/concept?page=1" />
                                     }
                                 />
                                 <Route
@@ -204,7 +206,7 @@ function App() {
                                 />
                                 <Route
                                     path="concept/:conceptId/edit"
-                                    element={<div>Web Edit</div>}
+                                    element={<UpdateWebConcept />}
                                 />
 
                                 <Route
@@ -216,12 +218,12 @@ function App() {
                                     element={<CreateWebRecommend />}
                                 />
                                 <Route
-                                    path="recommend/:recomendId"
+                                    path="recommend/:recommendId"
                                     element={<WebRecommendDetail />}
                                 />
                                 <Route
-                                    path="recommend/:recomendId/edit"
-                                    element={<div>Web Edit</div>}
+                                    path="recommend/:recommendId/edit"
+                                    element={<UpdateWebRecommend />}
                                 />
                             </Route>
                         </Route>
@@ -236,7 +238,7 @@ function App() {
                                 element={<div>Search Music</div>}
                             />
                         </Route>
-                        <Route path="admin" element={<div>Admin</div>}>
+                        <Route path="admin">
                             <Route
                                 index
                                 element={
@@ -245,14 +247,14 @@ function App() {
                             />
                             <Route
                                 path="student"
-                                element={<div>Admin Student</div>}
+                                element={<StudentManagement />}
                             />
                             <Route
                                 path="generation"
-                                element={<div>generation Student</div>}
+                                element={<GenerationManagement />}
                             />
                         </Route>
-                        <Route path="mypage" element={<div>My Page</div>}>
+                        <Route path="mypage">
                             <Route
                                 index
                                 element={
@@ -262,10 +264,16 @@ function App() {
                                     />
                                 }
                             />
-                            <Route
-                                path="project"
-                                element={<div>my project</div>}
-                            >
+                            <Route path="project">
+                                <Route
+                                    index
+                                    element={
+                                        <Navigate
+                                            to="/mypage/project/track"
+                                            replace
+                                        />
+                                    }
+                                />
                                 <Route
                                     path="track"
                                     element={<div>my track</div>}
@@ -279,10 +287,7 @@ function App() {
                                 path="algorithm"
                                 element={<div>my algorithm</div>}
                             />
-                            <Route
-                                path="bookmark"
-                                element={<div>my bookmark</div>}
-                            >
+                            <Route path="bookmark">
                                 <Route
                                     index
                                     element={

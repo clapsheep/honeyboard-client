@@ -5,13 +5,17 @@ import {
     ProjectCardSkeletonList,
     WebConceptCards,
 } from '@/components/templates';
+import { useGenerationStore } from '@/stores/generationStore';
 import { useUserStore } from '@/stores/userStore';
+import { convertSelectType } from '@/utils/convertSelectType';
 import { Suspense, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 const WebConceptList = () => {
     const { userInfo } = useUserStore();
-    const [generation, setGeneration] = useState<string>(
+    const { generationList } = useGenerationStore();
+    const navigate = useNavigate();
+    const [generationId, setGenerationId] = useState<string | null>(
         userInfo!.generationId,
     );
     const { pathname } = useLocation();
@@ -28,14 +32,8 @@ const WebConceptList = () => {
         },
     ];
 
-    const GENERATION_OPTIONS = [
-        { value: '13', label: '13기' },
-        { value: '12', label: '12기' },
-        { value: '11', label: '11기' },
-    ];
-
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '웹 개념' }}
                 BreadcrumbProps={{ pathname }}
@@ -45,28 +43,30 @@ const WebConceptList = () => {
                         <TabNavigation routes={ROUTES} />
                     </div>
                     <div className="flex items-end gap-4">
-                        <Button onClick={() => {}}>글작성</Button>
-
+                        <Button
+                            onClick={() => {
+                                navigate('create');
+                            }}
+                        >
+                            글작성
+                        </Button>
                         <SelectOption
                             id="generation"
                             name="generation"
                             placeholder="기수"
-                            options={GENERATION_OPTIONS}
-                            defaultValue={userInfo!.generationId}
+                            options={convertSelectType(generationList)}
+                            defaultValue={generationId}
                             onChange={(e) => {
-                                setGeneration(e.target.value);
+                                setGenerationId(e.target.value);
                             }}
                         />
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col items-center justify-center gap-6 p-6">
-                <div>서치 바 들어가는 자리</div>
-                <Suspense fallback={<ProjectCardSkeletonList />}>
-                    <WebConceptCards generationId={generation} />
-                </Suspense>
-            </div>
-        </div>
+            <Suspense fallback={<ProjectCardSkeletonList />}>
+                <WebConceptCards generationId={generationId} />
+            </Suspense>
+        </>
     );
 };
 
