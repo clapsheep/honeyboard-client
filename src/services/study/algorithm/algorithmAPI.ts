@@ -59,6 +59,13 @@ export const getAlgorithmProblemsAPI = async (
     return data;
 };
 
+export const getAlgorithmSolutionAPI = async (
+    problemId: string,
+): Promise<AlgorithmSolutionDetail> => {
+    const { data } = await api.get(`/algorithm/problem/${problemId}/solution`);
+    return data;
+};
+
 export const createAlgorithmSolutionAPI = async (
     problemId: string,
     algorithmSolution: AlgorithmSolutionDetail,
@@ -80,4 +87,10 @@ export const updateAlgorithmSolutionAPI = async (
         algorithmSolution,
     );
     return data;
+};
+
+export const deleteAlgorithmSolutionAPI = async (
+    problemId: string,
+): Promise<void> => {
+    await api.delete(`/algorithm/problem/${problemId}/solution`);
 };
