@@ -1,5 +1,7 @@
 import { Button } from '@/components/atoms';
 import { Header } from '@/components/organisms';
+import SearchTeamMember from '@/components/organisms/SearchTeamMember/SearchTeamMember';
+import { useFinaleBoard } from '@/hooks/useFinaleBoard';
 import { useLocation, useNavigate } from 'react-router';
 
 const CreateTrackProject = () => {
@@ -11,6 +13,22 @@ const CreateTrackProject = () => {
     const handleCreate = () => {
         console.log('팀 생성');
     };
+
+    const {
+        teamLeader,
+        leaderInputValue,
+        leaderSearch,
+        handleTeamLeader,
+        handleLeaderSearch,
+        handleLeaderOnChange,
+        teamMember,
+        memberInputValue,
+        memberSearch,
+        handleTeamMemeber,
+        handleMemeberSearch,
+        handleMemeberOnChange,
+    } = useFinaleBoard();
+
     return (
         <div>
             <Header
@@ -26,6 +44,26 @@ const CreateTrackProject = () => {
                     </div>
                 </div>
             </Header>
+            <section className="mx-auto mt-11 flex w-[50rem] flex-col gap-3">
+                <SearchTeamMember
+                    title={'팀장'}
+                    team={teamLeader}
+                    results={leaderSearch}
+                    inputValue={leaderInputValue}
+                    onClickResult={handleLeaderSearch}
+                    onChange={handleLeaderOnChange}
+                    onClick={handleTeamLeader}
+                />
+                <SearchTeamMember
+                    title={'팀원'}
+                    team={teamMember}
+                    results={memberSearch}
+                    inputValue={memberInputValue}
+                    onClickResult={handleMemeberSearch}
+                    onChange={handleMemeberOnChange}
+                    onClick={handleTeamMemeber}
+                />
+            </section>
         </div>
     );
 };
