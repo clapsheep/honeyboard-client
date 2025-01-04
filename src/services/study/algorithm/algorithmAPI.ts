@@ -93,6 +93,16 @@ export const createAlgorithmTagAPI = async (tag: Tag): Promise<Tag> => {
 };
 
 // 알고리즘 문제풀이
+export const getAlgorithmSolutionAPI = async (
+    problemId: string,
+    solutionId: string,
+): Promise<AlgorithmSolutionDetail> => {
+    const { data } = await api.get(
+        `/algorithm/problem/${problemId}/solution/${solutionId}`,
+    );
+    return data;
+};
+
 export const createAlgorithmSolutionAPI = async (
     problemId: string,
     algorithmSolution: AlgorithmSolutionDetail,
@@ -114,4 +124,11 @@ export const updateAlgorithmSolutionAPI = async (
         algorithmSolution,
     );
     return data;
+};
+
+export const deleteAlgorithmSolutionAPI = async (
+    problemId: string,
+    solutionId: string,
+): Promise<void> => {
+    await api.delete(`/algorithm/problem/${problemId}/solution/${solutionId}`);
 };
