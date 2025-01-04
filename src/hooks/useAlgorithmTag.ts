@@ -1,8 +1,8 @@
 import { Result } from '@/components/atoms/SearchDropDown/SearchDropDown';
 import {
-    createAlgorithmTagAPI,
-    getAlgorithmTagsAPI,
-} from '@/services/study/algorithm';
+    handleTagCreate,
+    handleTagSearch,
+} from '@/services/study/algorithm/algorithmService';
 import { useState } from 'react';
 
 interface useAlgorithmTagProps {
@@ -23,14 +23,8 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
 
         try {
             if (searchValue.trim()) {
-                const data = await getAlgorithmTagsAPI(searchValue);
-
-                const formattedResults: Result[] = data.map((tag) => ({
-                    id: tag.id.toString(),
-                    name: tag.name,
-                }));
-
-                setSearchResult(formattedResults);
+                const result = await handleTagSearch(searchValue);
+                setSearchResult(result);
             } else {
                 setSearchResult([]);
             }
@@ -79,18 +73,17 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
             // 새로운 태그 db에 추가
             if (!isExist && !isDuplicate) {
                 try {
-                    const newTag = await createAlgorithmTagAPI({
-                        id: '',
-                        name: value.trim(),
-                    });
+                    const newTag = await handleTagCreate(value);
 
-                    setAlgoSearch((prev) => [
-                        ...prev,
-                        {
-                            id: newTag.id,
-                            name: newTag.name,
-                        },
-                    ]);
+                    if (newTag) {
+                        setAlgoSearch((prev) => [
+                            ...prev,
+                            {
+                                id: newTag.id,
+                                name: newTag.name,
+                            },
+                        ]);
+                    }
 
                     setValue('');
                     setSearchResult([]);
