@@ -22,8 +22,6 @@ const CreateTrackProject = () => {
         }
 
         const teamData = {
-            projectName: '파이널 프로젝트',
-            summary: '요약',
             generationId: Number(userInfo.generationId),
             leaderId: Number(teamLeader[0].id),
             memberIds: teamMember.map((member) => Number(member.id)),

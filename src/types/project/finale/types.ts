@@ -17,8 +17,8 @@ export interface TeamUser {
 export interface TeamRequest {
 
   teamId?: string;
-  projectName: string;
-  summary: string;
+  projectName?: string;
+  summary?: string;
   generationId: number;
   leaderId: number;
   memberIds: number[];
