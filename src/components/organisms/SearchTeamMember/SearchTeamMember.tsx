@@ -12,6 +12,7 @@ interface SearchTeamMemberProps {
     onClickSearch?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const SearchTeamMember = ({
@@ -23,6 +24,7 @@ const SearchTeamMember = ({
     onClickSearch,
     onChange,
     onClick,
+    onKeyDown,
 }: SearchTeamMemberProps) => {
     const TeamMemberButton = useMemo(() => {
         return team.map((member: Result) => (
@@ -53,6 +55,7 @@ const SearchTeamMember = ({
                     onClickResult={onClickResult}
                     onClickSearch={onClickSearch}
                     onChange={onChange}
+                    onKeyDown={onKeyDown}
                 />
             </section>
         </section>

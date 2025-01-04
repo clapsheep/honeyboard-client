@@ -38,7 +38,7 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
             </div>
             {data?.content?.length ? (
                 <>
-                    <ul className="grid min-w-[1400px] grid-cols-4 grid-rows-2 gap-6">
+                    <ul className="grid min-w-[1200px] grid-cols-4 grid-rows-2 gap-6">
                         {data.content.map((item) => (
                             <li key={item.id}>
                                 <ProjectCard

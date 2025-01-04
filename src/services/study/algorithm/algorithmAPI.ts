@@ -4,6 +4,7 @@ import {
     AlgorithmConceptDetail,
     AlgorithmProblem,
     AlgorithmSolutionDetail,
+    Tag,
 } from '@/types/study';
 
 // 알고리즘 개념
@@ -61,9 +62,35 @@ export const getAlgorithmProblemsAPI = async (
     return data;
 };
 
-// export const createAlgorithmProblemAPI = async(algorithmProblem: AlgorithmProblem): Promise<AlgorithmProblem> => {
-//     return await api.post()
-// };
+export const createAlgorithmProblemAPI = async (
+    algorithmProblem: AlgorithmProblem,
+): Promise<AlgorithmProblem> => {
+    const { data } = await api.post(`/algorithm/problem`, algorithmProblem);
+    return data;
+};
+
+export const updateAlgorithmProblemAPI = async (
+    problemId: string,
+    algorithmProblem: AlgorithmProblem,
+): Promise<AlgorithmProblem> => {
+    const { data } = await api.put(
+        `/algorithm/problem${problemId}`,
+        algorithmProblem,
+    );
+    return data;
+};
+
+// 알고리즘 태그
+export const getAlgorithmTagsAPI = async (name?: string): Promise<Tag[]> => {
+    const params = name ? { name } : {};
+    const { data } = await api.get('/algorithm/tag', { params });
+    return data;
+};
+
+export const createAlgorithmTagAPI = async (tag: Tag): Promise<Tag> => {
+    const { data } = await api.post('/algorithm/tag', tag);
+    return data;
+};
 
 // 알고리즘 문제풀이
 export const createAlgorithmSolutionAPI = async (

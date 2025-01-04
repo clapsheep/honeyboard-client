@@ -45,6 +45,7 @@ import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConce
 import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
 
 import UpdateTrackProjectBoard from './pages/project/track/UpdateTrackProjectBoard';
+import UpdateAlgorithmProblem from './pages/study/algorithm/UpdateAlgorithmProblem';
 
 function App() {
     const { closeModal, isOpen, modalProps } = useModalStore();
@@ -164,7 +165,7 @@ function App() {
                                 />
                                 <Route
                                     path="problem/:problemId/edit"
-                                    element={<div>Algorithm Problem Edit</div>}
+                                    element={<UpdateAlgorithmProblem />}
                                 />
                                 <Route
                                     path="problem/:problemId"

@@ -4,15 +4,24 @@ import { Header } from '@/components/organisms';
 import SearchTeamMember from '@/components/organisms/SearchTeamMember/SearchTeamMember';
 import useAlgorithmTag from '@/hooks/useAlgorithmTag';
 import { useAuth } from '@/hooks/useAuth';
-import { createAlgorithmProblemAPI } from '@/services/study/algorithm';
-import React, { useState } from 'react';
+import { updateAlgorithmProblemAPI } from '@/services/study/algorithm';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
-const CreateAlgorithmProblem = () => {
+const UpdateAlgorithmProblem = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
+    const { userInfo } = useAuth();
+    const userId = userInfo?.userId;
+
+    // const [detail, setDetail] = useState<AlgorithmSolution>();
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const {data} = await getAlgorithmProblemsAPI
+    //     }
+    // })
 
     const {
         onAlgorithmChange,
@@ -25,14 +34,11 @@ const CreateAlgorithmProblem = () => {
         initialAlgoSearch: [],
     });
 
-    const { userInfo } = useAuth();
-    const userId = userInfo?.userId;
-
     const handleCancel = () => {
         navigate(-1);
     };
 
-    const handleCreate = async () => {
+    const handleUpdate = async () => {
         if (!userId) {
             alert('사용자 정보가 없습니다.');
             return;
@@ -41,7 +47,7 @@ const CreateAlgorithmProblem = () => {
         try {
             const currentDate = new Date().toISOString();
 
-            await createAlgorithmProblemAPI({
+            await updateAlgorithmProblemAPI('1', {
                 id: '',
                 title,
                 url,
@@ -81,7 +87,7 @@ const CreateAlgorithmProblem = () => {
                         <Button color="red" onClick={handleCancel}>
                             취소
                         </Button>
-                        <Button onClick={handleCreate}>문제 생성</Button>
+                        <Button onClick={handleUpdate}>문제 생성</Button>
                     </div>
                 </div>
             </Header>
@@ -121,4 +127,4 @@ const CreateAlgorithmProblem = () => {
     );
 };
 
-export default CreateAlgorithmProblem;
+export default UpdateAlgorithmProblem;
