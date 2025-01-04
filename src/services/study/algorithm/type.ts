@@ -24,3 +24,7 @@ export interface AlgorithmConcept {
     updatedAt: string;
     deleted: boolean;
 }
+
+export interface AlgorithmConceptDetail extends AlgorithmConcept {
+    content: string;
+}

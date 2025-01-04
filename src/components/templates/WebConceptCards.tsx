@@ -43,7 +43,7 @@ const WebConceptCards = ({
                         title={item.title}
                         subTitle={item.updatedAt}
                         id={item.id}
-                        img={item.thumbnailUrl}
+                        img={item.thumbnail}
                     />
                 </li>
             ))}
