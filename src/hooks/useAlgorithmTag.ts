@@ -100,10 +100,19 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
             }
         }
     };
+
+    const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const tagId = e.currentTarget.dataset.id;
+        if (tagId) {
+            setAlgoSearch((prev) => prev.filter((tag) => tag.id !== tagId));
+        }
+    };
+
     return {
         onAlgorithmChange,
         onClickResult,
         onKeyDown,
+        onDelete,
         value,
         algoSearch,
         searchResult,

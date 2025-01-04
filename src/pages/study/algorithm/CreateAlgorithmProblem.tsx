@@ -18,6 +18,7 @@ const CreateAlgorithmProblem = () => {
         onAlgorithmChange,
         onClickResult,
         onKeyDown,
+        onDelete,
         value,
         algoSearch,
         searchResult,
@@ -64,10 +65,6 @@ const CreateAlgorithmProblem = () => {
 
     const onUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUrl(e.target.value);
-    };
-
-    const onDelete = () => {
-        console.log('삭제');
     };
 
     return (
