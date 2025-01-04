@@ -5,6 +5,7 @@ import {
     AdditionalInfoOAuth,
     AlgorithmConceptList,
     AlgorithmProblemList,
+    AlgorithmProblemSolutionDetail,
     BMAlgorithmConcept,
     BMAlgorithmSolution,
     BMWebConcept,
@@ -30,6 +31,12 @@ import {
     SignUp,
     StudentManagement,
     TrackList,
+    UpdateAlgorithmConcept,
+    UpdateAlgorithmProblem,
+    UpdateAlgorithmProblemSolution,
+    UpdateTrackProjectBoard,
+    UpdateWebConcept,
+    UpdateWebRecommend,
     WebConceptDetail,
     WebConceptList,
     WebRecommendDetail,
@@ -38,14 +45,6 @@ import {
 
 import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
-import UpdateWebConcept from './pages/study/web/UpdateWebConcept';
-import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
-import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
-
-import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
-
-import UpdateTrackProjectBoard from './pages/project/track/UpdateTrackProjectBoard';
-import UpdateAlgorithmProblem from './pages/study/algorithm/UpdateAlgorithmProblem';
 
 function App() {
     const { closeModal, isOpen, modalProps } = useModalStore();
@@ -178,9 +177,7 @@ function App() {
 
                                 <Route
                                     path="problem/:problemId/:solutionId"
-                                    element={
-                                        <div>Algorithm Problem Solution</div>
-                                    }
+                                    element={<AlgorithmProblemSolutionDetail />}
                                 />
                                 <Route
                                     path="problem/:problemId/create"

@@ -30,3 +30,10 @@ export { default as BMAlgorithmSolution } from './mypage/bookmark/BMAlgorithmSol
 export { default as BMWebConcept } from './mypage/bookmark/BMWebConcept';
 export { default as BMWebRecommend } from './mypage/bookmark/BMWebRecommend';
 export { default as SearchMusic } from './music/SearchMusic';
+export { default as UpdateWebConcept } from './study/web/UpdateWebConcept';
+export { default as UpdateWebRecommend } from './study/web/UpdateWebRecommend';
+export { default as UpdateAlgorithmConcept } from './study/algorithm/UpdateAlgorithmConcept';
+export { default as UpdateAlgorithmProblemSolution } from './study/algorithm/UpdateAlgorithmProblemSolution';
+export { default as UpdateTrackProjectBoard } from './project/track/UpdateTrackProjectBoard';
+export { default as UpdateAlgorithmProblem } from './study/algorithm/UpdateAlgorithmProblem';
+export { default as AlgorithmProblemSolutionDetail } from './study/algorithm/AlgorithmProblemSolutionDetail';

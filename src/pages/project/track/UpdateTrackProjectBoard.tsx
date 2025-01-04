@@ -24,11 +24,6 @@ const UpdateTrackProjectBoard = () => {
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
 
-    const { onSubmit, onCancel, editorRef } = useToastEditor({
-        editorId: 'trackProjectBoardEditor',
-        initialContent: '',
-    });
-
     useEffect(() => {
         if (!trackId || !projectId) {
             alert('글을 불러오지 못했습니다.');
@@ -44,6 +39,11 @@ const UpdateTrackProjectBoard = () => {
 
         fetchContent();
     }, [trackId, projectId]);
+
+    const { onSubmit, onCancel, editorRef } = useToastEditor({
+        editorId: 'trackProjectBoardEditor',
+        initialContent: detail?.content ?? '',
+    });
 
     const handleCancel = async () => {
         const confirm = await onCancel();
@@ -73,9 +73,9 @@ const UpdateTrackProjectBoard = () => {
             const currentDate = new Date().toISOString();
 
             await updateTrackProjectBoardAPI(detail.projectId, detail.trackId, {
-                teamId: detail.teamId,
-                trackId: detail.trackId,
                 projectId: detail.projectId,
+                trackId: detail.trackId,
+                teamId: detail.teamId,
                 title: title.trim(),
                 url,
                 content,
@@ -114,7 +114,7 @@ const UpdateTrackProjectBoard = () => {
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col flex-1 gap-4 p-6">
+            <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
                     id="trackProjectBoardTitle"
                     label="프로젝트 제목"

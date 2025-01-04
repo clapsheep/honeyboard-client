@@ -25,18 +25,18 @@ const AlgoInfo = ({
         { id: '3', name: 'C++' },
     ];
 
-    const selectedLanguage = LANGUAGE_OPTIONS.find(lang => lang.id === languageId);
+    const selectedLanguage = LANGUAGE_OPTIONS.find(
+        (lang) => lang.id === languageId,
+    );
 
     return (
         <div className="flex gap-6">
             <div className="flex items-center gap-1">
-                <span className="font-bold text-gray-700 text-text-md">
+                <span className="text-text-md font-bold text-gray-700">
                     Memory
                 </span>
                 {readOnly ? (
-                    <span className="w-24 px-2 py-1">
-                        {memory} kb
-                    </span>
+                    <span className="w-24 px-2 py-1">{memory} kb</span>
                 ) : (
                     <>
                         <input
@@ -45,22 +45,20 @@ const AlgoInfo = ({
                             type="text"
                             value={memory}
                             onChange={onMemoryChange}
-                            className="w-24 px-2 py-1 border border-gray-300 rounded-sm shadow-sm"
+                            className="w-24 rounded-sm border border-gray-300 px-2 py-1 shadow-sm"
                         />
-                        <span className="font-medium text-gray-700 text-text-md">
+                        <span className="text-text-md font-medium text-gray-700">
                             kb
                         </span>
                     </>
                 )}
             </div>
             <div className="flex items-center gap-1">
-                <span className="font-bold text-gray-700 text-text-md">
+                <span className="text-text-md font-bold text-gray-700">
                     Time
                 </span>
                 {readOnly ? (
-                    <span className="w-24 px-2 py-1">
-                        {runtime} ms
-                    </span>
+                    <span className="w-24 px-2 py-1">{runtime} ms</span>
                 ) : (
                     <>
                         <input
@@ -69,16 +67,16 @@ const AlgoInfo = ({
                             type="text"
                             value={runtime}
                             onChange={onRuntimeChange}
-                            className="w-24 px-2 py-1 border border-gray-300 rounded-sm shadow-sm"
+                            className="w-24 rounded-sm border border-gray-300 px-2 py-1 shadow-sm"
                         />
-                        <span className="font-medium text-gray-700 text-text-md">
+                        <span className="text-text-md font-medium text-gray-700">
                             ms
                         </span>
                     </>
                 )}
             </div>
             <div className="flex items-center gap-1">
-                <span className="font-bold text-gray-700 text-text-md">
+                <span className="text-text-md font-bold text-gray-700">
                     Language
                 </span>
                 <div className="flex gap-3">
@@ -91,7 +89,9 @@ const AlgoInfo = ({
                             <CalendarTag
                                 key={lang.id}
                                 onClick={() => onLanguageClick?.(lang.id)}
-                                color={languageId === lang.id ? 'blue' : 'regular'}
+                                color={
+                                    languageId === lang.id ? 'blue' : 'regular'
+                                }
                             >
                                 {lang.name}
                             </CalendarTag>

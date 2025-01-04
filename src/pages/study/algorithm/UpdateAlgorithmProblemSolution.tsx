@@ -4,12 +4,15 @@ import { Header } from '@/components/organisms';
 import { useAuth } from '@/hooks/useAuth';
 import useToastEditor from '@/hooks/useToastEditor';
 import ToastEditorComponent from '@/layouts/ToastEditorComponent';
-import { updateAlgorithmSolutionAPI } from '@/services/study/algorithm';
+import {
+    getAlgorithmSolutionAPI,
+    updateAlgorithmSolutionAPI,
+} from '@/services/study/algorithm';
 import { AlgorithmSolutionDetail } from '@/types/study';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
-interface SolutionDetail {
+interface AlgorithmInfo {
     runtime: string;
     memory: string;
     languageId: string;
@@ -21,7 +24,7 @@ const UpdateAlgorithmProblemSolution = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
-    const [solutionDetail, setSolutionDetail] = useState<SolutionDetail>({
+    const [algoInfo, setAlgoInfo] = useState<AlgorithmInfo>({
         runtime: '',
         memory: '',
         languageId: '1',
@@ -38,32 +41,20 @@ const UpdateAlgorithmProblemSolution = () => {
             return;
         }
 
-        const dummyData = {
-            solutionId: solutionId,
-            problemId: problemId,
-            title: '테스트 제목',
-            summary: '테스트 요약',
-            content: '테스트 내용',
-            runtime: '100',
-            memory: '16384',
-            languageId: '1',
-            Author: '테스트 작성자',
-            userId: '1',
-            generationId: '1',
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-            isDeleted: false,
-            isBookmarked: false,
+        const fetchData = async () => {
+            const data = await getAlgorithmSolutionAPI(problemId, solutionId);
+
+            setDetail(data);
+            setTitle(data.title);
+            setSummary(data.summary);
+            setAlgoInfo({
+                runtime: data.runtime,
+                memory: data.memory,
+                languageId: data.languageId,
+            });
         };
 
-        setDetail(dummyData);
-        setTitle(dummyData.title);
-        setSummary(dummyData.summary);
-        setSolutionDetail({
-            runtime: dummyData.runtime,
-            memory: dummyData.memory,
-            languageId: dummyData.languageId,
-        });
+        fetchData();
     }, [problemId, solutionId]);
 
     const { onSubmit, onCancel, editorRef } = useToastEditor({
@@ -106,7 +97,7 @@ const UpdateAlgorithmProblemSolution = () => {
                     problemId: detail.problemId,
                     title: title.trim(),
                     summary,
-                    ...solutionDetail,
+                    ...algoInfo,
                     content,
                     Author: userInfo.name,
                     userId,
@@ -132,8 +123,8 @@ const UpdateAlgorithmProblemSolution = () => {
         setSummary(e.target.value);
     };
 
-    const handleDetailChange = (field: keyof SolutionDetail, value: string) => {
-        setSolutionDetail((prev) => ({
+    const handleDetailChange = (field: keyof AlgorithmInfo, value: string) => {
+        setAlgoInfo((prev) => ({
             ...prev,
             [field]: value,
         }));
@@ -144,7 +135,7 @@ const UpdateAlgorithmProblemSolution = () => {
         e: React.ChangeEvent<HTMLInputElement>,
     ) => {
         const value = e.target.value.replace(/[^0-9]/g, '');
-        setSolutionDetail((prev) => ({
+        setAlgoInfo((prev) => ({
             ...prev,
             [field]: value,
         }));
@@ -157,9 +148,9 @@ const UpdateAlgorithmProblemSolution = () => {
             >
                 <div className="flex items-start justify-between">
                     <AlgoInfo
-                        memory={solutionDetail.memory}
-                        runtime={solutionDetail.runtime}
-                        languageId={solutionDetail.languageId}
+                        memory={algoInfo.memory}
+                        runtime={algoInfo.runtime}
+                        languageId={algoInfo.languageId}
                         onMemoryChange={(e) => handleNumberInput('memory', e)}
                         onRuntimeChange={(e) => handleNumberInput('runtime', e)}
                         onLanguageClick={(langId) =>
