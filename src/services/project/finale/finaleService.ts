@@ -1,14 +1,20 @@
-import { Result } from "@/components/atoms/SearchDropDown/SearchDropDown";
+import { TeamRequest } from "@/types/project/finale";
+import { createFinaleTeamAPI } from "./finaleAPI";
+import { NavigateFunction } from "react-router";
 
-export const handleLeaderOnChange = (
-  e: React.ChangeEvent<HTMLInputElement>,
-  value: Result[],
-  setValue: React.Dispatch<React.SetStateAction<Result[]>>,
-  inputValue: string,
-  setInputValue: React.Dispatch<React.SetStateAction<string>>,
+export const handleCreate = async (
+  data: TeamRequest,
+  navigate: NavigateFunction,
 ) => {
+    try {
+        const res = await createFinaleTeamAPI(data);
 
-  setInputValue(e.target.value);
-
-  
-}
+        if (res.status === 200) {
+            navigate('/final');
+        }
+        return;
+    } catch (error) {
+        console.error('Create Team falied: ', error);
+        throw new Error('팀 생성에 실패했습니다.');
+    }
+};

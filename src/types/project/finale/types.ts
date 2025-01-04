@@ -13,3 +13,14 @@ export interface TeamUser {
   createdAt?: string;
 
 }
+
+export interface TeamRequest {
+
+  teamId?: string;
+  projectName: string;
+  summary: string;
+  generationId: number;
+  leaderId: number;
+  memberIds: number[];
+
+}

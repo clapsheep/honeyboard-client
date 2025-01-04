@@ -19,7 +19,6 @@ export const useFinaleBoard = () => {
     const { data: response } = useQuery<AxiosResponse<TeamUser[]>, Error>({
         queryKey: ['remained-users', userInfo?.generationId],
         queryFn: () => getFinaleRemainingMemberAPI(userInfo?.generationId),
-        refetchInterval: 5000,
     });
 
     // 팀장 관리에 대한 상태
@@ -113,7 +112,7 @@ export const useFinaleBoard = () => {
 
         setLeaderInputValue('');
 
-        setTeamLeader([...teamLeader, { id: memberId, name: memberName }]);
+        setTeamLeader([{ id: memberId, name: memberName }]);
     };
 
     // 선택한 팀장에서 제외시키는 click 함수
