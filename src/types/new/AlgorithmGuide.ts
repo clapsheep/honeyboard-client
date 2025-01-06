@@ -11,15 +11,20 @@ export interface AlgorithmGuide {
     isDeleted: boolean;
     thumbnail: string;
 }
+
+export type AlgorithmGuideListResponse = Pick<
+    AlgorithmGuide,
+    'id' | 'title' | 'thumbnail' | 'createdAt'
+>;
+
 export type AlgorithmGuideDetailResponse = Pick<
     AlgorithmGuide,
     'id' | 'title' | 'content' | 'createdAt'
-> &
-    BookmarkedResponse;
-export type AlgorithmGuideListResponse = Pick<
-    AlgorithmGuide,
-    'id' | 'title' | 'createdAt' | 'thumbnail'
->;
+> & {
+    authorId: AlgorithmGuide['userId'];
+    authorName: string;
+} & BookmarkedResponse;
+
 export type AlgorithmGuideRequest = Pick<
     AlgorithmGuide,
     'title' | 'content' | 'thumbnail'

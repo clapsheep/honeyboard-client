@@ -11,16 +11,20 @@ export interface WebRecommend {
     updatedAt: string;
     isDeleted: boolean;
 }
-export type WebRecommendDetailResponse = Pick<
-    WebRecommend,
-    'id' | 'title' | 'content' | 'createdAt' | 'url'
-> &
-    BookmarkedResponse;
 
 export type WebRecommendListResponse = Pick<
     WebRecommend,
-    'id' | 'title' | 'createdAt' | 'url'
+    'id' | 'title' | 'url' | 'createdAt'
 >;
+
+export type WebRecommendDetailResponse = Pick<
+    WebRecommend,
+    'id' | 'title' | 'content' | 'url' | 'createdAt'
+> & {
+    authorId: WebRecommend['userId'];
+    authorName: string;
+} & BookmarkedResponse;
+
 export type WebRecommendRequest = Pick<
     WebRecommend,
     'title' | 'content' | 'url'
