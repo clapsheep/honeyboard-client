@@ -1,6 +1,9 @@
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
-import { ProjectCardSkeletonList } from '@/components/templates';
+import {
+    MyTrackProjectList,
+    ProjectCardSkeletonList,
+} from '@/components/templates';
 import { Suspense } from 'react';
 import { useLocation } from 'react-router';
 
@@ -17,7 +20,7 @@ const MyTrackProject = () => {
             </Header>
 
             <Suspense fallback={<ProjectCardSkeletonList />}>
-                <></>
+                <MyTrackProjectList />
             </Suspense>
         </>
     );

@@ -18,3 +18,9 @@ export interface SelectOptionType {
     value: string | number;
     label: string;
 }
+export interface CreateResponse {
+    id: string;
+}
+export interface BookmarkedResponse {
+    bookmarked: boolean;
+}
