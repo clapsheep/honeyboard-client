@@ -1,11 +1,12 @@
-import { Button, NameTag, SelectOption } from '@/components/atoms';
-import { TabNavigation, TeamTag } from '@/components/molecules';
+import { Button, SelectOption } from '@/components/atoms';
+import { TabNavigation } from '@/components/molecules';
 import { Header, ProjectCard } from '@/components/organisms';
 import { useGenerationStore } from '@/stores/generationStore';
 import { useUserStore } from '@/stores/userStore';
 import { convertSelectType } from '@/utils/convertSelectType';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
+import useTrackList from '@/hooks/useTrackList';
 
 const TrackList = () => {
     const navigate = useNavigate();
@@ -15,6 +16,8 @@ const TrackList = () => {
     const [generation, setGeneration] = useState<string>(
         userInfo?.generationId ?? '',
     );
+    //const { data } = useTrackList(generation);
+
     const ROUTES = [{ path: '/track', name: '프로젝트', isActive: true }];
 
     const ProjectList = [
@@ -80,7 +83,6 @@ const TrackList = () => {
                 </div>
             </Header>
             <section className="grid w-full grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {/* 프로젝트 목록 렌더링 */}
                 {ProjectList &&
                     ProjectList.map((item, index) => (
                         <ProjectCard
@@ -90,6 +92,16 @@ const TrackList = () => {
                             subTitle={item.createAt}
                         />
                     ))}
+                {/* 
+                {data &&
+                    data.length > 0 &&
+                    data.map((item: unknown) => (
+                        <ProjectCard
+                            id={item.id}
+                            title={item.title}
+                            subTitle={item.createAt}
+                        />
+                    ))} */}
             </section>
         </div>
     );
