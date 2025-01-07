@@ -3,11 +3,12 @@ import {
     deleteScheduleEventsAPI,
     getScheduleEventsAPI,
     updateScheduleEventsAPI,
-} from '@/services/schedule';
-import { ScheduleEvent } from '@/types/schedule';
+} from '@/api/scheduleAPI';
+
 import { EventObject } from '@toast-ui/calendar/types/types/events';
 import { useEffect, useState } from 'react';
 import { useAuth } from './useAuth';
+import { ScheduleEvent } from '@/types/Schedule';
 
 interface UseScheduleEventsReturn {
     events: ScheduleEvent[];

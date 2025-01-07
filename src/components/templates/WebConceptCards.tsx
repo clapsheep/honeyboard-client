@@ -1,7 +1,7 @@
 import { Pagination, SearchBar } from '@/components/molecules';
 import { ProjectCard } from '@/components/organisms';
 import usePagination from '@/hooks/usePagination';
-import { getWebConceptsAPI } from '@/services/study/web';
+
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 interface WebConceptCardsProps {

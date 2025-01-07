@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema, registerSchema } from '@/types/auth';
-import { sendEmailAPI, signupAPI, verifyEmailAPI } from '@/services/auth';
+import { sendEmailAPI, signupAPI, verifyEmailAPI } from '@/api/authAPI';
 
 export const useSignUp = () => {
     const [currentStep, setCurrentStep] = useState(1);

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Editor, { EditorOptions } from '@toast-ui/editor';
 import type { HookCallback } from '@toast-ui/editor/types/editor';
-import { deleteImageAPI, uploadImageAPI } from '@/services/image/imageAPI';
+
 import {
     ImageOptimizationOptions,
     DEFAULT_OPTIMIZATION_OPTIONS,
@@ -9,6 +9,7 @@ import {
     ImageAnalysis,
 } from '@/utils/imageOptimization';
 import { useModalStore } from '@/stores/modalStore';
+import { deleteImageAPI, uploadImageAPI } from '@/api/imageAPI';
 
 interface UseEditorProps {
     editorId: string;

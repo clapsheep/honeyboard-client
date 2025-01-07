@@ -1,4 +1,4 @@
-import { api } from '@/services/common/axiosInstance';
+import { api } from '@/utils/common/axiosInstance';
 import {
     FinaleProjectBoardDetailResponse,
     FinaleProjectBoardRequest,
@@ -7,7 +7,7 @@ import {
     FinaleProjectListResponse,
     FinaleProjectTeamUpdate,
     FinaleProjectUpdate,
-} from '@/types/new/FinaleProject';
+} from '@/types/FinaleProject';
 
 // 1. 파이널 프로젝트 리스트 조회 FinaleProjectListResponse
 export const getFinaleProjectListAPI = async (req: {

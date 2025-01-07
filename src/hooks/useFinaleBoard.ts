@@ -1,5 +1,5 @@
 import { Result } from '@/components/atoms/SearchDropDown/SearchDropDown';
-import { getFinaleRemainingMemberAPI } from '@/services/project/finale/finaleAPI';
+
 import { TeamUser } from '@/types/project/finale';
 import { useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';

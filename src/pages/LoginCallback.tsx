@@ -1,5 +1,5 @@
-import { getUserInfoAPI } from '@/services/auth';
-import { queryClient } from '@/services/common/queryClient';
+import { getUserInfoAPI } from '@/api/authAPI';
+import { queryClient } from '@/utils/common/queryClient';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 

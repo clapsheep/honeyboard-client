@@ -1,6 +1,6 @@
 import { Button, ErrorMessage } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
-import { OAuthAPI } from '@/services/auth';
+import { OAuthAPI } from '@/api/authAPI';
 import { OAuthDomainType } from '@/types/auth';
 import { additionalInfoSchema, type AdditionalInfoSchema } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';

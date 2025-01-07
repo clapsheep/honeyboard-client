@@ -1,6 +1,7 @@
+import { getAlgorithmProblemListAPI } from '@/api/algorithmProblemAPI';
 import { AlgoProblemCard, Pagination, SearchBar } from '@/components/molecules';
 import usePagination from '@/hooks/usePagination';
-import { getAlgorithmProblemsAPI } from '@/services/study/algorithm';
+
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 const AlgoProblemCards = () => {
@@ -13,7 +14,7 @@ const AlgoProblemCards = () => {
     });
     const { data } = useSuspenseQuery({
         queryKey: ['algoProblems', page, size],
-        queryFn: () => getAlgorithmProblemsAPI(page || 1, size || 16),
+        queryFn: () => getAlgorithmProblemListAPI(),
     });
 
     return (

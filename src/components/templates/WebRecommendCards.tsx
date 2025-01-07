@@ -1,8 +1,9 @@
 import { SearchBar, WebSiteCard } from '@/components/molecules';
 import usePagination from '@/hooks/usePagination';
-import { getWebRecommendsAPI } from '@/services/study/web';
+
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Pagination } from '@/components/molecules';
+import { getWebRecommendListAPI } from '@/api/webRecommendAPI';
 
 interface WebRecommendCardsProps {
     generationId?: string;
@@ -19,7 +20,7 @@ const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
     const { data } = useSuspenseQuery({
         queryKey: ['webRecommends', generationId, page, size],
         queryFn: () =>
-            getWebRecommendsAPI(generationId || null, page || 1, size || 16),
+            getWebRecommendListAPI(generationId || null, page || 1, size || 16),
     });
 
     return (

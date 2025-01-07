@@ -1,6 +1,7 @@
 import useMyPage from '@/hooks/useMyPage';
-import { getMyAlgorithmAPI } from '@/services/mypage/mypageAPI';
+
 import { AlgoDetailCard } from '../molecules';
+import { getMyAlgorithmAPI } from '@/api/mypageAPI';
 
 const MyAlgorithmList = () => {
     const { data } = useMyPage({

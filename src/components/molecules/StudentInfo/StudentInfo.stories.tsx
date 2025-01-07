@@ -23,10 +23,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
+        userId: 1,
+        generationId: 1,
         name: '박성문',
-        gisu: 12,
+        generationName: '12기',
         email: 'sevenknights@ssafy.com',
-        isMember: false,
+        ssafy: false,
         onClick: action('Default button clicked'),
     },
 };
