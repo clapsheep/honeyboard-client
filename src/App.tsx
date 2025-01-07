@@ -45,6 +45,7 @@ import {
 
 import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
+import CreateFinalProjectBoard from './pages/project/final/CreateFinalProjectBoard';
 
 function App() {
     const { closeModal, isOpen, modalProps } = useModalStore();
@@ -112,7 +113,7 @@ function App() {
                             />
                             <Route
                                 path="final/:teamId/create"
-                                element={<div>파이널 팀의 보드생성</div>}
+                                element={<CreateFinalProjectBoard />}
                             />
 
                             <Route

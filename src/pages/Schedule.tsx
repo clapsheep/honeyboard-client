@@ -76,14 +76,14 @@ const Schedule = () => {
     };
 
     return (
-        <div className="flex flex-col h-full gap-4 px-6 pt-6 pb-9">
+        <div className="flex h-full flex-col gap-4 px-6 pb-9 pt-6">
             <SelectCalender
                 year={date.year}
                 month={date.month}
                 onClickLeft={decreaseDate}
                 onClickRight={increaseDate}
             />
-            <div className="flex-1 p-1 bg-white border border-gray-300 rounded-lg">
+            <div className="flex-1 rounded-lg border border-gray-300 bg-white p-1">
                 <Calendar
                     ref={scheduleRef}
                     height="100%"
