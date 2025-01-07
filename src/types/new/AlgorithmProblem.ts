@@ -19,7 +19,9 @@ export type AlgorithmProblemListResponse = Pick<
 export type AlgorithmProblemDetailRespones = Pick<
     AlgorithmProblem,
     'id' | 'title' | 'url' | 'createdAt'
-> & { algorithmSolutionList: AlgorithmSolutionListResponse[] };
+> & { algorithmSolutionList: AlgorithmSolutionListResponse[] } & {
+    tags: TagResponse[];
+};
 
 export type AlgorithmProblemRequest = Pick<AlgorithmProblem, 'title' | 'url'> &
     TagRequest[];
