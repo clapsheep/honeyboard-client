@@ -1,6 +1,7 @@
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
 import { ProjectCardSkeletonList } from '@/components/templates';
+import MyAlgorithmList from '@/components/templates/MyAlgorithmList';
 import { Suspense } from 'react';
 import { useLocation } from 'react-router';
 
@@ -17,7 +18,7 @@ const MyAlgorithm = () => {
             </Header>
 
             <Suspense fallback={<ProjectCardSkeletonList />}>
-                <></>
+                <MyAlgorithmList />
             </Suspense>
         </>
     );
