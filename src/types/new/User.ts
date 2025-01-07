@@ -9,3 +9,5 @@ export interface User {
     isSsafy: boolean;
     createdAt: string;
 }
+
+export type AvailableUserListResponse = Pick<User, 'id' | 'name'>[];

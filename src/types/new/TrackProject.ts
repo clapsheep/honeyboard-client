@@ -41,22 +41,24 @@ export interface TrackProjectBoard {
     isDeleted: boolean;
     thumbnail: string;
 }
-
+// [RESPONSE]
+// 트랙프로젝트 리스트 조회 응답 타입
 export type TrackProjectListResponse = Pick<
     TrackProject,
     'id' | 'title' | 'thumbnail' | 'createdAt'
->;
-
+>[];
+// 트랙프로젝트 상세조회 응답 타입
 export type TrackProjectDetailResponse = Pick<
     TrackProject,
     'id' | 'title' | 'objective' | 'description' | 'createdAt'
 > & {
     noTeamUsers: Pick<User, 'id' | 'name'>[];
     teams: {
+        id: TrackTeam['id'];
         members: Pick<TrackTeamMember, 'id' | 'name' | 'role'>[];
         submitted: boolean;
         projectBoardId: string | null;
-    };
+    }[];
     boards: Pick<
         TrackProjectBoard,
         'id' | 'title' | 'createdAt' | 'thumbnail'
@@ -65,10 +67,30 @@ export type TrackProjectDetailResponse = Pick<
             members: Pick<User, 'id' | 'name'>[];
         }[];
 };
+
+// 트랙프로젝트 보드 상세조회 응답 타입
 export type TrackProjectBoardDetailResponse = Pick<
     TrackProjectBoard,
     'id' | 'title' | 'url' | 'content' | 'createdAt' | 'trackTeamId'
 > & {
     members: Pick<TrackTeamMember, 'id' | 'name' | 'role'>[];
 };
-// 트랙프로젝트 작성 로직에 따른 정의가 또 달라질 듯함
+
+// [REQUEST]
+// 트랙프로젝트 생성, 수정 요청 타입
+export type TrackProjectRequest = Pick<
+    TrackProject,
+    'title' | 'objective' | 'description'
+> & { excludedMembers: Pick<User, 'id'>[] };
+
+// 트랙프로젝트 팀 생성 요청 타입
+export type TrackTeamRequest = {
+    leaderId: Pick<User, 'id'>;
+    memberIds: Pick<User, 'id'>[];
+};
+
+// 트랙프로젝트 보드 생성, 수정 요청 타입
+export type TrackProjectBoardRequest = Pick<
+    TrackProjectBoard,
+    'title' | 'url' | 'content' | 'thumbnail'
+>;
