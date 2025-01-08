@@ -1,9 +1,10 @@
 import { Checkbox, Label, ModalButton, SelectOption } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
-import { StudentType } from '@/types/admin/types';
+
 import { useEffect, useState } from 'react';
 import { useGenerationStore } from '@/stores/generationStore';
 import { convertSelectType } from '@/utils/convertSelectType';
+import { StudentType } from '@/types/User';
 
 interface StudentEditModalProps {
     isOpen: boolean;

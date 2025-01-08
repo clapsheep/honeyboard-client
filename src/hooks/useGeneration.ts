@@ -1,13 +1,12 @@
-import { getGenerationListAPI } from '@/services/common/generation/generationAPI';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
-
 import { useGenerationStore } from '@/stores/generationStore';
 import {
     activeGenerationAPI,
     addGenerationAPI,
     deleteGenerationAPI,
-} from '@/services/admin/settingGeneration';
+} from '@/api/adminAPI';
+import { getGenerationListAPI } from '@/api/generationAPI';
 
 export const useGenerationQuery = () => {
     const setGenerationList = useGenerationStore(

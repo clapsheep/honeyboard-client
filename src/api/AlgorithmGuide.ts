@@ -1,11 +1,11 @@
-import { api } from '@/services/common/axiosInstance';
-import { PageResponse } from '@/types/common/type';
+import { api } from '@/utils/common/axiosInstance';
+
 import {
     AlgorithmGuideDetailResponse,
     AlgorithmGuideListResponse,
     AlgorithmGuideRequest,
-} from '@/types/new/AlgorithmGuide';
-import { PageRequest, SearchRequest } from '@/types/new/common';
+} from '@/types/AlgorithmGuide';
+import { PageRequest, PageResponse, SearchRequest } from '@/types/common';
 
 export interface AlgorithmGuideRequestParams<T> {
     pageRequest?: PageRequest;

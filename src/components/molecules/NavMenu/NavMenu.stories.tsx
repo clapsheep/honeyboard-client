@@ -23,6 +23,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
+        userRole: 'ADMIN',
         menus: [
             {
                 name: '메인페이지',

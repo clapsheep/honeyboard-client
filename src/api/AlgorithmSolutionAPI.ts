@@ -1,8 +1,8 @@
-import { api } from '@/services/common/axiosInstance';
+import { api } from '@/utils/common/axiosInstance';
 import {
     AlgorithmSolutionDetailResponse,
     AlgorithmSolutionRequest,
-} from '@/types/new/AlgorithmSolution';
+} from '@/types/AlgorithmSolution';
 
 export const getAlgorithmSolutionDetailAPI = async (req: {
     problemId: string;

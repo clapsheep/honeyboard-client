@@ -3,21 +3,23 @@ import MainLayout from './layouts/MainLayout';
 import PrivateRoute from './layouts/PrivateRoute';
 import {
     AdditionalInfoOAuth,
-    AlgorithmConceptList,
+    AlgorithmGuideCreateUpdate,
+    AlgorithmGuideDetail,
+    AlgorithmGuideList,
+    AlgorithmProblemCreateUpdate,
+    AlgorithmProblemDetail,
     AlgorithmProblemList,
+    AlgorithmSolutionCreateUpdate,
+    AlgorithmSolutionDetail,
     BMAlgorithmConcept,
     BMAlgorithmSolution,
     BMWebConcept,
     BMWebRecommend,
-    CreateAlgorithmConcept,
-    CreateAlgorithmProblem,
-    CreateAlgorithmProblemSolution,
-    CreateFinalTeam,
-    CreateTrackProject,
-    CreateWebConcept,
-    CreateWebRecommend,
     Error404,
-    FinalList,
+    FinalProjectCreate,
+    FinalProjectDetail,
+    FinalProjectList,
+    FinalProjectUpdate,
     GenerationManagement,
     Login,
     LoginCallback,
@@ -29,22 +31,25 @@ import {
     SearchMusic,
     SignUp,
     StudentManagement,
-    TrackList,
-    WebConceptDetail,
-    WebConceptList,
-    WebRecommendDetail,
+    TrackProjectCreateUpdate,
+    TrackProjectDetail,
+    TrackProjectList,
+    TrackProjectTeamCreateUpdate,
+    FinalProjectBoardCreateUpdate,
+    FinalProjectBoardDetail,
+    FinalProjectTeamUpdate,
+    TrackProjectBoardCreateUpdate,
+    TrackProjectBoardDetail,
+    WebGuideList,
+    WebGuideDetail,
+    WebGuideCreateUpdate,
     WebRecommendList,
+    WebRecommendDetail,
+    WebRecommendCreateUpdate,
 } from './pages';
 
 import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
-import UpdateWebConcept from './pages/study/web/UpdateWebConcept';
-import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
-import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
-
-import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
-
-import UpdateTrackProjectBoard from './pages/project/track/UpdateTrackProjectBoard';
 
 function App() {
     const { closeModal, isOpen, modalProps } = useModalStore();
@@ -70,54 +75,95 @@ function App() {
                                 index
                                 element={<Navigate to="/project/track" />}
                             />
+
+                            <Route
+                                path="track"
+                                element={<TrackProjectList />}
+                            />
                             <Route
                                 path="track/create"
-                                element={<CreateTrackProject />}
-                            />
-                            <Route path="track" element={<TrackList />} />
-                            <Route
-                                path="track/:trackId"
-                                element={<div>트랙 중 특정 트랙 프로젝트</div>}
+                                element={
+                                    <TrackProjectCreateUpdate mode="create" />
+                                }
                             />
                             <Route
-                                path="track/:trackId/create"
-                                element={<div>팀 생성 및 게시글 작성</div>}
+                                path="track/:trackProjectId/edit"
+                                element={
+                                    <TrackProjectCreateUpdate mode="edit" />
+                                }
                             />
                             <Route
-                                path="track/:trackId/:projectId"
-                                element={<div>특정 프로젝트 팀의 보드</div>}
+                                path="track/:trackProjectId"
+                                element={<TrackProjectDetail />}
                             />
                             <Route
-                                path="track/:trackId/:projectId/edit"
-                                element={<UpdateTrackProjectBoard />}
+                                path="track/:trackProjectId/create"
+                                element={
+                                    <TrackProjectTeamCreateUpdate mode="create" />
+                                }
+                            />
+                            <Route
+                                path="track/:trackProjectId/team/:trackTeamId/edit"
+                                element={
+                                    <TrackProjectTeamCreateUpdate mode="edit" />
+                                }
+                            />
+                            <Route
+                                path="track/:trackProjectId/team/:trackTeamId/board"
+                                element={
+                                    <TrackProjectBoardCreateUpdate mode="create" />
+                                }
+                            />
+                            <Route
+                                path="track/:trackProjectId/team/:trackTeamId/board/:boardId/edit"
+                                element={
+                                    <TrackProjectBoardCreateUpdate mode="edit" />
+                                }
+                            />
+                            <Route
+                                path="track/:trackProjectId/team/:trackTeamId/board/:boardId"
+                                element={<TrackProjectBoardDetail />}
                             />
 
-                            <Route path="final" element={<FinalList />} />
                             <Route
-                                path="final/:teamId"
-                                element={<div>파이널 팀의 보드 리스트</div>}
+                                path="final"
+                                element={<FinalProjectList />}
                             />
+
                             <Route
                                 path="final/create"
-                                element={<CreateFinalTeam />}
+                                element={<FinalProjectCreate />}
                             />
 
                             <Route
-                                path="final/:teamId/edit"
-                                element={<div>파이널 팀의 정보 수정</div>}
-                            />
-                            <Route
-                                path="final/:teamId/:boardId"
-                                element={<div>파이널 팀의 보드 Detail</div>}
-                            />
-                            <Route
-                                path="final/:teamId/create"
-                                element={<div>파이널 팀의 보드생성</div>}
+                                path="final/:finalProjectId"
+                                element={<FinalProjectDetail />}
                             />
 
                             <Route
-                                path="final/:teamId/:boardId/edit"
-                                element={<div>파이널 팀의 보드 수정</div>}
+                                path="final/:finalProjectId/edit"
+                                element={<FinalProjectUpdate />}
+                            />
+                            <Route
+                                path="final/:finalProjectId/team/:finaleTeamId/edit"
+                                element={<FinalProjectTeamUpdate />}
+                            />
+                            <Route
+                                path="final/:finalProjectId/board/create"
+                                element={
+                                    <FinalProjectBoardCreateUpdate mode="create" />
+                                }
+                            />
+                            <Route
+                                path="final/:finalProjectId/board/:boardId/edit"
+                                element={
+                                    <FinalProjectBoardCreateUpdate mode="edit" />
+                                }
+                            />
+
+                            <Route
+                                path="final/:finalProjectId/board/:boardId"
+                                element={<FinalProjectBoardDetail />}
                             />
                         </Route>
                         <Route path="study">
@@ -137,21 +183,23 @@ function App() {
                                 />
                                 <Route
                                     path="concept"
-                                    element={<AlgorithmConceptList />}
+                                    element={<AlgorithmGuideList />}
+                                />
+                                <Route
+                                    path="concept/:guideId"
+                                    element={<AlgorithmGuideDetail />}
                                 />
                                 <Route
                                     path="concept/create"
-                                    element={<CreateAlgorithmConcept />}
-                                />
-                                <Route
-                                    path="concept/:conceptId"
                                     element={
-                                        <div>Algorithm Concept Detail</div>
+                                        <AlgorithmGuideCreateUpdate mode="create" />
                                     }
                                 />
                                 <Route
-                                    path="concept/:conceptId/edit"
-                                    element={<UpdateAlgorithmConcept />}
+                                    path="concept/:guideId/edit"
+                                    element={
+                                        <AlgorithmGuideCreateUpdate mode="edit" />
+                                    }
                                 />
 
                                 <Route
@@ -160,35 +208,37 @@ function App() {
                                 />
                                 <Route
                                     path="problem/create"
-                                    element={<CreateAlgorithmProblem />}
+                                    element={
+                                        <AlgorithmProblemCreateUpdate mode="create" />
+                                    }
                                 />
                                 <Route
                                     path="problem/:problemId/edit"
-                                    element={<div>Algorithm Problem Edit</div>}
+                                    element={
+                                        <AlgorithmProblemCreateUpdate mode="edit" />
+                                    }
                                 />
                                 <Route
                                     path="problem/:problemId"
-                                    element={
-                                        <div>
-                                            Algorithm Problem Solution List
-                                        </div>
-                                    }
+                                    element={<AlgorithmProblemDetail />}
                                 />
 
-                                <Route
-                                    path="problem/:problemId/:solutionId"
-                                    element={
-                                        <div>Algorithm Problem Solution</div>
-                                    }
-                                />
                                 <Route
                                     path="problem/:problemId/create"
-                                    element={<CreateAlgorithmProblemSolution />}
+                                    element={
+                                        <AlgorithmSolutionCreateUpdate mode="create" />
+                                    }
+                                />
+                                <Route
+                                    path="problem/:problemId/solution/:solutionId/edit"
+                                    element={
+                                        <AlgorithmSolutionCreateUpdate mode="edit" />
+                                    }
                                 />
 
                                 <Route
-                                    path="problem/:problemId/:solutionId/edit"
-                                    element={<UpdateAlgorithmProblemSolution />}
+                                    path="problem/:problemId/solution/:solutionId"
+                                    element={<AlgorithmSolutionDetail />}
                                 />
                             </Route>
 
@@ -201,19 +251,24 @@ function App() {
                                 />
                                 <Route
                                     path="concept"
-                                    element={<WebConceptList />}
+                                    element={<WebGuideList />}
+                                />
+
+                                <Route
+                                    path="concept/:guideId"
+                                    element={<WebGuideDetail />}
                                 />
                                 <Route
                                     path="concept/create"
-                                    element={<CreateWebConcept />}
+                                    element={
+                                        <WebGuideCreateUpdate mode="create" />
+                                    }
                                 />
                                 <Route
-                                    path="concept/:conceptId"
-                                    element={<WebConceptDetail />}
-                                />
-                                <Route
-                                    path="concept/:conceptId/edit"
-                                    element={<UpdateWebConcept />}
+                                    path="concept/:guideId/edit"
+                                    element={
+                                        <WebGuideCreateUpdate mode="edit" />
+                                    }
                                 />
 
                                 <Route
@@ -221,16 +276,21 @@ function App() {
                                     element={<WebRecommendList />}
                                 />
                                 <Route
-                                    path="recommend/create"
-                                    element={<CreateWebRecommend />}
-                                />
-                                <Route
                                     path="recommend/:recommendId"
                                     element={<WebRecommendDetail />}
                                 />
                                 <Route
+                                    path="recommend/create"
+                                    element={
+                                        <WebRecommendCreateUpdate mode="create" />
+                                    }
+                                />
+
+                                <Route
                                     path="recommend/:recommendId/edit"
-                                    element={<UpdateWebRecommend />}
+                                    element={
+                                        <WebRecommendCreateUpdate mode="edit" />
+                                    }
                                 />
                             </Route>
                         </Route>

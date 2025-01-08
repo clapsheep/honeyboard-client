@@ -1,4 +1,4 @@
-import { getUserInfoAPI, logoutAPI } from '@/services/auth';
+import { getUserInfoAPI, logoutAPI } from '@/api/authAPI';
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
 export const useAuth = () => {

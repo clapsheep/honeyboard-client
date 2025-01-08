@@ -1,6 +1,7 @@
 import { SelectOption } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
-import { Header, StudentEditModal, StudentList } from '@/components/organisms';
+import { Header, StudentEditModal } from '@/components/organisms';
+import { StudentList } from '@/components/templates';
 import StudentInfoSkeletonList from '@/components/templates/Skeletons/StudentInfoSkeletonList';
 import { useStudentEdit } from '@/hooks/useStudentEdit';
 import { useGenerationStore } from '@/stores/generationStore';

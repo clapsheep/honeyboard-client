@@ -1,11 +1,11 @@
-import { PageResponse } from '@/types/common/type';
-import { PageRequest } from './../types/new/common';
-import { api } from '@/services/common/axiosInstance';
+import { PageRequest, PageResponse } from '@/types/common';
+
+import { api } from '@/utils/common/axiosInstance';
 import {
     WebRecommendDetailResponse,
     WebRecommendListResponse,
     WebRecommendRequest,
-} from '@/types/new/WebRecommendType';
+} from '@/types/WebRecommend';
 
 export interface WebRecommendRequestParams {
     pageRequest?: PageRequest;

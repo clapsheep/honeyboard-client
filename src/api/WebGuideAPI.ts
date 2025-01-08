@@ -1,11 +1,10 @@
-import { api } from '@/services/common/axiosInstance';
-import { PageResponse } from '@/types/common/type';
-import { PageRequest } from '@/types/new/common';
+import { api } from '@/utils/common/axiosInstance';
+import { PageRequest, PageResponse } from '@/types/common';
 import {
     WebGuideDetailResponse,
     WebGuideListResponse,
     WebGuideRequest,
-} from '@/types/new/WebGuideType';
+} from '@/types/WebGuide';
 
 export interface WebGuideRequestParams {
     pageRequest?: PageRequest;

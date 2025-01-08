@@ -1,12 +1,12 @@
 import { Button, ErrorMessage, SocialLoginButton } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
-import { requestOAuth } from '@/services/auth';
-import { handleLogin } from '@/services/auth/authService';
+
 import { loginSchema, type LoginSchema } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import logo from '/assets/images/logo.png';
+import { handleLogin, requestOAuth } from '@/utils/authService';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -37,10 +37,10 @@ const Login = () => {
                     <img
                         src={logo}
                         alt="HoneyBoard"
-                        className="object-contain w-full h-auto"
+                        className="h-auto w-full object-contain"
                     />
                 </figure>
-                <h1 className="py-6 font-bold text-gray-900 text-display-md">
+                <h1 className="py-6 text-display-md font-bold text-gray-900">
                     로그인
                 </h1>
                 <div className="flex gap-3 pb-6">
@@ -54,7 +54,7 @@ const Login = () => {
                     />
                 </div>
                 <form
-                    className="flex flex-col items-center w-full gap-6 py-3"
+                    className="flex w-full flex-col items-center gap-6 py-3"
                     onSubmit={handleSubmit(onSubmit)}
                 >
                     <InputForm
@@ -86,7 +86,7 @@ const Login = () => {
                         로그인
                     </Button>
                 </form>
-                <div className="flex flex-col items-center gap-3 py-6 text-gray-700 text-text-md">
+                <div className="flex flex-col items-center gap-3 py-6 text-text-md text-gray-700">
                     <span>
                         회원이 아니신가요?{' '}
                         <Link to="/signup" className="font-medium underline">

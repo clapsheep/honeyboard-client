@@ -1,12 +1,11 @@
-import { addBookMarkAPI } from '@/services/user';
 import { useModalStore } from '@/stores/modalStore';
-import { contentType } from '@/types/study/types';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import { useAuth } from './useAuth';
+import { addBookmarkAPI } from '@/api/bookmarkAPI';
 
 interface UseContentDetailProps<T> {
-    contentType: contentType;
+    contentType: 'web_recommend' | 'web_guide' | 'algo_solution' | 'algo_guide';
     contentId: string;
     getDetailAPI: (id: string) => Promise<T>;
     deleteAPI: (id: string) => Promise<void>;
@@ -54,7 +53,8 @@ export const useContentDetail = <T>({
 
     const handleLike = () => {
         if (!userInfo) return;
-        addBookMarkAPI(userInfo.userId, {
+        addBookmarkAPI({
+            id: userInfo.userId,
             contentType,
             contentId,
         });

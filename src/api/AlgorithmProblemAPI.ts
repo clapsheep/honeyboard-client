@@ -1,11 +1,10 @@
-import { api } from '@/services/common/axiosInstance';
-import { PageResponse } from '@/types/common/type';
+import { api } from '@/utils/common/axiosInstance';
 import {
     AlgorithmProblemDetailRespones,
     AlgorithmProblemListResponse,
     AlgorithmProblemRequest,
-} from '@/types/new/AlgorithmProblem';
-import { PageRequest, SearchRequest } from '@/types/new/common';
+} from '@/types/AlgorithmProblem';
+import { PageRequest, PageResponse, SearchRequest } from '@/types/common';
 
 export interface AlgorithmProblemRequestParams<T> {
     pageRequest?: PageRequest;

@@ -1,13 +1,12 @@
-import { api } from '@/services/common/axiosInstance';
+import { api } from '@/utils/common/axiosInstance';
 import {
     TrackProjectBoardDetailResponse,
     TrackProjectBoardRequest,
     TrackProjectDetailResponse,
     TrackProjectListResponse,
     TrackProjectRequest,
-    TrackTeamRequest,
-} from '@/types/new/TrackProject';
-import { AvailableUserListResponse } from '@/types/new/User';
+} from '@/types/TrackProject';
+import { AvailableUserListResponse, TeamMemberListRequest } from '@/types/User';
 
 // 1. 트랙 프로젝트 리스트 조회 TrackProjectListResponse
 export const getTrackProjectListAPI = async (req: {
@@ -46,7 +45,7 @@ export const deleteTrackProjectAPI = async (req: {
 // 2-3. 트랙 프로젝트 팀 생성 -> TrackTeamRequest
 export const createTrackTeamAPI = async (req: {
     trackProjectId: string;
-    data: TrackTeamRequest;
+    data: TeamMemberListRequest;
 }): Promise<unknown> => {
     return api.post(`/project/track/${req.trackProjectId}/team`, req.data);
 };
@@ -99,7 +98,7 @@ export const deleteTrackProjectBoardAPI = async (req: {
 export const updateTrackTeamAPI = async (req: {
     trackProjectId: string;
     trackTeamId: string;
-    data: TrackTeamRequest;
+    data: TeamMemberListRequest;
 }): Promise<unknown> => {
     return api.put(
         `/project/track/${req.trackProjectId}/team/${req.trackTeamId}`,

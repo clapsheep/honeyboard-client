@@ -1,5 +1,5 @@
 import { Button } from '@/components/atoms';
-import { StudentType } from '@/types/admin/types';
+import { StudentType } from '@/types/User';
 
 interface StudentInfoProps extends StudentType {
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;

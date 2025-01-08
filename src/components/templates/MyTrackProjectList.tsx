@@ -1,6 +1,7 @@
 import useMyPage from '@/hooks/useMyPage';
-import { getMyTrackAPI } from '@/services/mypage/mypageAPI';
+
 import { ProjectCard } from '@/components/organisms';
+import { getMyTrackAPI } from '@/api/mypageAPI';
 
 const MyTrackProjectList = () => {
     const { data } = useMyPage({
