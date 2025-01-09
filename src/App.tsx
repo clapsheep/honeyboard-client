@@ -246,7 +246,7 @@ function App() {
                                 <Route
                                     index
                                     element={
-                                        <Navigate to="/study/web/concept?page=1" />
+                                        <Navigate to="/study/web/concept" />
                                     }
                                 />
                                 <Route

@@ -8,7 +8,7 @@ import {
 
 export interface WebGuideRequestParams {
     pageRequest?: PageRequest;
-    generationId?: string;
+    generationId?: string | null;
     searchTitle?: string;
 }
 
@@ -42,4 +42,9 @@ export const updateWebGuideAPI = async (req: {
     data: WebGuideRequest;
 }): Promise<unknown> => {
     return api.put(`/web/guide/${req.guideId}`, req.data);
+};
+export const deleteWebGuideAPI = async (req: {
+    guideId: string;
+}): Promise<unknown> => {
+    return api.delete(`/web/guide/${req.guideId}`);
 };
