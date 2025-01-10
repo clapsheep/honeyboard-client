@@ -7,11 +7,10 @@ import ToastViewerComponent from '@/layouts/ToastViewerComponent';
 import { useLocation, useParams } from 'react-router';
 const WebGuideDetail = () => {
     const { pathname } = useLocation();
-    const { conceptId } = useParams();
-
+    const { guideId } = useParams();
     const { data, handleDelete, handleEdit, handleLike } = useContentDetail({
         contentType: 'web_guide',
-        contentId: conceptId!,
+        contentId: guideId!,
         getDetailAPI: getWebGuideDetailAPI,
         deleteAPI: deleteWebGuideAPI,
         navigateAfterDelete: '/study/web/concept',

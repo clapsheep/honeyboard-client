@@ -35,7 +35,8 @@ export const getWebGuideDetailAPI = async (req: {
 export const createWebGuideAPI = async (req: {
     data: WebGuideRequest;
 }): Promise<unknown> => {
-    return api.post(`/web/guide`, req.data);
+    const { data } = await api.post(`/web/guide`, req.data);
+    return data;
 };
 export const updateWebGuideAPI = async (req: {
     guideId: string;

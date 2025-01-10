@@ -3,22 +3,29 @@ import MainLayout from './layouts/MainLayout';
 import PrivateRoute from './layouts/PrivateRoute';
 import {
     AdditionalInfoOAuth,
-    AlgorithmGuideCreateUpdate,
+    AlgorithmGuideCreate,
     AlgorithmGuideDetail,
     AlgorithmGuideList,
-    AlgorithmProblemCreateUpdate,
+    AlgorithmGuideUpdate,
+    AlgorithmProblemCreate,
     AlgorithmProblemDetail,
     AlgorithmProblemList,
-    AlgorithmSolutionCreateUpdate,
+    AlgorithmProblemUpdate,
+    AlgorithmSolutionCreate,
     AlgorithmSolutionDetail,
+    AlgorithmSolutionUpdate,
     BMAlgorithmConcept,
     BMAlgorithmSolution,
     BMWebConcept,
     BMWebRecommend,
     Error404,
+    FinalProjectBoardCreate,
+    FinalProjectBoardDetail,
+    FinalProjectBoardUpdate,
     FinalProjectCreate,
     FinalProjectDetail,
     FinalProjectList,
+    FinalProjectTeamUpdate,
     FinalProjectUpdate,
     GenerationManagement,
     Login,
@@ -31,21 +38,23 @@ import {
     SearchMusic,
     SignUp,
     StudentManagement,
-    TrackProjectCreateUpdate,
+    TrackProjectBoardCreate,
+    TrackProjectBoardDetail,
+    TrackProjectBoardUpdate,
+    TrackProjectCreate,
     TrackProjectDetail,
     TrackProjectList,
-    TrackProjectTeamCreateUpdate,
-    FinalProjectBoardCreateUpdate,
-    FinalProjectBoardDetail,
-    FinalProjectTeamUpdate,
-    TrackProjectBoardCreateUpdate,
-    TrackProjectBoardDetail,
-    WebGuideList,
+    TrackProjectTeamCreate,
+    TrackProjectTeamUpdate,
+    TrackProjectUpdate,
+    WebGuideCreate,
     WebGuideDetail,
-    WebGuideCreateUpdate,
-    WebRecommendList,
+    WebGuideList,
+    WebGuideUpdate,
+    WebRecommendCreate,
     WebRecommendDetail,
-    WebRecommendCreateUpdate,
+    WebRecommendList,
+    WebRecommendUpdate,
 } from './pages';
 
 import { BasicModal } from './components/organisms';
@@ -82,15 +91,11 @@ function App() {
                             />
                             <Route
                                 path="track/create"
-                                element={
-                                    <TrackProjectCreateUpdate mode="create" />
-                                }
+                                element={<TrackProjectCreate />}
                             />
                             <Route
                                 path="track/:trackProjectId/edit"
-                                element={
-                                    <TrackProjectCreateUpdate mode="edit" />
-                                }
+                                element={<TrackProjectUpdate />}
                             />
                             <Route
                                 path="track/:trackProjectId"
@@ -98,27 +103,19 @@ function App() {
                             />
                             <Route
                                 path="track/:trackProjectId/create"
-                                element={
-                                    <TrackProjectTeamCreateUpdate mode="create" />
-                                }
+                                element={<TrackProjectTeamCreate />}
                             />
                             <Route
                                 path="track/:trackProjectId/team/:trackTeamId/edit"
-                                element={
-                                    <TrackProjectTeamCreateUpdate mode="edit" />
-                                }
+                                element={<TrackProjectTeamUpdate />}
                             />
                             <Route
                                 path="track/:trackProjectId/team/:trackTeamId/board"
-                                element={
-                                    <TrackProjectBoardCreateUpdate mode="create" />
-                                }
+                                element={<TrackProjectBoardCreate />}
                             />
                             <Route
                                 path="track/:trackProjectId/team/:trackTeamId/board/:boardId/edit"
-                                element={
-                                    <TrackProjectBoardCreateUpdate mode="edit" />
-                                }
+                                element={<TrackProjectBoardUpdate />}
                             />
                             <Route
                                 path="track/:trackProjectId/team/:trackTeamId/board/:boardId"
@@ -150,15 +147,11 @@ function App() {
                             />
                             <Route
                                 path="final/:finalProjectId/board/create"
-                                element={
-                                    <FinalProjectBoardCreateUpdate mode="create" />
-                                }
+                                element={<FinalProjectBoardCreate />}
                             />
                             <Route
                                 path="final/:finalProjectId/board/:boardId/edit"
-                                element={
-                                    <FinalProjectBoardCreateUpdate mode="edit" />
-                                }
+                                element={<FinalProjectBoardUpdate />}
                             />
 
                             <Route
@@ -191,15 +184,11 @@ function App() {
                                 />
                                 <Route
                                     path="concept/create"
-                                    element={
-                                        <AlgorithmGuideCreateUpdate mode="create" />
-                                    }
+                                    element={<AlgorithmGuideCreate />}
                                 />
                                 <Route
                                     path="concept/:guideId/edit"
-                                    element={
-                                        <AlgorithmGuideCreateUpdate mode="edit" />
-                                    }
+                                    element={<AlgorithmGuideUpdate />}
                                 />
 
                                 <Route
@@ -208,15 +197,11 @@ function App() {
                                 />
                                 <Route
                                     path="problem/create"
-                                    element={
-                                        <AlgorithmProblemCreateUpdate mode="create" />
-                                    }
+                                    element={<AlgorithmProblemCreate />}
                                 />
                                 <Route
                                     path="problem/:problemId/edit"
-                                    element={
-                                        <AlgorithmProblemCreateUpdate mode="edit" />
-                                    }
+                                    element={<AlgorithmProblemUpdate />}
                                 />
                                 <Route
                                     path="problem/:problemId"
@@ -225,15 +210,11 @@ function App() {
 
                                 <Route
                                     path="problem/:problemId/create"
-                                    element={
-                                        <AlgorithmSolutionCreateUpdate mode="create" />
-                                    }
+                                    element={<AlgorithmSolutionCreate />}
                                 />
                                 <Route
                                     path="problem/:problemId/solution/:solutionId/edit"
-                                    element={
-                                        <AlgorithmSolutionCreateUpdate mode="edit" />
-                                    }
+                                    element={<AlgorithmSolutionUpdate />}
                                 />
 
                                 <Route
@@ -260,15 +241,11 @@ function App() {
                                 />
                                 <Route
                                     path="concept/create"
-                                    element={
-                                        <WebGuideCreateUpdate mode="create" />
-                                    }
+                                    element={<WebGuideCreate />}
                                 />
                                 <Route
                                     path="concept/:guideId/edit"
-                                    element={
-                                        <WebGuideCreateUpdate mode="edit" />
-                                    }
+                                    element={<WebGuideUpdate />}
                                 />
 
                                 <Route
@@ -281,16 +258,12 @@ function App() {
                                 />
                                 <Route
                                     path="recommend/create"
-                                    element={
-                                        <WebRecommendCreateUpdate mode="create" />
-                                    }
+                                    element={<WebRecommendCreate />}
                                 />
 
                                 <Route
                                     path="recommend/:recommendId/edit"
-                                    element={
-                                        <WebRecommendCreateUpdate mode="edit" />
-                                    }
+                                    element={<WebRecommendUpdate />}
                                 />
                             </Route>
                         </Route>
