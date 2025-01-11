@@ -4,7 +4,7 @@ import { MenuProps } from '@/components/molecules/NavMenu/NavMenu';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router';
 
-export const useNavigationItems = (menus: MenuProps[]) => {
+export const useNavigationItems = (menus: MenuProps[], userRole: string) => {
     const location = useLocation();
     const [active, setActive] = useState<string[]>([]);
 
@@ -72,39 +72,47 @@ export const useNavigationItems = (menus: MenuProps[]) => {
     // 네비게이션 아이템들
     const navigationItems = useMemo(
         () =>
-            menus.map((menu): NavButtonProps => {
-                // return 추가
-                const isActive = menu.children
-                    ? active.includes(menu.name) || isPathActive(menu.path)
-                    : isPathActive(menu.path);
+            menus
+                .filter((menu) => {
+                    // 학생관리 메뉴는 ADMIN 권한을 가진 사용자에게만 보여줍니다
+                    if (menu.name === '학생관리') {
+                        return userRole === 'ADMIN';
+                    }
+                    return true;
+                })
+                .map((menu): NavButtonProps => {
+                    // return 추가
+                    const isActive = menu.children
+                        ? active.includes(menu.name) || isPathActive(menu.path)
+                        : isPathActive(menu.path);
 
-                const childrenProps = menu.children && {
-                    hasSub: true,
-                    items: menu.children.map((subMenu) => ({
-                        id: subMenu.name,
-                        title: subMenu.name,
-                        link: subMenu.path || '',
-                        isActive: isPathActive(subMenu.path),
-                    })),
-                };
+                    const childrenProps = menu.children && {
+                        hasSub: true,
+                        items: menu.children.map((subMenu) => ({
+                            id: subMenu.name,
+                            title: subMenu.name,
+                            link: subMenu.path || '',
+                            isActive: isPathActive(subMenu.path),
+                        })),
+                    };
 
-                const iconProp = menu.icon
-                    ? { icon: <Icon id={menu.icon} /> }
-                    : {};
+                    const iconProp = menu.icon
+                        ? { icon: <Icon id={menu.icon} /> }
+                        : {};
 
-                return {
-                    id: menu.name,
-                    title: menu.name,
-                    link: menu.path,
-                    isActive,
-                    ...childrenProps,
-                    ...iconProp,
-                    ...(menu.children && {
-                        onClick: () => handleMenu(menu.name, menu.path),
-                    }),
-                };
-            }),
-        [menus, active, isPathActive, handleMenu],
+                    return {
+                        id: menu.name,
+                        title: menu.name,
+                        link: menu.path,
+                        isActive,
+                        ...childrenProps,
+                        ...iconProp,
+                        ...(menu.children && {
+                            onClick: () => handleMenu(menu.name, menu.path),
+                        }),
+                    };
+                }),
+        [menus, active, isPathActive, handleMenu, userRole],
     );
 
     return { active, isPathActive, handleMenu, navigationItems };

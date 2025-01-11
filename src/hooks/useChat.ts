@@ -1,5 +1,5 @@
-import { getChatMessagesAPI } from '@/services/chat/chatAPI';
-import { Message } from '@/types/chat';
+import { getChatMessagesAPI } from '@/api/chatAPI';
+import { Message } from '@/types/Message';
 import { Client } from '@stomp/stompjs';
 import { useEffect, useRef, useState } from 'react';
 import SockJS from 'sockjs-client';

@@ -22,10 +22,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        onRouteClick: (path: string) => {
-            console.log(`Navigating to: ${path}`);
-            return path;
-        },
         routes: [
             {
                 path: '/',

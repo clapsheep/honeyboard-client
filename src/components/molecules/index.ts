@@ -11,3 +11,7 @@ export { default as WebSiteCardSkeleton } from './WebSiteCard/WebSiteCardSkeleto
 export { default as YoutubeCard } from './YoutubeCard/YoutubeCard';
 export { default as Breadcrumb } from './Breadcrumb/Breadcrumb';
 export { default as TabNavigation } from './TabNavigation/TabNavigation';
+export { default as SearchBar } from './SearchBar/SearchBar';
+export { default as SearchBarSkeleton } from './SearchBar/SearchBarSkeleton';
+export { default as Pagination } from './Pagination/Pagination';
+export { default as AlgoInfo } from './AlgoInfo/AlgoInfo';

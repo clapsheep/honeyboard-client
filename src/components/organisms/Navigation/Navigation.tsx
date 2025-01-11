@@ -1,10 +1,9 @@
 import { Icon, NavButton, Persona } from '@/components/atoms';
 import NavMenu from '@/components/molecules/NavMenu/NavMenu';
-import { NavItem } from './NavItem';
-import { handleLogout } from '@/services/auth';
-import { useUserStore } from '@/stores/userStore';
-import logo from '/assets/images/logo.png';
+import { useAuth } from '@/hooks/useAuth';
 import { Link } from 'react-router';
+import { NavItem } from './NavItem';
+import logo from '/assets/images/logo.png';
 
 interface NavigationProps {
     generation: string;
@@ -13,10 +12,10 @@ interface NavigationProps {
 }
 
 const Navigation = ({ generation, name }: NavigationProps) => {
-    const { setUserInfo } = useUserStore();
+    const { logout, userInfo } = useAuth();
 
     return (
-        <section className="flex h-lvh flex-col items-center gap-1 border border-gray-400 pb-[6.25rem] pt-7">
+        <section className="fixed flex h-screen flex-col items-center gap-1 border border-gray-400 pb-[6.25rem] pt-7">
             <h1 aria-label="Honey Board">
                 <Link to="/">
                     <img src={logo} alt="Honey Board" />
@@ -25,7 +24,7 @@ const Navigation = ({ generation, name }: NavigationProps) => {
             <Persona generation={generation} name={name} />
             <nav className="h-full">
                 <ul className="flex h-full flex-col">
-                    <NavMenu menus={NavItem} />
+                    <NavMenu menus={NavItem} userRole={userInfo!.role} />
                     <NavButton
                         key="마이페이지"
                         id="마이페이지"
@@ -40,7 +39,7 @@ const Navigation = ({ generation, name }: NavigationProps) => {
                         title="로그아웃"
                         icon={<Icon id="circle-close-red" />}
                         color="text-error-500"
-                        onClick={() => handleLogout(setUserInfo)}
+                        onClick={logout}
                         className="mt-4"
                     />
                 </ul>

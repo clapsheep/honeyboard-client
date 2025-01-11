@@ -10,10 +10,11 @@ export interface MenuProps {
 
 export interface NavMenuProps {
     menus: MenuProps[];
+    userRole: string;
 }
 
-const NavMenu = ({ menus }: NavMenuProps) => {
-    const { navigationItems } = useNavigationItems(menus);
+const NavMenu = ({ menus, userRole }: NavMenuProps) => {
+    const { navigationItems } = useNavigationItems(menus, userRole);
 
     return (
         <>

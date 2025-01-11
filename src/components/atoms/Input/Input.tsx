@@ -5,10 +5,12 @@ interface InputProps {
     id: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-    value?: string;
+    value?: string | number;
+    defaultValue?: string | number;
     readonly?: boolean;
     placeholder?: string;
     iconId?: string;
+    disabled?: boolean;
     type?: 'text' | 'password' | 'email' | 'number' | 'password';
 }
 
@@ -18,25 +20,31 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             id,
             type = 'text',
             value,
+            defaultValue,
             onChange,
             onKeyDown,
             readonly,
             iconId,
             placeholder,
+            disabled,
         }: InputProps,
         ref,
     ) => {
         return (
             <div className="relative w-full">
                 {iconId && (
-                    <div className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-600">
+                    <div className="absolute text-gray-600 -translate-y-1/2 left-2 top-1/2">
                         <Icon id={iconId} size={20} aria-hidden="true" />
                     </div>
                 )}
                 <input
                     ref={ref}
-                    className={`h-10 w-full border border-gray-300 bg-gray-25 px-2 py-1 text-text-md shadow-xs placeholder:text-gray-500 ${
+                    className={`h-10 w-full border border-gray-300 px-2 py-1 text-text-md shadow-xs placeholder:text-gray-500 ${
                         iconId ? 'pl-8' : ''
+                    } ${
+                        readonly
+                            ? 'cursor-not-allowed bg-gray-200 opacity-55'
+                            : 'bg-gray-25'
                     }`}
                     type={type}
                     id={id}
@@ -44,8 +52,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                     onChange={onChange}
                     onKeyDown={onKeyDown}
                     value={value}
+                    defaultValue={defaultValue}
                     readOnly={readonly}
                     placeholder={placeholder}
+                    disabled={disabled}
                 />
             </div>
         );

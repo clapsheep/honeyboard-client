@@ -8,7 +8,6 @@ interface AlgoProblemCardProps {
     description: string;
     link: string;
     tags: string[];
-    // onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const AlgoProblemCard = ({

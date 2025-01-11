@@ -1,12 +1,12 @@
 import { Button, ErrorMessage, SocialLoginButton } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
-import { requestOAuth } from '@/services/auth';
-import { handleLogin } from '@/services/auth/authService';
+
 import { loginSchema, type LoginSchema } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import logo from '/assets/images/logo.png';
+import { handleLogin, requestOAuth } from '@/utils/authService';
 
 const Login = () => {
     const navigate = useNavigate();

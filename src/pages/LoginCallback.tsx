@@ -1,25 +1,27 @@
-import { getUserInfoAPI } from '@/services/auth';
-import { useUserStore } from '@/stores/userStore';
+import { getUserInfoAPI } from '@/api/authAPI';
+import { queryClient } from '@/utils/common/queryClient';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 const LoginCallback = () => {
-    const { setUserInfo } = useUserStore();
     const navigate = useNavigate();
 
     useEffect(() => {
-        const handleLoginCallback = async () => {
-            try {
-                const { data } = await getUserInfoAPI();
-                setUserInfo(data);
+        const checkAuth = async () => {
+            const auth = await queryClient.fetchQuery({
+                queryKey: ['auth'],
+                queryFn: getUserInfoAPI,
+            });
+            console.log(auth);
+
+            if (auth.isAuthenticated) {
                 navigate('/');
-            } catch (error) {
-                console.error('로그인 처리 중 오류 발생:', error);
+            } else {
                 navigate('/login');
             }
         };
-        handleLoginCallback();
-    }, []);
+        checkAuth();
+    }, [navigate]);
 
     return null;
 };
