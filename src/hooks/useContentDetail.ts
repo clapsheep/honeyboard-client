@@ -7,8 +7,8 @@ import { addBookmarkAPI } from '@/api/bookmarkAPI';
 interface UseContentDetailProps<T> {
     contentType: 'web_recommend' | 'web_guide' | 'algo_solution' | 'algo_guide';
     contentId: string;
-    getDetailAPI: (id: string) => Promise<T>;
-    deleteAPI: (id: string) => Promise<void>;
+    getDetailAPI: (req: { guideId: string }) => Promise<T>;
+    deleteAPI: (req: { guideId: string }) => Promise<unknown>;
     navigateAfterDelete: string;
 }
 
@@ -25,7 +25,7 @@ export const useContentDetail = <T>({
 
     const { data } = useQuery<T>({
         queryKey: [contentType, contentId],
-        queryFn: () => getDetailAPI(contentId),
+        queryFn: () => getDetailAPI({ guideId: contentId }),
     });
 
     const handleDelete = async () => {
@@ -35,7 +35,7 @@ export const useContentDetail = <T>({
                 icon: 'warning',
                 subTitle: '정말로 삭제하시겠습니까?',
                 onConfirmClick: async () => {
-                    await deleteAPI(contentId);
+                    await deleteAPI({ guideId: contentId });
                     navigate(navigateAfterDelete);
                 },
                 onCancelClick: () => {

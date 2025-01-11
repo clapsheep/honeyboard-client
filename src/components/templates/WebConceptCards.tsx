@@ -1,8 +1,10 @@
+import { getWebGuideListAPI } from '@/api/WebGuideAPI';
 import { Pagination, SearchBar } from '@/components/molecules';
 import { ProjectCard } from '@/components/organisms';
 import usePagination from '@/hooks/usePagination';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 interface WebConceptCardsProps {
     generationId?: string | null;
@@ -16,11 +18,21 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
     } = usePagination({
         size: 8,
     });
-
+    const [searchTitle, setSearchTitle] = useState('');
+    const handleSearchTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTitle(e.target.value);
+    };
     const { data } = useSuspenseQuery({
-        queryKey: ['webConcepts', generationId, page, size],
+        queryKey: ['webConcepts', generationId, page, size, searchTitle],
         queryFn: () =>
-            getWebConceptsAPI(generationId || null, page || 1, size || 8),
+            getWebGuideListAPI({
+                generationId,
+                pageRequest: {
+                    currentPage: page,
+                    pageSize: size,
+                },
+                searchTitle,
+            }),
     });
 
     return (
@@ -32,7 +44,7 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
                     label="웹 개념"
                     placeholder="웹 개념 검색"
                     results={[]}
-                    onChange={() => {}}
+                    onChange={handleSearchTitle}
                     onClickResult={() => {}}
                 />
             </div>
@@ -43,7 +55,7 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
                             <li key={item.id}>
                                 <ProjectCard
                                     title={item.title}
-                                    subTitle={item.updatedAt}
+                                    subTitle={item.createdAt}
                                     id={item.id}
                                     img={item.thumbnail}
                                 />
