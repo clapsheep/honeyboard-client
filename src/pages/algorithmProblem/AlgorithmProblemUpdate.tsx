@@ -6,26 +6,42 @@ import AlgoProblemForm from '@/components/templates/AlgoProblemForm';
 import useAlgorithmTag from '@/hooks/useAlgorithmTag';
 import { useAuth } from '@/hooks/useAuth';
 import { useModalStore } from '@/stores/modalStore';
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { AlgorithmProblemDetailResponse } from '@/types/AlgorithmProblem';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
 const AlgorithmProblemUpdate = () => {
     const { problemId } = useParams();
     const { pathname } = useLocation();
     const navigate = useNavigate();
+
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
+    const [data, setData] = useState<AlgorithmProblemDetailResponse>();
     const { openModal } = useModalStore();
 
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
 
-    const { data } = useQuery({
-        queryKey: ['algo_problem', problemId],
-        queryFn: () =>
-            getAlgorithmProblemDetailAPI({ problemId: problemId as string }),
-    });
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await getAlgorithmProblemDetailAPI({
+                    problemId: problemId as string,
+                });
+
+                setData(response);
+                setTitle(response.title || '');
+                setUrl(response.url || '');
+            } catch (error) {
+                console.error('알고리즘 문제 조회에 실패했습니다.', error);
+            }
+        };
+
+        if (problemId) {
+            fetchData();
+        }
+    }, [problemId]);
 
     const {
         onAlgorithmChange,

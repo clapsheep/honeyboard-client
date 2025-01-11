@@ -16,7 +16,7 @@ export type AlgorithmProblemListResponse = Pick<
     'id' | 'title' | 'url' | 'createdAt'
 > & { tags: TagResponse[] };
 
-export type AlgorithmProblemDetailRespones = Pick<
+export type AlgorithmProblemDetailResponse = Pick<
     AlgorithmProblem,
     'id' | 'title' | 'url' | 'createdAt'
 > & { algorithmSolutionList: AlgorithmSolutionListResponse[] } & {
