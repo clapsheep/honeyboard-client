@@ -3,7 +3,7 @@ import { TagRequest, TagResponse } from '@/types/Tag';
 import { useState } from 'react';
 
 interface useAlgorithmTagProps {
-    initialAlgoSearch: [];
+    initialAlgoSearch: TagResponse[];
 }
 
 const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
