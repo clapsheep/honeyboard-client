@@ -1,41 +1,27 @@
-<<<<<<< HEAD:src/temp/project/final/FinalList.tsx
-import { Button, SelectOption } from '@/components/atoms';
-import { TabNavigation } from '@/components/molecules';
-import { Header } from '@/components/organisms';
-import { useAuth } from '@/hooks/useAuth';
-import { useGenerationStore } from '@/stores/generationStore';
-import { convertSelectType } from '@/utils/convertSelectType';
-=======
-import { Button, NameTag, SelectOption } from '@/components/atoms';
-import { TabNavigation, TeamTag } from '@/components/molecules';
+import { Button, NameTag } from '@/components/atoms';
+import { TeamTag } from '@/components/molecules';
 import { Header, ProjectCard } from '@/components/organisms';
->>>>>>> 10563256002d357329e3f61c6bcb4d8266d731bc:src/pages/project/final/FinalList.tsx
+import { useGenerationStore } from '@/stores/generationStore';
+import { useUserStore } from '@/stores/userStore';
+import { convertSelectType } from '@/utils/convertSelectType';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import { useFinalBoard } from '@/hooks/useFinalBoard'; // 리팩토링된 훅을 사용
-import { useUserStore } from '@/stores/userStore';
 
-const FinalList = () => {
-    const { pathname } = useLocation();
+const TrackListDetail = () => {
     const navigate = useNavigate();
-<<<<<<< HEAD:src/temp/project/final/FinalList.tsx
+    const { pathname } = useLocation();
+    const { userInfo } = useUserStore();
     const { generationList } = useGenerationStore();
-    const { userInfo } = useAuth();
     const [generation, setGeneration] = useState<string>(
         userInfo?.generationId ?? '',
     );
-=======
-    const [generation, setGeneration] = useState<string>('');
->>>>>>> 10563256002d357329e3f61c6bcb4d8266d731bc:src/pages/project/final/FinalList.tsx
-    const ROUTES = [{ path: '/final', name: '프로젝트', isActive: true }];
-    const userInfo = useUserStore((state) => state.userInfo);
+    const ROUTES = [{ path: '/track', name: '프로젝트', isActive: true }];
 
     const GENERATION_OPTIONS = [
         { value: '13', label: '13기' },
         { value: '12', label: '12기' },
         { value: '11', label: '11기' },
     ];
-
     const ProjectList = [
         {
             title: '무슨무슨 서비스',
@@ -109,37 +95,26 @@ const FinalList = () => {
     return (
         <div>
             <Header
-                titleProps={{ title: '파이널 프로젝트' }}
+                titleProps={{
+                    title: '관통 프로젝트',
+                    subTitle: {
+                        '프로젝트 목표': 'Vue 웹개발',
+                    },
+                    description: {
+                        '프로젝트 설명':
+                            'Vue를 활용해 사용자 친화적인 인터페이스를 구현하도록 합니다',
+                    },
+                }}
                 BreadcrumbProps={{ pathname }}
             >
-                <div className="flex items-end justify-between">
-                    <TabNavigation routes={ROUTES} />
-                    <div className="flex gap-4">
-                        <Button
-                            onClick={() => {
-                                navigate('create');
-                            }}
-                        >
-                            팀 생성
-                        </Button>
-
-                        <SelectOption
-                            id="generation"
-                            name="generation"
-                            placeholder="기수"
-                            options={GENERATION_OPTIONS}
-                            onChange={(e) => {
-                                setGeneration(e.target.value);
-                            }}
-                        />
-                    </div>
-                </div>
+                <section className="flex justify-end gap-4">
+                    <Button color="red">{'프로젝트 삭제'}</Button>
+                    <Button color="blue">{'프로젝트 수정'}</Button>
+                    <Button color="blue">{'일지 작성'}</Button>
+                </section>
             </Header>
-
             <section className="m-4 mt-6 border bg-white p-4">
-                <div className="pb-2 text-xl font-semibold">
-                    오늘의 제출현황
-                </div>
+                <div className="pb-2 text-xl font-semibold">제출 현황</div>
                 <section className="flex flex-wrap gap-2">
                     {TeamList &&
                         TeamList.map((item, index) => (
@@ -149,14 +124,6 @@ const FinalList = () => {
                                 onClick={() => alert('하')}
                             />
                         ))}
-                    {/*                {todaySubmitData &&
-                        todaySubmitData.map((team, index) => (
-                            <TeamTag
-                                key={index}
-                                team={team}
-                                onClick={() => alert('하')}
-                            />
-                        ))} */}
                 </section>
                 <section className="flex w-full gap-2 pt-2">
                     {RemainUser &&
@@ -165,16 +132,11 @@ const FinalList = () => {
                                 {item.name}
                             </NameTag>
                         ))}
-
-                    {/*                    {remainingUsersData &&
-                        remainingUsersData.map((user, index) => (
-                            <NameTag key={index} color="gray">
-                                {user.name}
-                            </NameTag>
-                        ))} */}
                 </section>
+            </section>{' '}
+            <section className="flex justify-end pr-6">
+                <Button color="white">{'pdf 다운로드'}</Button>
             </section>
-
             <section className="grid w-full grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {/* 프로젝트 목록 렌더링 */}
                 {ProjectList &&
@@ -192,4 +154,4 @@ const FinalList = () => {
     );
 };
 
-export default FinalList;
+export default TrackListDetail;

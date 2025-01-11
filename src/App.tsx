@@ -59,6 +59,15 @@ import {
 
 import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
+<<<<<<< HEAD
+=======
+import UpdateWebConcept from './pages/study/web/UpdateWebConcept';
+import UpdateWebRecommend from './pages/study/web/UpdateWebRecommend';
+import UpdateAlgorithmConcept from './pages/study/algorithm/UpdateAlgorithmConcept';
+import { useUserStore } from './stores/userStore';
+import UpdateAlgorithmProblemSolution from './pages/study/algorithm/UpdateAlgorithmProblemSolution';
+import TrackListDetail from './pages/project/track/TrackListDetail';
+>>>>>>> 10563256002d357329e3f61c6bcb4d8266d731bc
 
 function App() {
     const { closeModal, isOpen, modalProps } = useModalStore();
@@ -91,7 +100,16 @@ function App() {
                             />
                             <Route
                                 path="track/create"
+<<<<<<< HEAD
                                 element={<TrackProjectCreate />}
+=======
+                                element={<CreateTrackProject />}
+                            />
+                            <Route path="track" element={<TrackList />} />
+                            <Route
+                                path="track/:trackId"
+                                element={<TrackListDetail />}
+>>>>>>> 10563256002d357329e3f61c6bcb4d8266d731bc
                             />
                             <Route
                                 path="track/:trackProjectId/edit"
