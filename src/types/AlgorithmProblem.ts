@@ -23,5 +23,7 @@ export type AlgorithmProblemDetailRespones = Pick<
     tags: TagResponse[];
 };
 
-export type AlgorithmProblemRequest = Pick<AlgorithmProblem, 'title' | 'url'> &
-    TagRequest[];
+export type AlgorithmProblemRequest = Pick<
+    AlgorithmProblem,
+    'title' | 'url'
+> & { tags: TagRequest[] };
