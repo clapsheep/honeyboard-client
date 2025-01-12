@@ -14,6 +14,7 @@ const AlgorithmGuideDetail = () => {
     const { data, handleDelete, handleEdit, handleLike } = useContentDetail({
         contentType: 'algo_guide',
         contentId: guideId!,
+        requestParam: {guideId:guideId!},
         getDetailAPI: getAlgorithmGuideDetailAPI,
         deleteAPI: deleteAlgorithmGuideAPI,
         navigateAfterDelete: '/study/algorithm/concept',
