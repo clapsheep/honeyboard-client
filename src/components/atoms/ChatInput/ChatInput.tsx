@@ -19,7 +19,7 @@ const ChatInput = ({ id, value, onChange, onClick }: ChatInputProps) => {
     };
 
     return (
-        <div className="relative flex items-center">
+        <div className="relative flex w-full items-center">
             <textarea
                 id={id}
                 name={id}

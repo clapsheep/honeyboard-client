@@ -8,8 +8,8 @@ interface SearchBarProps {
     label: string;
     inputValue?: string;
     placeholder: string;
-    results: Result[];
-    onClickResult: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    results?: Result[];
+    onClickResult?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onClickSearch?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -26,7 +26,7 @@ const SearchBar = ({
 }: SearchBarProps) => {
     return (
         <section className="flex flex-col bg-gray-25">
-            <section className="flex w-full items-center gap-3 border border-gray-300 px-3">
+            <section className="flex w-full items-center gap-3 border border-gray-300 pl-3">
                 <Icon id="search" size={24} />
                 <section className="w-full">
                     <label htmlFor={id} className="hidden">
@@ -50,9 +50,12 @@ const SearchBar = ({
                     </button>
                 ) : null}
             </section>
-            {results.length > 0 ? (
+            {results && results.length > 0 ? (
                 <section className="mt-1">
-                    <SearchDropDown results={results} onClick={onClickResult} />
+                    <SearchDropDown
+                        results={results}
+                        onClick={onClickResult!}
+                    />
                 </section>
             ) : null}
         </section>

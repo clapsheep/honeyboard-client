@@ -5,6 +5,10 @@ interface ChatProps {
     name: string;
 }
 const Chat = ({ children, isMe = false, time, name }: ChatProps) => {
+    const formatTime = (time: string) => {
+        time = time.replace(/-/g, ':');
+        return time.slice(5, 10);
+    };
     return (
         <div
             className={`flex items-end gap-2 self-end ${!isMe ? 'self-stretch' : ''}`}
@@ -12,7 +16,7 @@ const Chat = ({ children, isMe = false, time, name }: ChatProps) => {
             {isMe ? (
                 <>
                     <span className="self-end whitespace-nowrap text-text-sm font-medium text-gray-500">
-                        {time}
+                        {formatTime(time)}
                     </span>
                     <div className="rounded-bl-[20px] rounded-br-2xl rounded-tl-[20px] bg-blue-700 px-4 py-2">
                         <div className="break-all text-text-md font-medium text-gray-25">
@@ -33,7 +37,7 @@ const Chat = ({ children, isMe = false, time, name }: ChatProps) => {
                         </div>
                     </div>
                     <span className="whitespace-nowrap text-text-sm font-medium text-gray-500">
-                        {time}
+                        {formatTime(time)}
                     </span>
                 </>
             )}
