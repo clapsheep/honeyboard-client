@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { getAlgorithmGuideListAPI } from '@/api/AlgorithmGuideAPI.ts';
 
 interface AlgorithmGuideCardsProps {
-    generationId?: string;
+    generationId?: string | null;
 }
 
 const AlgorithmGuideCards = ({ generationId }: AlgorithmGuideCardsProps) => {
