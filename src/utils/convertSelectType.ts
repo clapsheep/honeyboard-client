@@ -1,7 +1,4 @@
-import {
-    GenerationType,
-    SelectOptionType,
-} from '@/services/common/generation/types';
+import { GenerationType, SelectOptionType } from '@/types/common';
 
 export const convertSelectType = (
     generationList: GenerationType[],

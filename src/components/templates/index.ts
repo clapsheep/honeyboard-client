@@ -7,3 +7,4 @@ export { default as AlgoProblemCardSkeletonList } from './Skeletons/AlgoProblemC
 export { default as MyTrackProjectList } from './MyTrackProjectList';
 export { default as StudentList } from './StudentList';
 export { default as MusicTrackSkeletonList } from './Skeletons/MusicTrackSkeletonList';
+export { default as AlgorithmGuideCards } from './AlgorithmGuideCards';

@@ -10,10 +10,10 @@ import { AvailableUserListResponse, TeamMemberListRequest } from '@/types/User';
 
 // 1. 트랙 프로젝트 리스트 조회 TrackProjectListResponse
 export const getTrackProjectListAPI = async (req: {
-    generationId: string;
+    generationId?: string | null;
 }): Promise<TrackProjectListResponse> => {
     return api.get(`/project/track`, {
-        params: { generationId: req.generationId },
+        params: { generation: req.generationId },
     });
 };
 // 1-1. 트랙 프로젝트 생성 -> 강사님만 가능 TrackProjectRequest
