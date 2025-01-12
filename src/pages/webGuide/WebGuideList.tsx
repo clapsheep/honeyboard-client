@@ -54,7 +54,7 @@ const WebGuideList = () => {
                             name="generation"
                             placeholder="기수"
                             options={convertSelectType(generationList)}
-                            defaultValue={generationId}
+                            value={generationId}
                             onChange={(e) => {
                                 setGenerationId(e.target.value);
                             }}
