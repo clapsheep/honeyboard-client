@@ -1,18 +1,28 @@
 import { Button, Icon } from '@/components/atoms';
 import { Result } from '@/components/atoms/SearchDropDown/SearchDropDown';
 import { SearchBar } from '@/components/molecules';
+import { TagRequest } from '@/types/Tag';
 import { useMemo } from 'react';
 
 interface SearchTeamMemberProps {
     title: string;
-    team: Result[];
+    team: Result[] | TagRequest[];
     results: Result[];
     inputValue: string;
     onClickResult: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onClickSearch?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
+
+// team의 타입을 확인
+const isResultArray = (team: Result[] | TagRequest[]): team is Result[] => {
+    return (
+        team.length === 0 ||
+        (typeof team[0] === 'object' && team[0] !== null && 'id' in team[0])
+    );
+};
 
 const SearchTeamMember = ({
     title,
@@ -23,26 +33,43 @@ const SearchTeamMember = ({
     onClickSearch,
     onChange,
     onClick,
+    onKeyDown,
 }: SearchTeamMemberProps) => {
-    const TeamMemberButton = useMemo(() => {
-        return team.map((member: Result) => (
-            <Button
-                key={member.id}
-                data-id={member.id}
-                data-name={member.name}
-                onClick={onClick}
-                className="flex items-center gap-1 border border-black bg-gray-25 !px-2 !text-black hover:bg-gray-200"
-            >
-                <span>{member.name}</span>
-                <Icon id="cancle-circle" />
-            </Button>
-        ));
+    const renderTeamButtons = useMemo(() => {
+        if (isResultArray(team)) {
+            // team의 타입이 Result[]일 때(프로젝트 팀원 관리)
+            return team.map((member: Result) => (
+                <Button
+                    key={member.id}
+                    data-id={member.id}
+                    data-name={member.name}
+                    onClick={onClick}
+                    className="flex items-center gap-1 border border-black bg-gray-25 !px-2 !text-black hover:bg-gray-200"
+                >
+                    <span>{member.name}</span>
+                    <Icon id="cancle-circle" />
+                </Button>
+            ));
+        } else {
+            // team의 타입이 string[]일 떄(알고리즘 태그 관리)
+            return team.map((tag: TagRequest, index: number) => (
+                <Button
+                    key={index}
+                    data-name={tag.name}
+                    onClick={onClick}
+                    className="flex items-center gap-1 border border-black bg-gray-25 !px-2 !text-black hover:bg-gray-200"
+                >
+                    <span>{tag.name}</span>
+                    <Icon id="cancle-circle" />
+                </Button>
+            ));
+        }
     }, [team, onClick]);
 
     return (
         <section className="flex flex-col gap-2">
             <h3 className="text-lg font-semibold">{title}</h3>
-            <section className="flex gap-3">{TeamMemberButton}</section>
+            <section className="flex gap-3">{renderTeamButtons}</section>
             <section>
                 <SearchBar
                     id={`${title} 검색`}
@@ -53,6 +80,7 @@ const SearchTeamMember = ({
                     onClickResult={onClickResult}
                     onClickSearch={onClickSearch}
                     onChange={onChange}
+                    onKeyDown={onKeyDown}
                 />
             </section>
         </section>

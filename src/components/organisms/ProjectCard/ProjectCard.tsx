@@ -2,16 +2,25 @@ import { Link } from 'react-router';
 
 interface ProjectCardProps {
     title: string;
-    subTitle: string; // 파이널에서는 깃주소, 관통 포함 그 외는 날짜
+    subTitle: string;
     id: string;
     teams?: string[];
     img?: string;
+    isBookmarked?: boolean;
+    pathname?: string;
 }
 
-const ProjectCard = ({ title, subTitle, id, teams, img }: ProjectCardProps) => {
+const ProjectCard = ({
+    title,
+    subTitle,
+    id,
+    teams,
+    img,
+    pathname,
+}: ProjectCardProps) => {
     return (
         <Link
-            to={`/study/web/concept/${id}`}
+            to={`${pathname}/${id}`}
             className="flex h-full w-full flex-col rounded border border-gray-300 bg-gray-50 shadow-md"
         >
             <div className="relative w-full flex-1 overflow-hidden pb-[68%]">

@@ -16,12 +16,14 @@ export type AlgorithmProblemListResponse = Pick<
     'id' | 'title' | 'url' | 'createdAt'
 > & { tags: TagResponse[] };
 
-export type AlgorithmProblemDetailRespones = Pick<
+export type AlgorithmProblemDetailResponse = Pick<
     AlgorithmProblem,
     'id' | 'title' | 'url' | 'createdAt'
 > & { algorithmSolutionList: AlgorithmSolutionListResponse[] } & {
     tags: TagResponse[];
 };
 
-export type AlgorithmProblemRequest = Pick<AlgorithmProblem, 'title' | 'url'> &
-    TagRequest[];
+export type AlgorithmProblemRequest = Pick<
+    AlgorithmProblem,
+    'title' | 'url'
+> & { tags: TagRequest[] };

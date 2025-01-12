@@ -10,6 +10,8 @@ import {
 } from '@/utils/imageOptimization';
 import { useModalStore } from '@/stores/modalStore';
 import { deleteImageAPI, uploadImageAPI } from '@/api/imageAPI';
+import { useNavigate } from 'react-router';
+import '@toast-ui/editor/dist/toastui-editor.css';
 
 interface UseEditorProps {
     editorId: string;
@@ -29,6 +31,7 @@ const useToastEditor = ({
     const editorRef = useRef<HTMLDivElement>(null);
     const editorInstanceRef = useRef<Editor | null>(null);
     const { openModal, closeModal } = useModalStore();
+    const navigate = useNavigate();
 
     // 글 작성 중 뒤로가기 및 창 닫기 시 이미지 삭제
     useEffect(() => {
@@ -148,7 +151,12 @@ const useToastEditor = ({
 
         const content = editorInstanceRef.current.getMarkdown();
         if (!content.trim()) {
-            alert('내용을 입력해주세요.');
+            openModal({
+                title: '내용을 입력해주세요.',
+                onCancelClick: () => {
+                    navigate(-1);
+                },
+            });
             throw new Error('내용이 없습니다.');
         }
 

@@ -3,25 +3,29 @@ import { Button } from '../atoms';
 import { InputForm } from '../molecules';
 import { Header } from '../organisms';
 
-interface WebGuideFormProps {
+interface WebRecommendFormProps {
     mode: 'create' | 'edit';
     title: string;
+    url: string;
     pathname: string;
     editorRef: React.RefObject<HTMLDivElement>;
     handleTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleUrlChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleCancel: () => void;
     handleSubmit: () => void;
 }
 
-const WebGuideForm = ({
+const WebRecommendForm = ({
     mode,
     title,
+    url,
     pathname,
     editorRef,
     handleTitleChange,
+    handleUrlChange,
     handleCancel,
     handleSubmit,
-}: WebGuideFormProps) => {
+}: WebRecommendFormProps) => {
     return (
         <>
             <Header
@@ -41,15 +45,25 @@ const WebGuideForm = ({
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col flex-1 gap-4 p-6">
+            <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
-                    id="webConceptTitle"
+                    id="webRecommendTitle"
                     label="제목"
                     placeholder="제목을 입력하세요"
                     required={true}
                     type="text"
                     value={title}
                     onChange={handleTitleChange}
+                />
+
+                <InputForm
+                    id="webRecommendUrl"
+                    label="URL"
+                    placeholder="URL을 입력하세요"
+                    required={true}
+                    type="text"
+                    value={url}
+                    onChange={handleUrlChange}
                 />
 
                 <ToastEditorComponent
@@ -61,4 +75,4 @@ const WebGuideForm = ({
     );
 };
 
-export default WebGuideForm;
+export default WebRecommendForm;
