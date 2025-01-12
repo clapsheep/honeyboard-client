@@ -4,28 +4,30 @@ import { useNavigate } from 'react-router';
 import { useAuth } from './useAuth';
 import { addBookmarkAPI } from '@/api/bookmarkAPI';
 
-interface UseContentDetailProps<T> {
+interface UseContentDetailProps<U, T> {
     contentType: 'web_recommend' | 'web_guide' | 'algo_solution' | 'algo_guide';
     contentId: string;
-    getDetailAPI: (req: { guideId: string }) => Promise<T>;
-    deleteAPI: (req: { guideId: string }) => Promise<unknown>;
+    getDetailAPI: (req: U) => Promise<T>;
+    deleteAPI: (req: U) => Promise<unknown>;
     navigateAfterDelete: string;
+    requestParam: U;
 }
 
-export const useContentDetail = <T>({
+export const useContentDetail = <U, T>({
     contentType,
     contentId,
     getDetailAPI,
     deleteAPI,
     navigateAfterDelete,
-}: UseContentDetailProps<T>) => {
+    requestParam,
+}: UseContentDetailProps<U, T>) => {
     const navigate = useNavigate();
     const { userInfo } = useAuth();
     const { openModal, closeModal } = useModalStore();
 
     const { data } = useQuery<T>({
         queryKey: [contentType, contentId],
-        queryFn: () => getDetailAPI({ guideId: contentId }),
+        queryFn: () => getDetailAPI(requestParam),
     });
 
     const handleDelete = async () => {
@@ -35,7 +37,7 @@ export const useContentDetail = <T>({
                 icon: 'warning',
                 subTitle: '정말로 삭제하시겠습니까?',
                 onConfirmClick: async () => {
-                    await deleteAPI({ guideId: contentId });
+                    await deleteAPI(requestParam);
                     navigate(navigateAfterDelete);
                 },
                 onCancelClick: () => {
