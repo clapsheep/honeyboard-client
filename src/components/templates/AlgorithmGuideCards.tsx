@@ -1,17 +1,18 @@
-import { getWebGuideListAPI } from '@/api/WebGuideAPI';
+import { useLocation } from 'react-router';
 import { Pagination, SearchBar } from '@/components/molecules';
 import { ProjectCard } from '@/components/organisms';
 import usePagination from '@/hooks/usePagination';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { useLocation } from 'react-router';
+import { getAlgorithmGuideListAPI } from '@/api/AlgorithmGuideAPI.ts';
 
-interface WebConceptCardsProps {
-    generationId?: string | null;
+interface AlgorithmGuideCardsProps {
+    generationId?: string;
 }
 
-const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
+const AlgorithmGuideCards = ({ generationId }: AlgorithmGuideCardsProps) => {
     const { pathname } = useLocation();
+    console.log(pathname);
     const {
         handlePageChange,
         currentPage: page,
@@ -24,15 +25,15 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
         setSearchTitle(e.target.value);
     };
     const { data } = useSuspenseQuery({
-        queryKey: ['webConcepts', generationId, page, size, searchTitle],
+        queryKey: ['AlgorithmGuides', generationId, page, size, searchTitle],
         queryFn: () =>
-            getWebGuideListAPI({
+            getAlgorithmGuideListAPI({
                 generationId,
                 pageRequest: {
                     currentPage: page,
                     pageSize: size,
                 },
-                searchTitle,
+                searchRequest: searchTitle ? { title: searchTitle } : undefined, // searchTitle이 없을 경우 생략
             }),
     });
 
@@ -41,9 +42,9 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
             <div className="w-[500px]">
                 {/* SearchBar 개발 시 수정 */}
                 <SearchBar
-                    id="webConcept"
-                    label="웹 개념"
-                    placeholder="웹 개념 검색"
+                    id="AlgorithmGuide"
+                    label="알고리즘 개념"
+                    placeholder="알고리즘 개념 검색"
                     results={[]}
                     onChange={handleSearchTitle}
                     onClickResult={() => {}}
@@ -86,7 +87,7 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
             ) : (
                 <div className="flex min-h-[200px] w-full items-center justify-center">
                     <p className="text-lg text-gray-500">
-                        등록된 컨셉 프로젝트가 없습니다.
+                        등록된 알고리즘 개념이 없습니다.
                     </p>
                 </div>
             )}
@@ -94,4 +95,4 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
     );
 };
 
-export default WebConceptCards;
+export default AlgorithmGuideCards;
