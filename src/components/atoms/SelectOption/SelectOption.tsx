@@ -4,7 +4,8 @@ interface SelectOptionProps {
     options: { value: string | number; label: string }[];
     placeholder: string;
     placeholderDisabled?: boolean;
-    defaultValue: string | number | null;
+    value: string | number | null; // defaultValue에서 value로 변경
+
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -14,7 +15,8 @@ const SelectOption = ({
     options,
     placeholder,
     placeholderDisabled,
-    defaultValue,
+    value, // value로 props 변경
+
     onChange,
 }: SelectOptionProps) => {
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -24,7 +26,7 @@ const SelectOption = ({
         <select
             id={id}
             name={name}
-            defaultValue={defaultValue ?? ''}
+            value={value ?? ''} // value로 바인딩
             className="rounded border border-gray-300 bg-gray-25 px-3 py-1 text-text-md font-medium text-gray-900"
             aria-label={name}
             onChange={handleSelectChange}

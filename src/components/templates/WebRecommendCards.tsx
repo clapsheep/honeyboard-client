@@ -3,7 +3,7 @@ import usePagination from '@/hooks/usePagination';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Pagination } from '@/components/molecules';
-import { getWebRecommendListAPI } from '@/api/webRecommendAPI';
+import { getWebRecommendListAPI } from '@/api/WebRecommendAPI';
 
 interface WebRecommendCardsProps {
     generationId?: string;

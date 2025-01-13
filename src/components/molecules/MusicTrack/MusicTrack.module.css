@@ -1,0 +1,16 @@
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.marquee-text {
+    white-space: nowrap;
+}
+
+.marquee-text:hover {
+    animation: marquee 3s linear infinite;
+}

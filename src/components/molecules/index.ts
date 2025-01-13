@@ -3,6 +3,7 @@ export { default as AlgoProblemCard } from './AlgoProblemCard/AlgoProblemCard';
 export { default as AlgoProblemCardSkeleton } from './AlgoProblemCard/AlgoProblemCardSkeleton';
 export { default as InputForm } from './InputForm/InputForm';
 export { default as MusicTrack } from './MusicTrack/MusicTrack';
+export { default as MusicTrackSkeleton } from './MusicTrack/MusicTrackSkeleton';
 export { default as NavMenu } from './NavMenu/NavMenu';
 export { default as StudentInfo } from './StudentInfo/StudentInfo';
 export { default as TeamTag } from './TeamTag/TeamTag';
