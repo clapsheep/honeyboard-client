@@ -4,7 +4,6 @@ interface YoutubeCardProps {
     thumbnail: string;
     title: string;
     channel: string;
-    url: string;
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onAddClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     isAdded?: boolean;
