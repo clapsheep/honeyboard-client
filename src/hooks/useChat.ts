@@ -1,56 +1,81 @@
 import { getChatMessagesAPI } from '@/api/chatAPI';
 import { Message } from '@/types/Message';
 import { Client } from '@stomp/stompjs';
-import { useEffect, useRef, useState } from 'react';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useRef } from 'react';
 import SockJS from 'sockjs-client';
 
 const { VITE_BASE_URI } = import.meta.env;
+
 export const useChat = (generationId: string) => {
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
     const clientRef = useRef<Client | null>(null);
+    const queryClient = useQueryClient();
+
+    const { data, fetchNextPage, hasNextPage, isLoading, error } =
+        useInfiniteQuery({
+            queryKey: ['chat', generationId],
+            queryFn: ({ pageParam = 1 }) =>
+                getChatMessagesAPI({ currentPage: pageParam, pageSize: 50 }),
+            getNextPageParam: (lastPage) => {
+                const { pageInfo } = lastPage;
+                return pageInfo.totalPages != pageInfo.currentPage
+                    ? pageInfo.currentPage + 1
+                    : undefined;
+            },
+            initialPageParam: 1,
+        });
+
+    const messages = data?.pages.flatMap((page) => page.content) ?? [];
 
     useEffect(() => {
-        const fetchMessages = async () => {
-            try {
-                const { data } = await getChatMessagesAPI();
-                setMessages(data.content);
-            } catch (error) {
-                console.error(error);
-                setError('채팅을 불러오는데 실패했습니다.');
-            } finally {
-                setIsLoading(false);
-            }
-        };
         const client = new Client({
             webSocketFactory: () => new SockJS(`${VITE_BASE_URI}/ws`),
-            // debug: (str) => console.log(str),
             onConnect: () => {
-                // console.log('웹소켓 연결 성공');
                 client.subscribe(
                     `/topic/generation/${generationId}`,
                     (message) => {
                         const chatMessage: Message = JSON.parse(message.body);
-                        setMessages((prev) => [chatMessage, ...prev]);
+                        queryClient.setQueryData(
+                            ['chat', generationId],
+                            (oldData: any) => {
+                                if (!oldData) return oldData;
+
+                                return {
+                                    ...oldData,
+                                    pages: oldData.pages.map(
+                                        (page: any, index: number) => {
+                                            if (index === 0) {
+                                                return {
+                                                    ...page,
+                                                    content: [
+                                                        chatMessage,
+                                                        ...page.content,
+                                                    ],
+                                                };
+                                            }
+                                            return page;
+                                        },
+                                    ),
+                                };
+                            },
+                        );
                     },
                 );
                 client.subscribe('/user/queue/errors', (message) => {
                     console.error('채팅 에러:', message.body);
                 });
             },
-            onDisconnect: () => {
-                // console.log('웹소켓 연결 종료');
-            },
         });
+
         client.activate();
         clientRef.current = client;
-        fetchMessages();
+
         return () => {
             client.deactivate();
             clientRef.current = null;
         };
-    }, [generationId]);
+    }, [generationId, queryClient]);
+
     const sendMessage = (content: string, userId: string) => {
         if (!clientRef.current?.connected) {
             console.error('웹 소켓이 구성되지 않았습니다.');
@@ -61,5 +86,13 @@ export const useChat = (generationId: string) => {
             body: JSON.stringify({ content, userId }),
         });
     };
-    return { messages, isLoading, error, sendMessage };
+
+    return {
+        messages,
+        isLoading,
+        error,
+        sendMessage,
+        fetchNextPage,
+        hasNextPage,
+    };
 };

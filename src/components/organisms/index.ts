@@ -5,3 +5,5 @@ export { default as BasicModal } from './BasicModal/BasicModal';
 export { default as Header } from './Header/Header';
 export { default as ProjectCardSkeleton } from './ProjectCard/ProjectCardSkeleton';
 export { default as StudentEditModal } from './StudentEditModal/StudentEditModal';
+export { default as PlayListSection } from './PlayListSection/PlayListSection';
+export { default as ChatSection } from './ChatSection/ChatSection';

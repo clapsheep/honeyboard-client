@@ -12,7 +12,6 @@ const LoginCallback = () => {
                 queryKey: ['auth'],
                 queryFn: getUserInfoAPI,
             });
-            console.log(auth);
 
             if (auth.isAuthenticated) {
                 navigate('/');
