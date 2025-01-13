@@ -1,5 +1,5 @@
 const TrackProjectList = () => {
-    return <div>트랙 프로젝트 목록</div>;
+    return <></>;
 };
 
 export default TrackProjectList;
