@@ -53,7 +53,7 @@ const AlgorithmGuideList = () => {
                             name={'generation'}
                             options={convertSelectType(generationList)}
                             placeholder={'기수'}
-                            defaultValue={generationId}
+                            value={generationId}
                             onChange={(e) => {
                                 setGenerationId(e.target.value);
                             }}

@@ -6,7 +6,7 @@ import { Pagination } from '@/components/molecules';
 import { getWebRecommendListAPI } from '@/api/WebRecommendAPI';
 
 interface WebRecommendCardsProps {
-    generationId?: string;
+    generationId?: string | null;
 }
 // TODO: 북마크 관련 기능 개발
 const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
