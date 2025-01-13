@@ -1,21 +1,16 @@
 import { NameTag } from '@/components/atoms';
-
-interface User {
-    id: number;
-    name: string;
-    role: 'leader' | 'member';
-}
+import { TrackTeamMember } from '@/types/TrackProject';
 
 interface TeamTagProps {
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     isSubmit?: boolean;
-    team?: User[];
+    team?: Pick<TrackTeamMember, 'id' | 'name' | 'role'>[];
 }
 
 const TeamTag = ({ isSubmit = false, team = [], onClick }: TeamTagProps) => {
     const tagColor = isSubmit ? 'green' : 'red';
-    const leader = team.find((member) => member.role === 'leader');
-    const members = team.filter((member) => member.role === 'member');
+    const leader = team.find((member) => member.role === 'LEADER');
+    const members = team.filter((member) => member.role === 'MEMBER');
 
     return (
         <button

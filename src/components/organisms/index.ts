@@ -7,3 +7,4 @@ export { default as ProjectCardSkeleton } from './ProjectCard/ProjectCardSkeleto
 export { default as StudentEditModal } from './StudentEditModal/StudentEditModal';
 export { default as PlayListSection } from './PlayListSection/PlayListSection';
 export { default as ChatSection } from './ChatSection/ChatSection';
+export { default as SubmitSection } from './SubmitSection/SubmitSection';

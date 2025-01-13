@@ -1,43 +1,41 @@
 import { getTrackProjectDetailAPI } from '@/api/trackAPI';
 import { Button } from '@/components/atoms';
-import { Header } from '@/components/organisms';
+import { Header, SubmitSection } from '@/components/organisms';
 import {
     ProjectCardSkeletonList,
     TrackProjectCards,
 } from '@/components/templates';
-import { TrackProjectDetailResponse } from '@/types/TrackProject';
-import { Suspense, useEffect, useState } from 'react';
+import { useProjectDetail } from '@/hooks/useProjectDetail';
+import { Suspense } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
 const TrackProjectDetail = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const { trackProjectId } = useParams();
-    const [data, setData] = useState<TrackProjectDetailResponse>();
 
-    useEffect(() => {
-        if (!trackProjectId) {
-            return;
-        }
+    const data = useProjectDetail({
+        getListAPI: getTrackProjectDetailAPI,
+        requestParam: trackProjectId ? { trackProjectId } : undefined,
+    });
 
-        const fetchData = async () => {
-            try {
-                const response = await getTrackProjectDetailAPI({
-                    trackProjectId,
-                });
-                setData(response);
-            } catch (error) {
-                console.error('트랙 프로젝트 조회에 실패했습니다.', error);
-            }
-        };
+    if (!data) {
+        navigate(-1);
+        return;
+    }
 
-        fetchData();
-    }, [trackProjectId]);
+    const onClick = (teamId: string) => {
+        navigate(`/team/${teamId}/board`);
+    };
 
     return (
         <>
             <Header
-                titleProps={{ title: data?.title }}
+                titleProps={{
+                    title: data?.title,
+                    subTitle: { '프로젝트 목표': data?.objective },
+                    description: { '프로젝트 설명': data?.description },
+                }}
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex items-end justify-end gap-4">
@@ -65,6 +63,12 @@ const TrackProjectDetail = () => {
                     </Button>
                 </div>
             </Header>
+            <SubmitSection
+                project="track"
+                teams={data?.teams}
+                noTeamUsers={data?.noTeamUsers}
+                onClick={onClick}
+            />
             <Suspense fallback={<ProjectCardSkeletonList />}>
                 <TrackProjectCards boards={data?.boards}></TrackProjectCards>
             </Suspense>
