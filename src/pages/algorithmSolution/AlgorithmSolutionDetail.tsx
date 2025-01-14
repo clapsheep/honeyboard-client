@@ -13,13 +13,14 @@ const AlgorithmSolutionDetail = () => {
     const { data, handleDelete, handleEdit, handleLike} = useContentDetail({
         contentType: 'algo_solution',
         contentId: solutionId!,
-        getDetailAPI: ({ guideId }) => getAlgorithmSolutionDetailAPI({ 
+        requestParam: {solutionId: solutionId!},
+        getDetailAPI: (req) => getAlgorithmSolutionDetailAPI({ 
             problemId: problemId!, 
-            solutionId: guideId 
+            solutionId: solutionId! 
         }),
-        deleteAPI: ({ guideId }) => deleteAlgorithmSolutionAPI({ 
+        deleteAPI: (req) => deleteAlgorithmSolutionAPI({ 
             problemId: problemId!, 
-            solutionId: guideId 
+            solutionId: solutionId! 
         }),
         navigateAfterDelete: `/study/algorithm/problem/${problemId}/solution`
     })

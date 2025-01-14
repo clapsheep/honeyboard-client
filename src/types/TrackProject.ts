@@ -59,13 +59,12 @@ export type TrackProjectDetailResponse = Pick<
         submitted: boolean;
         projectBoardId: string | null;
     }[];
-    boards: Pick<
+    boards: (Pick<
         TrackProjectBoard,
         'id' | 'title' | 'createdAt' | 'thumbnail'
-    > &
-        {
-            members: Pick<User, 'id' | 'name'>[];
-        }[];
+    > & {
+        members: Pick<User, 'id' | 'name'>[];
+    })[];
 };
 
 // 트랙프로젝트 보드 상세조회 응답 타입
