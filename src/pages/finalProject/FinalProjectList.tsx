@@ -1,6 +1,6 @@
 import { Button, NameTag, SelectOption } from '@/components/atoms';
 import { TabNavigation, TeamTag } from '@/components/molecules';
-import { Header, ProjectCard } from '@/components/organisms';
+import { Header, ProjectCard, SubmitSection } from '@/components/organisms';
 import { useAuth } from '@/hooks/useAuth';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
@@ -56,42 +56,9 @@ const FinalProjectList = () => {
         },
     ];
 
-    const TeamList = [
-        [
-            { id: 1, name: '박성문', role: 'leader' as const },
-            { id: 2, name: '김성문', role: 'member' as const },
-            { id: 3, name: '이성문', role: 'member' as const },
-        ],
-        [
-            { id: 4, name: '윤성문', role: 'leader' as const },
-            { id: 5, name: '강성문', role: 'member' as const },
-            { id: 6, name: '한성문', role: 'member' as const },
-        ],
-        [
-            { id: 4, name: '윤성문', role: 'leader' as const },
-            { id: 5, name: '강성문', role: 'member' as const },
-            { id: 6, name: '한성문', role: 'member' as const },
-        ],
-        [
-            { id: 4, name: '윤성문', role: 'leader' as const },
-            { id: 5, name: '강성문', role: 'member' as const },
-            { id: 6, name: '한성문', role: 'member' as const },
-        ],
-        [
-            { id: 4, name: '윤성문', role: 'leader' as const },
-            { id: 5, name: '강성문', role: 'member' as const },
-            { id: 6, name: '한성문', role: 'member' as const },
-        ],
-        [
-            { id: 4, name: '윤성문', role: 'leader' as const },
-            { id: 5, name: '강성문', role: 'member' as const },
-            { id: 6, name: '한성문', role: 'member' as const },
-        ],
-    ];
-    const RemainUser = [
-        { id: 1, name: '정성문' },
-        { id: 2, name: '오성문' },
-    ];
+    const boardDetailNav = (teamId: string) => {
+        navigate(`/team/${teamId}/board`);
+    };
 
     return (
         <>
@@ -131,14 +98,12 @@ const FinalProjectList = () => {
                     오늘의 제출현황
                 </div>
                 <section className="flex flex-wrap gap-2">
-                    {TeamList &&
-                        TeamList.map((item, index) => (
-                            <TeamTag
-                                key={index}
-                                team={item}
-                                onClick={() => alert('하')}
-                            />
-                        ))}
+                    <SubmitSection
+                        project="final"
+                        teams={data.teams}
+                        noTeamUsers={data?.noTeamUsers}
+                        onClick={boardDetailNav}
+                    />
                 </section>
                 <section className="flex w-full gap-2 pt-2">
                     {RemainUser &&
