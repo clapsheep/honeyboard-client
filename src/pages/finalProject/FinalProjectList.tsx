@@ -1,14 +1,15 @@
 import { getFinaleProjectListAPI } from '@/api/finaleAPI';
 import { Button, NameTag, SelectOption } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
-import { Header, ProjectCard, SubmitSection } from '@/components/organisms';
+import { Header, SubmitSection } from '@/components/organisms';
 import { ProjectCardSkeletonList } from '@/components/templates';
+import FinalListCards from '@/components/templates/FinalListCard';
 import { useAuth } from '@/hooks/useAuth';
 import { useGenerationStore } from '@/stores/generationStore';
-import { FinaleProjectListResponse } from '@/types/FinaleProject';
+
 import { convertSelectType } from '@/utils/convertSelectType';
 import { useQuery } from '@tanstack/react-query';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 const FinalProjectList = () => {
@@ -26,16 +27,10 @@ const FinalProjectList = () => {
     ];
 
     // useQuery를 통해 데이터를 가져오고 에러 핸들링 추가
-    const { data, error, isError, isLoading } = useQuery({
+    const { data } = useQuery({
         queryKey: ['finalProject'],
         queryFn: () => getFinaleProjectListAPI({ generationId }),
     });
-
-    const [finalList, setFinalList] = useState<FinaleProjectListResponse>();
-
-    useEffect(() => {
-        setFinalList(data?.data);
-    }, [generationId, data]);
 
     const boardDetailNav = (finaleProjectId: string) => {
         navigate(`${finaleProjectId}`);
@@ -98,30 +93,7 @@ const FinalProjectList = () => {
 
             <section className="grid w-full grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 <Suspense fallback={<ProjectCardSkeletonList />}>
-                    {isLoading ? (
-                        <div>로딩 중...</div>
-                    ) : isError ? (
-                        <div className="col-span-full text-center text-red-500">
-                            에러가 발생했습니다:{' '}
-                            {error instanceof Error
-                                ? error.message
-                                : '알 수 없는 오류'}
-                        </div>
-                    ) : finalList?.projects && finalList.projects.length > 0 ? (
-                        finalList.projects.map((item) => (
-                            <ProjectCard
-                                key={item.id}
-                                id={item.id}
-                                title={item.title}
-                                subTitle={item.createdAt}
-                                img={item.thumbnail}
-                            />
-                        ))
-                    ) : (
-                        <div className="col-span-full text-center text-gray-500">
-                            <p>게시글이 없습니다.</p>
-                        </div>
-                    )}
+                    <FinalListCards boards={data?.projects}></FinalListCards>
                 </Suspense>
             </section>
         </>

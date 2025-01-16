@@ -45,12 +45,7 @@ export type FinaleProjectListResponse = {
     //프로젝트 리스트
     projects: Pick<
         FinaleProject,
-        | 'id'
-        | 'title'
-        | 'description'
-        | 'thumbnail'
-        | 'createdAt'
-        | 'finaleTeamId'
+        'id' | 'title' | 'description' | 'thumbnail' | 'createdAt'
     > &
         { members: Pick<User, 'id' | 'name'>[] }[];
     //팀이 없는 유저

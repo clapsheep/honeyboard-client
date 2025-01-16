@@ -1,27 +1,19 @@
-import { TrackProjectBoard } from '@/types/TrackProject';
-import { ButtonPDF } from '../atoms';
 import { ProjectCard } from '../organisms';
 import { User } from '@/types/User';
+import { FinaleProject } from '@/types/FinaleProject';
 
-interface TrackProjectCardsProps {
+interface FinalListCardsProps {
     boards?: (Pick<
-        TrackProjectBoard,
-        'id' | 'title' | 'createdAt' | 'thumbnail'
+        FinaleProject,
+        'id' | 'title' | 'createdAt' | 'thumbnail' | 'description'
     > & {
-        members: Pick<User, 'id' | 'name'>[];
+        teams: Pick<User, 'id' | 'name'>[]; // 팀 정보 추가
     })[];
 }
 
-const TrackProjectCards = ({ boards }: TrackProjectCardsProps) => {
-    const onClickPDF = (e: React.MouseEvent<HTMLButtonElement>) => {
-        console.log('PDF 다운로드', e);
-    };
-
+const FinalListCards = ({ boards }: FinalListCardsProps) => {
     return (
         <div className="flex w-full flex-col gap-6 p-6">
-            <div className="flex w-full justify-end">
-                <ButtonPDF onClick={onClickPDF}></ButtonPDF>
-            </div>
             {boards && boards.length > 0 ? (
                 <>
                     <ul className="grid min-w-[1400px] grid-cols-4 grid-rows-2 gap-6">
@@ -29,8 +21,9 @@ const TrackProjectCards = ({ boards }: TrackProjectCardsProps) => {
                             <li key={item.id}>
                                 <ProjectCard
                                     title={item.title}
-                                    subTitle={item.createdAt}
+                                    subTitle={item.description}
                                     id={item.id}
+                                    img={item.thumbnail}
                                     teams={item.members}
                                 />
                             </li>
@@ -48,4 +41,4 @@ const TrackProjectCards = ({ boards }: TrackProjectCardsProps) => {
     );
 };
 
-export default TrackProjectCards;
+export default FinalListCards;

@@ -1,10 +1,11 @@
+import { User } from '@/types/User';
 import { Link } from 'react-router';
 
 interface ProjectCardProps {
     title: string;
     subTitle: string;
     id: string;
-    teams?: string[];
+    teams?: Pick<User, 'id' | 'name'>[];
     img?: string;
     isBookmarked?: boolean;
     pathname?: string;
@@ -56,12 +57,12 @@ const ProjectCard = ({
             {teams && (
                 <div className="w-full border-t border-gray-300 px-4 py-2">
                     <ul className="flex gap-2">
-                        {teams.map((name, id) => (
+                        {teams.map((data) => (
                             <li
-                                key={id}
+                                key={data.id}
                                 className="rounded-sm bg-bluegray-100 px-[0.625rem] text-text-xs text-gray-900"
                             >
-                                {name}
+                                {data.name}
                             </li>
                         ))}
                     </ul>
