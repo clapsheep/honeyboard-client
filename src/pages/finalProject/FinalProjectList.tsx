@@ -35,7 +35,10 @@ const FinalProjectList = () => {
     const boardDetailNav = (finaleProjectId: string) => {
         navigate(`${finaleProjectId}`);
     };
-
+    // noTeamUsers 배열에서 userInfo.userId가 있는지 확인
+    const isUserWithoutTeam = data?.noTeamUsers?.some(
+        (user) => user.id === userInfo?.userId,
+    );
     return (
         <>
             <Header
@@ -47,13 +50,15 @@ const FinalProjectList = () => {
                         <TabNavigation routes={ROUTES} />
                     </div>
                     <div className="flex items-end gap-4">
-                        <Button
-                            onClick={() => {
-                                navigate('create');
-                            }}
-                        >
-                            팀 생성
-                        </Button>
+                        {!isUserWithoutTeam && (
+                            <Button
+                                onClick={() => {
+                                    navigate('create');
+                                }}
+                            >
+                                팀 생성
+                            </Button>
+                        )}
 
                         <SelectOption
                             id="generation"
