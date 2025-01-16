@@ -43,11 +43,10 @@ export interface FinaleProjectBoard {
 // 파이널 프로젝트 리스트 조회 응답 타입
 export type FinaleProjectListResponse = {
     //프로젝트 리스트
-    projects: Pick<
+    projects: (Pick<
         FinaleProject,
         'id' | 'title' | 'description' | 'thumbnail' | 'createdAt'
-    > &
-        { members: Pick<User, 'id' | 'name'>[] }[];
+    > & { members: Pick<User, 'id' | 'name'>[] })[];
     //팀이 없는 유저
     noTeamUsers: Pick<User, 'id' | 'name'>[];
     // 팀 리스트

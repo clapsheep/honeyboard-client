@@ -7,7 +7,7 @@ interface FinalListCardsProps {
         FinaleProject,
         'id' | 'title' | 'createdAt' | 'thumbnail' | 'description'
     > & {
-        teams: Pick<User, 'id' | 'name'>[]; // 팀 정보 추가
+        members: Pick<User, 'id' | 'name'>[]; // 팀 정보 추가
     })[];
 }
 
@@ -32,8 +32,8 @@ const FinalListCards = ({ boards }: FinalListCardsProps) => {
                 </>
             ) : (
                 <div className="flex min-h-[200px] w-full items-center justify-center">
-                    <p className="text-lg text-gray-500">
-                        등록된 일지가 없습니다.
+                    <p className="items-center justify-center text-center text-lg text-gray-500">
+                        등록된 파이널 보드가 없습니다.
                     </p>
                 </div>
             )}

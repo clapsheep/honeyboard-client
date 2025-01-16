@@ -70,9 +70,6 @@ const FinalProjectList = () => {
             </Header>
 
             <section className="m-4 mt-6 border bg-white p-4">
-                <div className="pb-2 text-xl font-semibold">
-                    오늘의 제출현황
-                </div>
                 <section className="flex flex-wrap gap-2">
                     <SubmitSection
                         project="final"
