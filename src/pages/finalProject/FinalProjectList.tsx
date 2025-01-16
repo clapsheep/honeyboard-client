@@ -1,13 +1,20 @@
+import { getFinaleProjectListAPI } from '@/api/finaleAPI';
 import { Button, NameTag, SelectOption } from '@/components/atoms';
-import { TabNavigation, TeamTag } from '@/components/molecules';
+import { TabNavigation } from '@/components/molecules';
 import { Header, ProjectCard, SubmitSection } from '@/components/organisms';
+import { ProjectCardSkeletonList } from '@/components/templates';
 import { useAuth } from '@/hooks/useAuth';
-import { useState } from 'react';
+import { useGenerationStore } from '@/stores/generationStore';
+import { FinaleProjectListResponse } from '@/types/FinaleProject';
+import { convertSelectType } from '@/utils/convertSelectType';
+import { useQuery } from '@tanstack/react-query';
+import { Suspense, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 const FinalProjectList = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const { generationList } = useGenerationStore();
 
     const { userInfo } = useAuth();
     const [generationId, setGenerationId] = useState<string | null>(
@@ -17,47 +24,21 @@ const FinalProjectList = () => {
     const ROUTES = [
         { path: 'project/final', name: '프로젝트', isActive: true },
     ];
-    const GENERATION_OPTIONS = [
-        { value: '13', label: '13기' },
-        { value: '12', label: '12기' },
-        { value: '11', label: '11기' },
-    ];
 
-    const ProjectList = [
-        {
-            title: '무슨무슨 서비스',
-            subTitle: '프로젝트 한줄소개',
-            id: '1',
-            teams: ['박수양', '지유림', '서주원'],
-        },
-        {
-            title: '무슨무슨 서비스2',
-            subTitle: '프로젝트 한줄소개2',
-            id: '2',
-            teams: ['강지은', '강수진', '김종명'],
-        },
-        {
-            title: '무슨무슨 서비스3',
-            subTitle: '프로젝트 한줄소개3',
-            id: '3',
-            teams: ['김유정', '윤이영', '정예영'],
-        },
-        {
-            title: '무슨무슨 서비스4',
-            subTitle: '프로젝트 한줄소개4',
-            id: '4',
-            teams: ['박성문', '한재서', '홍길동'],
-        },
-        {
-            title: '무슨무슨 서비스4',
-            subTitle: '프로젝트 한줄소개4',
-            id: '5',
-            teams: ['김성문', '이재서', '용길동'],
-        },
-    ];
+    // useQuery를 통해 데이터를 가져오고 에러 핸들링 추가
+    const { data, error, isError, isLoading } = useQuery({
+        queryKey: ['finalProject'],
+        queryFn: () => getFinaleProjectListAPI({ generationId }),
+    });
 
-    const boardDetailNav = (teamId: string) => {
-        navigate(`/team/${teamId}/board`);
+    const [finalList, setFinalList] = useState<FinaleProjectListResponse>();
+
+    useEffect(() => {
+        setFinalList(data?.data);
+    }, [generationId, data]);
+
+    const boardDetailNav = (finaleProjectId: string) => {
+        navigate(`${finaleProjectId}`);
     };
 
     return (
@@ -84,7 +65,7 @@ const FinalProjectList = () => {
                             name="generation"
                             placeholder="기수"
                             value={generationId}
-                            options={GENERATION_OPTIONS}
+                            options={convertSelectType(generationList)}
                             onChange={(e) => {
                                 setGenerationId(e.target.value);
                             }}
@@ -100,14 +81,14 @@ const FinalProjectList = () => {
                 <section className="flex flex-wrap gap-2">
                     <SubmitSection
                         project="final"
-                        teams={data.teams}
+                        teams={data?.teams}
                         noTeamUsers={data?.noTeamUsers}
                         onClick={boardDetailNav}
                     />
                 </section>
                 <section className="flex w-full gap-2 pt-2">
-                    {RemainUser &&
-                        RemainUser.map((item, index) => (
+                    {data?.noTeamUsers &&
+                        data?.noTeamUsers.map((item, index) => (
                             <NameTag key={index} color="gray">
                                 {item.name}
                             </NameTag>
@@ -116,17 +97,32 @@ const FinalProjectList = () => {
             </section>
 
             <section className="grid w-full grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {/* 프로젝트 목록 렌더링 */}
-                {ProjectList &&
-                    ProjectList.map((item, index) => (
-                        <ProjectCard
-                            key={index}
-                            id={item.id}
-                            title={item.title}
-                            subTitle={item.subTitle}
-                            teams={item.teams}
-                        />
-                    ))}
+                <Suspense fallback={<ProjectCardSkeletonList />}>
+                    {isLoading ? (
+                        <div>로딩 중...</div>
+                    ) : isError ? (
+                        <div className="col-span-full text-center text-red-500">
+                            에러가 발생했습니다:{' '}
+                            {error instanceof Error
+                                ? error.message
+                                : '알 수 없는 오류'}
+                        </div>
+                    ) : finalList?.projects && finalList.projects.length > 0 ? (
+                        finalList.projects.map((item) => (
+                            <ProjectCard
+                                key={item.id}
+                                id={item.id}
+                                title={item.title}
+                                subTitle={item.createdAt}
+                                img={item.thumbnail}
+                            />
+                        ))
+                    ) : (
+                        <div className="col-span-full text-center text-gray-500">
+                            <p>게시글이 없습니다.</p>
+                        </div>
+                    )}
+                </Suspense>
             </section>
         </>
     );

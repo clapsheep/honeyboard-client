@@ -57,6 +57,7 @@ export type FinaleProjectListResponse = {
     noTeamUsers: Pick<User, 'id' | 'name'>[];
     // 팀 리스트
     teams: {
+        id: FinaleTeam['id'];
         members: Pick<FinaleTeamMember, 'id' | 'name' | 'role'>[];
         submitted: boolean;
         projectBoardId: string | null;

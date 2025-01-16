@@ -11,7 +11,7 @@ import {
 
 // 1. 파이널 프로젝트 리스트 조회 FinaleProjectListResponse
 export const getFinaleProjectListAPI = async (req: {
-    generationId: string;
+    generationId: string | null;
 }): Promise<FinaleProjectListResponse> => {
     return api.get(`/project/finale`, {
         params: { generationId: req.generationId },
