@@ -6,11 +6,10 @@ import { ProjectCardSkeletonList } from '@/components/templates';
 import FinalListCards from '@/components/templates/FinalListCard';
 import { useAuth } from '@/hooks/useAuth';
 import { useGenerationStore } from '@/stores/generationStore';
-import { FinaleProjectListResponse } from '@/types/FinaleProject';
 
 import { convertSelectType } from '@/utils/convertSelectType';
 import { useQuery } from '@tanstack/react-query';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 const FinalProjectList = () => {
@@ -27,24 +26,16 @@ const FinalProjectList = () => {
         { path: 'project/final', name: '프로젝트', isActive: true },
     ];
 
-    // 프로젝트 목록을 관리할 상태
-    const [projectList, setProjectList] = useState<FinaleProjectListResponse>();
-
     // useQuery로 데이터를 가져오기
     const { data } = useQuery({
         queryKey: ['finalProject', generationId],
         queryFn: () => getFinaleProjectListAPI({ generationId }),
     });
 
-    // generationId 또는 data가 변경되면 프로젝트 리스트를 업데이트
-    useEffect(() => {
-        setProjectList(data?.data.projects); // 프로젝트 리스트 업데이트
-    }, [generationId, data]); // generationId 또는 data가 변경되면 실행
-
     const boardDetailNav = (finaleProjectId: string) => {
         navigate(`${finaleProjectId}`);
     };
-    // noTeamUsers 배열에서 userInfo.userId가 있는지 확인
+
     const isUserWithoutTeam = data?.data?.noTeamUsers?.some(
         (user) => user.id === userInfo?.userId,
     );
