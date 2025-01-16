@@ -6,10 +6,11 @@ import { ProjectCardSkeletonList } from '@/components/templates';
 import FinalListCards from '@/components/templates/FinalListCard';
 import { useAuth } from '@/hooks/useAuth';
 import { useGenerationStore } from '@/stores/generationStore';
+import { FinaleProjectListResponse } from '@/types/FinaleProject';
 
 import { convertSelectType } from '@/utils/convertSelectType';
 import { useQuery } from '@tanstack/react-query';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 const FinalProjectList = () => {
@@ -26,19 +27,28 @@ const FinalProjectList = () => {
         { path: 'project/final', name: '프로젝트', isActive: true },
     ];
 
-    // useQuery를 통해 데이터를 가져오고 에러 핸들링 추가
+    // 프로젝트 목록을 관리할 상태
+    const [projectList, setProjectList] = useState<FinaleProjectListResponse>();
+
+    // useQuery로 데이터를 가져오기
     const { data } = useQuery({
-        queryKey: ['finalProject'],
+        queryKey: ['finalProject', generationId],
         queryFn: () => getFinaleProjectListAPI({ generationId }),
     });
+
+    // generationId 또는 data가 변경되면 프로젝트 리스트를 업데이트
+    useEffect(() => {
+        setProjectList(data?.data.projects); // 프로젝트 리스트 업데이트
+    }, [generationId, data]); // generationId 또는 data가 변경되면 실행
 
     const boardDetailNav = (finaleProjectId: string) => {
         navigate(`${finaleProjectId}`);
     };
     // noTeamUsers 배열에서 userInfo.userId가 있는지 확인
-    const isUserWithoutTeam = data?.noTeamUsers?.some(
+    const isUserWithoutTeam = data?.data?.noTeamUsers?.some(
         (user) => user.id === userInfo?.userId,
     );
+
     return (
         <>
             <Header
@@ -46,11 +56,10 @@ const FinalProjectList = () => {
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-between">
-                    <div className="pt-6">
-                        <TabNavigation routes={ROUTES} />
-                    </div>
+                    <TabNavigation routes={ROUTES} />
+
                     <div className="flex items-end gap-4">
-                        {!isUserWithoutTeam && (
+                        {isUserWithoutTeam && (
                             <Button
                                 onClick={() => {
                                     navigate('create');
@@ -78,8 +87,8 @@ const FinalProjectList = () => {
                 <section className="flex flex-wrap gap-2">
                     <SubmitSection
                         project="final"
-                        teams={data?.teams}
-                        noTeamUsers={data?.noTeamUsers}
+                        teams={data?.data?.teams}
+                        noTeamUsers={data?.data?.noTeamUsers}
                         onClick={boardDetailNav}
                     />
                 </section>
@@ -95,7 +104,9 @@ const FinalProjectList = () => {
 
             <section className="grid w-full grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 <Suspense fallback={<ProjectCardSkeletonList />}>
-                    <FinalListCards boards={data?.projects}></FinalListCards>
+                    <FinalListCards
+                        boards={data?.data?.projects}
+                    ></FinalListCards>
                 </Suspense>
             </section>
         </>
