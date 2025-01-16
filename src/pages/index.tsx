@@ -51,3 +51,4 @@ export { default as WebRecommendCreate } from './webRecommend/WebRecommendCreate
 export { default as WebRecommendDetail } from './webRecommend/WebRecommendDetail';
 export { default as WebRecommendList } from './webRecommend/WebRecommendList';
 export { default as WebRecommendUpdate } from './webRecommend/WebRecommendUpdate';
+export { default as ChangePassword } from './ChangePassword';

@@ -18,6 +18,7 @@ import {
     BMAlgorithmSolution,
     BMWebConcept,
     BMWebRecommend,
+    ChangePassword,
     Error404,
     FinalProjectBoardCreate,
     FinalProjectBoardDetail,
@@ -68,10 +69,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/login/callback" element={<LoginCallback />} />
-                <Route
-                    path="/find-password"
-                    element={<div>Find Password</div>}
-                />
+                <Route path="/find-password" element={<ChangePassword />} />
                 <Route
                     path="/oauth/:domain/additional"
                     element={<AdditionalInfoOAuth />}
