@@ -62,7 +62,7 @@ import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
 
 function App() {
-    const { closeModal, isOpen, modalProps } = useModalStore();
+    const { isOpen, modalProps } = useModalStore();
     return (
         <BrowserRouter>
             <Routes>
@@ -358,7 +358,7 @@ function App() {
                 subTitle={modalProps?.subTitle}
                 onConfirmClick={modalProps?.onConfirmClick}
                 onDeleteClick={modalProps?.onDeleteClick}
-                onCancelClick={closeModal}
+                onCancelClick={modalProps?.onCancelClick}
             />
         </BrowserRouter>
     );

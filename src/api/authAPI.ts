@@ -65,3 +65,11 @@ export const verifyEmailAPI = async (
 ): Promise<AxiosResponse<boolean>> => {
     return api.post('/auth/email/verify', { email, code });
 };
+
+// 비밀번호 변경 요청
+export const changePasswordAPI = async (
+    email: string,
+    password: string,
+): Promise<AxiosResponse<boolean>> => {
+    return api.post('/user/reset-password', { email, password });
+};
