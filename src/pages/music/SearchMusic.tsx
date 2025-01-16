@@ -14,7 +14,7 @@ const SearchMusic = () => {
     const [inputKeyword, setInputKeyword] = useState('');
     const [searchKeyword, setSearchKeyword] = useState('');
     const [isSearch, setIsSearch] = useState(false);
-    const { openModal } = useModalStore();
+    const { openModal, closeModal } = useModalStore();
     const { addMusic } = useMusicMutation();
 
     const observerRef = useRef<HTMLDivElement>(null);
@@ -83,7 +83,9 @@ const SearchMusic = () => {
             openModal({
                 title: '검색한도 초과',
                 subTitle: '내일 다시 시도해주세요.',
-                onCancelClick: () => {},
+                onCancelClick: () => {
+                    closeModal();
+                },
             });
         }
     }, [isQuotaExceeded]);

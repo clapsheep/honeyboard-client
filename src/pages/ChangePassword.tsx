@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router';
 import logo from '/assets/images/logo.png';
 import { submitKeyDownEnter } from '@/utils/submitKeyDownEnter';
 import { useModalStore } from '@/stores/modalStore';
+import { z } from 'zod';
 
 const ChangePassword = () => {
     const navigate = useNavigate();
@@ -22,13 +23,31 @@ const ChangePassword = () => {
         setEmail(e.target.value);
     };
     const handleSendEmail = async () => {
+        const emailSchema = z.string().email('올바른 이메일 형식이 아닙니다');
+
         if (!email) {
             openModal({
                 title: '이메일을 입력해주세요',
-                onCancelClick: () => {},
+                onCancelClick: () => {
+                    closeModal();
+                },
             });
             return;
         }
+
+        try {
+            emailSchema.parse(email);
+        } catch (error) {
+            console.log(error);
+            openModal({
+                title: '올바른 이메일 형식이 아닙니다',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
+            return;
+        }
+
         setIsLoading(true);
         const res = await sendEmailAPI(email);
         if (res.status === 200) {

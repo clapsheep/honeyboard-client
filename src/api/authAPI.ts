@@ -28,6 +28,9 @@ export const loginAPI = async (
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         maxRedirects: 0,
+        validateStatus: function () {
+            return true;
+        },
     });
 };
 
