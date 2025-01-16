@@ -9,7 +9,7 @@ import {
 
 export interface WebRecommendRequestParams {
     pageRequest?: PageRequest;
-    generationId?: string;
+    generationId?: string | null;
     searchTitle?: string;
 }
 export const getWebRecommendListAPI = async ({
