@@ -11,7 +11,7 @@ const WebGuideDetail = () => {
     const { data, handleDelete, handleEdit, handleLike } = useContentDetail({
         contentType: 'web_guide',
         contentId: guideId!,
-        requestParam: {guideId:guideId!},
+        requestParam: { guideId: guideId! },
         getDetailAPI: getWebGuideDetailAPI,
         deleteAPI: deleteWebGuideAPI,
         navigateAfterDelete: '/study/web/concept',

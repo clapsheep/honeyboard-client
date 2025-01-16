@@ -23,12 +23,12 @@ const WebRecommendList = () => {
         {
             path: 'study/web/concept',
             name: '웹 개념',
-            isActive: true,
+            isActive: false,
         },
         {
             path: 'study/web/recommend',
             name: '웹 추천',
-            isActive: false,
+            isActive: true,
         },
     ];
     return (
@@ -53,7 +53,7 @@ const WebRecommendList = () => {
                             name="generation"
                             placeholder="기수"
                             options={convertSelectType(generationList)}
-                            defaultValue={generationId}
+                            value={generationId}
                             onChange={(e) => {
                                 setGenerationId(e.target.value);
                             }}
