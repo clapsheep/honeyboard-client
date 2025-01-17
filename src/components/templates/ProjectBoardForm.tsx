@@ -66,7 +66,7 @@ const ProjectBoardForm = ({
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-1 flex-col gap-4 p-6">
+            <div className="flex flex-col flex-1 gap-4 p-6">
                 <InputForm
                     id="projectBoardTitle"
                     label="프로젝트 제목"
@@ -90,9 +90,11 @@ const ProjectBoardForm = ({
                     value={subTitle}
                     onChange={handleSubTitleChange}
                     errorMessage={
-                        project === 'track' && !subTitle
-                            ? '사이트를 작성하세요'
-                            : '진행 상황을 작성하세요'
+                        !subTitle
+                            ? project === 'track'
+                                ? '사이트를 작성하세요'
+                                : '진행 상황을 작성하세요'
+                            : ''
                     }
                 />
                 <ToastEditorComponent
