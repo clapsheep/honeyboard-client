@@ -2,6 +2,7 @@ import { getWebGuideListAPI } from '@/api/WebGuideAPI';
 import { Pagination, SearchBar } from '@/components/molecules';
 import { ProjectCard } from '@/components/organisms';
 import usePagination from '@/hooks/usePagination';
+import debounce from '@/utils/debounce';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
@@ -20,9 +21,12 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
         size: 8,
     });
     const [searchTitle, setSearchTitle] = useState('');
-    const handleSearchTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTitle(e.target.value);
-    };
+    const handleSearchTitle = debounce(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearchTitle(e.target.value);
+        },
+        300,
+    );
     const { data } = useSuspenseQuery({
         queryKey: ['webConcepts', generationId, page, size, searchTitle],
         queryFn: () =>
