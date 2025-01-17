@@ -4,10 +4,11 @@ import { Header } from '../organisms';
 import { TrackTeamMember } from '@/types/TrackProject';
 import { Button, NameTag } from '../atoms';
 
-interface TrackProjectFormProps {
+interface ProjectBoardFormProps {
     mode: 'create' | 'edit';
+    project: 'track' | 'final';
     pathname: string;
-    members: Pick<TrackTeamMember, 'id' | 'name' | 'role'>[];
+    members?: Pick<TrackTeamMember, 'id' | 'name' | 'role'>[];
     title: string;
     url: string;
     handleCancel: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -17,8 +18,9 @@ interface TrackProjectFormProps {
     editorRef: React.RefObject<HTMLDivElement>;
 }
 
-const TrackProjectForm = ({
+const ProjectBoardForm = ({
     mode,
+    project,
     pathname,
     members,
     title,
@@ -28,7 +30,7 @@ const TrackProjectForm = ({
     handleTitleChange,
     handleUrlChange,
     editorRef,
-}: TrackProjectFormProps) => {
+}: ProjectBoardFormProps) => {
     return (
         <>
             <Header
@@ -38,14 +40,22 @@ const TrackProjectForm = ({
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-between">
-                    <div className="flex gap-3">
-                        {members.map((member) => (
-                            <NameTag isLeader={member.role}>
-                                {member.name}
-                            </NameTag>
-                        ))}
-                        {members.length > 0 ? <Button>팀 수정</Button> : <></>}
-                    </div>
+                    {members ? (
+                        <div className="flex gap-3">
+                            {members.map((member) => (
+                                <NameTag isLeader={member.role}>
+                                    {member.name}
+                                </NameTag>
+                            ))}
+                            {members.length > 0 ? (
+                                <Button>팀 수정</Button>
+                            ) : (
+                                <></>
+                            )}
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                     <div className="flex gap-4">
                         <Button color="red" onClick={handleCancel}>
                             취소
@@ -58,7 +68,7 @@ const TrackProjectForm = ({
             </Header>
             <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
-                    id="trackProjectTitle"
+                    id="projectBoardTitle"
                     label="프로젝트 제목"
                     placeholder="프로젝트 명을 입력하세요"
                     required={true}
@@ -68,17 +78,25 @@ const TrackProjectForm = ({
                     errorMessage={!title ? '프로젝트 명을 작성하세요' : ''}
                 />
                 <InputForm
-                    id="trackProjectUrl"
-                    label="Git 주소"
-                    placeholder="Git 주소를 입력하세요"
+                    id="projectBoardUrl"
+                    label={project === 'track' ? 'Git 주소' : '요약'}
+                    placeholder={
+                        project === 'track'
+                            ? 'Git 주소를 입력하세요'
+                            : '간단하게 진행 상황을 작성하세요.'
+                    }
                     required={true}
                     type="text"
                     value={url}
                     onChange={handleUrlChange}
-                    errorMessage={!url ? '사이트를 작성하세요' : ''}
+                    errorMessage={
+                        project === 'track' && !url
+                            ? '사이트를 작성하세요'
+                            : '진행 상황을 작성하세요'
+                    }
                 />
                 <ToastEditorComponent
-                    editorId="trackProjectEditor"
+                    editorId="projectBoardEditor"
                     editorRef={editorRef}
                 />
             </div>
@@ -86,4 +104,4 @@ const TrackProjectForm = ({
     );
 };
 
-export default TrackProjectForm;
+export default ProjectBoardForm;
