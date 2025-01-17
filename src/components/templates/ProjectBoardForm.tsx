@@ -10,11 +10,11 @@ interface ProjectBoardFormProps {
     pathname: string;
     members?: Pick<TrackTeamMember, 'id' | 'name' | 'role'>[];
     title: string;
-    url: string;
+    subTitle: string;
     handleCancel: (e: React.MouseEvent<HTMLButtonElement>) => void;
     handleSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
     handleTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleUrlChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleSubTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     editorRef: React.RefObject<HTMLDivElement>;
 }
 
@@ -24,11 +24,11 @@ const ProjectBoardForm = ({
     pathname,
     members,
     title,
-    url,
+    subTitle,
     handleCancel,
     handleSubmit,
     handleTitleChange,
-    handleUrlChange,
+    handleSubTitleChange,
     editorRef,
 }: ProjectBoardFormProps) => {
     return (
@@ -54,7 +54,7 @@ const ProjectBoardForm = ({
                             )}
                         </div>
                     ) : (
-                        <></>
+                        <div></div>
                     )}
                     <div className="flex gap-4">
                         <Button color="red" onClick={handleCancel}>
@@ -78,7 +78,7 @@ const ProjectBoardForm = ({
                     errorMessage={!title ? '프로젝트 명을 작성하세요' : ''}
                 />
                 <InputForm
-                    id="projectBoardUrl"
+                    id="projectBoardSubTitle"
                     label={project === 'track' ? 'Git 주소' : '요약'}
                     placeholder={
                         project === 'track'
@@ -87,10 +87,10 @@ const ProjectBoardForm = ({
                     }
                     required={true}
                     type="text"
-                    value={url}
-                    onChange={handleUrlChange}
+                    value={subTitle}
+                    onChange={handleSubTitleChange}
                     errorMessage={
-                        project === 'track' && !url
+                        project === 'track' && !subTitle
                             ? '사이트를 작성하세요'
                             : '진행 상황을 작성하세요'
                     }

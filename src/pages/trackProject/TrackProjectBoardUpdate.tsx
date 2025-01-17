@@ -2,7 +2,7 @@ import {
     getTrackProjectBoardDetailAPI,
     updateTrackProjectBoardAPI,
 } from '@/api/trackAPI';
-import TrackProjectForm from '@/components/templates/ProjectBoardForm';
+import ProjectBoardForm from '@/components/templates/ProjectBoardForm';
 import { useProjectDetail } from '@/hooks/useProjectDetail';
 import useToastEditor from '@/hooks/useToastEditor';
 import { useModalStore } from '@/stores/modalStore';
@@ -44,7 +44,7 @@ const TrackProjectBoardUpdate = () => {
     );
 
     const { onSubmit, onCancel, editorRef } = useToastEditor({
-        editorId: 'trackProjectEditor',
+        editorId: 'trackProjectBoardEditor',
         initialContent: data?.content ?? '',
     });
 
@@ -125,17 +125,17 @@ const TrackProjectBoardUpdate = () => {
         pathname,
         members,
         title,
-        url,
+        subTitle: url,
         handleCancel,
         handleSubmit,
         handleTitleChange,
-        handleUrlChange,
+        handleSubTitleChange: handleUrlChange,
         editorRef,
     };
 
     return (
         <>
-            <TrackProjectForm {...props} />
+            <ProjectBoardForm {...props} />
         </>
     );
 };
