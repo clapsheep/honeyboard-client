@@ -30,7 +30,7 @@ const TrackProjectList = () => {
 
     // generationId가 변경될 때마다 데이터 조회
     useEffect(() => {
-        setProjectList(data?.data); // 데이터를 비동기적으로 업데이트
+        setProjectList(data); // 데이터를 비동기적으로 업데이트
     }, [generationId, data]); // generationId 또는 data가 변경될 때마다 실행
 
     const ROUTES = [

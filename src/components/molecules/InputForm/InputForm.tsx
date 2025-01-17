@@ -41,9 +41,9 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
         ref,
     ) => {
         return (
-            <div className="flex flex-col w-full gap-1">
+            <div className="flex w-full flex-col gap-1">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-start ml-1">
+                    <div className="ml-1 flex items-start">
                         {showLabel && (
                             <Label
                                 text={label}

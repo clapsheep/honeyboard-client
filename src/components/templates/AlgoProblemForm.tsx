@@ -59,7 +59,7 @@ const AlgoProblemForm = ({
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col gap-3 pt-12 px-52">
+            <div className="flex flex-col gap-3 px-52 pt-12">
                 <InputForm
                     id="AlgorithmProblemTItle"
                     label="문제 이름"

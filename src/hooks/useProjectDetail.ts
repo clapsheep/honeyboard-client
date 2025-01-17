@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 
-interface useProjectListProps<U, T> {
-    getListAPI: (req: U) => Promise<T>;
+interface useProjectDetailProps<U, T> {
+    getAPI: (req: U) => Promise<T>;
     requestParam: U | undefined;
 }
 
 export const useProjectDetail = <U, T>({
-    getListAPI,
+    getAPI,
     requestParam,
-}: useProjectListProps<U, T>) => {
+}: useProjectDetailProps<U, T>) => {
     const [data, setData] = useState<T>();
 
     useEffect(() => {
@@ -18,15 +18,15 @@ export const useProjectDetail = <U, T>({
                     return;
                 }
 
-                const response = await getListAPI(requestParam);
-                setData(response);
+                const response = await getAPI(requestParam);
+                setData(response.data);
             } catch (error) {
-                console.error('프로젝트 리스트 조회에 실패했습니다.', error);
+                console.error('프로젝트 조회에 실패했습니다.', error);
             }
         };
 
         fetchData();
-    }, [getListAPI, requestParam]);
+    }, []);
 
     return data;
 };
