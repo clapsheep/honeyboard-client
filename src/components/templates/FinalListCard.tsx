@@ -1,6 +1,7 @@
 import { ProjectCard } from '../organisms';
 import { User } from '@/types/User';
 import { FinaleProject } from '@/types/FinaleProject';
+import { useLocation } from 'react-router';
 
 interface FinalListCardsProps {
     boards?: (Pick<
@@ -12,6 +13,7 @@ interface FinalListCardsProps {
 }
 
 const FinalListCards = ({ boards }: FinalListCardsProps) => {
+    const { pathname } = useLocation();
     return (
         <div className="flex w-full flex-col gap-6 p-6">
             {boards && boards.length > 0 ? (
@@ -25,6 +27,7 @@ const FinalListCards = ({ boards }: FinalListCardsProps) => {
                                     id={item.id}
                                     img={item.thumbnail}
                                     teams={item.members}
+                                    pathname={pathname}
                                 />
                             </li>
                         ))}
