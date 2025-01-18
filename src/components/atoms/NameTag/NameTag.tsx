@@ -2,7 +2,7 @@ import Icon from '../Icon/Icon';
 
 interface NameTagProps {
     children: string;
-    isLeader: 'LEADER' | 'MEMBER';
+    isLeader: 'LEADER' | 'MEMBER' | null;
     color?: 'green' | 'red' | 'gray' | 'black';
     cancel?: boolean;
     onCancel?: (e: React.MouseEvent<HTMLButtonElement>) => void;

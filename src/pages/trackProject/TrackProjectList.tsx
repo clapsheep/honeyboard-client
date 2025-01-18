@@ -30,7 +30,7 @@ const TrackProjectList = () => {
 
     // generationId가 변경될 때마다 데이터 조회
     useEffect(() => {
-        setProjectList(data); // 데이터를 비동기적으로 업데이트
+        setProjectList(data?.data); // 데이터를 비동기적으로 업데이트
     }, [generationId, data]); // generationId 또는 data가 변경될 때마다 실행
 
     const ROUTES = [
@@ -38,7 +38,7 @@ const TrackProjectList = () => {
     ];
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '관통프로젝트' }}
                 BreadcrumbProps={{ pathname }}
@@ -82,6 +82,7 @@ const TrackProjectList = () => {
                                 title={item.title}
                                 subTitle={item.createdAt}
                                 img={item.thumbnail}
+                                pathname={pathname}
                             />
                         ))
                     ) : (
@@ -91,7 +92,7 @@ const TrackProjectList = () => {
                     )}
                 </Suspense>
             </section>
-        </div>
+        </>
     );
 };
 

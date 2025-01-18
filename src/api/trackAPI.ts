@@ -13,7 +13,7 @@ export const getTrackProjectListAPI = async (req: {
     generationId?: string | null;
 }): Promise<TrackProjectListResponse> => {
     return api.get(`/project/track`, {
-        params: { generation: req.generationId },
+        params: { generationId: req.generationId },
     });
 };
 // 1-1. 트랙 프로젝트 생성 -> 강사님만 가능 TrackProjectRequest
