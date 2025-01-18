@@ -42,12 +42,9 @@ const ProjectCard = ({
                     {title}
                 </p>
                 {teams ? (
-                    <a
-                        href={subTitle}
-                        className="w-full truncate text-text-xs font-medium text-gray-500 hover:text-gray-700"
-                    >
+                    <p className="w-full truncate text-text-xs font-medium text-gray-500 hover:text-gray-700">
                         {subTitle}
-                    </a>
+                    </p>
                 ) : (
                     <p className="text-text-xs font-medium text-gray-500">
                         {subTitle}

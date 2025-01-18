@@ -1,5 +1,5 @@
 import { getFinaleProjectListAPI } from '@/api/finaleAPI';
-import { Button, NameTag, SelectOption } from '@/components/atoms';
+import { Button, SelectOption } from '@/components/atoms';
 import { TabNavigation } from '@/components/molecules';
 import { Header, SubmitSection } from '@/components/organisms';
 import { ProjectCardSkeletonList } from '@/components/templates';
@@ -82,14 +82,6 @@ const FinalProjectList = () => {
                         noTeamUsers={data?.data?.noTeamUsers}
                         onClick={boardDetailNav}
                     />
-                </section>
-                <section className="flex w-full gap-2 pt-2">
-                    {data?.noTeamUsers &&
-                        data?.noTeamUsers.map((item, index) => (
-                            <NameTag key={index} color="gray">
-                                {item.name}
-                            </NameTag>
-                        ))}
                 </section>
             </section>
 
