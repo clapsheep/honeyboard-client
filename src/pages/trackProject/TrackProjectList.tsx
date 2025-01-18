@@ -82,6 +82,7 @@ const TrackProjectList = () => {
                                 title={item.title}
                                 subTitle={item.createdAt}
                                 img={item.thumbnail}
+                                pathname={pathname}
                             />
                         ))
                     ) : (
