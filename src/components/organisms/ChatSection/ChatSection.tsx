@@ -1,23 +1,41 @@
 import { Chat, ChatInput } from '@/components/atoms';
+import { useAuth } from '@/hooks/useAuth';
 import { useChat } from '@/hooks/useChat';
-import { UserInfo } from '@/types/auth';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const ChatSection = ({ userInfo }: { userInfo: UserInfo }) => {
+const ChatSection = () => {
+    const { userInfo } = useAuth();
+    const [chatMessage, setChatMessage] = useState('');
+    const observerRef = useRef<HTMLDivElement>(null);
+
     const { messages, sendMessage, fetchNextPage, hasNextPage } = useChat(
-        userInfo.generationId,
+        userInfo!.generationId,
     );
 
-    const [chatMessage, setChatMessage] = useState('');
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting && hasNextPage) {
+                    fetchNextPage();
+                }
+            },
+            { threshold: 0.5 },
+        );
+        if (observerRef.current) {
+            observer.observe(observerRef.current);
+        }
+        return () => {
+            observer.disconnect();
+        };
+    }, [fetchNextPage, hasNextPage]);
+
     const onSubmitChat = (message: string) => {
-        sendMessage(message, userInfo.userId);
+        sendMessage(message, userInfo!.userId);
         setChatMessage('');
     };
     const onChangeChat = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setChatMessage(e.target.value);
     };
-
-    // IntersectionObserver 구현해야함
 
     return (
         <div className="my-6 flex w-[464px] flex-col-reverse items-center rounded-xl border border-gray-300 bg-gray-25 p-4 shadow-md">
@@ -33,11 +51,14 @@ const ChatSection = ({ userInfo }: { userInfo: UserInfo }) => {
                         key={message.id}
                         time={message.createdAt}
                         name={message.sender}
-                        isMe={message.userId === userInfo.userId}
+                        isMe={message.userId === userInfo!.userId}
                     >
                         {message.content}
                     </Chat>
                 ))}
+                <div ref={observerRef} className="h-10 w-full p-1">
+                    {''}
+                </div>
             </ul>
         </div>
     );

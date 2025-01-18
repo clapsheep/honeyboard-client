@@ -7,7 +7,7 @@ interface BasicModalProps {
     subTitle?: string;
     onConfirmClick?: (e: React.MouseEvent) => void;
     onDeleteClick?: (e: React.MouseEvent) => void;
-    onCancelClick: (e: React.MouseEvent) => void;
+    onCancelClick?: (e: React.MouseEvent) => void;
 }
 
 const BasicModal = ({
@@ -49,11 +49,13 @@ const BasicModal = ({
                         />
                     )}
 
-                    <ModalButton
-                        type="button"
-                        action="cancel"
-                        onClick={onCancelClick}
-                    />
+                    {onCancelClick && (
+                        <ModalButton
+                            type="button"
+                            action="cancel"
+                            onClick={onCancelClick}
+                        />
+                    )}
                     {onDeleteClick && (
                         <ModalButton
                             type="button"

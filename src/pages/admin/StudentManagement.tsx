@@ -39,7 +39,7 @@ const StudentMangement = () => {
 
                     <div className="flex items-end gap-4">
                         <SelectOption
-                            defaultValue={generationId ?? null}
+                            value={generationId ?? null}
                             id="generation"
                             name="generation"
                             placeholder="기수"

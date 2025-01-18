@@ -1,4 +1,5 @@
 import { getChatMessagesAPI } from '@/api/chatAPI';
+import { PageResponse } from '@/types/common';
 import { Message } from '@/types/Message';
 import { Client } from '@stomp/stompjs';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
@@ -14,13 +15,19 @@ export const useChat = (generationId: string) => {
     const { data, fetchNextPage, hasNextPage, isLoading, error } =
         useInfiniteQuery({
             queryKey: ['chat', generationId],
-            queryFn: ({ pageParam = 1 }) =>
-                getChatMessagesAPI({ currentPage: pageParam, pageSize: 50 }),
+            queryFn: ({ pageParam = 1 }) => {
+                return getChatMessagesAPI({
+                    currentPage: pageParam,
+                    pageSize: 50,
+                });
+            },
             getNextPageParam: (lastPage) => {
                 const { pageInfo } = lastPage;
-                return pageInfo.totalPages != pageInfo.currentPage
-                    ? pageInfo.currentPage + 1
-                    : undefined;
+                const nextPage =
+                    pageInfo.currentPage < pageInfo.totalPages
+                        ? pageInfo.currentPage + 1
+                        : undefined;
+                return nextPage;
             },
             initialPageParam: 1,
         });
@@ -37,13 +44,15 @@ export const useChat = (generationId: string) => {
                         const chatMessage: Message = JSON.parse(message.body);
                         queryClient.setQueryData(
                             ['chat', generationId],
-                            (oldData: any) => {
+                            (oldData: { pages: PageResponse<Message>[] }) => {
                                 if (!oldData) return oldData;
-
                                 return {
                                     ...oldData,
                                     pages: oldData.pages.map(
-                                        (page: any, index: number) => {
+                                        (
+                                            page: PageResponse<Message>,
+                                            index: number,
+                                        ) => {
                                             if (index === 0) {
                                                 return {
                                                     ...page,
