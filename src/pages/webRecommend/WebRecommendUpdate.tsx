@@ -2,23 +2,35 @@ import WebRecommendForm from "@/components/templates/WebRecommendForm";
 import useToastEditor from "@/hooks/useToastEditor";
 import { useAuth } from "@/hooks/useAuth";
 import { useModalStore } from "@/stores/modalStore";
-import { useQuery } from '@tanstack/react-query';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { updateWebRecommendAPI, getWebRecommendDetailAPI } from "@/api/WebRecommendAPI";
+import { updateWebRecommendAPI, getWebRecommendDetailAPI, deleteWebRecommendAPI } from "@/api/WebRecommendAPI";
+import { useContentDetail } from "@/hooks/useContentDetail";
 
 const WebRecommendUpdate = () => {
     const { pathname } = useLocation();
     const { recommendId } = useParams();
-    const { data } = useQuery({
-        queryKey: ['web_recommend', recommendId],
-        queryFn: () => getWebRecommendDetailAPI({ recommendId: recommendId as string }),
-    });
-
-    const navigate = useNavigate();
-    const [title, setTitle] = useState(data?.title);
-    const [url, setUrl] = useState(data?.url);
     const { openModal } = useModalStore();
+    const navigate = useNavigate();
+
+    const { data } = useContentDetail({
+        contentType: 'web_recommend',
+        contentId: recommendId!,
+        requestParam: { recommendId: recommendId! },
+        getDetailAPI: getWebRecommendDetailAPI,
+        deleteAPI: deleteWebRecommendAPI,
+        navigateAfterDelete: 'study'
+    });
+    
+    const [title, setTitle] = useState('');
+    const [url, setUrl] = useState('');
+
+    useEffect(()=>{
+        if (data) {
+            setTitle(data.title);
+            setUrl(data.url);
+        }
+    }, [data]);
 
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
