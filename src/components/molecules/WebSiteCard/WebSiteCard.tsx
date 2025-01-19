@@ -1,4 +1,3 @@
-import { Icon } from '@/components/atoms';
 import { Link } from 'react-router';
 
 interface WebSiteCardProps {
@@ -6,8 +5,6 @@ interface WebSiteCardProps {
     title: string;
     subTitle: string;
     site?: string;
-    isBookmarked: boolean;
-    onBookmarkClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const WebSiteCard = ({
@@ -15,8 +12,6 @@ const WebSiteCard = ({
     title,
     subTitle,
     site,
-    isBookmarked,
-    onBookmarkClick,
 }: WebSiteCardProps) => {
     return (
         <Link
@@ -28,18 +23,6 @@ const WebSiteCard = ({
                     <p className="text-text-sm font-semibold text-gray-900">
                         {title}
                     </p>
-                    <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onBookmarkClick(e);
-                        }}
-                    >
-                        {isBookmarked ? (
-                            <Icon id="star" size={24} />
-                        ) : (
-                            <Icon id="star-empty" size={24} />
-                        )}
-                    </button>
                 </div>
                 <p className="text-text-xs font-medium text-gray-500">
                     {subTitle}

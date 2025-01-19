@@ -12,7 +12,7 @@ const WebRecommendDetail = () => {
     const { pathname } = useLocation();
     const { recommendId } = useParams();
     const { data, handleDelete, handleEdit, handleLike } = useContentDetail({
-        contentType: 'web_guide',
+        contentType: 'web_recommend',
         contentId: recommendId!,
         requestParam: {recommendId:recommendId!},
         getDetailAPI: getWebRecommendDetailAPI,
