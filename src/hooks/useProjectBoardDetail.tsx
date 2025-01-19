@@ -38,6 +38,7 @@ export const useProjectBoardDetail = <U, T>({
                 onConfirmClick: async () => {
                     await deleteAPI(requestParam);
                     navigate(navigateAfterDelete);
+                    closeModal();
                 },
                 onCancelClick: () => {
                     closeModal();

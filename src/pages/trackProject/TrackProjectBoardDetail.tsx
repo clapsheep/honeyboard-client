@@ -62,11 +62,11 @@ const TrackProjectBoardDetail = () => {
                                 </NameTag>
                             ),
                         )}
-                        {response.userId === userId && (
+                        {response.userId !== userId && (
                             <Button onClick={handleEditTeam}>팀 수정</Button>
                         )}
                     </div>
-                    {response.userId === userId && (
+                    {response.userId !== userId && (
                         <div className="flex gap-4">
                             <Button onClick={handleDelete} color="red">
                                 일지 삭제

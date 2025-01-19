@@ -42,8 +42,8 @@ const ProjectBoardForm = ({
                 <div className="flex justify-between">
                     {members ? (
                         <div className="flex gap-3">
-                            {members.map((member) => (
-                                <NameTag isLeader={member.role}>
+                            {members.map((member, id) => (
+                                <NameTag key={id} isLeader={member.role}>
                                     {member.name}
                                 </NameTag>
                             ))}
@@ -66,7 +66,7 @@ const ProjectBoardForm = ({
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col flex-1 gap-4 p-6">
+            <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
                     id="projectBoardTitle"
                     label="프로젝트 제목"
