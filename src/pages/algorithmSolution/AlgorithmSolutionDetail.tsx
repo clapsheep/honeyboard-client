@@ -7,7 +7,7 @@ import ToastViewerComponent from '@/layouts/ToastViewerComponent';
 import {
     getAlgorithmSolutionDetailAPI,
     deleteAlgorithmSolutionAPI,
-} from '@/api/algorithmSolutionAPI';
+} from '@/api/AlgorithmSolutionAPI';
 
 const AlgorithmSolutionDetail = () => {
     const { pathname } = useLocation();
@@ -21,6 +21,8 @@ const AlgorithmSolutionDetail = () => {
         deleteAPI: deleteAlgorithmSolutionAPI,
         navigateAfterDelete: `/study/algorithm/problem/${problemId}/solution`,
     });
+
+    console.log(data);
 
     if (!data) return null;
     return (
@@ -39,8 +41,9 @@ const AlgorithmSolutionDetail = () => {
                     <AlgoInfo
                         memory={data.memory}
                         runtime={data.runtime}
-                        languageId={data.languageName}
-                    ></AlgoInfo>
+                        languageId={data.languageId}
+                        readOnly={true}
+                    />
                     <div className="flex gap-4">
                         <Button color="red" onClick={handleDelete}>
                             풀이 삭제
