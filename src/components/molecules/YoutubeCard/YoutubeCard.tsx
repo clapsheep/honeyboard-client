@@ -4,7 +4,7 @@ interface YoutubeCardProps {
     thumbnail: string;
     title: string;
     channel: string;
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
     onAddClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     isAdded?: boolean;
 }
@@ -18,8 +18,8 @@ const YoutubeCard = ({
     onAddClick,
 }: YoutubeCardProps) => {
     return (
-        <button
-            type="button"
+        <div
+            role="button"
             onClick={(e) => {
                 e.stopPropagation();
                 onClick(e);
@@ -57,7 +57,7 @@ const YoutubeCard = ({
                     </Button>
                 )}
             </div>
-        </button>
+        </div>
     );
 };
 export default YoutubeCard;

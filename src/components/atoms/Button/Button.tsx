@@ -7,6 +7,7 @@ interface ButtonProps {
     className?: string;
     'data-id'?: string;
     'data-name'?: string;
+    isLoading?: boolean;
 }
 
 const Button = ({
@@ -18,6 +19,7 @@ const Button = ({
     className,
     'data-id': dataId,
     'data-name': dataName,
+    isLoading = false,
 }: ButtonProps) => {
     const COLOR_PROS = {
         red: 'bg-error-600',
@@ -35,7 +37,17 @@ const Button = ({
             data-name={dataName}
             className={`rounded-sm px-4 py-1 text-text-md font-semibold text-gray-25 ${COLOR_PROS[color]} ${className}`}
         >
-            {children}
+            {isLoading ? (
+                <div className="flex h-6 w-20 items-center justify-center gap-2">
+                    <img
+                        src="/assets/loading/spinner.svg"
+                        alt="로딩중"
+                        className="h-full w-full"
+                    />
+                </div>
+            ) : (
+                children
+            )}
         </button>
     );
 };

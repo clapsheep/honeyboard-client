@@ -18,7 +18,7 @@ const AlgorithmProblemUpdate = () => {
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
     const [data, setData] = useState<AlgorithmProblemDetailResponse>();
-    const { openModal } = useModalStore();
+    const { openModal, closeModal } = useModalStore();
 
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
@@ -65,6 +65,7 @@ const AlgorithmProblemUpdate = () => {
                 title: '로그인 후 이용해주세요.',
                 onCancelClick: () => {
                     navigate('/login');
+                    closeModal();
                 },
             });
             return;

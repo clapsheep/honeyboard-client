@@ -28,6 +28,9 @@ export const loginAPI = async (
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         maxRedirects: 0,
+        validateStatus: function () {
+            return true;
+        },
     });
 };
 
@@ -64,4 +67,12 @@ export const verifyEmailAPI = async (
     code: string,
 ): Promise<AxiosResponse<boolean>> => {
     return api.post('/auth/email/verify', { email, code });
+};
+
+// 비밀번호 변경 요청
+export const changePasswordAPI = async (
+    email: string,
+    password: string,
+): Promise<AxiosResponse<boolean>> => {
+    return api.post('/user/reset-password', { email, password });
 };

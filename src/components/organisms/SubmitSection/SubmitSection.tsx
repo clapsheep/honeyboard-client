@@ -28,8 +28,8 @@ const SubmitSection = ({
             </div>
             <div className="flex flex-wrap items-center justify-start gap-2">
                 {teams && teams.length > 0
-                    ? teams.map((team, index) => (
-                          <div key={index}>
+                    ? teams.map((team) => (
+                          <div key={team.id}>
                               <TeamTag
                                   team={team.members}
                                   isSubmit={team.submitted}

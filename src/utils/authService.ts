@@ -15,10 +15,12 @@ export const handleLogin = async (
 ) => {
     try {
         const res = await loginAPI(data);
+
         if (res.status === 200) {
             navigate('/login/callback');
+            return;
         }
-        return;
+        throw new Error('로그인에 실패했습니다');
     } catch (error) {
         console.error('Login failed:', error);
         throw new Error('로그인에 실패했습니다');
