@@ -11,7 +11,7 @@ const AlgorithmProblemCreate = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
-    const { openModal } = useModalStore();
+    const { openModal, closeModal } = useModalStore();
 
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
@@ -38,6 +38,7 @@ const AlgorithmProblemCreate = () => {
                 title: '로그인 후 이용해주세요.',
                 onCancelClick: () => {
                     navigate('/login');
+                    closeModal();
                 },
             });
             return;

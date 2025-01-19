@@ -4,7 +4,7 @@ import { Header } from '@/components/organisms';
 import { useGenerationMutations } from '@/hooks/useGeneration';
 import { useGenerationStore } from '@/stores/generationStore';
 import { useModalStore } from '@/stores/modalStore';
-import { GenerationType } from '@/types/common/type';
+import { GenerationType } from '@/types/common';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 

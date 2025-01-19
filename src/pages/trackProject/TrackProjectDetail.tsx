@@ -15,7 +15,7 @@ const TrackProjectDetail = () => {
     const { trackProjectId } = useParams();
 
     const data = useProjectDetail({
-        getListAPI: getTrackProjectDetailAPI,
+        getAPI: getTrackProjectDetailAPI,
         requestParam: trackProjectId ? { trackProjectId } : undefined,
     });
 

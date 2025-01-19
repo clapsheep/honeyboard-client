@@ -38,7 +38,7 @@ const TrackProjectList = () => {
     ];
 
     return (
-        <div>
+        <>
             <Header
                 titleProps={{ title: '관통프로젝트' }}
                 BreadcrumbProps={{ pathname }}
@@ -82,6 +82,7 @@ const TrackProjectList = () => {
                                 title={item.title}
                                 subTitle={item.createdAt}
                                 img={item.thumbnail}
+                                pathname={pathname}
                             />
                         ))
                     ) : (
@@ -91,7 +92,7 @@ const TrackProjectList = () => {
                     )}
                 </Suspense>
             </section>
-        </div>
+        </>
     );
 };
 

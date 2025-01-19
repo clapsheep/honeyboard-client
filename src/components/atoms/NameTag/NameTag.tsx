@@ -2,13 +2,13 @@ import Icon from '../Icon/Icon';
 
 interface NameTagProps {
     children: string;
-    isLeader?: boolean;
+    isLeader: 'LEADER' | 'MEMBER' | null;
     color?: 'green' | 'red' | 'gray' | 'black';
     cancel?: boolean;
     onCancel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 const NameTag = ({
-    isLeader = false,
+    isLeader,
     children,
     color = 'black',
     cancel,
@@ -31,7 +31,7 @@ const NameTag = ({
         <div
             className={`flex items-center justify-center gap-1 rounded-sm px-2 py-1 ${BG_COLOR[color]}`}
         >
-            {isLeader && <Icon id="leader"></Icon>}
+            {isLeader === 'LEADER' && <Icon id="leader"></Icon>}
             <span className={`text-text-md font-semibold ${TEXT_COLOR[color]}`}>
                 {children}
             </span>

@@ -4,6 +4,7 @@ import { InputForm } from '@/components/molecules';
 import { EmailVerificationModal } from '@/components/organisms/';
 import { Link } from 'react-router';
 import { useSignUp } from '@/hooks/useSignUp';
+import { submitKeyDownEnter } from '@/utils/submitKeyDownEnter';
 
 const SignUp = () => {
     const {
@@ -175,21 +176,7 @@ const SignUp = () => {
                                         ? errors.confirmPassword?.message
                                         : undefined
                                 }
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault();
-                                        const submitButton =
-                                            document.querySelector(
-                                                'button[type="submit"]',
-                                            ) as HTMLButtonElement;
-                                        if (
-                                            submitButton &&
-                                            !submitButton.disabled
-                                        ) {
-                                            submitButton.click();
-                                        }
-                                    }
-                                }}
+                                onKeyDown={submitKeyDownEnter}
                                 {...register('confirmPassword')}
                             />
                             {currentStep === 4 && (

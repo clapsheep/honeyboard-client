@@ -1,33 +1,33 @@
-import WebRecommendForm from "@/components/templates/WebRecommendForm";
-import useToastEditor from "@/hooks/useToastEditor";
-import { useAuth } from "@/hooks/useAuth";
-import { useModalStore } from "@/stores/modalStore";
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router";
-import { createWebRecommendAPI } from "@/api/WebRecommendAPI";
+import WebRecommendForm from '@/components/templates/WebRecommendForm';
+import useToastEditor from '@/hooks/useToastEditor';
+import { useAuth } from '@/hooks/useAuth';
+import { useModalStore } from '@/stores/modalStore';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
+import { createWebRecommendAPI } from '@/api/WebRecommendAPI';
 
 const WebRecommendCreate = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
-    const { openModal } = useModalStore();
+    const { openModal, closeModal } = useModalStore();
 
-    const{ userInfo } = useAuth();
+    const { userInfo } = useAuth();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
 
-    const{ onSubmit, onCancel, editorRef } = useToastEditor({
+    const { onSubmit, onCancel, editorRef } = useToastEditor({
         editorId: 'webRecommendEditor',
         initialContent: '',
-    })
+    });
 
     const handleCancel = async () => {
         const confirm = await onCancel();
-        if(confirm){
+        if (confirm) {
             navigate(-1);
         }
-    }
+    };
 
     const handleSubmit = async () => {
         if (!title.trim()) {
@@ -49,17 +49,18 @@ const WebRecommendCreate = () => {
             });
             return;
         }
-        
+
         if (!userId || !generationId) {
             openModal({
                 title: '로그인 후 이용해주세요.',
                 onCancelClick: () => {
                     navigate('/login');
+                    closeModal();
                 },
             });
             return;
         }
-        
+
         try {
             const { content } = await onSubmit();
 

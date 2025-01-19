@@ -10,7 +10,7 @@ export interface ModalStateType {
         subTitle?: string;
         onConfirmClick?: () => void;
         onDeleteClick?: () => void;
-        onCancelClick: () => void;
+        onCancelClick?: () => void;
     } | null;
     openModal: (props: ModalStateType['modalProps']) => void;
     closeModal: () => void;

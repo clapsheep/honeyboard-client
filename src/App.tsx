@@ -18,6 +18,7 @@ import {
     BMAlgorithmSolution,
     BMWebConcept,
     BMWebRecommend,
+    ChangePassword,
     Error404,
     FinalProjectBoardCreate,
     FinalProjectBoardDetail,
@@ -61,17 +62,14 @@ import { BasicModal } from './components/organisms';
 import { useModalStore } from './stores/modalStore';
 
 function App() {
-    const { closeModal, isOpen, modalProps } = useModalStore();
+    const { isOpen, modalProps } = useModalStore();
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/login/callback" element={<LoginCallback />} />
-                <Route
-                    path="/find-password"
-                    element={<div>Find Password</div>}
-                />
+                <Route path="/find-password" element={<ChangePassword />} />
                 <Route
                     path="/oauth/:domain/additional"
                     element={<AdditionalInfoOAuth />}
@@ -360,7 +358,7 @@ function App() {
                 subTitle={modalProps?.subTitle}
                 onConfirmClick={modalProps?.onConfirmClick}
                 onDeleteClick={modalProps?.onDeleteClick}
-                onCancelClick={closeModal}
+                onCancelClick={modalProps?.onCancelClick}
             />
         </BrowserRouter>
     );
