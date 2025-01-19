@@ -1,49 +1,35 @@
-import { Icon } from '@/components/atoms';
+import { Link } from 'react-router';
 
 interface AlgoDetailCardProps {
+    problemId: string;
+    solutionId: string;
     title: string;
     subTitle: string; // 작성자
     memory: number;
     time: number;
     language: string;
-    isBookmarked: boolean;
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    onBookmarkClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const AlgoDetailCard = ({
+    problemId,
+    solutionId,
     title,
     subTitle,
     memory,
     time,
     language,
-    isBookmarked,
-    onClick,
-    onBookmarkClick,
 }: AlgoDetailCardProps) => {
     return (
-        <button
+        <Link
             type="button"
-            onClick={onClick}
-            className="w-full rounded border border-gray-300 bg-gray-25 shadow-md"
+            to={`/study/algorithm/problem/${problemId}/solution/${solutionId}`}
+            className="flex h-full flex-col rounded border border-gray-300 bg-gray-25 shadow-md"
         >
             <div className="flex w-full flex-col items-start px-4 py-3">
                 <div className="flex w-full justify-between">
                     <p className="text-text-sm font-semibold text-gray-900">
                         {title}
                     </p>
-                    <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onBookmarkClick(e);
-                        }}
-                    >
-                        {isBookmarked ? (
-                            <Icon id="star" size={24}></Icon>
-                        ) : (
-                            <Icon id="star-empty" size={24}></Icon>
-                        )}
-                    </button>
                 </div>
                 <p className="text-text-xs font-medium text-gray-500">
                     {subTitle}
@@ -69,7 +55,7 @@ const AlgoDetailCard = ({
                     </p>
                 </div>
             </div>
-        </button>
+        </Link>
     );
 };
 

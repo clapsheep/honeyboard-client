@@ -5,7 +5,7 @@ interface SelectOptionProps {
     placeholder: string;
     placeholderDisabled?: boolean;
     value: string | number | null; // defaultValue에서 value로 변경
-
+    disableBorder?: boolean;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -15,6 +15,7 @@ const SelectOption = ({
     options,
     placeholder,
     placeholderDisabled,
+    disableBorder = false,
     value, // value로 props 변경
 
     onChange,
@@ -27,7 +28,9 @@ const SelectOption = ({
             id={id}
             name={name}
             value={value ?? ''} // value로 바인딩
-            className="rounded border border-gray-300 bg-gray-25 px-3 py-1 text-text-md font-medium text-gray-900"
+            className={`rounded bg-gray-25 px-3 py-1 text-text-md font-medium text-gray-900 ${
+                disableBorder ? 'border-none' : 'border border-gray-300'
+            }`}
             aria-label={name}
             onChange={handleSelectChange}
         >
