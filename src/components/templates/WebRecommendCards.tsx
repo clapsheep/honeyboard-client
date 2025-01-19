@@ -10,6 +10,8 @@ interface WebRecommendCardsProps {
 }
 
 const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
+    console.log(generationId);
+
     const {
         handlePageChange,
         currentPage: page,

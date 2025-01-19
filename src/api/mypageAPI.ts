@@ -1,20 +1,22 @@
+import { MyAlgorithmSolutionResponse } from '@/types/AlgorithmSolution';
 import { BookmarkContent, ContentType } from '@/types/Bookmark';
-import { PageResponse } from '@/types/common';
+import { MyFinaleProjectResponse } from '@/types/FinaleProject';
+import { MyTrackProjectResponse } from '@/types/TrackProject';
 import { api } from '@/utils/common/axiosInstance';
 
-export const getMyTrackAPI = async (): Promise<PageResponse<unknown>> => {
+export const getMyTrackAPI = async (): Promise<MyTrackProjectResponse[]> => {
     const response = await api.get(`/user/trackproject`);
     return response.data;
 };
-export const getMyFinalAPI = async (): Promise<PageResponse<unknown>> => {
-    const response = await api.get(`/user/finalproject`);
+export const getMyFinalAPI = async (): Promise<MyFinaleProjectResponse[]> => {
+    const response = await api.get(`/user/finaleproject`);
     return response.data;
 };
 
-export const getMyAlgorithmAPI = async (
-    userId: string,
-): Promise<PageResponse<unknown>> => {
-    const response = await api.get(`/user/${userId}/algorithm`);
+export const getMyAlgorithmAPI = async (): Promise<
+    MyAlgorithmSolutionResponse[]
+> => {
+    const response = await api.get(`user/algorithm`);
     return response.data;
 };
 
