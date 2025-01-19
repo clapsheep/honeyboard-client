@@ -1,14 +1,14 @@
-import { SearchBar, WebSiteCard } from '@/components/molecules';
+import { Pagination, SearchBar, WebSiteCard } from '@/components/molecules';
 import usePagination from '@/hooks/usePagination';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Pagination } from '@/components/molecules';
 import { getWebRecommendListAPI } from '@/api/WebRecommendAPI';
+import { useState } from 'react';
 
 interface WebRecommendCardsProps {
     generationId?: string | null;
 }
-// TODO: 북마크 관련 기능 개발
+
 const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
     const {
         handlePageChange,
@@ -17,10 +17,21 @@ const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
     } = usePagination({
         size: 16,
     });
+    const [searchTitle, setSearchTitle] = useState('');
+    const handleSearchTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTitle(e.target.value);
+    };
     const { data } = useSuspenseQuery({
-        queryKey: ['webRecommends', generationId, page, size],
+        queryKey: ['webRecommends', generationId, page, size, searchTitle],
         queryFn: () =>
-            getWebRecommendListAPI(generationId || null, page || 1, size || 16),
+            getWebRecommendListAPI({
+                generationId,
+                pageRequest: {
+                    currentPage: page,
+                    pageSize: size,
+                },
+                searchTitle,
+            }),
     });
 
     return (
@@ -32,7 +43,7 @@ const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
                     label="웹 추천"
                     placeholder="웹 추천 검색"
                     results={[]}
-                    onChange={() => {}}
+                    onChange={handleSearchTitle}
                     onClickResult={() => {}}
                 />
             </div>
@@ -43,10 +54,9 @@ const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
                             <li key={i.id}>
                                 <WebSiteCard
                                     title={i.title}
-                                    subTitle={i.updatedAt}
-                                    isBookmarked={false}
+                                    subTitle={i.createdAt}
+                                    site={i.url}
                                     id={i.id}
-                                    onBookmarkClick={() => {}}
                                 />
                             </li>
                         ))}

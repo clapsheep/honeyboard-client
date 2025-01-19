@@ -73,8 +73,23 @@ const WebRecommendCreate = () => {
             });
 
             navigate(`/study/web/recommend/${res.id}`);
-        } catch (error) {
-            console.error('게시글 작성을 실패했습니다:', error);
+        } catch (error: any) {
+            if (error.response?.data?.message === "이미 등록된 URL입니다.") {
+                openModal({
+                    title: '이미 등록된 URL입니다.',
+                    onCancelClick: () => {
+                        navigate(-1);
+                        return;
+                    },
+                });
+            } else {
+                openModal({
+                    title: '게시글 작성을 실패했습니다.',
+                    onCancelClick: () => {
+                        navigate(-1);
+                    },
+                });
+            }
         }
     };
 
