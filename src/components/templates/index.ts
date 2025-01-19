@@ -9,3 +9,5 @@ export { default as StudentList } from './StudentList';
 export { default as TrackProjectCards } from './TrackProjectCards';
 export { default as MusicTrackSkeletonList } from './Skeletons/MusicTrackSkeletonList';
 export { default as AlgorithmGuideCards } from './AlgorithmGuideCards';
+export { default as AlgoDetailCards } from './AlgoDetailCards';
+export { default as AlgoDetailCardSkeletonList } from './Skeletons/AlgoDetailCardSkeletonList';

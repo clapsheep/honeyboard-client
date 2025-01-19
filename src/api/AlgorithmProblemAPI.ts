@@ -1,6 +1,6 @@
 import { api } from '@/utils/common/axiosInstance';
 import {
-    AlgorithmProblemDetailRespones,
+    AlgorithmProblemDetailResponse,
     AlgorithmProblemListResponse,
     AlgorithmProblemRequest,
 } from '@/types/AlgorithmProblem';
@@ -24,7 +24,7 @@ export const getAlgorithmProblemListAPI = async ({
 
 export const getAlgorithmProblemDetailAPI = async (req: {
     problemId: string;
-}): Promise<AlgorithmProblemDetailRespones> => {
+}): Promise<AlgorithmProblemDetailResponse> => {
     const { data } = await api.get(`/algorithm/problem/${req.problemId}`);
     return data;
 };
