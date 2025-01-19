@@ -13,3 +13,5 @@ export { default as BMAlgorithmGuideCards } from './BMAlgorithmGuideCards';
 export { default as BMWebGuideCards } from './BMWebGuideCards';
 export { default as BMAlgorithmSolutionCards } from './BMAlgorithmSolutionCards';
 export { default as BMWebRecommendCards } from './BMWebRecommendCards';
+export { default as AlgoDetailCards } from './AlgoDetailCards';
+export { default as AlgoDetailCardSkeletonList } from './Skeletons/AlgoDetailCardSkeletonList';

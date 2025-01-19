@@ -1,5 +1,5 @@
 const AlgorithmSolutionCreate = () => {
-    return <div>알고리즘 문제 생성</div>;
+    return <div>알고리즘 풀이 생성</div>;
 };
 
 export default AlgorithmSolutionCreate;

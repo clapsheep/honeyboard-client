@@ -77,6 +77,7 @@ export const useContentDetail = <U, T extends BaseContentDetail>({
                 subTitle: '정말로 삭제하시겠습니까?',
                 onConfirmClick: async () => {
                     await deleteAPI(requestParam);
+                    closeModal();
                     navigate(navigateAfterDelete);
                 },
                 onCancelClick: () => {

@@ -61,28 +61,28 @@ export const deleteFinaleProjectAPI = async (req: {
 
 // 2-4. 파이널 프로젝트 보드 작성 -> 팀원만 가능
 export const createFinaleProjectBoardAPI = async (req: {
-    finaleProjectId: string;
+    finalProjectId: string;
     data: FinaleProjectBoardRequest;
 }): Promise<unknown> => {
-    return api.post(`/project/finale/${req.finaleProjectId}/board`, req.data);
+    return api.post(`/project/finale/${req.finalProjectId}/board`, req.data);
 };
 // 3. 파이널 프로젝트 보드 조회
 export const getFinaleProjectBoardDetailAPI = async (req: {
-    finaleProjectId: string;
-    finaleProjectBoardId: string;
+    finalProjectId: string;
+    boardId: string;
 }): Promise<FinaleProjectBoardDetailResponse> => {
     return api.get(
-        `/project/finale/${req.finaleProjectId}/board/${req.finaleProjectBoardId}`,
+        `/project/finale/${req.finalProjectId}/board/${req.boardId}`,
     );
 };
 // 3-1. 파이널 프로젝트 보드 수정 -> 팀원만 가능
 export const updateFinaleProjectBoardAPI = async (req: {
-    finaleProjectId: string;
-    finaleProjectBoardId: string;
+    finalProjectId: string;
+    boardId: string;
     data: FinaleProjectBoardRequest;
 }): Promise<unknown> => {
     return api.put(
-        `/project/finale/${req.finaleProjectId}/board/${req.finaleProjectBoardId}`,
+        `/project/finale/${req.finalProjectId}/board/${req.boardId}`,
         req.data,
     );
 };
