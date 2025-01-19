@@ -41,7 +41,9 @@ const SubmitSection = ({
                 {noTeamUsers && noTeamUsers.length > 0
                     ? noTeamUsers.map((member) => (
                           <div key={member.id}>
-                              <NameTag color="gray">{member.name}</NameTag>
+                              <NameTag isLeader={null} color="gray">
+                                  {member.name}
+                              </NameTag>
                           </div>
                       ))
                     : null}

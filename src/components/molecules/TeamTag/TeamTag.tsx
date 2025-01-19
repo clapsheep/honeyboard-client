@@ -19,13 +19,17 @@ const TeamTag = ({ isSubmit = false, team = [], onClick }: TeamTagProps) => {
             className="flex items-center gap-2 rounded-md border border-gray-300 bg-gray-25 px-3 py-2"
         >
             {leader && (
-                <NameTag isLeader={true} color={tagColor}>
+                <NameTag isLeader={'LEADER'} color={tagColor}>
                     {leader.name}
                 </NameTag>
             )}
             {members.length > 0 &&
                 members.map((member) => (
-                    <NameTag key={member.id} color={tagColor}>
+                    <NameTag
+                        key={member.id}
+                        isLeader={'MEMBER'}
+                        color={tagColor}
+                    >
                         {member.name}
                     </NameTag>
                 ))}
