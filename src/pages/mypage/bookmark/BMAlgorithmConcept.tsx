@@ -1,12 +1,14 @@
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
-import { ProjectCardSkeletonList } from '@/components/templates';
+import {
+    BMAlgorithmGuideCards,
+    ProjectCardSkeletonList,
+} from '@/components/templates';
 import { Suspense } from 'react';
 import { useLocation } from 'react-router';
 
 const BMAlgorithmConcept = () => {
     const { pathname } = useLocation();
-
     return (
         <>
             <Header
@@ -15,9 +17,8 @@ const BMAlgorithmConcept = () => {
             >
                 <TabNavigation routes={ROUTES} />
             </Header>
-
             <Suspense fallback={<ProjectCardSkeletonList />}>
-                <></>
+                <BMAlgorithmGuideCards />
             </Suspense>
         </>
     );

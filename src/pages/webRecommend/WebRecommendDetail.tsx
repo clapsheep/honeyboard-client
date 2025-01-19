@@ -12,9 +12,9 @@ const WebRecommendDetail = () => {
     const { pathname } = useLocation();
     const { recommendId } = useParams();
     const { data, handleDelete, handleEdit, handleLike } = useContentDetail({
-        contentType: 'web_guide',
+        contentType: 'WEB_RECOMMEND',
         contentId: recommendId!,
-        requestParam: {recommendId:recommendId!},
+        requestParam: { recommendId: recommendId! },
         getDetailAPI: getWebRecommendDetailAPI,
         deleteAPI: deleteWebRecommendAPI,
         navigateAfterDelete: '/study/web/recommend',
@@ -27,6 +27,7 @@ const WebRecommendDetail = () => {
                 titleProps={{
                     title: data.title,
                     description: { '사이트 주소 ': data.url },
+                    bookmarked: data.bookmarked,
                     onClickLike: handleLike,
                 }}
                 BreadcrumbProps={{ pathname }}

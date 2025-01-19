@@ -9,3 +9,7 @@ export { default as StudentList } from './StudentList';
 export { default as TrackProjectCards } from './TrackProjectCards';
 export { default as MusicTrackSkeletonList } from './Skeletons/MusicTrackSkeletonList';
 export { default as AlgorithmGuideCards } from './AlgorithmGuideCards';
+export { default as BMAlgorithmGuideCards } from './BMAlgorithmGuideCards';
+export { default as BMWebGuideCards } from './BMWebGuideCards';
+export { default as BMAlgorithmSolutionCards } from './BMAlgorithmSolutionCards';
+export { default as BMWebRecommendCards } from './BMWebRecommendCards';
