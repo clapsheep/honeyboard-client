@@ -1,5 +1,5 @@
 import { createTrackProjectBoardAPI } from '@/api/trackAPI';
-import TrackProjectForm from '@/components/templates/TrackProjectForm';
+import ProjectBoardForm from '@/components/templates/ProjectBoardForm';
 import useToastEditor from '@/hooks/useToastEditor';
 import { useModalStore } from '@/stores/modalStore';
 import { useTeamStore } from '@/stores/teamStore';
@@ -24,7 +24,7 @@ const TrackProjectBoardCreate = () => {
     );
 
     const { onSubmit, onCancel, editorRef } = useToastEditor({
-        editorId: 'trackProjectEditor',
+        editorId: 'trackProjectBoardEditor',
         initialContent: '',
     });
 
@@ -87,22 +87,24 @@ const TrackProjectBoardCreate = () => {
     };
 
     const mode = 'create' as const;
+    const project = 'track' as const;
     const props = {
         mode,
+        project,
         pathname,
         members,
         title,
-        url,
+        subTitle: url,
         handleCancel,
         handleSubmit,
         handleTitleChange,
-        handleUrlChange,
+        handleSubTitleChange: handleUrlChange,
         editorRef,
     };
 
     return (
         <>
-            <TrackProjectForm {...props} />
+            <ProjectBoardForm {...props} />
         </>
     );
 };
