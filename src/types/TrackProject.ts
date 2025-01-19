@@ -80,7 +80,11 @@ export type TrackProjectBoardDetailResponse = Pick<
 export type TrackProjectRequest = Pick<
     TrackProject,
     'title' | 'objective' | 'description'
-> & { excludedMembers: Pick<User, 'id'>[] };
+> & { excludedMembers: number[] };
+
+export type TrackProjectResponse = {
+    id: number;
+}
 
 // 트랙프로젝트 보드 생성, 수정 요청 타입
 export type TrackProjectBoardRequest = Pick<

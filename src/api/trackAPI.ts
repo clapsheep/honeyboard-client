@@ -5,8 +5,10 @@ import {
     TrackProjectDetailResponse,
     TrackProjectListResponse,
     TrackProjectRequest,
+    TrackProjectResponse,
 } from '@/types/TrackProject';
 import { AvailableUserListResponse, TeamMemberListRequest } from '@/types/User';
+import { AxiosResponse } from 'axios';
 
 // 1. 트랙 프로젝트 리스트 조회 TrackProjectListResponse
 export const getTrackProjectListAPI = async (req: {
@@ -17,10 +19,9 @@ export const getTrackProjectListAPI = async (req: {
     });
 };
 // 1-1. 트랙 프로젝트 생성 -> 강사님만 가능 TrackProjectRequest
-export const createTrackProjectAPI = async (req: {
-    data: TrackProjectRequest;
-}): Promise<unknown> => {
-    return api.post(`/project/track`, req.data);
+export const createTrackProjectAPI = async (req: TrackProjectRequest
+): Promise<AxiosResponse<TrackProjectResponse>> => {
+    return api.post(`/project/track`, req);
 };
 
 // 2. 트랙 프로젝트 디테일 조회 TrackProjectDetailResponse
@@ -33,7 +34,7 @@ export const getTrackProjectDetailAPI = async (req: {
 export const updateTrackProjectAPI = async (req: {
     trackProjectId: string;
     data: TrackProjectRequest;
-}): Promise<unknown> => {
+}): Promise<TrackProjectResponse> => {
     return api.put(`/project/track/${req.trackProjectId}`, req.data);
 };
 // 2-2. 트랙 프로젝트 삭제 -> 강사님만 가능
