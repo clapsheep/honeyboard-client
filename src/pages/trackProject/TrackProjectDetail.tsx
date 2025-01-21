@@ -5,6 +5,7 @@ import {
     ProjectCardSkeletonList,
     TrackProjectCards,
 } from '@/components/templates';
+import { useAuth } from '@/hooks/useAuth';
 import { useProjectDetail } from '@/hooks/useProjectDetail';
 import { Suspense } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
@@ -13,6 +14,7 @@ const TrackProjectDetail = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const { trackProjectId } = useParams();
+    const { userInfo } = useAuth();
 
     const data = useProjectDetail({
         getAPI: getTrackProjectDetailAPI,
@@ -39,21 +41,26 @@ const TrackProjectDetail = () => {
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex items-end justify-end gap-4">
-                    <Button
-                        color="red"
-                        onClick={() => {
-                            navigate(-1);
-                        }}
-                    >
-                        프로젝트 삭제
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            navigate('edit');
-                        }}
-                    >
-                        프로젝트 수정
-                    </Button>
+                    {userInfo?.role === 'ADMIN' && (
+                        <section className="flex gap-4">
+                            <Button
+                                color="red"
+                                onClick={() => {
+                                    navigate(-1);
+                                }}
+                            >
+                                프로젝트 삭제
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    navigate('edit');
+                                }}
+                            >
+                                프로젝트 수정
+                            </Button>
+                        </section>
+                    )}
+
                     <Button
                         onClick={() => {
                             navigate('create');

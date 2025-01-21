@@ -49,7 +49,7 @@ const FinalProjectList = () => {
                 <div className="flex justify-between">
                     <TabNavigation routes={ROUTES} />
 
-                    <div className="flex items-end gap-4">
+                    <div className="mt-[-5px] flex items-end gap-4">
                         {isUserWithoutTeam && (
                             <Button
                                 onClick={() => {
