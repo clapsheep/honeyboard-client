@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import useToastEditor from '@/hooks/useToastEditor';
 import { useModalStore } from '@/stores/modalStore';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
 const WebGuideUpdate = () => {
@@ -16,8 +16,14 @@ const WebGuideUpdate = () => {
     });
 
     const navigate = useNavigate();
-    const [title, setTitle] = useState(data?.title);
     const { openModal, closeModal } = useModalStore();
+    const [title, setTitle] = useState('');
+
+    useEffect(() => {
+        if (data) {
+            setTitle(data.title);
+        }
+    }, [data]);
 
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
@@ -90,7 +96,7 @@ const WebGuideUpdate = () => {
         handleTitleChange,
         handleCancel,
         handleSubmit,
-        title: title ?? '',
+        title: title!,
     };
     return <WebGuideForm {...props} />;
 };
