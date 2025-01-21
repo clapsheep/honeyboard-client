@@ -14,12 +14,14 @@ import { AxiosResponse } from 'axios';
 export const getTrackProjectListAPI = async (req: {
     generationId?: string | null;
 }): Promise<TrackProjectListResponse> => {
-    return api.get(`/project/track`, {
+    const response = await api.get(`/project/track`, {
         params: { generationId: req.generationId },
     });
+    return response.data;
 };
 // 1-1. 트랙 프로젝트 생성 -> 강사님만 가능 TrackProjectRequest
-export const createTrackProjectAPI = async (req: TrackProjectRequest
+export const createTrackProjectAPI = async (
+    req: TrackProjectRequest,
 ): Promise<AxiosResponse<TrackProjectResponse>> => {
     return api.post(`/project/track`, req);
 };
