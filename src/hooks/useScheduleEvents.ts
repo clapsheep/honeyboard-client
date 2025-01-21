@@ -9,6 +9,7 @@ import { EventObject } from '@toast-ui/calendar/types/types/events';
 import { useEffect, useState } from 'react';
 import { useAuth } from './useAuth';
 import { ScheduleEvent } from '@/types/Schedule';
+import { useModalStore } from '@/stores/modalStore';
 
 interface UseScheduleEventsReturn {
     events: ScheduleEvent[];
@@ -23,6 +24,9 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
+    const userRole = userInfo?.role;
+
+    const { openModal, closeModal } = useModalStore();
 
     const [events, setEvents] = useState<EventObject[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -65,6 +69,16 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
     // 일정 등록
     const onBeforeCreateEvent = async (eventData: EventObject) => {
         try {
+            if (userRole !== 'ADMIN') {
+                openModal({
+                    title: '일정 등록 권한이 없습니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
+                return false;
+            }
+
             const newEvent: ScheduleEvent = {
                 content: eventData.title,
                 startDate: new Date(eventData.start),
@@ -76,7 +90,12 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
             };
 
             if (newEvent.scheduleType === 'TRACK') {
-                alert('관통 프로젝트 일정은 자동 등록됩니다.');
+                openModal({
+                    title: '관통 프로젝트 일정은 자동 등록됩니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
                 return false;
             }
 
@@ -99,6 +118,16 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
     // 일정 수정
     const onBeforeUpdateEvent = async (eventData: EventObject) => {
         try {
+            if (userRole !== 'ADMIN') {
+                openModal({
+                    title: '일정 수정 권한이 없습니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
+                return false;
+            }
+
             // 변경사항 유무에 따라 변경 값 혹은 기존 값 사용
             const changes = eventData.changes;
             const event = eventData.event;
@@ -133,6 +162,16 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
     // 일정 삭제
     const onBeforeDeleteEvent = async (eventData: EventObject) => {
         try {
+            if (userRole !== 'ADMIN') {
+                openModal({
+                    title: '일정 삭제 권한이 없습니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
+                return false;
+            }
+
             await deleteScheduleEventsAPI(eventData.id as string);
 
             const currentDate = new Date();

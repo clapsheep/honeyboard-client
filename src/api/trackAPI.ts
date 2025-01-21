@@ -70,9 +70,11 @@ export const getTrackProjectBoardDetailAPI = async (req: {
     trackTeamId: string;
     boardId: string;
 }): Promise<TrackProjectBoardDetailResponse> => {
-    return api.get(
+    const { data } = await api.get(
         `/project/track/${req.trackProjectId}/team/${req.trackTeamId}/board/${req.boardId}`,
     );
+
+    return data;
 };
 
 // 3-1. 트랙 프로젝트 보드 수정 -> 팀원만 가능
