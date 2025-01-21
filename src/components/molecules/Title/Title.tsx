@@ -7,7 +7,6 @@ export interface TitleProps {
     subTitle?: Record<string, string>;
     description?: Record<string, string>;
     bookmarked?: boolean;
-    isLink?: boolean;
 }
 
 const Title = ({
@@ -16,7 +15,6 @@ const Title = ({
     subTitle,
     description,
     bookmarked = false,
-    isLink = false,
     onClickLike,
 }: TitleProps) => {
     const subTitleEntries = Object.entries(subTitle || {});
@@ -77,18 +75,9 @@ const Title = ({
                             <span className="text-md whitespace-nowrap font-semibold text-gray-900">
                                 {key}
                             </span>
-                            {isLink? <a
-                                href={
-                                    value.startsWith('http') ? value : `https://${value}`
-                                }
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="block truncate text-md font-medium text-blue-600"
-                            >
+                            <p className="text-md break-words font-medium text-gray-900">
                                 {value}
-                            </a> :<p className="text-md break-words font-medium text-gray-900">
-                                {value}
-                            </p>}
+                            </p>
                         </div>
                     ))}
                 </div>
