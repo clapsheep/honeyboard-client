@@ -1,5 +1,6 @@
 import { getAlgorithmTagsAPI } from '@/api/AlgorithmTagAPI';
 import { TagRequest, TagResponse } from '@/types/Tag';
+import debounce from '@/utils/debounce';
 import { useState } from 'react';
 
 interface useAlgorithmTagProps {
@@ -33,7 +34,7 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
     };
 
     // 알고리즘 태그 검색 결과 선택
-    const onClickResult = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const onClickResult = debounce((e: React.MouseEvent<HTMLButtonElement>) => {
         const searchTag = e.currentTarget.textContent;
 
         if (searchTag) {
@@ -56,7 +57,7 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
                 }
             }
         }
-    };
+    }, 300);
 
     // 엔터키로 알고리즘 태그 추가
     const onKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {

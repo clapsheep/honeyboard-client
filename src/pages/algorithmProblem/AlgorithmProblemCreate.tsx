@@ -1,4 +1,4 @@
-import { createAlgorithmProblemAPI } from '@/api/algorithmProblemAPI';
+import { createAlgorithmProblemAPI } from '@/api/AlgorithmProblemAPI';
 import AlgoProblemForm from '@/components/templates/AlgoProblemForm';
 import useAlgorithmTag from '@/hooks/useAlgorithmTag';
 import { useAuth } from '@/hooks/useAuth';
