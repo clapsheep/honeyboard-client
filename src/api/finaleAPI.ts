@@ -8,6 +8,7 @@ import {
     FinaleProjectTeamUpdate,
     FinaleProjectUpdate,
 } from '@/types/FinaleProject';
+import { data } from 'react-router';
 
 // 1. 파이널 프로젝트 리스트 조회 FinaleProjectListResponse
 export const getFinaleProjectListAPI = async (req: {
@@ -72,9 +73,10 @@ export const getFinaleProjectBoardDetailAPI = async (req: {
     finalProjectId: string;
     boardId: string;
 }): Promise<FinaleProjectBoardDetailResponse> => {
-    return api.get(
+    const {data} = await api.get(
         `/project/finale/${req.finalProjectId}/board/${req.boardId}`,
     );
+    return data;
 };
 // 3-1. 파이널 프로젝트 보드 수정 -> 팀원만 가능
 export const updateFinaleProjectBoardAPI = async (req: {
@@ -89,10 +91,10 @@ export const updateFinaleProjectBoardAPI = async (req: {
 };
 // 3-2. 파이널 프로젝트 보드 삭제 -> 팀원만 가능
 export const deleteFinaleProjectBoardAPI = async (req: {
-    finaleProjectId: string;
-    finaleProjectBoardId: string;
+    finalProjectId: string;
+    boardId: string;
 }): Promise<unknown> => {
     return api.delete(
-        `/project/finale/${req.finaleProjectId}/board/${req.finaleProjectBoardId}`,
+        `/project/finale/${req.finalProjectId}/board/${req.boardId}`,
     );
 };
