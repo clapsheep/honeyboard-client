@@ -16,7 +16,7 @@ const AlgoProblemCards = () => {
         size: 16,
     });
 
-    const [searchType, setSearchType] = useState<'tag' | 'url'>('tag');
+    const [searchType, setSearchType] = useState<'tag' | 'title'>('tag');
     const [keyword, setKeyword] = useState('');
 
     const handleKeyword = debounce((value: string) => {
@@ -38,9 +38,6 @@ const AlgoProblemCards = () => {
             }),
     });
 
-    console.log(data);
-    console.log(data.pageInfo.totalPages);
-
     return (
         <div className="flex flex-col items-center gap-6 p-6">
             <div className="flex w-[566px] gap-1">
@@ -51,10 +48,10 @@ const AlgoProblemCards = () => {
                         { value: 'tag', label: '태그' },
                         { value: 'title', label: '제목' },
                     ]}
-                    placeholder="태그"
+                    placeholder="분류"
                     value={searchType}
                     onChange={(e) => {
-                        setSearchType(e.target.value as 'tag' | 'url');
+                        setSearchType(e.target.value as 'tag' | 'title');
                         handlePageChange(1); // 조건 변경 시 첫 페이지로 이동
                     }}
                 />
@@ -63,7 +60,6 @@ const AlgoProblemCards = () => {
                         id="algoProblem"
                         label="알고리즘 문제"
                         placeholder="키워드를 입력하세요"
-                        results={[]}
                         onChange={(e) => handleKeyword(e.target.value)}
                     />
                 </div>

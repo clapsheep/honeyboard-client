@@ -40,7 +40,6 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
                 searchTitle,
             }),
     });
-    console.log(data);
 
     return (
         <div className="flex flex-col items-center gap-6 p-6">
@@ -50,9 +49,7 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
                     id="webConcept"
                     label="웹 개념"
                     placeholder="웹 개념 검색"
-                    results={[]}
                     onChange={handleSearchTitle}
-                    onClickResult={() => {}}
                 />
             </div>
             {data?.content?.length ? (
