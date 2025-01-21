@@ -28,6 +28,7 @@ const WebRecommendDetail = () => {
                     title: data.title,
                     description: { '사이트 주소 ': data.url },
                     bookmarked: data.bookmarked,
+                    isLink: true,
                     onClickLike: handleLike,
                 }}
                 BreadcrumbProps={{ pathname }}
