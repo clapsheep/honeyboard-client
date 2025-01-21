@@ -13,9 +13,10 @@ export interface AlgorithmProblemRequestParams<T> {
 export const getAlgorithmProblemListAPI = async ({
     pageRequest = { currentPage: 1, pageSize: 16 },
     searchRequest,
-}: AlgorithmProblemRequestParams<'tag' | 'url'>): Promise<
+}: AlgorithmProblemRequestParams<'tag' | 'title'>): Promise<
     PageResponse<AlgorithmProblemListResponse>
 > => {
+    console.log({ ...pageRequest, ...searchRequest });
     const { data } = await api.get(`/algorithm/problem`, {
         params: { ...pageRequest, ...searchRequest },
     });

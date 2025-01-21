@@ -14,7 +14,6 @@ interface AlgorithmGuideCardsProps {
 
 const AlgorithmGuideCards = ({ generationId }: AlgorithmGuideCardsProps) => {
     const { pathname } = useLocation();
-    console.log(pathname);
     const {
         handlePageChange,
         currentPage: page,
@@ -23,9 +22,12 @@ const AlgorithmGuideCards = ({ generationId }: AlgorithmGuideCardsProps) => {
         size: 8,
     });
     const [searchTitle, setSearchTitle] = useState('');
-    const handleSearchTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTitle(e.target.value);
-    };
+    const handleSearchTitle = debounce(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearchTitle(e.target.value);
+        },
+        300,
+    );
     const { data } = useSuspenseQuery({
         queryKey: ['AlgorithmGuides', generationId, page, size, searchTitle],
         queryFn: () =>
@@ -35,9 +37,7 @@ const AlgorithmGuideCards = ({ generationId }: AlgorithmGuideCardsProps) => {
                     currentPage: page,
                     pageSize: size,
                 },
-                searchRequest: searchTitle
-                    ? { searchType: 'title', keyword: searchTitle }
-                    : undefined, // searchTitle이 없을 경우 생략
+                searchTitle,
             }),
     });
 
