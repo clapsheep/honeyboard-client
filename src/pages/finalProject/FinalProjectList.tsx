@@ -36,7 +36,7 @@ const FinalProjectList = () => {
         navigate(`${finaleProjectId}`);
     };
 
-    const isUserWithoutTeam = data?.data?.noTeamUsers?.some(
+    const isUserWithoutTeam = data?.noTeamUsers?.some(
         (user) => user.id === userInfo?.userId,
     );
 
@@ -78,8 +78,8 @@ const FinalProjectList = () => {
                 <section className="flex flex-wrap gap-2">
                     <SubmitSection
                         project="final"
-                        teams={data?.data?.teams}
-                        noTeamUsers={data?.data?.noTeamUsers}
+                        teams={data?.teams}
+                        noTeamUsers={data?.noTeamUsers}
                         onClick={boardDetailNav}
                     />
                 </section>
@@ -87,9 +87,7 @@ const FinalProjectList = () => {
 
             <section className="grid w-full grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 <Suspense fallback={<ProjectCardSkeletonList />}>
-                    <FinalListCards
-                        boards={data?.data?.projects}
-                    ></FinalListCards>
+                    <FinalListCards boards={data?.projects} />
                 </Suspense>
             </section>
         </>

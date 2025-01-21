@@ -6,7 +6,7 @@ export interface TitleProps {
     author?: string;
     subTitle?: Record<string, string>;
     description?: Record<string, string>;
-    isLiked?: boolean;
+    bookmarked?: boolean;
 }
 
 const Title = ({
@@ -14,7 +14,7 @@ const Title = ({
     author,
     subTitle,
     description,
-    isLiked = false,
+    bookmarked = false,
     onClickLike,
 }: TitleProps) => {
     const subTitleEntries = Object.entries(subTitle || {});
@@ -31,7 +31,10 @@ const Title = ({
                 </h2>
                 {onClickLike && (
                     <button onClick={onClickLike} className="px-1">
-                        <Icon id={isLiked ? 'star' : 'star-empty'} size={28} />
+                        <Icon
+                            id={bookmarked ? 'star' : 'star-empty'}
+                            size={28}
+                        />
                     </button>
                 )}
             </div>

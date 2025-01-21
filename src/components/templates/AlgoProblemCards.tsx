@@ -5,6 +5,7 @@ import { SelectOption } from '../atoms';
 import { useState } from 'react';
 import debounce from '@/utils/debounce';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import convertDate from '@/utils/convertDate';
 
 const AlgoProblemCards = () => {
     const {
@@ -75,7 +76,7 @@ const AlgoProblemCards = () => {
                                 <AlgoProblemCard
                                     id={item.id}
                                     title={item.title}
-                                    description={item.createdAt}
+                                    description={convertDate(item.createdAt)}
                                     link={item.url}
                                     tags={item.tags.map((tag) => tag.name)}
                                 />
