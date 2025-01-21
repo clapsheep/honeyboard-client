@@ -76,6 +76,11 @@ export type FinaleProjectBoardDetailResponse = Pick<
     members: Pick<FinaleTeamMember, 'id' | 'name' | 'role'>[];
 };
 
+export type MyFinaleProjectResponse = Pick<
+    FinaleProject,
+    'id' | 'title' | 'createdAt'
+>;
+
 // [REQUEST]
 // 파이널 프로젝트 생성 요청 타입 (팀 + 프로젝트)
 export type FinaleProjectCreate = Pick<

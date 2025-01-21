@@ -10,7 +10,7 @@ import { PageRequest, PageResponse, SearchRequest } from '@/types/common';
 export interface AlgorithmGuideRequestParams<T> {
     pageRequest?: PageRequest;
     searchRequest?: SearchRequest<T>;
-    generationId?: string;
+    generationId?: string | null;
 }
 export const getAlgorithmGuideListAPI = async ({
     pageRequest = { currentPage: 1, pageSize: 8 },

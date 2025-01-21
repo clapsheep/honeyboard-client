@@ -1,6 +1,9 @@
 import { TabNavigation } from '@/components/molecules';
 import { Header } from '@/components/organisms';
-import { ProjectCardSkeletonList } from '@/components/templates';
+import {
+    BMWebRecommendCards,
+    ProjectCardSkeletonList,
+} from '@/components/templates';
 import { Suspense } from 'react';
 import { useLocation } from 'react-router';
 const BMWebRecommend = () => {
@@ -16,7 +19,7 @@ const BMWebRecommend = () => {
             </Header>
 
             <Suspense fallback={<ProjectCardSkeletonList />}>
-                <></>
+                <BMWebRecommendCards />
             </Suspense>
         </>
     );

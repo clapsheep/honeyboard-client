@@ -2,6 +2,7 @@ import { getWebGuideListAPI } from '@/api/WebGuideAPI';
 import { Pagination, SearchBar } from '@/components/molecules';
 import { ProjectCard } from '@/components/organisms';
 import usePagination from '@/hooks/usePagination';
+import convertDate from '@/utils/convertDate';
 import debounce from '@/utils/debounce';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -39,6 +40,7 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
                 searchTitle,
             }),
     });
+    console.log(data);
 
     return (
         <div className="flex flex-col items-center gap-6 p-6">
@@ -60,7 +62,7 @@ const WebConceptCards = ({ generationId }: WebConceptCardsProps) => {
                             <li key={item.id}>
                                 <ProjectCard
                                     title={item.title}
-                                    subTitle={item.createdAt}
+                                    subTitle={convertDate(item.createdAt)}
                                     id={item.id}
                                     img={item.thumbnail}
                                     pathname={pathname}

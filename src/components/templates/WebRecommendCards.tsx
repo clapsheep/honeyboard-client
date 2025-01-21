@@ -4,12 +4,15 @@ import usePagination from '@/hooks/usePagination';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getWebRecommendListAPI } from '@/api/WebRecommendAPI';
 import { useState } from 'react';
+import convertDate from '@/utils/convertDate';
 
 interface WebRecommendCardsProps {
     generationId?: string | null;
 }
 
 const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
+    console.log(generationId);
+
     const {
         handlePageChange,
         currentPage: page,
@@ -54,7 +57,7 @@ const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
                             <li key={i.id}>
                                 <WebSiteCard
                                     title={i.title}
-                                    subTitle={i.createdAt}
+                                    subTitle={convertDate(i.createdAt)}
                                     site={i.url}
                                     id={i.id}
                                 />

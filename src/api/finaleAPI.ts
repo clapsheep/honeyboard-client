@@ -13,9 +13,10 @@ import {
 export const getFinaleProjectListAPI = async (req: {
     generationId: string | null;
 }): Promise<FinaleProjectListResponse> => {
-    return api.get(`/project/finale`, {
+    const response = await api.get(`/project/finale`, {
         params: { generationId: req.generationId },
     });
+    return response.data;
 };
 
 // 1-1. 파이널 프로젝트 생성 (팀 + 프로젝트) FinaleProjectCreate
