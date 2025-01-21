@@ -70,15 +70,22 @@ const TrackProjectDetail = () => {
                     </Button>
                 </div>
             </Header>
-            <SubmitSection
-                project="track"
-                teams={data?.teams}
-                noTeamUsers={data?.noTeamUsers}
-                onClick={onClick}
-            />
+
+            <section className="m-4 mt-6 border bg-white p-4">
+                <section className="flex flex-wrap gap-2">
+                    <SubmitSection
+                        project="track"
+                        teams={data?.teams}
+                        noTeamUsers={data?.noTeamUsers}
+                        onClick={onClick}
+                    />
+                </section>
+            </section>
+            
             <Suspense fallback={<ProjectCardSkeletonList />}>
-                <TrackProjectCards boards={data?.boards}></TrackProjectCards>
+                    <TrackProjectCards boards={data?.boards}></TrackProjectCards>
             </Suspense>
+            
         </>
     );
 };

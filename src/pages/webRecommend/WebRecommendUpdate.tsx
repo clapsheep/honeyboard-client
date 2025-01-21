@@ -18,7 +18,7 @@ const WebRecommendUpdate = () => {
     const navigate = useNavigate();
 
     const { data } = useContentDetail({
-        contentType: 'web_recommend',
+        contentType: 'WEB_RECOMMEND',
         contentId: recommendId!,
         requestParam: { recommendId: recommendId! },
         getDetailAPI: getWebRecommendDetailAPI,
