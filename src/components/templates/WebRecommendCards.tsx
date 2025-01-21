@@ -5,6 +5,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { getWebRecommendListAPI } from '@/api/WebRecommendAPI';
 import { useState } from 'react';
 import convertDate from '@/utils/convertDate';
+import debounce from '@/utils/debounce';
 
 interface WebRecommendCardsProps {
     generationId?: string | null;
@@ -21,9 +22,12 @@ const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
         size: 16,
     });
     const [searchTitle, setSearchTitle] = useState('');
-    const handleSearchTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTitle(e.target.value);
-    };
+    const handleSearchTitle = debounce(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearchTitle(e.target.value);
+        },
+        300,
+    );
     const { data } = useSuspenseQuery({
         queryKey: ['webRecommends', generationId, page, size, searchTitle],
         queryFn: () =>

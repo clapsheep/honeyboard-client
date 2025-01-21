@@ -5,22 +5,22 @@ import {
     AlgorithmGuideListResponse,
     AlgorithmGuideRequest,
 } from '@/types/AlgorithmGuide';
-import { PageRequest, PageResponse, SearchRequest } from '@/types/common';
+import { PageRequest, PageResponse } from '@/types/common';
 
-export interface AlgorithmGuideRequestParams<T> {
+export interface AlgorithmGuideRequestParams {
     pageRequest?: PageRequest;
-    searchRequest?: SearchRequest<T>;
     generationId?: string | null;
+    searchTitle?: string;
 }
 export const getAlgorithmGuideListAPI = async ({
     pageRequest = { currentPage: 1, pageSize: 8 },
-    searchRequest,
+    searchTitle: title,
     generationId,
-}: AlgorithmGuideRequestParams<'title' | 'content'>): Promise<
+}: AlgorithmGuideRequestParams): Promise<
     PageResponse<AlgorithmGuideListResponse>
 > => {
     const { data } = await api.get(`/algorithm/guide`, {
-        params: { ...pageRequest, ...searchRequest, generationId },
+        params: { ...pageRequest, title, generationId },
     });
     return data;
 };
