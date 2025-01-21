@@ -1,62 +1,51 @@
 import { useState, useEffect, useRef } from 'react';
 import Calendar from '@toast-ui/react-calendar';
 
-interface ScheduleInstance {
-    setDate(date: Date): void;
-    getDate(): Date;
-    today(): Date;
-    getInstance(): Calendar;
-}
-
-interface ScheduleRef {
-    current: {
-        getInstance(): ScheduleInstance;
-    };
-}
-
-interface ScheduleDate {
-    year: number;
-    month: number;
-}
+type CalendarInstance = InstanceType<typeof Calendar>;
 
 export const useSchedule = () => {
-    const scheduleRef = useRef<ScheduleRef['current']>(null);
-    const [date, setDate] = useState<ScheduleDate>(() => {
-        const now = new Date();
-        return {
-            year: now.getFullYear(),
-            month: now.getMonth() + 1,
-        };
-    });
+    const calendarRef = useRef<CalendarInstance>(null);
+    const [date, setDate] = useState<Date>(new Date());
 
     // 현재 표시된 년,월
     useEffect(() => {
-        if (scheduleRef.current) {
-            scheduleRef.current
-                .getInstance()
-                .setDate(new Date(date.year, date.month - 1));
-        }
-    }, [date.year, date.month]);
+        calendarRef.current?.getInstance()?.setDate(date);
+    }, []);
 
     const decreaseDate = () => {
-        setDate((prev) => ({
-            ...prev,
-            month: prev.month === 1 ? 12 : prev.month - 1,
-            year: prev.month === 1 ? prev.year - 1 : prev.year,
-        }));
+        setDate((prev) => {
+            const prevMonth = prev.getMonth();
+            const prevYear = prev.getFullYear();
+
+            const newDate =
+                prevMonth === 0
+                    ? new Date(prevYear - 1, 11)
+                    : new Date(prevYear, prevMonth - 1);
+
+            calendarRef.current?.getInstance()?.setDate(newDate);
+            return newDate;
+        });
     };
 
     const increaseDate = () => {
-        setDate((prev) => ({
-            ...prev,
-            month: prev.month === 12 ? 1 : prev.month + 1,
-            year: prev.month === 12 ? prev.year + 1 : prev.year,
-        }));
+        setDate((prev) => {
+            const prevMonth = prev.getMonth();
+            const prevYear = prev.getFullYear();
+
+            const newDate =
+                prevMonth === 11
+                    ? new Date(prevYear + 1, 0)
+                    : new Date(prevYear, prevMonth + 1);
+
+            calendarRef.current?.getInstance()?.setDate(newDate);
+            return newDate;
+        });
     };
 
     return {
-        scheduleRef,
-        date,
+        calendarRef,
+        year: date.getFullYear(), // date에서 직접 계산
+        month: date.getMonth() + 1, // date에서 직접 계산
         decreaseDate,
         increaseDate,
         calendars: [
