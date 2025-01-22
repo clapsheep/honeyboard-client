@@ -9,6 +9,7 @@ import {
 } from '@/types/TrackProject';
 import { AvailableUserListResponse, TeamMemberListRequest } from '@/types/User';
 import { AxiosResponse } from 'axios';
+import { CreateResponse } from '@/types/common';
 
 // 1. 트랙 프로젝트 리스트 조회 TrackProjectListResponse
 export const getTrackProjectListAPI = async (req: {
@@ -27,10 +28,11 @@ export const createTrackProjectAPI = async (
 };
 
 // 2. 트랙 프로젝트 디테일 조회 TrackProjectDetailResponse
-export const getTrackProjectDetailAPI = async (req: {
-    trackProjectId: string;
-}): Promise<TrackProjectDetailResponse> => {
-    return api.get(`/project/track/${req.trackProjectId}`);
+export const getTrackProjectDetailAPI = async (
+    trackProjectId: string,
+): Promise<TrackProjectDetailResponse> => {
+    const { data } = await api.get(`/project/track/${trackProjectId}`);
+    return data;
 };
 // 2-1. 트랙 프로젝트 수정 -> 강사님만 가능 TrackProjectRequest
 export const updateTrackProjectAPI = async (req: {
@@ -40,10 +42,10 @@ export const updateTrackProjectAPI = async (req: {
     return api.put(`/project/track/${req.trackProjectId}`, req.data);
 };
 // 2-2. 트랙 프로젝트 삭제 -> 강사님만 가능
-export const deleteTrackProjectAPI = async (req: {
-    trackProjectId: string;
-}): Promise<unknown> => {
-    return api.delete(`/project/track/${req.trackProjectId}`);
+export const deleteTrackProjectAPI = async (
+    trackProjectId: string,
+): Promise<unknown> => {
+    return api.delete(`/project/track/${trackProjectId}`);
 };
 // 2-3. 트랙 프로젝트 팀 생성 -> TrackTeamRequest
 export const createTrackTeamAPI = async (req: {
@@ -56,12 +58,13 @@ export const createTrackTeamAPI = async (req: {
 export const createTrackProjectBoardAPI = async (req: {
     trackProjectId: string;
     trackTeamId: string;
-    data: TrackProjectBoardRequest;
-}): Promise<unknown> => {
-    return api.post(
+    board: TrackProjectBoardRequest;
+}): Promise<CreateResponse> => {
+    const { data } = await api.post<CreateResponse>(
         `/project/track/${req.trackProjectId}/team/${req.trackTeamId}/board`,
-        req.data,
+        req.board,
     );
+    return data;
 };
 
 // 3. 트랙 프로젝트 보드 조회 TrackProjectBoardDetailResponse
