@@ -19,7 +19,7 @@ const AlgorithmSolutionDetail = () => {
         requestParam: { problemId: problemId!, solutionId: solutionId! },
         getDetailAPI: getAlgorithmSolutionDetailAPI,
         deleteAPI: deleteAlgorithmSolutionAPI,
-        navigateAfterDelete: `/study/algorithm/problem/${problemId}/solution`,
+        navigateAfterDelete: `/study/algorithm/problem/${problemId}`,
     });
 
     console.log(data);
