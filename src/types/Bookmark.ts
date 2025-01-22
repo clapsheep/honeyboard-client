@@ -4,14 +4,20 @@ import { WebGuideListResponse } from './WebGuide';
 import { WebRecommendListResponse } from './WebRecommend';
 
 export interface BookmarkAPIRequestType {
-    id: string;
-    contentType: 'web_recommend' | 'web_guide' | 'algo_solution' | 'algo_guide';
+    contentType: ContentType;
     contentId: string;
 }
-
+export type ContentType =
+    | 'ALGO_GUIDE'
+    | 'ALGO_SOLUTION'
+    | 'WEB_GUIDE'
+    | 'WEB_RECOMMEND';
+export type BookmarkedResponse = {
+    bookmarked: boolean;
+};
 export type BookmarkContent = {
-    web_recommend: WebRecommendListResponse[];
-    web_guide: WebGuideListResponse[];
-    algo_solution: AlgorithmSolutionListResponse[];
-    algo_guide: AlgorithmGuideListResponse[];
+    WEB_RECOMMEND: WebRecommendListResponse[];
+    WEB_GUIDE: WebGuideListResponse[];
+    ALGO_SOLUTION: AlgorithmSolutionListResponse[];
+    ALGO_GUIDE: AlgorithmGuideListResponse[];
 };

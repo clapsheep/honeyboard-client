@@ -9,7 +9,7 @@ const WebGuideDetail = () => {
     const { pathname } = useLocation();
     const { guideId } = useParams();
     const { data, handleDelete, handleEdit, handleLike } = useContentDetail({
-        contentType: 'web_guide',
+        contentType: 'WEB_GUIDE',
         contentId: guideId!,
         requestParam: { guideId: guideId! },
         getDetailAPI: getWebGuideDetailAPI,
@@ -21,7 +21,11 @@ const WebGuideDetail = () => {
     return (
         <>
             <Header
-                titleProps={{ title: data.title, onClickLike: handleLike }}
+                titleProps={{
+                    title: data.title,
+                    bookmarked: data.bookmarked,
+                    onClickLike: handleLike,
+                }}
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-end">

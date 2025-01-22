@@ -2,12 +2,14 @@ interface CalendarTagProps {
     children: React.ReactNode;
     color?: 'blue' | 'orange' | 'red' | 'green' | 'regular';
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    readOnly?: boolean;
 }
 
 const CalendarTag = ({
     children,
     color = 'regular',
     onClick,
+    readOnly,
 }: CalendarTagProps) => {
     const COLOR_PROPS = {
         blue: 'text-blue-700 bg-blue-100',
@@ -20,7 +22,7 @@ const CalendarTag = ({
     return (
         <button
             onClick={onClick}
-            className={`rounded px-2 py-1 text-text-sm font-medium ${COLOR_PROPS[color]}`}
+            className={`rounded px-2 py-1 text-text-sm font-medium ${COLOR_PROPS[color]} ${readOnly ? 'cursor-default' : 'cursor-pointer'}`}
         >
             {children}
         </button>

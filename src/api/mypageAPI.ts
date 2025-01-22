@@ -1,7 +1,8 @@
-import { PageResponse } from '@/types/common';
+import { MyAlgorithmSolutionResponse } from '@/types/AlgorithmSolution';
+import { BookmarkContent, ContentType } from '@/types/Bookmark';
+import { MyFinaleProjectResponse } from '@/types/FinaleProject';
+import { MyTrackProjectResponse } from '@/types/TrackProject';
 import { api } from '@/utils/common/axiosInstance';
-import { TrackProjectBoard } from '@/types/project/track';
-import { AlgorithmSolution } from '@/types/study';
 
 export const getMyTrackAPI = async (
     userId: string | null,
@@ -32,9 +33,12 @@ export const getMyAlgorithmAPI = async (
     return response.data;
 };
 
-export const getMyBookmarkAPI = async (
-    userId: string,
-): Promise<PageResponse<unknown>> => {
-    const response = await api.get(`/user/${userId}/bookmark`);
+export const getMyBookmarkAPI = async <T extends ContentType>({
+    contentType,
+}: {
+    contentType: T;
+}): Promise<BookmarkContent[T]> => {
+    const response = await api.get(`/bookmark/${contentType}`);
+
     return response.data;
 };

@@ -10,6 +10,7 @@ import { ProjectCardSkeletonList } from '@/components/templates';
 import { useQuery } from '@tanstack/react-query';
 import { getTrackProjectListAPI } from '@/api/trackAPI';
 import { useLocation, useNavigate } from 'react-router';
+import convertDate from '@/utils/convertDate';
 
 const TrackProjectList = () => {
     const { userInfo } = useAuth();
@@ -30,7 +31,7 @@ const TrackProjectList = () => {
 
     // generationId가 변경될 때마다 데이터 조회
     useEffect(() => {
-        setProjectList(data?.data); // 데이터를 비동기적으로 업데이트
+        setProjectList(data); // 데이터를 비동기적으로 업데이트
     }, [generationId, data]); // generationId 또는 data가 변경될 때마다 실행
 
     const ROUTES = [
@@ -80,7 +81,7 @@ const TrackProjectList = () => {
                                 key={item.id}
                                 id={item.id}
                                 title={item.title}
-                                subTitle={item.createdAt}
+                                subTitle={convertDate(item.createdAt)}
                                 img={item.thumbnail}
                                 pathname={pathname}
                             />

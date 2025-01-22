@@ -2,7 +2,7 @@ import {
     getTrackProjectBoardDetailAPI,
     updateTrackProjectBoardAPI,
 } from '@/api/trackAPI';
-import TrackProjectForm from '@/components/templates/TrackProjectForm';
+import ProjectBoardForm from '@/components/templates/ProjectBoardForm';
 import { useProjectDetail } from '@/hooks/useProjectDetail';
 import useToastEditor from '@/hooks/useToastEditor';
 import { useModalStore } from '@/stores/modalStore';
@@ -44,7 +44,7 @@ const TrackProjectBoardUpdate = () => {
     );
 
     const { onSubmit, onCancel, editorRef } = useToastEditor({
-        editorId: 'trackProjectEditor',
+        editorId: 'trackProjectBoardEditor',
         initialContent: data?.content ?? '',
     });
 
@@ -105,7 +105,7 @@ const TrackProjectBoardUpdate = () => {
                 `/project/track/${trackProjectId}/team/${trackTeamId}/board/${id}`,
             );
         } catch (error) {
-            console.error('게시글 작성을 실패했습니다:', error);
+            console.error('게시글 수정을 실패했습니다:', error);
         }
     };
 
@@ -118,22 +118,24 @@ const TrackProjectBoardUpdate = () => {
     };
 
     const mode = 'edit' as const;
+    const project = 'track' as const;
     const props = {
         mode,
+        project,
         pathname,
         members,
         title,
-        url,
+        subTitle: url,
         handleCancel,
         handleSubmit,
         handleTitleChange,
-        handleUrlChange,
+        handleSubTitleChange: handleUrlChange,
         editorRef,
     };
 
     return (
         <>
-            <TrackProjectForm {...props} />
+            <ProjectBoardForm {...props} />
         </>
     );
 };
