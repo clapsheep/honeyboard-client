@@ -4,6 +4,7 @@ import {
 } from '@/api/trackAPI';
 import { Button, ButtonPDF, NameTag } from '@/components/atoms';
 import { Header } from '@/components/organisms';
+import TrackPDF from '@/components/templates/PDF/TrackPDF';
 import { useAuth } from '@/hooks/useAuth';
 import { useProjectBoardDetail } from '@/hooks/useProjectBoardDetail';
 import ToastViewerComponent from '@/layouts/ToastViewerComponent';
@@ -30,10 +31,6 @@ const TrackProjectBoardDetail = () => {
             navigateAfterDelete: `/project/track/${trackProjectId}`,
             navigateToEditTeam: `/project/track/${trackProjectId}/team/${trackTeamId}/edit`,
         });
-
-    const handleDownloadPDF = () => {
-        alert('PDF 다운로드');
-    };
 
     if (!data) return null;
 
@@ -76,7 +73,10 @@ const TrackProjectBoardDetail = () => {
             </Header>
             <div className="flex flex-col p-6">
                 <div className="flex w-full justify-end">
-                    <ButtonPDF onClick={handleDownloadPDF}></ButtonPDF>
+                    <ButtonPDF
+                        document={<TrackPDF data={data} />}
+                        fileName={`${data.title}.pdf`}
+                    />
                 </div>
                 <ToastViewerComponent
                     content={data.content}
