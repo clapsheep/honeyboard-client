@@ -9,6 +9,7 @@ import {
 } from '@/types/TrackProject';
 import { AvailableUserListResponse, TeamMemberListRequest } from '@/types/User';
 import { AxiosResponse } from 'axios';
+import { CreateResponse } from '@/types/common';
 
 // 1. 트랙 프로젝트 리스트 조회 TrackProjectListResponse
 export const getTrackProjectListAPI = async (req: {
@@ -57,12 +58,13 @@ export const createTrackTeamAPI = async (req: {
 export const createTrackProjectBoardAPI = async (req: {
     trackProjectId: string;
     trackTeamId: string;
-    data: TrackProjectBoardRequest;
-}): Promise<unknown> => {
-    return api.post(
+    board: TrackProjectBoardRequest;
+}): Promise<CreateResponse> => {
+    const { data } = await api.post<CreateResponse>(
         `/project/track/${req.trackProjectId}/team/${req.trackTeamId}/board`,
-        req.data,
+        req.board,
     );
+    return data;
 };
 
 // 3. 트랙 프로젝트 보드 조회 TrackProjectBoardDetailResponse
