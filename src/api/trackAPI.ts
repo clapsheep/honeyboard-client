@@ -41,10 +41,10 @@ export const updateTrackProjectAPI = async (req: {
     return api.put(`/project/track/${req.trackProjectId}`, req.data);
 };
 // 2-2. 트랙 프로젝트 삭제 -> 강사님만 가능
-export const deleteTrackProjectAPI = async (req: {
-    trackProjectId: string;
-}): Promise<unknown> => {
-    return api.delete(`/project/track/${req.trackProjectId}`);
+export const deleteTrackProjectAPI = async (
+    trackProjectId: string,
+): Promise<unknown> => {
+    return api.delete(`/project/track/${trackProjectId}`);
 };
 // 2-3. 트랙 프로젝트 팀 생성 -> TrackTeamRequest
 export const createTrackTeamAPI = async (req: {
