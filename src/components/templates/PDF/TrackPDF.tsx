@@ -1,8 +1,8 @@
 import NotoSansKRRegular from '/assets/fonts/NotoSansKR-Regular.ttf';
 import NotoSansKRBold from '/assets/fonts/NotoSansKR-Bold.ttf';
-import ToastViewerComponent from '@/layouts/ToastViewerComponent';
 import { TrackProjectBoardDetailResponse } from '@/types/TrackProject';
 import convertDate from '@/utils/convertDate';
+import { marked } from 'marked';
 
 import {
     Document,
@@ -11,6 +11,7 @@ import {
     View,
     StyleSheet,
     Font,
+    Image,
 } from '@react-pdf/renderer';
 
 Font.register({
@@ -50,14 +51,16 @@ const styles = StyleSheet.create({
     label: {
         fontFamily: 'NotoSansKR',
         width: 80,
+        fontSize: 12,
         fontWeight: 'bold',
     },
     value: {
         fontFamily: 'NotoSansKR',
         flex: 1,
+        fontSize: 12,
     },
     contentSection: {
-        marginTop: 20,
+        marginTop: 12,
         fontFamily: 'NotoSansKR',
     },
     contentTitle: {
@@ -92,7 +95,7 @@ const TrackPDF = ({ data }: TrackPDFProps) => {
     const teamMembers = data.members.filter(
         (member) => member.role !== 'LEADER',
     );
-
+    console.log(data.content);
     return (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -134,12 +137,9 @@ const TrackPDF = ({ data }: TrackPDFProps) => {
 
                 <View style={styles.contentSection}>
                     <Text style={styles.contentTitle}>프로젝트 내용</Text>
-                    <Text style={styles.content}>
-                        {/* <ToastViewerComponent
-                            content={data.content}
-                            viewerId="trackViewer"
-                        /> */}
-                    </Text>
+                    <View style={styles.content}>
+                        {parseMarkdownWithMarked(data.content)}
+                    </View>
                 </View>
             </Page>
         </Document>
@@ -147,3 +147,114 @@ const TrackPDF = ({ data }: TrackPDFProps) => {
 };
 
 export default TrackPDF;
+
+const parseMarkdownWithMarked = (content: string) => {
+    const tokens = marked.lexer(content);
+
+    return tokens.map((token, index) => {
+        switch (token.type) {
+            case 'heading':
+                return (
+                    <Text
+                        key={index}
+                        style={{
+                            fontSize: 24 - token.depth * 2,
+                            fontWeight: 'bold',
+                            marginVertical: 10,
+                        }}
+                    >
+                        {token.text}
+                    </Text>
+                );
+
+            case 'paragraph':
+                return (
+                    <Text
+                        key={index}
+                        style={{
+                            marginVertical: 5,
+                            lineHeight: 1.5,
+                        }}
+                    >
+                        {token.text}
+                    </Text>
+                );
+
+            case 'list':
+                return (
+                    <View
+                        key={index}
+                        style={{ marginLeft: 10, marginVertical: 5 }}
+                    >
+                        {token.items.map((item: any, itemIndex: number) => (
+                            <Text key={itemIndex} style={{ marginVertical: 2 }}>
+                                • {item.text}
+                            </Text>
+                        ))}
+                    </View>
+                );
+
+            case 'code':
+                return (
+                    <View
+                        key={index}
+                        style={{
+                            backgroundColor: '#f5f5f5',
+                            padding: 10,
+                            marginVertical: 5,
+                        }}
+                    >
+                        <Text style={{ fontFamily: 'NotoSansKR' }}>
+                            {token.text}
+                        </Text>
+                    </View>
+                );
+
+            case 'image':
+                try {
+                    return (
+                        <View key={index} style={{ marginVertical: 10 }}>
+                            <Image
+                                src={token.href}
+                                style={{
+                                    width: 'auto',
+                                    maxWidth: '100%',
+                                    maxHeight: 300,
+                                    objectFit: 'contain',
+                                }}
+                            />
+                            {token.title && (
+                                <Text
+                                    style={{
+                                        textAlign: 'center',
+                                        fontSize: 10,
+                                        marginTop: 5,
+                                        color: '#666',
+                                    }}
+                                >
+                                    {token.title}
+                                </Text>
+                            )}
+                        </View>
+                    );
+                } catch (error) {
+                    // 이미지 로드 실패 시 대체 텍스트 표시
+                    return (
+                        <Text
+                            key={index}
+                            style={{
+                                marginVertical: 5,
+                                color: '#666',
+                                fontStyle: 'NotoSansKR',
+                            }}
+                        >
+                            [이미지를 불러올 수 없습니다: {token.text}]
+                        </Text>
+                    );
+                }
+
+            default:
+                return null;
+        }
+    });
+};
