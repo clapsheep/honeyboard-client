@@ -40,7 +40,7 @@ export type AlgorithmSolutionDetailResponse = Pick<
     | 'createdAt'
 > & {
     authorId: AlgorithmSolution['userId'];
-    authorName: string;
+    name: string;
     languageName: string;
 } & BookmarkedResponse;
 
