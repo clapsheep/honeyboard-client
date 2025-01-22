@@ -7,7 +7,6 @@ import useAlgorithmTag from '@/hooks/useAlgorithmTag';
 import { useAuth } from '@/hooks/useAuth';
 import { useModalStore } from '@/stores/modalStore';
 import { AlgorithmProblemDetailResponse } from '@/types/AlgorithmProblem';
-import { TagResponse } from '@/types/Tag';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
@@ -18,7 +17,6 @@ const AlgorithmProblemUpdate = () => {
 
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
-    const [tags, setTags] = useState<TagResponse[]>([]);
     const [data, setData] = useState<AlgorithmProblemDetailResponse>();
     const { openModal, closeModal } = useModalStore();
 
@@ -35,7 +33,6 @@ const AlgorithmProblemUpdate = () => {
                 setData(response);
                 setTitle(response.title || '');
                 setUrl(response.url || '');
-                setTags(response.tags);
             } catch (error) {
                 console.error('알고리즘 문제 조회에 실패했습니다.', error);
             }
@@ -59,7 +56,18 @@ const AlgorithmProblemUpdate = () => {
     });
 
     const handleCancel = () => {
-        navigate(-1);
+        openModal({
+            icon: 'warning',
+            title: '수정 취소',
+            subTitle: '정말 취소하시겠습니까?',
+            onConfirmClick: () => {
+                navigate(-1);
+                closeModal();
+            },
+            onCancelClick: () => {
+                closeModal();
+            },
+        });
     };
 
     const handleSubmit = async () => {
@@ -118,7 +126,7 @@ const AlgorithmProblemUpdate = () => {
         onKeyDown,
         onDelete,
         value,
-        algoSearch: tags,
+        algoSearch,
         searchResult,
     };
 

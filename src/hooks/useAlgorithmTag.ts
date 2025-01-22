@@ -1,7 +1,7 @@
 import { getAlgorithmTagsAPI } from '@/api/AlgorithmTagAPI';
 import { TagResponse } from '@/types/Tag';
 import debounce from '@/utils/debounce';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface useAlgorithmTagProps {
     initialAlgoSearch: TagResponse[];
@@ -12,6 +12,12 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
     const [algoSearch, setAlgoSearch] =
         useState<TagResponse[]>(initialAlgoSearch);
     const [searchResult, setSearchResult] = useState<TagResponse[]>([]);
+
+    useEffect(() => {
+        if (initialAlgoSearch?.length > 0) {
+            setAlgoSearch(initialAlgoSearch);
+        }
+    }, [initialAlgoSearch]);
 
     // 알고리즘 태그 검색
     const debouncedSearch = debounce(async (searchValue: string) => {
@@ -53,10 +59,10 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
                         ...prev,
                         { id: selectTag.id, name: selectTag.name },
                     ]);
-                    setValue('');
-                    setSearchResult([]);
                 }
             }
+            setValue('');
+            setSearchResult([]);
         }
     };
 
@@ -79,18 +85,18 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
                             { id: '0', name: newTag },
                         ]);
                     }
-
-                    setValue('');
-                    setSearchResult([]);
                 } catch (error) {
                     console.error('새 태그 생성을 실패했습니다.', error);
                 }
             }
+            setValue('');
+            setSearchResult([]);
         }
     };
 
     const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const selectTag = e.currentTarget.textContent;
+        const selectTag = e.currentTarget.dataset.name;
+
         if (selectTag) {
             setAlgoSearch((prev) =>
                 prev.filter((tag) => tag.name !== selectTag),
