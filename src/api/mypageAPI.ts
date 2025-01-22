@@ -4,22 +4,31 @@ import { TrackProjectBoard } from '@/types/project/track';
 import { AlgorithmSolution } from '@/types/study';
 
 export const getMyTrackAPI = async (
-    userId: string,
+    userId: string | null,
 ): Promise<TrackProjectBoard[]> => {
-    const response = await api.get(`/user/${userId}/trackproject`);
+    const response = await api.get('/user/trackProject', {
+        params: { userId },
+    });
+
     return response.data;
 };
 export const getMyFinalAPI = async (
-    userId: string,
+    userId: string | null,
 ): Promise<PageResponse<unknown>> => {
-    const response = await api.get(`/user/${userId}/finalproject`);
+    const response = await api.get('/user/finaleproject', {
+        params: { userId },
+    });
+    console.log(userId);
+
     return response.data;
 };
 
 export const getMyAlgorithmAPI = async (
     userId: string,
 ): Promise<AlgorithmSolution[]> => {
-    const response = await api.get(`/user/${userId}/algorithm`);
+    const response = await api.get(`/user/algorithm`, {
+        params: { userId },
+    });
     return response.data;
 };
 

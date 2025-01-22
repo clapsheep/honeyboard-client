@@ -21,6 +21,8 @@ const TrackProjectDetail = () => {
         requestParam: trackProjectId ? { trackProjectId } : undefined,
     });
 
+    console.log(data);
+
     if (!data) {
         navigate(-1);
         return;
@@ -77,7 +79,9 @@ const TrackProjectDetail = () => {
                 onClick={onClick}
             />
             <Suspense fallback={<ProjectCardSkeletonList />}>
-                <TrackProjectCards boards={data?.boards}></TrackProjectCards>
+                <TrackProjectCards
+                    boards={data?.trackProjectBoardList}
+                ></TrackProjectCards>
             </Suspense>
         </>
     );

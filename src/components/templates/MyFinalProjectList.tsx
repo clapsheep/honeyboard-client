@@ -1,14 +1,15 @@
 import useMyPage from '@/hooks/useMyPage';
 
 import { ProjectCard } from '@/components/organisms';
-import { getMyTrackAPI } from '@/api/mypageAPI';
+import { getMyFinalAPI } from '@/api/mypageAPI';
 
-const MyTrackProjectList = () => {
+const MyFinalProjectList = () => {
     const { data } = useMyPage({
-        queryFn: getMyTrackAPI,
-        queryKey: 'myTrackProject',
+        queryFn: getMyFinalAPI,
+        queryKey: 'myFinalProject',
     });
 
+    console.log(data);
     return (
         <div className="flex flex-col items-center gap-6 p-6">
             {data?.length ? (
@@ -37,4 +38,4 @@ const MyTrackProjectList = () => {
     );
 };
 
-export default MyTrackProjectList;
+export default MyFinalProjectList;
