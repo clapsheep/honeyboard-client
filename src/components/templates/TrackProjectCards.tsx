@@ -54,6 +54,7 @@ const TrackProjectCards = ({
                                         title={board.title}
                                         subTitle={board.createdAt}
                                         id={board.id}
+                                        img={board.thumbnail}
                                         teams={board.members}
                                         pathname={`/project/track/${trackId}/team/${foundTeam?.id}/board`}
                                     />
