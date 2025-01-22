@@ -29,7 +29,18 @@ const AlgorithmProblemCreate = () => {
     });
 
     const handleCancel = () => {
-        navigate(-1);
+        openModal({
+            icon: 'warning',
+            title: '작성 취소',
+            subTitle: '정말 취소하시겠습니까?',
+            onConfirmClick: () => {
+                navigate(-1);
+                closeModal();
+            },
+            onCancelClick: () => {
+                closeModal();
+            },
+        });
     };
 
     const handleSubmit = async () => {
