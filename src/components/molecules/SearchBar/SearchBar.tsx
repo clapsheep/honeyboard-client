@@ -12,6 +12,7 @@ interface SearchBarProps {
     onClickResult?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onClickSearch?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const SearchBar = ({
@@ -23,6 +24,7 @@ const SearchBar = ({
     onClickResult,
     onClickSearch,
     onChange,
+    onKeyDown,
 }: SearchBarProps) => {
     return (
         <section className="flex flex-col bg-gray-25">
@@ -37,8 +39,9 @@ const SearchBar = ({
                         id={id}
                         value={inputValue}
                         placeholder={placeholder}
-                        className="bg-transparent px-0 py-2 focus:outline-none"
+                        className="w-full bg-transparent px-0 py-2 focus:outline-none"
                         onChange={onChange}
+                        onKeyDown={onKeyDown}
                     />
                 </section>
                 {onClickSearch ? (

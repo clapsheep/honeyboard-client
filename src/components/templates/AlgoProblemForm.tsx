@@ -3,7 +3,7 @@ import { InputForm } from '../molecules';
 import { Header } from '../organisms';
 import SearchTeamMember from '../organisms/SearchTeamMember/SearchTeamMember';
 import React from 'react';
-import { TagRequest, TagResponse } from '@/types/Tag';
+import { TagResponse } from '@/types/Tag';
 
 interface AlgoProblemFormProps {
     mode: 'create' | 'edit';
@@ -19,7 +19,7 @@ interface AlgoProblemFormProps {
     onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     onDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
     value: string;
-    algoSearch: TagRequest[];
+    algoSearch: TagResponse[];
     searchResult: TagResponse[];
 }
 
