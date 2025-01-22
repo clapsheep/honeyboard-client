@@ -22,8 +22,7 @@ const TrackProjectDetail = () => {
     });
 
     if (!data) {
-        navigate(-1);
-        return;
+        return null;
     }
 
     const onClick = (teamId: string) => {
@@ -81,11 +80,10 @@ const TrackProjectDetail = () => {
                     />
                 </section>
             </section>
-            
+
             <Suspense fallback={<ProjectCardSkeletonList />}>
-                    <TrackProjectCards boards={data?.boards}></TrackProjectCards>
+                <TrackProjectCards boards={data?.boards}></TrackProjectCards>
             </Suspense>
-            
         </>
     );
 };
