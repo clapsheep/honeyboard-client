@@ -1,5 +1,5 @@
 import { getAlgorithmTagsAPI } from '@/api/AlgorithmTagAPI';
-import { TagRequest, TagResponse } from '@/types/Tag';
+import { TagResponse } from '@/types/Tag';
 import debounce from '@/utils/debounce';
 import { useState } from 'react';
 
@@ -10,19 +10,14 @@ interface useAlgorithmTagProps {
 const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
     const [value, setValue] = useState('');
     const [algoSearch, setAlgoSearch] =
-        useState<TagRequest[]>(initialAlgoSearch);
+        useState<TagResponse[]>(initialAlgoSearch);
     const [searchResult, setSearchResult] = useState<TagResponse[]>([]);
 
     // 알고리즘 태그 검색
-    const onAlgorithmChange = async (
-        e: React.ChangeEvent<HTMLInputElement>,
-    ) => {
-        const searchValue = e.target.value;
-        setValue(searchValue);
-
+    const debouncedSearch = debounce(async (searchValue: string) => {
         try {
-            if (searchValue.trim()) {
-                const data = await getAlgorithmTagsAPI({ searchValue });
+            if (searchValue.trim().length > 0) {
+                const data = await getAlgorithmTagsAPI(searchValue);
                 setSearchResult(data);
             } else {
                 setSearchResult([]);
@@ -31,10 +26,16 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
             console.error('알고리즘 태그 검색을 실패했습니다.', error);
             setSearchResult([]);
         }
+    }, 300);
+
+    const onAlgorithmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const searchValue = e.target.value;
+        setValue(searchValue);
+        debouncedSearch(searchValue);
     };
 
     // 알고리즘 태그 검색 결과 선택
-    const onClickResult = debounce((e: React.MouseEvent<HTMLButtonElement>) => {
+    const onClickResult = (e: React.MouseEvent<HTMLButtonElement>) => {
         const searchTag = e.currentTarget.textContent;
 
         if (searchTag) {
@@ -50,14 +51,14 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
                 if (!isDuplicate) {
                     setAlgoSearch((prev) => [
                         ...prev,
-                        { name: selectTag.name },
+                        { id: selectTag.id, name: selectTag.name },
                     ]);
                     setValue('');
                     setSearchResult([]);
                 }
             }
         }
-    }, 300);
+    };
 
     // 엔터키로 알고리즘 태그 추가
     const onKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -73,7 +74,10 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
                     const newTag = value.trim();
 
                     if (newTag) {
-                        setAlgoSearch((prev) => [...prev, { name: newTag }]);
+                        setAlgoSearch((prev) => [
+                            ...prev,
+                            { id: '0', name: newTag },
+                        ]);
                     }
 
                     setValue('');
