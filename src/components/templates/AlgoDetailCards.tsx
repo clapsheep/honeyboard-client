@@ -147,7 +147,7 @@ const AlgoDetailCards = ({ problemId }: AlgoDetailCardsProps) => {
                                 )
                             }
                             onClick={(e) =>
-                                handlePageChange(Number(e.currentTarget.value))
+                                handlePageChange(Number(e.currentTarget.textContent))
                             }
                         />
                     </>
