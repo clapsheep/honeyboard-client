@@ -8,7 +8,6 @@ import {
     FinaleProjectTeamUpdate,
     FinaleProjectUpdate,
 } from '@/types/FinaleProject';
-import { data } from 'react-router';
 
 // 1. 파이널 프로젝트 리스트 조회 FinaleProjectListResponse
 export const getFinaleProjectListAPI = async (req: {
@@ -73,7 +72,7 @@ export const getFinaleProjectBoardDetailAPI = async (req: {
     finalProjectId: string;
     boardId: string;
 }): Promise<FinaleProjectBoardDetailResponse> => {
-    const {data} = await api.get(
+    const { data } = await api.get(
         `/project/finale/${req.finalProjectId}/board/${req.boardId}`,
     );
     return data;
