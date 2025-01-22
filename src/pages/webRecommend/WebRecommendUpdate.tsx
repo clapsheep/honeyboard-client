@@ -14,7 +14,7 @@ import { useContentDetail } from '@/hooks/useContentDetail';
 const WebRecommendUpdate = () => {
     const { pathname } = useLocation();
     const { recommendId } = useParams();
-    const { openModal } = useModalStore();
+    const { openModal, closeModal } = useModalStore();
     const navigate = useNavigate();
 
     const { data } = useContentDetail({
@@ -57,7 +57,7 @@ const WebRecommendUpdate = () => {
             openModal({
                 title: '제목을 입력해주세요.',
                 onCancelClick: () => {
-                    navigate(-1);
+                    closeModal();
                 },
             });
             return;
@@ -67,7 +67,7 @@ const WebRecommendUpdate = () => {
             openModal({
                 title: 'URL을 입력해주세요.',
                 onCancelClick: () => {
-                    navigate(-1);
+                    closeModal();
                 },
             });
             return;
@@ -104,15 +104,14 @@ const WebRecommendUpdate = () => {
                 openModal({
                     title: '이미 등록된 URL입니다.',
                     onCancelClick: () => {
-                        navigate(-1);
-                        return;
+                        closeModal();
                     },
                 });
             } else {
                 openModal({
                     title: '게시글 작성을 실패했습니다.',
                     onCancelClick: () => {
-                        navigate(-1);
+                        closeModal();
                     },
                 });
             }
