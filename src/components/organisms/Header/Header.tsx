@@ -10,7 +10,7 @@ interface HeaderProps {
 
 const Header = ({ titleProps, children, BreadcrumbProps }: HeaderProps) => {
     return (
-        <header className="flex min-h-[148px] w-full flex-col bg-white px-9 pt-6 shadow-md">
+        <header className="flex flex-col w-full pt-6 pb-1 bg-white shadow-md px-9">
             {BreadcrumbProps && (
                 <div className="pb-3">
                     <Breadcrumb {...BreadcrumbProps} />
