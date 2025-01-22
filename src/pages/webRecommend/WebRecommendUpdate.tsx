@@ -73,6 +73,16 @@ const WebRecommendUpdate = () => {
             return;
         }
 
+        if(!recommendId) {
+            openModal({
+                title: '게시글을 불러오지 못했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
+            return;
+        }
+
         if (!userId || !generationId) {
             openModal({
                 title: '로그인 후 이용해주세요.',
@@ -86,9 +96,6 @@ const WebRecommendUpdate = () => {
         try {
             const { content } = await onSubmit();
 
-            if (!recommendId) {
-                throw new Error('recommendId is required');
-            }
             await updateWebRecommendAPI({
                 recommendId: recommendId,
                 data: {
