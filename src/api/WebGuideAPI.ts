@@ -1,5 +1,5 @@
 import { api } from '@/utils/common/axiosInstance';
-import { PageRequest, PageResponse } from '@/types/common';
+import { CreateResponse, PageRequest, PageResponse } from '@/types/common';
 import {
     WebGuideDetailResponse,
     WebGuideListResponse,
@@ -41,7 +41,7 @@ export const createWebGuideAPI = async (req: {
 export const updateWebGuideAPI = async (req: {
     guideId: string;
     data: WebGuideRequest;
-}): Promise<unknown> => {
+}): Promise<CreateResponse> => {
     return api.put(`/web/guide/${req.guideId}`, req.data);
 };
 export const deleteWebGuideAPI = async (req: {
