@@ -30,7 +30,8 @@ export const createFinaleProjectAPI = async (req: {
 export const getFinaleProjectDetailAPI = async (req: {
     finaleProjectId: string;
 }): Promise<FinaleProjectDetailResponse> => {
-    return api.get(`/project/finale/${req.finaleProjectId}`);
+    const { data } = await api.get(`/project/finale/${req.finaleProjectId}`);
+    return data;
 };
 
 // 2-1. 파이널 프로젝트 팀 수정 -> 팀원만 가능 FinaleProjectTeamUpdate
