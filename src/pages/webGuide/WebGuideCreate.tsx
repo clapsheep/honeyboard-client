@@ -22,6 +22,7 @@ const WebGuideCreate = () => {
             openModal({
                 title: '페이지 접근 권한이 없습니다.',
                 onCancelClick: () => {
+                    closeModal();
                     navigate(-1);
                 },
             });

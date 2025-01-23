@@ -22,13 +22,13 @@ const WebGuideUpdate = () => {
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
-    const userRole = userInfo?.role;
 
     useEffect(() => {
-        if (userRole !== 'ADMIN') {
+        if (userId !== data?.authorId) {
             openModal({
                 title: '페이지 접근 권한이 없습니다.',
                 onCancelClick: () => {
+                    closeModal();
                     navigate(-1);
                 },
             });

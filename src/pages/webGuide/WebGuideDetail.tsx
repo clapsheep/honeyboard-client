@@ -11,6 +11,7 @@ const WebGuideDetail = () => {
     const { guideId } = useParams();
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
+    const userRole = userInfo?.role;
 
     const { data, handleDelete, handleEdit, handleLike } = useContentDetail({
         contentType: 'WEB_GUIDE',
@@ -33,14 +34,17 @@ const WebGuideDetail = () => {
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-end">
-                    {userId === data.authorId && (
-                        <div className="flex gap-4">
+                    <div className="flex gap-4">
+                        {userRole === 'ADMIN' && (
                             <Button color="red" onClick={handleDelete}>
                                 글 삭제
                             </Button>
+                        )}
+
+                        {userId === data.authorId && (
                             <Button onClick={handleEdit}>글 수정</Button>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             </Header>
 
