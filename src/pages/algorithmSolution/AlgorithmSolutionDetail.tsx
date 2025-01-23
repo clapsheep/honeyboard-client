@@ -19,7 +19,7 @@ const AlgorithmSolutionDetail = () => {
         requestParam: { problemId: problemId!, solutionId: solutionId! },
         getDetailAPI: getAlgorithmSolutionDetailAPI,
         deleteAPI: deleteAlgorithmSolutionAPI,
-        navigateAfterDelete: `/study/algorithm/problem/${problemId}/solution`,
+        navigateAfterDelete: `/study/algorithm/problem/${problemId}`,
     });
 
     console.log(data);
@@ -31,7 +31,7 @@ const AlgorithmSolutionDetail = () => {
                 titleProps={{
                     title: data.title,
                     description: { '풀이 설명': data.summary },
-                    author: data.authorName,
+                    author: data.name,
                     bookmarked: data.bookmarked,
                     onClickLike: handleLike,
                 }}

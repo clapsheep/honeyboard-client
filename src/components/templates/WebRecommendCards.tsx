@@ -80,7 +80,7 @@ const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
                             )
                         }
                         onClick={(e) =>
-                            handlePageChange(Number(e.currentTarget.value))
+                            handlePageChange(Number(e.currentTarget.textContent))
                         }
                     />
                 </>
