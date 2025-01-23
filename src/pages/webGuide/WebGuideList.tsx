@@ -12,13 +12,16 @@ import { Suspense, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 const WebGuideList = () => {
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
     const { userInfo } = useAuth();
     const { generationList } = useGenerationStore();
-    const navigate = useNavigate();
+
     const [generationId, setGenerationId] = useState<string | null>(
         userInfo!.generationId,
     );
-    const { pathname } = useLocation();
+    const userRole = userInfo?.role;
+
     const ROUTES = [
         {
             path: 'study/web/concept',
@@ -42,13 +45,15 @@ const WebGuideList = () => {
                     <TabNavigation routes={ROUTES} />
 
                     <div className="flex gap-4">
-                        <Button
-                            onClick={() => {
-                                navigate('create');
-                            }}
-                        >
-                            글작성
-                        </Button>
+                        {userRole === 'ADMIN' && (
+                            <Button
+                                onClick={() => {
+                                    navigate('create');
+                                }}
+                            >
+                                글작성
+                            </Button>
+                        )}
                         <SelectOption
                             id="generation"
                             name="generation"
