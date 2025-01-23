@@ -123,7 +123,7 @@ const TrackProjectDetail = () => {
                 <TrackProjectCards
                     trackId={data.id}
                     teams={data.teams}
-                    boards={data?.trackProjectBoardList}
+                    boards={data?.boards}
                 ></TrackProjectCards>
             </Suspense>
         </>
