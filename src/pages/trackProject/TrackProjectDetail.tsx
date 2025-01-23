@@ -65,8 +65,10 @@ const TrackProjectDetail = () => {
         navigate(`team/${teamId}/board`);
     };
 
-    const onClick = (teamId: string) => {
-        navigate(`/team/${teamId}/board`);
+    const onClick = (teamId: string, boardId: string) => {
+        navigate(
+            `/project/track/${trackProjectId}/team/${teamId}/board/${boardId}`,
+        );
     };
 
     return (
