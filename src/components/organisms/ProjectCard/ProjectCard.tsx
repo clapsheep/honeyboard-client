@@ -1,4 +1,5 @@
 import { User } from '@/types/User';
+import convertDate from '@/utils/convertDate';
 import { Link } from 'react-router';
 
 interface ProjectCardProps {
@@ -43,11 +44,11 @@ const ProjectCard = ({
                 </p>
                 {teams ? (
                     <p className="w-full truncate text-text-xs font-medium text-gray-500 hover:text-gray-700">
-                        {subTitle}
+                        {convertDate(subTitle)}
                     </p>
                 ) : (
                     <p className="text-text-xs font-medium text-gray-500">
-                        {subTitle}
+                        {convertDate(subTitle)}
                     </p>
                 )}
             </div>
