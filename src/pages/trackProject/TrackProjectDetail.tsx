@@ -25,14 +25,10 @@ const TrackProjectDetail = () => {
         requestParam: trackProjectId ? trackProjectId : undefined,
     });
 
-<<<<<<< HEAD
-    console.log(data);
-=======
     const teams = data?.teams;
     const userTeam = teams?.find((team) =>
         team.members.some((member) => member.name === userName),
     );
->>>>>>> 78fa130a9c7095af252d8fedbac268bca424a456
 
     if (!data) {
         return null;

@@ -8,18 +8,19 @@ const MyTrackProjectList = () => {
         queryFn: getMyTrackAPI,
         queryKey: 'myTrackProject',
     });
+    console.log(data);
 
     return (
         <div className="flex flex-col items-center gap-6 p-6">
             {data?.length ? (
                 <>
-                    <ul className="grid min-w-[1400px] grid-cols-4 gap-6">
+                    <ul className="ml-40 grid min-w-[1400px] grid-cols-4 gap-6">
                         {data.map((item) => (
-                            <li key={item.projectId}>
+                            <li key={item.id}>
                                 <ProjectCard
-                                    title={item.title}
-                                    subTitle={item.updatedAt}
-                                    id={item.projectId}
+                                    title={item.trackProjectName}
+                                    subTitle={item.title}
+                                    id={item.id}
                                     img={item.thumbnail}
                                 />
                             </li>

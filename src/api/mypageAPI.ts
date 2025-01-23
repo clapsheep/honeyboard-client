@@ -27,7 +27,7 @@ export const getMyFinalAPI = async (
 export const getMyAlgorithmAPI = async (
     userId: string,
 ): Promise<AlgorithmSolution[]> => {
-    const response = await api.get(`/user/algorithm`, {
+    const response = await api.get('/user/algorithm', {
         params: { userId },
     });
     return response.data;
