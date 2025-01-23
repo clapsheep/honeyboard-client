@@ -18,7 +18,7 @@ const AlgorithmProblemDetail = () => {
     const { problemId } = useParams();
     const navigate = useNavigate();
     const { data, handleDelete, handleEdit } = useContentDetail({
-        contentType: 'algo_solution',
+        contentType: 'ALGO_SOLUTION',
         contentId: problemId!,
         requestParam: { problemId: problemId! },
         getDetailAPI: getAlgorithmProblemDetailAPI,
@@ -43,6 +43,7 @@ const AlgorithmProblemDetail = () => {
                 titleProps={{
                     title: data.title,
                     description: { 문제링크: data.url },
+                    isLink: true,
                 }}
                 BreadcrumbProps={{ pathname }}
             >
