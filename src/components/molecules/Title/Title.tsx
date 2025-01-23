@@ -6,7 +6,8 @@ export interface TitleProps {
     author?: string;
     subTitle?: Record<string, string>;
     description?: Record<string, string>;
-    isLiked?: boolean;
+    bookmarked?: boolean;
+    isLink?: boolean;
 }
 
 const Title = ({
@@ -14,7 +15,8 @@ const Title = ({
     author,
     subTitle,
     description,
-    isLiked = false,
+    bookmarked = false,
+    isLink = false,
     onClickLike,
 }: TitleProps) => {
     const subTitleEntries = Object.entries(subTitle || {});
@@ -31,7 +33,10 @@ const Title = ({
                 </h2>
                 {onClickLike && (
                     <button onClick={onClickLike} className="px-1">
-                        <Icon id={isLiked ? 'star' : 'star-empty'} size={28} />
+                        <Icon
+                            id={bookmarked ? 'star' : 'star-empty'}
+                            size={28}
+                        />
                     </button>
                 )}
             </div>
@@ -72,9 +77,18 @@ const Title = ({
                             <span className="text-md whitespace-nowrap font-semibold text-gray-900">
                                 {key}
                             </span>
-                            <p className="text-md break-words font-medium text-gray-900">
+                            {isLink? <a
+                                href={
+                                    value.startsWith('http') ? value : `https://${value}`
+                                }
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block truncate text-md font-medium text-blue-600"
+                            >
                                 {value}
-                            </p>
+                            </a> :<p className="text-md break-words font-medium text-gray-900">
+                                {value}
+                            </p>}
                         </div>
                     ))}
                 </div>

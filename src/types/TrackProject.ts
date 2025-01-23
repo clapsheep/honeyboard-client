@@ -59,7 +59,7 @@ export type TrackProjectDetailResponse = Pick<
         submitted: boolean;
         projectBoardId: string | null;
     }[];
-    boards: (Pick<
+    trackProjectBoardList: (Pick<
         TrackProjectBoard,
         'id' | 'title' | 'createdAt' | 'thumbnail'
     > & {
@@ -75,6 +75,15 @@ export type TrackProjectBoardDetailResponse = Pick<
     members: Pick<TrackTeamMember, 'id' | 'name' | 'role'>[];
 };
 
+// 나의 트랙프로젝트 조회 응답 타입
+export type MyTrackProjectResponse = Pick<
+    TrackProject,
+    'id' | 'title' | 'thumbnail'
+> & {
+    trackTeam: Pick<TrackTeamMember, 'id' | 'name' | 'role'>[];
+    trackProjectName: string;
+};
+
 // [REQUEST]
 // 트랙프로젝트 생성, 수정 요청 타입
 export type TrackProjectRequest = Pick<
@@ -84,7 +93,7 @@ export type TrackProjectRequest = Pick<
 
 export type TrackProjectResponse = {
     id: number;
-}
+};
 
 // 트랙프로젝트 보드 생성, 수정 요청 타입
 export type TrackProjectBoardRequest = Pick<

@@ -1,4 +1,4 @@
-import { createAlgorithmProblemAPI } from '@/api/algorithmProblemAPI';
+import { createAlgorithmProblemAPI } from '@/api/AlgorithmProblemAPI';
 import AlgoProblemForm from '@/components/templates/AlgoProblemForm';
 import useAlgorithmTag from '@/hooks/useAlgorithmTag';
 import { useAuth } from '@/hooks/useAuth';
@@ -29,7 +29,18 @@ const AlgorithmProblemCreate = () => {
     });
 
     const handleCancel = () => {
-        navigate(-1);
+        openModal({
+            icon: 'warning',
+            title: '작성 취소',
+            subTitle: '정말 취소하시겠습니까?',
+            onConfirmClick: () => {
+                navigate(-1);
+                closeModal();
+            },
+            onCancelClick: () => {
+                closeModal();
+            },
+        });
     };
 
     const handleSubmit = async () => {

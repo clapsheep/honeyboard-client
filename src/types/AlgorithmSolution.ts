@@ -23,6 +23,10 @@ export type AlgorithmSolutionListResponse = Pick<
     subtitle: string;
     languageName: string;
 };
+export type MyAlgorithmSolutionResponse = Pick<
+    AlgorithmSolution,
+    'id' | 'title' | 'memory' | 'runtime' | 'languageId'
+> & { problemTitle: string };
 
 export type AlgorithmSolutionDetailResponse = Pick<
     AlgorithmSolution,
@@ -36,7 +40,7 @@ export type AlgorithmSolutionDetailResponse = Pick<
     | 'createdAt'
 > & {
     authorId: AlgorithmSolution['userId'];
-    authorName: string;
+    name: string;
     languageName: string;
 } & BookmarkedResponse;
 

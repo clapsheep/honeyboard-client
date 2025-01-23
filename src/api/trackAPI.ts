@@ -9,26 +9,30 @@ import {
 } from '@/types/TrackProject';
 import { AvailableUserListResponse, TeamMemberListRequest } from '@/types/User';
 import { AxiosResponse } from 'axios';
+import { CreateResponse } from '@/types/common';
 
 // 1. 트랙 프로젝트 리스트 조회 TrackProjectListResponse
 export const getTrackProjectListAPI = async (req: {
     generationId?: string | null;
 }): Promise<TrackProjectListResponse> => {
-    return api.get(`/project/track`, {
+    const response = await api.get(`/project/track`, {
         params: { generationId: req.generationId },
     });
+    return response.data;
 };
 // 1-1. 트랙 프로젝트 생성 -> 강사님만 가능 TrackProjectRequest
-export const createTrackProjectAPI = async (req: TrackProjectRequest
+export const createTrackProjectAPI = async (
+    req: TrackProjectRequest,
 ): Promise<AxiosResponse<TrackProjectResponse>> => {
     return api.post(`/project/track`, req);
 };
 
 // 2. 트랙 프로젝트 디테일 조회 TrackProjectDetailResponse
-export const getTrackProjectDetailAPI = async (req: {
-    trackProjectId: string;
-}): Promise<TrackProjectDetailResponse> => {
-    return api.get(`/project/track/${req.trackProjectId}`);
+export const getTrackProjectDetailAPI = async (
+    trackProjectId: string,
+): Promise<TrackProjectDetailResponse> => {
+    const { data } = await api.get(`/project/track/${trackProjectId}`);
+    return data;
 };
 // 2-1. 트랙 프로젝트 수정 -> 강사님만 가능 TrackProjectRequest
 export const updateTrackProjectAPI = async (req: {
@@ -38,10 +42,10 @@ export const updateTrackProjectAPI = async (req: {
     return api.put(`/project/track/${req.trackProjectId}`, req.data);
 };
 // 2-2. 트랙 프로젝트 삭제 -> 강사님만 가능
-export const deleteTrackProjectAPI = async (req: {
-    trackProjectId: string;
-}): Promise<unknown> => {
-    return api.delete(`/project/track/${req.trackProjectId}`);
+export const deleteTrackProjectAPI = async (
+    trackProjectId: string,
+): Promise<unknown> => {
+    return api.delete(`/project/track/${trackProjectId}`);
 };
 // 2-3. 트랙 프로젝트 팀 생성 -> TrackTeamRequest
 export const createTrackTeamAPI = async (req: {
@@ -54,12 +58,13 @@ export const createTrackTeamAPI = async (req: {
 export const createTrackProjectBoardAPI = async (req: {
     trackProjectId: string;
     trackTeamId: string;
-    data: TrackProjectBoardRequest;
-}): Promise<unknown> => {
-    return api.post(
+    board: TrackProjectBoardRequest;
+}): Promise<CreateResponse> => {
+    const { data } = await api.post<CreateResponse>(
         `/project/track/${req.trackProjectId}/team/${req.trackTeamId}/board`,
-        req.data,
+        req.board,
     );
+    return data;
 };
 
 // 3. 트랙 프로젝트 보드 조회 TrackProjectBoardDetailResponse
@@ -68,9 +73,11 @@ export const getTrackProjectBoardDetailAPI = async (req: {
     trackTeamId: string;
     boardId: string;
 }): Promise<TrackProjectBoardDetailResponse> => {
-    return api.get(
+    const { data } = await api.get(
         `/project/track/${req.trackProjectId}/team/${req.trackTeamId}/board/${req.boardId}`,
     );
+
+    return data;
 };
 
 // 3-1. 트랙 프로젝트 보드 수정 -> 팀원만 가능

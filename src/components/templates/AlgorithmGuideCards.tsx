@@ -5,6 +5,8 @@ import usePagination from '@/hooks/usePagination';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { getAlgorithmGuideListAPI } from '@/api/AlgorithmGuideAPI.ts';
+import convertDate from '@/utils/convertDate';
+import debounce from '@/utils/debounce';
 
 interface AlgorithmGuideCardsProps {
     generationId?: string | null;
@@ -12,7 +14,6 @@ interface AlgorithmGuideCardsProps {
 
 const AlgorithmGuideCards = ({ generationId }: AlgorithmGuideCardsProps) => {
     const { pathname } = useLocation();
-    console.log(pathname);
     const {
         handlePageChange,
         currentPage: page,
@@ -21,9 +22,12 @@ const AlgorithmGuideCards = ({ generationId }: AlgorithmGuideCardsProps) => {
         size: 8,
     });
     const [searchTitle, setSearchTitle] = useState('');
-    const handleSearchTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTitle(e.target.value);
-    };
+    const handleSearchTitle = debounce(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearchTitle(e.target.value);
+        },
+        300,
+    );
     const { data } = useSuspenseQuery({
         queryKey: ['AlgorithmGuides', generationId, page, size, searchTitle],
         queryFn: () =>
@@ -33,7 +37,7 @@ const AlgorithmGuideCards = ({ generationId }: AlgorithmGuideCardsProps) => {
                     currentPage: page,
                     pageSize: size,
                 },
-                searchRequest: searchTitle ? { title: searchTitle } : undefined, // searchTitle이 없을 경우 생략
+                searchTitle,
             }),
     });
 
@@ -46,7 +50,7 @@ const AlgorithmGuideCards = ({ generationId }: AlgorithmGuideCardsProps) => {
                     label="알고리즘 개념"
                     placeholder="알고리즘 개념 검색"
                     results={[]}
-                    onChange={handleSearchTitle}
+                    onChange={debounce(handleSearchTitle, 300)}
                     onClickResult={() => {}}
                 />
             </div>
@@ -57,7 +61,7 @@ const AlgorithmGuideCards = ({ generationId }: AlgorithmGuideCardsProps) => {
                             <li key={item.id}>
                                 <ProjectCard
                                     title={item.title}
-                                    subTitle={item.createdAt}
+                                    subTitle={convertDate(item.createdAt)}
                                     id={item.id}
                                     img={item.thumbnail}
                                     pathname={pathname}

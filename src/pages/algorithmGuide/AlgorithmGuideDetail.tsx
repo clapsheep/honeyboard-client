@@ -3,18 +3,26 @@ import { Header } from '@/components/organisms';
 import { useContentDetail } from '@/hooks/useContentDetail';
 import ToastViewerComponent from '@/layouts/ToastViewerComponent';
 
-import { useLocation, useParams } from 'react-router';
 import {
     deleteAlgorithmGuideAPI,
     getAlgorithmGuideDetailAPI,
 } from '@/api/AlgorithmGuideAPI.ts';
+import { AlgorithmGuideDetailResponse } from '@/types/AlgorithmGuide';
+import { useLocation, useParams } from 'react-router';
 const AlgorithmGuideDetail = () => {
     const { pathname } = useLocation();
+
     const { guideId } = useParams();
-    const { data, handleDelete, handleEdit, handleLike } = useContentDetail({
-        contentType: 'algo_guide',
+
+    const { data, handleDelete, handleEdit, handleLike } = useContentDetail<
+        {
+            guideId: string;
+        },
+        AlgorithmGuideDetailResponse
+    >({
+        contentType: 'ALGO_GUIDE',
         contentId: guideId!,
-        requestParam: {guideId:guideId!},
+        requestParam: { guideId: guideId! },
         getDetailAPI: getAlgorithmGuideDetailAPI,
         deleteAPI: deleteAlgorithmGuideAPI,
         navigateAfterDelete: '/study/algorithm/concept',
@@ -24,7 +32,11 @@ const AlgorithmGuideDetail = () => {
     return (
         <>
             <Header
-                titleProps={{ title: data.title, onClickLike: handleLike }}
+                titleProps={{
+                    title: data.title,
+                    bookmarked: data.bookmarked,
+                    onClickLike: handleLike,
+                }}
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-end">

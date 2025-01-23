@@ -1,6 +1,7 @@
 import { getAlgorithmTagsAPI } from '@/api/AlgorithmTagAPI';
-import { TagRequest, TagResponse } from '@/types/Tag';
-import { useState } from 'react';
+import { TagResponse } from '@/types/Tag';
+import debounce from '@/utils/debounce';
+import { useEffect, useState } from 'react';
 
 interface useAlgorithmTagProps {
     initialAlgoSearch: TagResponse[];
@@ -9,19 +10,20 @@ interface useAlgorithmTagProps {
 const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
     const [value, setValue] = useState('');
     const [algoSearch, setAlgoSearch] =
-        useState<TagRequest[]>(initialAlgoSearch);
+        useState<TagResponse[]>(initialAlgoSearch);
     const [searchResult, setSearchResult] = useState<TagResponse[]>([]);
 
-    // 알고리즘 태그 검색
-    const onAlgorithmChange = async (
-        e: React.ChangeEvent<HTMLInputElement>,
-    ) => {
-        const searchValue = e.target.value;
-        setValue(searchValue);
+    useEffect(() => {
+        if (initialAlgoSearch?.length > 0) {
+            setAlgoSearch(initialAlgoSearch);
+        }
+    }, [initialAlgoSearch]);
 
+    // 알고리즘 태그 검색
+    const debouncedSearch = debounce(async (searchValue: string) => {
         try {
-            if (searchValue.trim()) {
-                const data = await getAlgorithmTagsAPI({ searchValue });
+            if (searchValue.trim().length > 0) {
+                const data = await getAlgorithmTagsAPI(searchValue);
                 setSearchResult(data);
             } else {
                 setSearchResult([]);
@@ -30,6 +32,12 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
             console.error('알고리즘 태그 검색을 실패했습니다.', error);
             setSearchResult([]);
         }
+    }, 300);
+
+    const onAlgorithmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const searchValue = e.target.value;
+        setValue(searchValue);
+        debouncedSearch(searchValue);
     };
 
     // 알고리즘 태그 검색 결과 선택
@@ -49,12 +57,12 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
                 if (!isDuplicate) {
                     setAlgoSearch((prev) => [
                         ...prev,
-                        { name: selectTag.name },
+                        { id: selectTag.id, name: selectTag.name },
                     ]);
-                    setValue('');
-                    setSearchResult([]);
                 }
             }
+            setValue('');
+            setSearchResult([]);
         }
     };
 
@@ -72,20 +80,23 @@ const useAlgorithmTag = ({ initialAlgoSearch }: useAlgorithmTagProps) => {
                     const newTag = value.trim();
 
                     if (newTag) {
-                        setAlgoSearch((prev) => [...prev, { name: newTag }]);
+                        setAlgoSearch((prev) => [
+                            ...prev,
+                            { id: '0', name: newTag },
+                        ]);
                     }
-
-                    setValue('');
-                    setSearchResult([]);
                 } catch (error) {
                     console.error('새 태그 생성을 실패했습니다.', error);
                 }
             }
+            setValue('');
+            setSearchResult([]);
         }
     };
 
     const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const selectTag = e.currentTarget.textContent;
+        const selectTag = e.currentTarget.dataset.name;
+
         if (selectTag) {
             setAlgoSearch((prev) =>
                 prev.filter((tag) => tag.name !== selectTag),

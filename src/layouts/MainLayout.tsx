@@ -20,7 +20,7 @@ const MainLayout = () => {
                 role={userInfo!.role}
             />
 
-            <main className="ml-[250px] flex h-screen flex-1 flex-col overflow-y-auto bg-gray-100">
+            <main className="ml-[240px] flex h-screen flex-1 flex-col overflow-y-auto bg-gray-100">
                 <Outlet />
             </main>
         </div>

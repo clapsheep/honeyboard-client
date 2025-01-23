@@ -13,9 +13,10 @@ import {
 export const getFinaleProjectListAPI = async (req: {
     generationId: string | null;
 }): Promise<FinaleProjectListResponse> => {
-    return api.get(`/project/finale`, {
+    const response = await api.get(`/project/finale`, {
         params: { generationId: req.generationId },
     });
+    return response.data;
 };
 
 // 1-1. 파이널 프로젝트 생성 (팀 + 프로젝트) FinaleProjectCreate
@@ -71,9 +72,10 @@ export const getFinaleProjectBoardDetailAPI = async (req: {
     finalProjectId: string;
     boardId: string;
 }): Promise<FinaleProjectBoardDetailResponse> => {
-    return api.get(
+    const { data } = await api.get(
         `/project/finale/${req.finalProjectId}/board/${req.boardId}`,
     );
+    return data;
 };
 // 3-1. 파이널 프로젝트 보드 수정 -> 팀원만 가능
 export const updateFinaleProjectBoardAPI = async (req: {
@@ -88,10 +90,10 @@ export const updateFinaleProjectBoardAPI = async (req: {
 };
 // 3-2. 파이널 프로젝트 보드 삭제 -> 팀원만 가능
 export const deleteFinaleProjectBoardAPI = async (req: {
-    finaleProjectId: string;
-    finaleProjectBoardId: string;
+    finalProjectId: string;
+    boardId: string;
 }): Promise<unknown> => {
     return api.delete(
-        `/project/finale/${req.finaleProjectId}/board/${req.finaleProjectBoardId}`,
+        `/project/finale/${req.finalProjectId}/board/${req.boardId}`,
     );
 };

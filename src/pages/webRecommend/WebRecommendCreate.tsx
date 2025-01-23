@@ -34,7 +34,7 @@ const WebRecommendCreate = () => {
             openModal({
                 title: '제목을 입력해주세요.',
                 onCancelClick: () => {
-                    navigate(-1);
+                    closeModal();
                 },
             });
             return;
@@ -44,7 +44,7 @@ const WebRecommendCreate = () => {
             openModal({
                 title: 'URL을 입력해주세요.',
                 onCancelClick: () => {
-                    navigate(-1);
+                    closeModal();
                 },
             });
             return;
@@ -78,15 +78,14 @@ const WebRecommendCreate = () => {
                 openModal({
                     title: '이미 등록된 URL입니다.',
                     onCancelClick: () => {
-                        navigate(-1);
-                        return;
+                        closeModal();
                     },
                 });
             } else {
                 openModal({
                     title: '게시글 작성을 실패했습니다.',
                     onCancelClick: () => {
-                        navigate(-1);
+                        closeModal();
                     },
                 });
             }

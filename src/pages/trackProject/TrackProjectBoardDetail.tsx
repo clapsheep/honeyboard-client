@@ -14,7 +14,7 @@ const TrackProjectBoardDetail = () => {
     const { pathname } = useLocation();
     const { trackProjectId, trackTeamId, boardId } = useParams();
     const { userInfo } = useAuth();
-    const userId = userInfo?.userId;
+    const userName = userInfo?.name;
 
     const { data, handleDelete, handleEdit, handleEditTeam } =
         useProjectBoardDetail({
@@ -37,20 +37,18 @@ const TrackProjectBoardDetail = () => {
 
     if (!data) return null;
 
-    const response = data.data;
-
     return (
         <>
             <Header
                 titleProps={{
-                    title: response.title,
-                    subTitle: { 'Git 주소': response.url },
+                    title: data.title,
+                    subTitle: { 'Git 주소': data.url },
                 }}
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-between">
                     <div className="flex gap-3">
-                        {response.members.map(
+                        {data.members.map(
                             (
                                 member: Pick<
                                     TrackTeamMember,
@@ -62,11 +60,11 @@ const TrackProjectBoardDetail = () => {
                                 </NameTag>
                             ),
                         )}
-                        {response.userId !== userId && (
-                            <Button onClick={handleEditTeam}>팀 수정</Button>
-                        )}
+                        {data.members.some(
+                            (member) => member.name == userName,
+                        ) && <Button onClick={handleEditTeam}>팀 수정</Button>}
                     </div>
-                    {response.userId !== userId && (
+                    {data.members.some((member) => member.name == userName) && (
                         <div className="flex gap-4">
                             <Button onClick={handleDelete} color="red">
                                 일지 삭제
@@ -81,7 +79,7 @@ const TrackProjectBoardDetail = () => {
                     <ButtonPDF onClick={handleDownloadPDF}></ButtonPDF>
                 </div>
                 <ToastViewerComponent
-                    content={response.content}
+                    content={data.content}
                     viewerId="trackViewer"
                 />
             </div>
