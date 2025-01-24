@@ -65,10 +65,21 @@ const TrackProjectDetail = () => {
         navigate(`team/${teamId}/board`);
     };
 
+    console.log(data);
+
     const onClick = (teamId: string, boardId: string) => {
-        navigate(
-            `/project/track/${trackProjectId}/team/${teamId}/board/${boardId}`,
-        );
+        if (!boardId) {
+            openModal({
+                title: '게시글이 없습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
+        } else {
+            navigate(
+                `/project/track/${trackProjectId}/team/${teamId}/board/${boardId}`,
+            );
+        }
     };
 
     return (
