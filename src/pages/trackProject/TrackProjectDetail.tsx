@@ -1,4 +1,7 @@
-import { getTrackProjectDetailAPI } from '@/api/trackAPI';
+import {
+    deleteTrackProjectAPI,
+    getTrackProjectDetailAPI,
+} from '@/api/trackAPI';
 import { Button } from '@/components/atoms';
 import { Header, SubmitSection } from '@/components/organisms';
 import {
@@ -39,7 +42,8 @@ const TrackProjectDetail = () => {
             icon: 'warning',
             title: '프로젝트 삭제',
             subTitle: '정말 삭제하시겠습니까?',
-            onConfirmClick: () => {
+            onConfirmClick: async () => {
+                await deleteTrackProjectAPI(trackProjectId!);
                 navigate(-1);
                 closeModal();
             },
@@ -87,17 +91,20 @@ const TrackProjectDetail = () => {
                         </section>
                     )}
 
-                    {!userTeam ? (
-                        <Button onClick={handleCreateTeam}>팀 생성</Button>
-                    ) : (
-                        !userTeam.submitted && (
-                            <Button
-                                onClick={() => handleCreateBoard(userTeam.id)}
-                            >
-                                일지 작성
-                            </Button>
-                        )
-                    )}
+                    {userInfo?.role !== 'ADMIN' &&
+                        (userTeam ? (
+                            !userTeam.submitted && (
+                                <Button
+                                    onClick={() =>
+                                        handleCreateBoard(userTeam.id)
+                                    }
+                                >
+                                    일지 작성
+                                </Button>
+                            )
+                        ) : (
+                            <Button onClick={handleCreateTeam}>팀 생성</Button>
+                        ))}
                 </div>
             </Header>
 
@@ -116,7 +123,7 @@ const TrackProjectDetail = () => {
                 <TrackProjectCards
                     trackId={data.id}
                     teams={data.teams}
-                    boards={data?.trackProjectBoardList}
+                    boards={data?.boards}
                 ></TrackProjectCards>
             </Suspense>
         </>
