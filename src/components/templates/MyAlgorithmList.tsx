@@ -2,12 +2,16 @@ import useMyPage from '@/hooks/useMyPage';
 
 import { AlgoDetailCard } from '../molecules';
 import { getMyAlgorithmAPI } from '@/api/mypageAPI';
+import { useAuth } from '@/hooks/useAuth';
 
 const MyAlgorithmList = () => {
+    const { userInfo } = useAuth();
+    const userId = userInfo?.userId ? userInfo?.userId : '0';
     const { data } = useMyPage({
-        queryFn: getMyAlgorithmAPI,
+        queryFn: getMyAlgorithmAPI({ userId }),
         queryKey: 'myAlgorithm',
     });
+    console.log(data);
 
     return (
         <div className="flex flex-col items-center gap-6 p-6">

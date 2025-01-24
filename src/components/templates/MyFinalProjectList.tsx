@@ -1,14 +1,15 @@
 import useMyPage from '@/hooks/useMyPage';
 
 import { ProjectCard } from '@/components/organisms';
-import { getMyTrackAPI } from '@/api/mypageAPI';
+import { getMyFinalAPI } from '@/api/mypageAPI';
 
-const MyTrackProjectList = () => {
+const MyFinalProjectList = () => {
     const { data } = useMyPage({
-        queryFn: getMyTrackAPI,
-        queryKey: 'myTrackProject',
+        queryFn: getMyFinalAPI,
+        queryKey: 'myFinalProject',
     });
 
+    console.log(data);
     return (
         <div className="flex flex-col items-center gap-6 p-6">
             {data?.length ? (
@@ -17,12 +18,11 @@ const MyTrackProjectList = () => {
                         {data.map((item) => (
                             <li key={item.id}>
                                 <ProjectCard
-                                    title={item.trackProjectName}
-                                    subTitle={item.title}
+                                    title={item.title}
+                                    subTitle={item.createdAt}
                                     id={item.id}
-                                    img={item.thumbnail}
                                     teams={item.trackTeam}
-                                    pathname={`/project/track/${29}/team/${item.trackTeamId}/board`}
+                                    img={item.thumbnail}
                                 />
                             </li>
                         ))}
@@ -31,7 +31,7 @@ const MyTrackProjectList = () => {
             ) : (
                 <div className="flex min-h-[200px] w-full items-center justify-center">
                     <p className="text-lg text-gray-500">
-                        등록된 관통 프로젝트가 없습니다.
+                        등록된 파이널 프로젝트가 없습니다.
                     </p>
                 </div>
             )}
@@ -39,4 +39,4 @@ const MyTrackProjectList = () => {
     );
 };
 
-export default MyTrackProjectList;
+export default MyFinalProjectList;
