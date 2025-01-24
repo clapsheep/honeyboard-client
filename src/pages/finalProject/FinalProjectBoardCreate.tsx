@@ -59,7 +59,7 @@ const FinalProjectBoardCreate = () => {
                 },
             });
 
-            navigate(`/project/final/${finalProjectId}/board/${id}`);
+            navigate(`/project/final/${finalProjectId}/board/${id.data.id}`);
         } catch (error) {
             console.error('게시글 작성을 실패했습니다:', error);
         }
