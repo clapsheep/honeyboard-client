@@ -57,16 +57,15 @@ const AlgorithmProblemCreate = () => {
 
         try {
             await createAlgorithmProblemAPI({
-                data: { title, url, tags: algoSearch },
+                data: {
+                    title,
+                    url,
+                    tags: algoSearch,
+                },
             });
+
             navigate('/study/algorithm/problem');
-        } catch (error: unknown) {
-            if (error.response?.data?.message === '이미 존재하는 문제입니다.') {
-                openModal({
-                    title: '이미 존재하는 문제입니다.',
-                    onCancelClick: closeModal,
-                });
-            }
+        } catch (error) {
             console.error('문제 생성을 실패했습니다.', error);
         }
     };
