@@ -21,6 +21,7 @@ const MyFinalProjectList = () => {
                                     title={item.title}
                                     subTitle={item.createdAt}
                                     id={item.id}
+                                    teams={item.trackTeam}
                                     img={item.thumbnail}
                                 />
                             </li>
@@ -30,7 +31,7 @@ const MyFinalProjectList = () => {
             ) : (
                 <div className="flex min-h-[200px] w-full items-center justify-center">
                     <p className="text-lg text-gray-500">
-                        등록된 컨셉 프로젝트가 없습니다.
+                        등록된 파이널 프로젝트가 없습니다.
                     </p>
                 </div>
             )}

@@ -8,7 +8,6 @@ const MyTrackProjectList = () => {
         queryFn: getMyTrackAPI,
         queryKey: 'myTrackProject',
     });
-    console.log(data);
 
     return (
         <div className="flex flex-col items-center gap-6 p-6">
@@ -22,6 +21,8 @@ const MyTrackProjectList = () => {
                                     subTitle={item.title}
                                     id={item.id}
                                     img={item.thumbnail}
+                                    teams={item.trackTeam}
+                                    pathname={`/project/track/${29}/team/${item.trackTeamId}/board`}
                                 />
                             </li>
                         ))}
@@ -30,7 +31,7 @@ const MyTrackProjectList = () => {
             ) : (
                 <div className="flex min-h-[200px] w-full items-center justify-center">
                     <p className="text-lg text-gray-500">
-                        등록된 컨셉 프로젝트가 없습니다.
+                        등록된 관통 프로젝트가 없습니다.
                     </p>
                 </div>
             )}
