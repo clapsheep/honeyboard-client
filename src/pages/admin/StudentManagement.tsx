@@ -9,7 +9,7 @@ import { convertSelectType } from '@/utils/convertSelectType';
 import { Suspense, useState } from 'react';
 import { useLocation } from 'react-router';
 
-const StudentMangement = () => {
+const StudentManagement = () => {
     const { pathname } = useLocation();
     const { generationList } = useGenerationStore();
     const ROUTES = [
@@ -69,4 +69,4 @@ const StudentMangement = () => {
     );
 };
 
-export default StudentMangement;
+export default StudentManagement;

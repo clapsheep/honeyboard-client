@@ -65,8 +65,6 @@ const TrackProjectDetail = () => {
         navigate(`team/${teamId}/board`);
     };
 
-    console.log(data);
-
     const onClick = (teamId: string, boardId: string) => {
         if (!boardId) {
             openModal({

@@ -11,8 +11,8 @@ interface NavigationProps {
     role: string;
 }
 
-const Navigation = ({ generation, name }: NavigationProps) => {
-    const { logout, userInfo } = useAuth();
+const Navigation = ({ generation, name, role }: NavigationProps) => {
+    const { logout } = useAuth();
 
     return (
         <section className="fixed flex h-screen flex-col items-center gap-1 border border-gray-400 pb-[6.25rem] pt-7">
@@ -21,10 +21,10 @@ const Navigation = ({ generation, name }: NavigationProps) => {
                     <img src={logo} alt="Honey Board" />
                 </Link>
             </h1>
-            <Persona generation={generation} name={name} />
+            <Persona generation={generation} name={name} role={role} />
             <nav className="h-full">
                 <ul className="flex h-full flex-col">
-                    <NavMenu menus={NavItem} userRole={userInfo!.role} />
+                    <NavMenu menus={NavItem} userRole={role} />
                     <NavButton
                         key="마이페이지"
                         id="마이페이지"
