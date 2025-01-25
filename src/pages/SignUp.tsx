@@ -14,7 +14,6 @@ const SignUp = () => {
         register,
         handleSubmit,
         errors,
-        touchedFields,
         nameValue,
         emailValue,
         passwordValue,

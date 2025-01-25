@@ -39,7 +39,7 @@ export const useSignUp = () => {
         e?.preventDefault();
         const isNameValid = await trigger('name');
 
-        if (isNameValid) {
+        if (isNameValid && !errors.name) {
             setCurrentStep(2);
         }
     };
