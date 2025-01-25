@@ -37,7 +37,6 @@ export const useContentDetail = <U, T extends BaseContentDetail>({
         queryKey: [contentType, contentId],
         queryFn: () => getDetailAPI(requestParam),
     });
-    console.log('called useContentDetail', data);
 
     const bookmarkMutation = useMutation({
         mutationFn: async ({ isBookmarked }: { isBookmarked: boolean }) => {
