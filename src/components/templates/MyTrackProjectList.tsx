@@ -10,7 +10,7 @@ const MyTrackProjectList = () => {
     });
 
     return (
-        <div className="flex flex-col items-center gap-6 p-6">
+        <div className="flex flex-col items-center gap-6 p-6 pt-10">
             {data?.length ? (
                 <>
                     <ul className="ml-40 grid min-w-[1400px] grid-cols-4 gap-6">
@@ -19,10 +19,10 @@ const MyTrackProjectList = () => {
                                 <ProjectCard
                                     title={item.trackProjectName}
                                     subTitle={item.title}
-                                    id={item.id}
+                                    id={item.boardId}
                                     img={item.thumbnail}
                                     teams={item.trackTeam}
-                                    pathname={`/project/track/${29}/team/${item.trackTeamId}/board`}
+                                    pathname={`/project/track/${item.trackProjectId}/team/${item.trackTeamId}/board`}
                                 />
                             </li>
                         ))}
