@@ -65,8 +65,19 @@ const TrackProjectDetail = () => {
         navigate(`team/${teamId}/board`);
     };
 
-    const onClick = (teamId: string) => {
-        navigate(`/team/${teamId}/board`);
+    const onClick = (teamId: string, boardId: string) => {
+        if (!boardId) {
+            openModal({
+                title: '게시글이 없습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
+        } else {
+            navigate(
+                `/project/track/${trackProjectId}/team/${teamId}/board/${boardId}`,
+            );
+        }
     };
 
     return (
@@ -123,7 +134,7 @@ const TrackProjectDetail = () => {
                 <TrackProjectCards
                     trackId={data.id}
                     teams={data.teams}
-                    boards={data?.trackProjectBoardList}
+                    boards={data?.boards}
                 ></TrackProjectCards>
             </Suspense>
         </>

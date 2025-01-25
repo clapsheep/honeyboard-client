@@ -8,6 +8,7 @@ import {
     getAlgorithmSolutionDetailAPI,
     deleteAlgorithmSolutionAPI,
 } from '@/api/AlgorithmSolutionAPI';
+import { useAuth } from '@/hooks/useAuth';
 
 const AlgorithmSolutionDetail = () => {
     const { pathname } = useLocation();
@@ -22,9 +23,11 @@ const AlgorithmSolutionDetail = () => {
         navigateAfterDelete: `/study/algorithm/problem/${problemId}`,
     });
 
-    console.log(data);
+    const { userInfo } = useAuth();
+    const userId = userInfo?.userId;
 
     if (!data) return null;
+
     return (
         <>
             <Header
@@ -45,10 +48,14 @@ const AlgorithmSolutionDetail = () => {
                         readOnly={true}
                     />
                     <div className="flex gap-4">
-                        <Button color="red" onClick={handleDelete}>
-                            풀이 삭제
-                        </Button>
-                        <Button onClick={handleEdit}>풀이 수정</Button>
+                        {userId == data.authorId && (
+                            <div className="flex gap-4">
+                                <Button color="red" onClick={handleDelete}>
+                                    풀이 삭제
+                                </Button>
+                                <Button onClick={handleEdit}>풀이 수정</Button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </Header>

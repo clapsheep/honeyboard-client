@@ -8,7 +8,6 @@ import TrackPDF from '@/components/templates/PDF/TrackPDF';
 import { useAuth } from '@/hooks/useAuth';
 import { useProjectBoardDetail } from '@/hooks/useProjectBoardDetail';
 import ToastViewerComponent from '@/layouts/ToastViewerComponent';
-import { TrackTeamMember } from '@/types/TrackProject';
 import { useLocation, useParams } from 'react-router';
 
 const TrackProjectBoardDetail = () => {
@@ -32,6 +31,10 @@ const TrackProjectBoardDetail = () => {
             navigateToEditTeam: `/project/track/${trackProjectId}/team/${trackTeamId}/edit`,
         });
 
+    const members = data?.members.sort((a, b) =>
+        b.role === 'LEADER' ? 1 : -1,
+    );
+
     if (!data) return null;
 
     return (
@@ -45,23 +48,16 @@ const TrackProjectBoardDetail = () => {
             >
                 <div className="flex justify-between">
                     <div className="flex gap-3">
-                        {data.members.map(
-                            (
-                                member: Pick<
-                                    TrackTeamMember,
-                                    'id' | 'name' | 'role'
-                                >,
-                            ) => (
-                                <NameTag key={member.id} isLeader={member.role}>
-                                    {member.name}
-                                </NameTag>
-                            ),
+                        {members!.map((member) => (
+                            <NameTag key={member.id} isLeader={member.role}>
+                                {member.name}
+                            </NameTag>
+                        ))}
+                        {members!.some((member) => member.name == userName) && (
+                            <Button onClick={handleEditTeam}>팀 수정</Button>
                         )}
-                        {data.members.some(
-                            (member) => member.name == userName,
-                        ) && <Button onClick={handleEditTeam}>팀 수정</Button>}
                     </div>
-                    {data.members.some((member) => member.name == userName) && (
+                    {members!.some((member) => member.name == userName) && (
                         <div className="flex gap-4">
                             <Button onClick={handleDelete} color="red">
                                 일지 삭제

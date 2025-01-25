@@ -4,7 +4,7 @@ import {
     AlgorithmSolutionDetailResponse,
     AlgorithmSolutionRequest,
 } from '@/types/AlgorithmSolution';
-import { PageRequest, PageResponse } from '@/types/common';
+import { CreateResponse, PageRequest, PageResponse } from '@/types/common';
 
 export interface AlgorithmSolutionRequestParams {
     pageRequest?: PageRequest;
@@ -59,8 +59,12 @@ export const getAlgorithmSolutionDetailAPI = async (req: {
 export const createAlgorithmSolutionAPI = async (req: {
     problemId: string;
     data: AlgorithmSolutionRequest;
-}): Promise<unknown> => {
-    return api.post(`/algorithm/problem/${req.problemId}/solution`, req.data);
+}): Promise<CreateResponse> => {
+    const { data } = await api.post(
+        `/algorithm/problem/${req.problemId}/solution`,
+        req.data,
+    );
+    return data;
 };
 
 export const updateAlgorithmSolutionAPI = async (req: {

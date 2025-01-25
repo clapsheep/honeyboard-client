@@ -87,7 +87,7 @@ const FinalProjectBoardUpdate = () => {
                 },
             });
 
-            navigate(`/project/final/${finalProjectId}/board/${id}`);
+            navigate(`/project/final/${finalProjectId}/board/${boardId}`);
         } catch (error) {
             console.error('게시글 수정을 실패했습니다:', error);
         }
