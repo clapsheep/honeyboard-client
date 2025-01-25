@@ -15,7 +15,7 @@ const Navigation = ({ generation, name, role }: NavigationProps) => {
     const { logout } = useAuth();
 
     return (
-        <section className="fixed flex h-screen flex-col items-center gap-1 border border-gray-400 pb-[6.25rem] pt-7">
+        <section className="fixed z-50 flex h-screen flex-col items-center gap-1 border border-gray-400 bg-white pb-[6.25rem] pt-7">
             <h1 aria-label="Honey Board">
                 <Link to="/">
                     <img src={logo} alt="Honey Board" />
