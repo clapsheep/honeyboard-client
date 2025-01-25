@@ -51,7 +51,7 @@ export const deleteTrackProjectAPI = async (
 export const createTrackTeamAPI = async (req: {
     trackProjectId: string;
     data: TeamMemberListRequest;
-}): Promise<unknown> => {
+}): Promise<AxiosResponse<TrackProjectResponse>> => {
     return api.post(`/project/track/${req.trackProjectId}/team`, req.data);
 };
 // 2-4. 트랙 프로젝트 보드 생성 -> 팀 생성 선행이 필요
@@ -107,7 +107,7 @@ export const updateTrackTeamAPI = async (req: {
     trackProjectId: string;
     trackTeamId: string;
     data: TeamMemberListRequest;
-}): Promise<unknown> => {
+}): Promise<AxiosResponse<TrackProjectResponse>> => {
     return api.put(
         `/project/track/${req.trackProjectId}/team/${req.trackTeamId}`,
         req.data,
@@ -118,5 +118,8 @@ export const updateTrackTeamAPI = async (req: {
 export const getTrackProjectAvailableUserAPI = async (req: {
     trackProjectId: string;
 }): Promise<AvailableUserListResponse> => {
-    return api.get(`/project/track/${req.trackProjectId}/available-user`);
+
+    const { data } = await api.get(`/project/track/${req.trackProjectId}/available-user`)
+
+    return data;
 };
