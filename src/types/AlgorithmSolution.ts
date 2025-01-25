@@ -18,7 +18,7 @@ export interface AlgorithmSolution {
 
 export type AlgorithmSolutionListResponse = Pick<
     AlgorithmSolution,
-    'id' | 'title' | 'memory' | 'runtime' | 'languageId'
+    'id' | 'title' | 'memory' | 'runtime' | 'languageId' | 'problemId'
 > & {
     subtitle: string;
     languageName: string;
@@ -26,7 +26,7 @@ export type AlgorithmSolutionListResponse = Pick<
 export type MyAlgorithmSolutionResponse = Pick<
     AlgorithmSolution,
     'problemId' | 'id' | 'title' | 'memory' | 'runtime' | 'languageId'
-> & { problemTitle: string };
+> & { problemTitle: string; languageName: string };
 
 export type AlgorithmSolutionDetailResponse = Pick<
     AlgorithmSolution,

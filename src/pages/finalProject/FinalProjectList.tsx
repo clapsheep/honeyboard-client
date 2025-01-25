@@ -41,7 +41,7 @@ const FinalProjectList = () => {
     );
 
     return (
-        <>
+        <div className="flex flex-col items-center">
             <Header
                 titleProps={{ title: '파이널 프로젝트' }}
                 BreadcrumbProps={{ pathname }}
@@ -74,8 +74,8 @@ const FinalProjectList = () => {
                 </div>
             </Header>
 
-            <section className="m-4 mt-6 border bg-white p-4">
-                <section className="flex flex-wrap gap-2">
+            <section className="m-4 mt-6 flex w-full border bg-white p-4">
+                <section className="flex w-full flex-wrap gap-2">
                     <SubmitSection
                         project="final"
                         teams={data?.teams}
@@ -85,12 +85,12 @@ const FinalProjectList = () => {
                 </section>
             </section>
 
-            <section className="grid w-full grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <section>
                 <Suspense fallback={<ProjectCardSkeletonList />}>
                     <FinalListCards boards={data?.projects} />
                 </Suspense>
             </section>
-        </>
+        </div>
     );
 };
 

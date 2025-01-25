@@ -12,10 +12,11 @@ export type ContentType =
     | 'ALGO_SOLUTION'
     | 'WEB_GUIDE'
     | 'WEB_RECOMMEND';
+
 export type BookmarkedResponse = {
     bookmarked: boolean;
 };
-export type BookmarkListResponse = {
+export type BookmarkContent = {
     WEB_RECOMMEND: WebRecommendListResponse[];
     WEB_GUIDE: WebGuideListResponse[];
     ALGO_SOLUTION: AlgorithmSolutionListResponse[];

@@ -78,7 +78,7 @@ const AlgoDetailCards = ({ problemId }: AlgoDetailCardsProps) => {
 
     return (
         <div className="flex flex-col items-center">
-            <div className="flex justify-between w-full py-2 my-3 border border-gray-200 bg-gray-25 px-9">
+            <div className="my-3 flex w-full justify-between border border-gray-200 bg-gray-25 px-9 py-2">
                 <FilterChip
                     optionGroups={[
                         {
@@ -114,10 +114,10 @@ const AlgoDetailCards = ({ problemId }: AlgoDetailCardsProps) => {
                     disableBorder={true}
                 />
             </div>
-            <div className="flex flex-col items-center justify-center w-full gap-6 p-6">
+            <div className="flex w-[1400px] flex-col items-center justify-center gap-6 p-6">
                 {data?.content?.length ? (
                     <>
-                        <ul className="grid w-full grid-cols-3 grid-rows-3 gap-6">
+                        <ul className="grid w-[1400px] grid-cols-3 grid-rows-3 gap-6">
                             {data.content.map((item) => (
                                 <li key={item.id}>
                                     <AlgoDetailCard
@@ -147,7 +147,9 @@ const AlgoDetailCards = ({ problemId }: AlgoDetailCardsProps) => {
                                 )
                             }
                             onClick={(e) =>
-                                handlePageChange(Number(e.currentTarget.textContent))
+                                handlePageChange(
+                                    Number(e.currentTarget.textContent),
+                                )
                             }
                         />
                     </>

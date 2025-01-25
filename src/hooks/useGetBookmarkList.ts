@@ -1,20 +1,22 @@
 import { getMyBookmarkAPI } from '@/api/mypageAPI';
-import { ContentType } from '@/types/Bookmark';
+import { ContentType, BookmarkContent } from '@/types/Bookmark';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-interface useGetBookmarkListProps {
-    contentType: ContentType;
+interface useGetBookmarkListProps<T extends ContentType> {
+    contentType: T;
     userId: string;
 }
-const useGetBookmarkList = ({
+
+const useGetBookmarkList = <T extends ContentType>({
     contentType,
     userId,
-}: useGetBookmarkListProps) => {
-    const { data } = useSuspenseQuery({
+}: useGetBookmarkListProps<T>) => {
+    const { data } = useSuspenseQuery<{ content: BookmarkContent[T] }>({
         queryKey: ['bookmark', contentType, userId],
         queryFn: () => getMyBookmarkAPI({ contentType }),
     });
 
     return { data };
 };
+
 export default useGetBookmarkList;

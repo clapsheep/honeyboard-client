@@ -24,7 +24,7 @@ const MyAlgorithmList = () => {
                                     subTitle={item.problemTitle}
                                     memory={Number(item.memory)}
                                     time={Number(item.runtime)}
-                                    language={item.languageId}
+                                    language={item.languageName}
                                 />
                             </li>
                         ))}

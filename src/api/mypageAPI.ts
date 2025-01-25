@@ -1,19 +1,26 @@
 import { MyAlgorithmSolutionResponse } from '@/types/AlgorithmSolution';
-import { BookmarkListResponse, ContentType } from '@/types/Bookmark';
-import { PageResponse } from '@/types/common';
+import { ContentType, BookmarkContent } from '@/types/Bookmark';
 import { MyFinaleProjectResponse } from '@/types/FinaleProject';
 import { MyTrackProjectResponse } from '@/types/TrackProject';
 import { api } from '@/utils/common/axiosInstance';
 
-export const getMyTrackAPI = async (): Promise<MyTrackProjectResponse[]> => {
-    const response = await api.get('/user/trackProject');
+export const getMyTrackAPI = async (
+    userId: string | null,
+): Promise<MyTrackProjectResponse> => {
+    const response = await api.get('/user/trackProject', {
+        params: { userId },
+    });
 
     return response.data;
 };
-export const getMyFinalAPI = async (): Promise<
-    PageResponse<MyFinaleProjectResponse[]>
-> => {
-    const response = await api.get('/user/finaleproject');
+export const getMyFinalAPI = async (
+    userId: string | null,
+): Promise<MyFinaleProjectResponse> => {
+    const response = await api.get('/user/finaleproject', {
+        params: { userId },
+    });
+    console.log(userId);
+
     return response.data;
 };
 
@@ -28,7 +35,7 @@ export const getMyBookmarkAPI = async <T extends ContentType>({
     contentType,
 }: {
     contentType: T;
-}): Promise<BookmarkListResponse[T]> => {
+}): Promise<{ content: BookmarkContent[T] }> => {
     const response = await api.get(`/bookmark/${contentType}`);
 
     return response.data;

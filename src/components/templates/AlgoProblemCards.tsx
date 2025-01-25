@@ -66,7 +66,7 @@ const AlgoProblemCards = () => {
             </div>
             {data?.content?.length ? (
                 <>
-                    <ul className="grid w-full grid-cols-4 grid-rows-4 gap-6">
+                    <ul className="grid w-[1400px] grid-cols-4 grid-rows-4 gap-6">
                         {data.content.map((item) => (
                             <li key={item.id}>
                                 <AlgoProblemCard
