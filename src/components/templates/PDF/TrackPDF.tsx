@@ -3,7 +3,7 @@ import NotoSansKRBold from '/assets/fonts/NotoSansKR-Bold.ttf';
 import { TrackProjectBoardDetailResponse } from '@/types/TrackProject';
 import convertDate from '@/utils/convertDate';
 import { marked } from 'marked';
-
+import { useState, useEffect } from 'react';
 import {
     Document,
     Page,
@@ -91,16 +91,26 @@ interface TrackPDFProps {
 }
 
 const TrackPDF = ({ data }: TrackPDFProps) => {
+    const [parsedContent, setParsedContent] = useState<React.ReactNode[]>([]);
+
+    useEffect(() => {
+        const parseContent = async () => {
+            const content = await parseMarkdownWithMarked(data.content);
+            setParsedContent(content);
+            console.log(content);
+        };
+
+        parseContent();
+    }, [data.content]);
+
     const leader = data.members.find((member) => member.role === 'LEADER');
     const teamMembers = data.members.filter(
         (member) => member.role !== 'LEADER',
     );
-    console.log(data.content);
     return (
         <Document>
             <Page size="A4" style={styles.page}>
                 <Text style={styles.header}>{data.title}</Text>
-
                 <View style={styles.infoSection}>
                     <View style={styles.infoRow}>
                         <Text style={styles.label}>제출일:</Text>
@@ -204,57 +214,43 @@ const parseMarkdownWithMarked = (content: string) => {
                             marginVertical: 5,
                         }}
                     >
-                        <Text style={{ fontFamily: 'NotoSansKR' }}>
+                        <Text style={{ fontFamily: 'Courier' }}>
                             {token.text}
                         </Text>
                     </View>
                 );
 
-            case 'image':
-                try {
-                    return (
-                        <View key={index} style={{ marginVertical: 10 }}>
-                            <Image
-                                src={token.href}
-                                style={{
-                                    width: 'auto',
-                                    maxWidth: '100%',
-                                    maxHeight: 300,
-                                    objectFit: 'contain',
-                                }}
-                            />
-                            {token.title && (
-                                <Text
-                                    style={{
-                                        textAlign: 'center',
-                                        fontSize: 10,
-                                        marginTop: 5,
-                                        color: '#666',
-                                    }}
-                                >
-                                    {token.title}
-                                </Text>
-                            )}
-                        </View>
-                    );
-                } catch (error) {
-                    // 이미지 로드 실패 시 대체 텍스트 표시
-                    return (
-                        <Text
-                            key={index}
-                            style={{
-                                marginVertical: 5,
-                                color: '#666',
-                                fontStyle: 'NotoSansKR',
-                            }}
-                        >
-                            [이미지를 불러올 수 없습니다: {token.text}]
-                        </Text>
-                    );
-                }
-
             default:
                 return null;
         }
     });
+};
+
+const convertWebpToPng = async (url: string): Promise<string> => {
+    try {
+        // 이미지를 Canvas에 그리기
+        const img = new Image();
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // 이미지 로드 대기
+        await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+            img.src = url;
+        });
+
+        // Canvas 크기 설정
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        // 이미지를 Canvas에 그리기
+        ctx?.drawImage(img, 0, 0);
+
+        // PNG로 변환
+        return canvas.toDataURL('image/png');
+    } catch (error) {
+        console.error('Image conversion error:', error);
+        throw error;
+    }
 };
