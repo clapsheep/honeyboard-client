@@ -4,12 +4,22 @@ import { InputForm } from '@/components/molecules';
 import TextAreaForm from '@/components/molecules/TextAreaForm/TextAreaForm';
 import { Header } from '@/components/organisms';
 import SearchTeamMember from '@/components/organisms/SearchTeamMember/SearchTeamMember';
+import { useAuth } from '@/hooks/useAuth';
 import { useCreateTrackProject } from '@/hooks/useTrackProject';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 const TrackProjectCreate = () => {
     const MAX_LENGTH = 210;
     const { pathname } = useLocation();
+    const { userInfo } = useAuth();
+
+    useEffect(() => {
+        if (userInfo?.role != 'ADMIN') {
+            navigate(-1);
+        }
+    });
+
     const navigate = useNavigate();
 
     const handleCancle = () => {
