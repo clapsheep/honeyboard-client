@@ -37,7 +37,7 @@ export const getMyBookmarkAPI = async <T extends ContentType>({
     contentType,
 }: {
     contentType: T;
-}): Promise<BookmarkContent[T]> => {
+}): Promise<{ content: BookmarkContent[T] }> => {
     const response = await api.get(`/bookmark/${contentType}`);
 
     return response.data;
