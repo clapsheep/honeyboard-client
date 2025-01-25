@@ -81,7 +81,7 @@ const TrackProjectDetail = () => {
     };
 
     return (
-        <>
+        <div className='flex flex-col items-center'>
             <Header
                 titleProps={{
                     title: data?.title,
@@ -119,7 +119,7 @@ const TrackProjectDetail = () => {
                 </div>
             </Header>
 
-            <section className="m-4 mt-6 border bg-white p-4">
+            <section className="flex m-4 mt-6 border bg-white p-4 w-[1400px]">
                 <section className="flex flex-wrap gap-2">
                     <SubmitSection
                         project="track"
@@ -137,7 +137,7 @@ const TrackProjectDetail = () => {
                     boards={data?.boards}
                 ></TrackProjectCards>
             </Suspense>
-        </>
+        </div>
     );
 };
 
