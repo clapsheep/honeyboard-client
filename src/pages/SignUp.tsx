@@ -166,9 +166,7 @@ const SignUp = () => {
                                 type="password"
                                 placeholder="비밀번호 확인"
                                 errorMessage={
-                                    touchedFields.confirmPassword
-                                        ? errors.confirmPassword?.message
-                                        : undefined
+                                    errors.confirmPassword?.message || undefined
                                 }
                                 onKeyDown={submitKeyDownEnter}
                                 {...register('confirmPassword')}

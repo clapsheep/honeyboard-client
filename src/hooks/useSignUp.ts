@@ -26,7 +26,7 @@ export const useSignUp = () => {
         formState: { errors, isValid, touchedFields },
     } = useForm<RegisterSchema>({
         resolver: zodResolver(registerSchema),
-        mode: 'onTouched',
+        mode: 'onChange',
         reValidateMode: 'onChange',
     });
 
