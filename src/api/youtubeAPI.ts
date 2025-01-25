@@ -86,7 +86,5 @@ export const addMusicAPI = async (data: {
 
 export const deleteMusicAPI = async (videoId: string) => {
     const response = await api.delete(`/youtube/playlist/${videoId}`);
-    console.log(response.data);
-
     return response.data;
 };

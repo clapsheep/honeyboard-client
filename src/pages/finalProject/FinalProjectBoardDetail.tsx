@@ -12,30 +12,24 @@ import { FinaleTeamMember } from '@/types/FinaleProject';
 import convertDate from '@/utils/convertDate';
 import { useLocation, useParams } from 'react-router';
 
-//finale
 const FinalProjectBoardDetail = () => {
     const { pathname } = useLocation();
-    const { finalProjectId, boardId } = useParams();
+    const { finaleProjectId, boardId } = useParams();
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
-    const userName = userInfo?.name;
 
-    const { data, handleDelete, handleEdit, handleEditTeam } =
+    const { data, handleDelete, handleEdit } =
         useProjectBoardDetail({
             projectType: 'final',
             boardId: boardId!,
             requestParam: {
-                finalProjectId: finalProjectId!,
+                finaleProjectId: finaleProjectId!,
                 boardId: boardId!,
             },
             getDetailAPI: getFinaleProjectBoardDetailAPI,
             deleteAPI: deleteFinaleProjectBoardAPI,
-            navigateAfterDelete: `/project/final/${finalProjectId}`,
+            navigateAfterDelete: `/project/final/${finaleProjectId}`
         });
-
-    const handleDownloadPDF = () => {
-        alert('PDF 다운로드');
-    };
 
     if (!data) return null;
 
@@ -63,9 +57,7 @@ const FinalProjectBoardDetail = () => {
                             ),
                         )}
                     </div>
-                    {data.members.some(
-                        (member) => member.name === userName,
-                    ) && (
+                    {(userInfo?.role === 'ADMIN' || data.members.some((member)=> member.id===userId)) && (
                         <div className="flex gap-4">
                             <Button onClick={handleDelete} color="red">
                                 일지 삭제

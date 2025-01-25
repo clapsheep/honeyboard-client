@@ -2,21 +2,22 @@ import { useAuth } from '@/hooks/useAuth';
 import useGetBookmarkList from '@/hooks/useGetBookmarkList';
 import { ProjectCard } from '../organisms';
 import convertDate from '@/utils/convertDate';
-import { useLocation } from 'react-router';
 
 const BMWebGuideCards = () => {
     const { userInfo } = useAuth();
-    const { pathname } = useLocation();
+
     const { data } = useGetBookmarkList({
         contentType: 'WEB_GUIDE',
         userId: userInfo!.userId,
     });
-    console.log('called PAGE', data);
+
+    ///study/web/concept/47
+    // http://localhost:5173/study/web/concept/41
     return (
         <div className="flex flex-col items-center gap-6 p-6">
             {data?.content?.length ? (
                 <>
-                    <ul className="grid min-w-[1400px] grid-cols-4 grid-rows-2 gap-6 pt-10">
+                    <ul className="grid min-w-[1400px] grid-cols-4 gap-6 pt-10">
                         {data.content.map((item) => (
                             <li key={item.id}>
                                 <ProjectCard
@@ -24,7 +25,7 @@ const BMWebGuideCards = () => {
                                     subTitle={convertDate(item.createdAt)}
                                     id={item.id}
                                     img={item.thumbnail}
-                                    pathname={pathname}
+                                    pathname="/study/web/concept"
                                 />
                             </li>
                         ))}

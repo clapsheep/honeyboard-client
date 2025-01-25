@@ -25,8 +25,9 @@ export const useProjectBoardDetail = <U, T>({
     const { openModal, closeModal } = useModalStore();
 
     const { data } = useQuery<T>({
-        queryKey: [projectType, boardId],
+        queryKey: [projectType],
         queryFn: () => getDetailAPI(requestParam),
+        staleTime: 5 * 1000,
     });
 
     const handleDelete = async () => {
