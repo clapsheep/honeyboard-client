@@ -8,6 +8,7 @@ import TrackPDF from '@/components/templates/PDF/TrackPDF';
 import { useAuth } from '@/hooks/useAuth';
 import { useProjectBoardDetail } from '@/hooks/useProjectBoardDetail';
 import ToastViewerComponent from '@/layouts/ToastViewerComponent';
+import convertDate from '@/utils/convertDate';
 import { useLocation, useParams } from 'react-router';
 
 const TrackProjectBoardDetail = () => {
@@ -71,7 +72,7 @@ const TrackProjectBoardDetail = () => {
                 <div className="flex w-full justify-end">
                     <ButtonPDF
                         document={<TrackPDF data={data} />}
-                        fileName={`${data.title}.pdf`}
+                        fileName={`[TRACK_${convertDate(data.createdAt)}]${data.members.map((i) => i.name).join(',')}_${data.title}.pdf`}
                     />
                 </div>
                 <ToastViewerComponent

@@ -24,7 +24,6 @@
         "@zodios/core": "^10.9.6",
         "axios": "^1.7.9",
         "honeyboard-client": "file:",
-        "marked": "^15.0.6",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.54.0",
