@@ -1,11 +1,9 @@
 import { useAuth } from '@/hooks/useAuth';
 import useGetBookmarkList from '@/hooks/useGetBookmarkList';
 import { ProjectCard } from '../organisms';
-import { useLocation } from 'react-router';
 
 const BMAlgorithmGuideCards = () => {
     const { userInfo } = useAuth();
-    const { pathname } = useLocation();
     const { data } = useGetBookmarkList({
         contentType: 'ALGO_GUIDE',
         userId: userInfo!.userId,
@@ -14,7 +12,7 @@ const BMAlgorithmGuideCards = () => {
     return (
         <div className="flex flex-col items-center gap-6 p-6">
             {data?.content?.length ? (
-                <ul className="grid w-[1400px] grid-cols-4 grid-rows-2 gap-6 pt-10">
+                <ul className="grid w-[1400px] grid-cols-4 gap-6 pt-10">
                     {data.content.map((item) => (
                         <li key={item.id}>
                             <ProjectCard
@@ -22,7 +20,7 @@ const BMAlgorithmGuideCards = () => {
                                 subTitle={item.createdAt}
                                 id={item.id}
                                 img={item.thumbnail}
-                                pathname={pathname}
+                                pathname="/study/algorithm/concept"
                             />
                         </li>
                     ))}
