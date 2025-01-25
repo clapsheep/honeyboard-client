@@ -42,8 +42,6 @@ const TrackProjectCreate = () => {
         try {
             const res = await createTrackProjectAPI(trackData);
 
-            console.log(res);
-
             if (res.status == 201) {
                 navigate(`/project/track/${res.data.id}`);
             } else {
