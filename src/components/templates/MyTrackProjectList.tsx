@@ -5,7 +5,7 @@ import { getMyTrackAPI } from '@/api/mypageAPI';
 
 const MyTrackProjectList = () => {
     const { data } = useMyPage({
-        queryFn: getMyTrackAPI,
+        queryFn: getMyTrackAPI(),
         queryKey: 'myTrackProject',
     });
 

@@ -6,11 +6,8 @@ import { MyTrackProjectResponse } from '@/types/TrackProject';
 import { api } from '@/utils/common/axiosInstance';
 
 export const getMyTrackAPI = async (
-    userId: string | null,
 ): Promise<MyTrackProjectResponse[]> => {
-    const response = await api.get('/user/trackProject', {
-        params: { userId },
-    });
+    const response = await api.get('/user/trackProject');
 
     return response.data;
 };

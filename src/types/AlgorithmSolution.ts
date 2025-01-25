@@ -25,7 +25,7 @@ export type AlgorithmSolutionListResponse = Pick<
 };
 export type MyAlgorithmSolutionResponse = Pick<
     AlgorithmSolution,
-    'id' | 'title' | 'memory' | 'runtime' | 'languageId'
+    'problemId' | 'id' | 'title' | 'memory' | 'runtime' | 'languageId'
 > & { problemTitle: string };
 
 export type AlgorithmSolutionDetailResponse = Pick<

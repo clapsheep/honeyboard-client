@@ -78,7 +78,7 @@ const AlgoDetailCards = ({ problemId }: AlgoDetailCardsProps) => {
 
     return (
         <div className="flex flex-col items-center">
-            <div className="my-3 flex w-full justify-between border border-gray-200 bg-gray-25 px-9 py-2">
+            <div className="flex justify-between w-full py-2 my-3 border border-gray-200 bg-gray-25 px-9">
                 <FilterChip
                     optionGroups={[
                         {
@@ -114,7 +114,7 @@ const AlgoDetailCards = ({ problemId }: AlgoDetailCardsProps) => {
                     disableBorder={true}
                 />
             </div>
-            <div className="flex w-full flex-col items-center justify-center gap-6 p-6">
+            <div className="flex flex-col items-center justify-center w-full gap-6 p-6">
                 {data?.content?.length ? (
                     <>
                         <ul className="grid w-full grid-cols-3 grid-rows-3 gap-6">
