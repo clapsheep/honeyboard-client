@@ -25,7 +25,7 @@ export const useProjectBoardDetail = <U, T>({
     const { openModal, closeModal } = useModalStore();
 
     const { data } = useQuery<T>({
-        queryKey: [projectType],
+        queryKey: ['projectBoardDetail', projectType, boardId],
         queryFn: () => getDetailAPI(requestParam),
         staleTime: 5 * 1000,
     });
