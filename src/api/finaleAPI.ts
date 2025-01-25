@@ -63,38 +63,38 @@ export const deleteFinaleProjectAPI = async (req: {
 
 // 2-4. 파이널 프로젝트 보드 작성 -> 팀원만 가능
 export const createFinaleProjectBoardAPI = async (req: {
-    finalProjectId: string;
+    finaleProjectId: string;
     data: FinaleProjectBoardRequest;
 }): Promise<unknown> => {
-    return api.post(`/project/finale/${req.finalProjectId}/board`, req.data);
+    return api.post(`/project/finale/${req.finaleProjectId}/board`, req.data);
 };
 // 3. 파이널 프로젝트 보드 조회
 export const getFinaleProjectBoardDetailAPI = async (req: {
-    finalProjectId: string;
+    finaleProjectId: string;
     boardId: string;
 }): Promise<FinaleProjectBoardDetailResponse> => {
     const { data } = await api.get(
-        `/project/finale/${req.finalProjectId}/board/${req.boardId}`,
+        `/project/finale/${req.finaleProjectId}/board/${req.boardId}`,
     );
     return data;
 };
 // 3-1. 파이널 프로젝트 보드 수정 -> 팀원만 가능
 export const updateFinaleProjectBoardAPI = async (req: {
-    finalProjectId: string;
+    finaleProjectId: string;
     boardId: string;
     data: FinaleProjectBoardRequest;
 }): Promise<unknown> => {
     return api.put(
-        `/project/finale/${req.finalProjectId}/board/${req.boardId}`,
+        `/project/finale/${req.finaleProjectId}/board/${req.boardId}`,
         req.data,
     );
 };
 // 3-2. 파이널 프로젝트 보드 삭제 -> 팀원만 가능
 export const deleteFinaleProjectBoardAPI = async (req: {
-    finalProjectId: string;
+    finaleProjectId: string;
     boardId: string;
 }): Promise<unknown> => {
     return api.delete(
-        `/project/finale/${req.finalProjectId}/board/${req.boardId}`,
+        `/project/finale/${req.finaleProjectId}/board/${req.boardId}`,
     );
 };
