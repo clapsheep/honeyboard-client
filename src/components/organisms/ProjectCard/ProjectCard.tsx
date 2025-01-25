@@ -1,4 +1,5 @@
 import { User } from '@/types/User';
+import convertDate from '@/utils/convertDate';
 import { Link } from 'react-router';
 
 interface ProjectCardProps {
@@ -19,10 +20,6 @@ const ProjectCard = ({
     img,
     pathname,
 }: ProjectCardProps) => {
-    const formatDate = (dateString: string) => {
-        return dateString.split(' ')[0]; // YYYY-MM-DD 부분만 추출
-    };
-
     return (
         <Link
             to={`${pathname}/${id}`}
@@ -42,16 +39,16 @@ const ProjectCard = ({
                 )}
             </div>
             <div className="flex w-full flex-col items-start border-t border-gray-300 px-4 py-3">
-                <p className="text-text-sm font-semibold text-gray-900">
+                <p className="w-full overflow-clip text-text-sm font-semibold text-gray-900">
                     {title}
                 </p>
                 {teams ? (
                     <p className="w-full truncate text-text-xs font-medium text-gray-500 hover:text-gray-700">
-                        {formatDate(subTitle)}
+                        {convertDate(subTitle)}
                     </p>
                 ) : (
                     <p className="text-text-xs font-medium text-gray-500">
-                        {formatDate(subTitle)}
+                        {convertDate(subTitle)}
                     </p>
                 )}
             </div>

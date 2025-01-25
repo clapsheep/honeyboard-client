@@ -59,7 +59,7 @@ export type TrackProjectDetailResponse = Pick<
         submitted: boolean;
         projectBoardId: string | null;
     }[];
-    trackProjectBoardList: (Pick<
+    boards: (Pick<
         TrackProjectBoard,
         'id' | 'title' | 'createdAt' | 'thumbnail'
     > & {

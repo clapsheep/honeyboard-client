@@ -12,20 +12,26 @@ import {
 } from '@/api/AlgorithmProblemAPI';
 import { useContentDetail } from '@/hooks/useContentDetail';
 import { Suspense } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 const AlgorithmProblemDetail = () => {
     const { pathname } = useLocation();
     const { problemId } = useParams();
     const navigate = useNavigate();
     const { data, handleDelete, handleEdit } = useContentDetail({
-        contentType: 'algo_solution',
+        contentType: 'ALGO_SOLUTION',
         contentId: problemId!,
         requestParam: { problemId: problemId! },
         getDetailAPI: getAlgorithmProblemDetailAPI,
         deleteAPI: deleteAlgorithmProblemAPI,
         navigateAfterDelete: '/study/algorithm/problem',
     });
+
+    const { userInfo } = useAuth();
+    const userRole = userInfo?.role;
+
     if (!data) return null;
+
     const ROUTES = [
         {
             path: pathname,
@@ -43,6 +49,7 @@ const AlgorithmProblemDetail = () => {
                 titleProps={{
                     title: data.title,
                     description: { 문제링크: data.url },
+                    isLink: true,
                 }}
                 BreadcrumbProps={{ pathname }}
             >
@@ -51,10 +58,14 @@ const AlgorithmProblemDetail = () => {
                         <TabNavigation routes={ROUTES} />
                     </div>
                     <div className="flex items-end gap-4">
-                        <Button color="red" onClick={handleDelete}>
-                            문제 삭제
-                        </Button>
-                        <Button onClick={handleEdit}>문제 수정</Button>
+                        {userRole === 'ADMIN' && (
+                            <div className="flex items-end gap-4">
+                                <Button color="red" onClick={handleDelete}>
+                                    문제 삭제
+                                </Button>
+                                <Button onClick={handleEdit}>문제 수정</Button>
+                            </div>
+                        )}
                         <Button onClick={() => navigate('create')}>
                             풀이 작성
                         </Button>

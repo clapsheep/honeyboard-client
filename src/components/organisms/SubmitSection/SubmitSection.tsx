@@ -12,7 +12,7 @@ interface SubmitSectionProps {
         submitted: boolean;
         projectBoardId: string | null;
     }[];
-    onClick: (teamId: string) => void;
+    onClick: (teamId: string, boardId: string) => void;
 }
 
 const SubmitSection = ({
@@ -33,7 +33,9 @@ const SubmitSection = ({
                               <TeamTag
                                   team={team.members}
                                   isSubmit={team.submitted}
-                                  onClick={() => onClick(team.id)}
+                                  onClick={() =>
+                                      onClick(team.id, team.projectBoardId!)
+                                  }
                               />
                           </div>
                       ))

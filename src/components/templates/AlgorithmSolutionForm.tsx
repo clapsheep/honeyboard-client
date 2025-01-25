@@ -1,8 +1,8 @@
-import ToastEditorComponent from "@/layouts/ToastEditorComponent";
-import { Button } from "../atoms";
-import { InputForm } from "../molecules";
-import { AlgoInfo } from "../molecules";
-import { Header } from "../organisms";
+import ToastEditorComponent from '@/layouts/ToastEditorComponent';
+import { Button } from '../atoms';
+import { InputForm } from '../molecules';
+import { AlgoInfo } from '../molecules';
+import { Header } from '../organisms';
 
 interface AlgorithmSolutionFormProps {
     mode: 'create' | 'edit';
@@ -17,8 +17,14 @@ interface AlgorithmSolutionFormProps {
     editorRef: React.RefObject<HTMLDivElement>;
     handleTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleSummaryChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleSolutionDetailChange: (field: 'runtime' | 'memory' | 'languageId', value: string) => void;
-    handleNumberInput: (field: 'runtime' | 'memory', e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleSolutionDetailChange: (
+        field: 'runtime' | 'memory' | 'languageId',
+        value: string,
+    ) => void;
+    handleNumberInput: (
+        field: 'runtime' | 'memory',
+        e: React.ChangeEvent<HTMLInputElement>,
+    ) => void;
     handleCancel: () => void;
     handleSubmit: () => void;
 }
@@ -71,7 +77,7 @@ const AlgorithmSolutionForm = ({
                 </div>
             </Header>
 
-            <div className="flex flex-col flex-1 gap-4 p-6">
+            <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
                     id="AlgorithmSolutionTitle"
                     label="제목"

@@ -9,19 +9,20 @@ const MyTrackProjectList = () => {
         queryKey: 'myTrackProject',
     });
 
-    console.log(data);
     return (
-        <div className="flex flex-col items-center gap-6 p-6">
+        <div className="flex flex-col items-center gap-6 p-6 pt-10">
             {data?.length ? (
                 <>
-                    <ul className="grid min-w-[1400px] grid-cols-4 gap-6">
+                    <ul className="ml-40 grid min-w-[1400px] grid-cols-4 gap-6">
                         {data.map((item) => (
-                            <li key={item.projectId}>
+                            <li key={item.id}>
                                 <ProjectCard
-                                    title={item.title}
-                                    subTitle={item.updatedAt}
-                                    id={item.projectId}
+                                    title={item.trackProjectName}
+                                    subTitle={item.title}
+                                    id={item.boardId}
                                     img={item.thumbnail}
+                                    teams={item.trackTeam}
+                                    pathname={`/project/track/${item.trackProjectId}/team/${item.trackTeamId}/board`}
                                 />
                             </li>
                         ))}
@@ -30,7 +31,7 @@ const MyTrackProjectList = () => {
             ) : (
                 <div className="flex min-h-[200px] w-full items-center justify-center">
                     <p className="text-lg text-gray-500">
-                        등록된 컨셉 프로젝트가 없습니다.
+                        등록된 관통 프로젝트가 없습니다.
                     </p>
                 </div>
             )}

@@ -3,12 +3,12 @@ import useToastEditor from '@/hooks/useToastEditor';
 import { useAuth } from '@/hooks/useAuth';
 import { useModalStore } from '@/stores/modalStore';
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router';  
+import { useLocation, useNavigate, useParams } from 'react-router';
 import {
     updateAlgorithmSolutionAPI,
     getAlgorithmSolutionDetailAPI,
     deleteAlgorithmSolutionAPI,
- } from '@/api/AlgorithmSolutionAPI';
+} from '@/api/AlgorithmSolutionAPI';
 import { useContentDetail } from '@/hooks/useContentDetail';
 
 interface SolutionDetail {
@@ -42,6 +42,16 @@ const AlgorithmSolutionUpdate = () => {
     });
 
     useEffect(() => {
+        if (userId != data?.authorId) {
+            openModal({
+                title: '페이지 접근 권한이 없습니다.',
+                onCancelClick: () => {
+                    navigate(-1);
+                    closeModal();
+                },
+            });
+        }
+
         if (data) {
             setTitle(data.title);
             setSummary(data.summary);
@@ -90,7 +100,7 @@ const AlgorithmSolutionUpdate = () => {
             return;
         }
 
-        if(!problemId) {
+        if (!problemId) {
             openModal({
                 title: '알고리즘 문제를 불러오지 못했습니다.',
                 onCancelClick: () => {
@@ -101,7 +111,7 @@ const AlgorithmSolutionUpdate = () => {
             return;
         }
 
-        if(!solutionId) {
+        if (!solutionId) {
             openModal({
                 title: '게시글을 불러오지 못했습니다.',
                 onCancelClick: () => {
@@ -122,7 +132,7 @@ const AlgorithmSolutionUpdate = () => {
             return;
         }
 
-        try{
+        try {
             const { content } = await onSubmit();
 
             await updateAlgorithmSolutionAPI({
@@ -136,9 +146,11 @@ const AlgorithmSolutionUpdate = () => {
                 },
             });
 
-            navigate(`/study/algorithm/problem/${problemId}/solution/${solutionId}`);
-        } catch (error){
-            if(error){
+            navigate(
+                `/study/algorithm/problem/${problemId}/solution/${solutionId}`,
+            );
+        } catch (error) {
+            if (error) {
                 openModal({
                     title: '게시글 작성을 실패했습니다.',
                     onCancelClick: () => {
@@ -157,7 +169,10 @@ const AlgorithmSolutionUpdate = () => {
         setSummary(e.target.value);
     };
 
-    const handleSolutionDetailChange = (field: keyof SolutionDetail, value: string) => {
+    const handleSolutionDetailChange = (
+        field: keyof SolutionDetail,
+        value: string,
+    ) => {
         setSolutionDetail((prev) => ({
             ...prev,
             [field]: value,
