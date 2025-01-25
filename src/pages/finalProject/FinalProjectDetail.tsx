@@ -14,21 +14,21 @@ import { NameTag } from '@/components/atoms';
 
 const FinalProjectDetail = () => {
     const { pathname } = useLocation();
-    const { finalProjectId } = useParams<{ finalProjectId: string }>();
+    const { finaleProjectId } = useParams();
     const { userInfo } = useAuth();
     const navigate = useNavigate();
     const { openModal, closeModal } = useModalStore();
 
     const { data: data } = useQuery({
-        queryKey: ['finaleProject', finalProjectId],
+        queryKey: ['finaleProject', finaleProjectId],
         queryFn: async () => {
-            if (!finalProjectId) throw new Error('Project ID is required');
+            if (!finaleProjectId) throw new Error('Project ID is required');
             const data = await getFinaleProjectDetailAPI({ 
-                finaleProjectId: finalProjectId 
+                finaleProjectId
             });
             return data;
         },
-        enabled: !!finalProjectId,
+        enabled: !!finaleProjectId,
     });
 
     const isTeamMember = data?.members?.some(
@@ -39,7 +39,7 @@ const FinalProjectDetail = () => {
     );
 
     const handleProjectDelete = () => {
-        if (!finalProjectId) return;
+        if (!finaleProjectId) return;
         
         openModal({
             icon: 'warning',
@@ -47,7 +47,7 @@ const FinalProjectDetail = () => {
             subTitle: '정말 삭제하시겠습니까?',
             onConfirmClick: async () => {
                 await deleteFinaleProjectAPI({ 
-                    finaleProjectId: finalProjectId 
+                    finaleProjectId
                 });
                 navigate(-1);
                 closeModal();
@@ -64,7 +64,7 @@ const FinalProjectDetail = () => {
 
     const handleCreateBoard = () => {
         if (data?.finaleTeamId) {
-            navigate(`/project/final/${finalProjectId}/board/create`);
+            navigate(`/project/final/${finaleProjectId}/board/create`);
         }
     };
 
@@ -124,7 +124,7 @@ const FinalProjectDetail = () => {
                 {data.boards && (
                     <FinalProjectDetailCards
                         boards={data.boards}
-                        finaleProjectId={finalProjectId!}
+                        finaleProjectId={finaleProjectId!}
                     />
                 )}
             </Suspense>
