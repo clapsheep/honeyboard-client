@@ -19,10 +19,10 @@ const MyTrackProjectList = () => {
                                 <ProjectCard
                                     title={item.trackProjectName}
                                     subTitle={item.title}
-                                    id={item.id}
+                                    id={item.boardId}
                                     img={item.thumbnail}
                                     teams={item.trackTeam}
-                                    pathname={`/project/track/${29}/team/${item.trackTeamId}/board`}
+                                    pathname={`/project/track/${item.trackProjectId}/team/${item.trackTeamId}/board`}
                                 />
                             </li>
                         ))}
