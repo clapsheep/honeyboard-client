@@ -5,8 +5,7 @@ import { MyFinaleProjectResponse } from '@/types/FinaleProject';
 import { MyTrackProjectResponse } from '@/types/TrackProject';
 import { api } from '@/utils/common/axiosInstance';
 
-export const getMyTrackAPI = async (
-): Promise<MyTrackProjectResponse[]> => {
+export const getMyTrackAPI = async (): Promise<MyTrackProjectResponse[]> => {
     const response = await api.get('/user/trackProject');
 
     return response.data;
