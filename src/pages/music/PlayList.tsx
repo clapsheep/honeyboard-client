@@ -10,7 +10,7 @@ const PlayList = () => {
                 titleProps={{ title: '플레이리스트' }}
                 BreadcrumbProps={{ pathname }}
             />
-            <div className="mx-auto grid h-[920px] w-[1000px] flex-1 grid-cols-2 items-center gap-6 p-6">
+            <div className="flex h-[920px] w-full items-center justify-center gap-6 p-6">
                 <PlayListSection />
                 <ChatSection />
             </div>
