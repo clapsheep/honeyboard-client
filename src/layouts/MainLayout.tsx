@@ -13,7 +13,7 @@ const MainLayout = () => {
     }
 
     return (
-        <div className="flex min-h-screen overflow-hidden">
+        <div className="flex min-h-screen min-w-[1920px] overflow-hidden">
             <Navigation
                 generation={userInfo!.generationName}
                 name={userInfo!.name}
