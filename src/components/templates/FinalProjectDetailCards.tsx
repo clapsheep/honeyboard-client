@@ -21,12 +21,12 @@ const FinalProjectDetailCards = ({
     };
 
     return (
-        <div className="flex w-full flex-col gap-6 p-6">
+        <div className="flex w-full flex-col items-center gap-6 p-6">
             <div className="flex w-full justify-end">
                 <ButtonPDF onClick={onClickPDF}></ButtonPDF>
             </div>
             {boards && boards.length > 0 ? (
-                <ul className="grid min-w-[1400px] grid-cols-4 grid-rows-2 gap-6">
+                <ul className="grid w-[1400px] grid-cols-4 grid-rows-2 gap-6">
                     {boards.map((board) => (
                         <li key={board.id}>
                             <ProjectCard
