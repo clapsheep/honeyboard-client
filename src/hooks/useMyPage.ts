@@ -12,7 +12,6 @@ const useMyPage = <T>({ queryFn, queryKey }: useMyPageProps<T>) => {
         queryKey: [queryKey],
         queryFn: () => queryFn,
     });
-    console.log(data);
 
     return { data };
 };

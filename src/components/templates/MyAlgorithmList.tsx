@@ -8,7 +8,6 @@ const MyAlgorithmList = () => {
         queryFn: getMyAlgorithmAPI(),
         queryKey: 'myAlgorithm',
     });
-    console.log(data);
 
     return (
         <div className="flex flex-col items-center gap-6 p-6">

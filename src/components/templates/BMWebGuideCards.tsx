@@ -11,7 +11,7 @@ const BMWebGuideCards = () => {
         contentType: 'WEB_GUIDE',
         userId: userInfo!.userId,
     });
-    console.log('called PAGE', data);
+
     return (
         <div className="flex flex-col items-center gap-6 p-6">
             {data?.content?.length ? (

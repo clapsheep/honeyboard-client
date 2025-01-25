@@ -1,7 +1,4 @@
-import {
-    FinaleProjectBoard,
-} from '@/types/FinaleProject';
-import { ButtonPDF } from '../atoms';
+import { FinaleProjectBoard } from '@/types/FinaleProject';
 import { ProjectCard } from '../organisms';
 
 interface FinalProjectDetailCardsProps {
@@ -16,15 +13,8 @@ const FinalProjectDetailCards = ({
     boards,
     finaleProjectId,
 }: FinalProjectDetailCardsProps) => {
-    const onClickPDF = (e: React.MouseEvent<HTMLButtonElement>) => {
-        console.log('PDF 다운로드', e);
-    };
-
     return (
         <div className="flex w-full flex-col items-center gap-6 p-6">
-            <div className="flex w-full justify-end">
-                <ButtonPDF onClick={onClickPDF}></ButtonPDF>
-            </div>
             {boards && boards.length > 0 ? (
                 <ul className="grid w-[1400px] grid-cols-4 grid-rows-2 gap-6">
                     {boards.map((board) => (

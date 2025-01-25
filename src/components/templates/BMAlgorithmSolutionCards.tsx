@@ -8,7 +8,7 @@ const BMAlgorithmSolutionCards = () => {
         contentType: 'ALGO_SOLUTION',
         userId: userInfo!.userId,
     });
-    console.log('called PAGE', data);
+
     return (
         <div className="flex flex-col items-center">
             {data?.content?.length ? (
