@@ -55,11 +55,7 @@ const SignUp = () => {
                                 id="name"
                                 label="이름"
                                 type="text"
-                                errorMessage={
-                                    touchedFields.name
-                                        ? errors.name?.message
-                                        : undefined
-                                }
+                                errorMessage={errors.name?.message || undefined}
                                 placeholder="이름을 입력해주세요"
                                 onKeyDown={(e) =>
                                     handleKeyDown(
@@ -132,9 +128,7 @@ const SignUp = () => {
                                 type="password"
                                 placeholder="8자 이상 + 영문 + 숫자"
                                 errorMessage={
-                                    touchedFields.password
-                                        ? errors.password?.message
-                                        : undefined
+                                    errors.password?.message || undefined
                                 }
                                 onKeyDown={(e) =>
                                     handleKeyDown(
