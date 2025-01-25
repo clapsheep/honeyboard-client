@@ -39,7 +39,7 @@ const ProjectCard = ({
                 )}
             </div>
             <div className="flex w-full flex-col items-start border-t border-gray-300 px-4 py-3">
-                <p className="text-text-sm font-semibold text-gray-900">
+                <p className="w-full overflow-clip text-text-sm font-semibold text-gray-900">
                     {title}
                 </p>
                 {teams ? (

@@ -3,7 +3,7 @@ import useToastEditor from '@/hooks/useToastEditor';
 import { useAuth } from '@/hooks/useAuth';
 import { useModalStore } from '@/stores/modalStore';
 import { useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router';  
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { createAlgorithmSolutionAPI } from '@/api/AlgorithmSolutionAPI';
 
 interface SolutionDetail {
@@ -63,7 +63,7 @@ const AlgorithmSolutionCreate = () => {
             return;
         }
 
-        if(!problemId) {
+        if (!problemId) {
             openModal({
                 title: '알고리즘 문제를 불러오지 못했습니다.',
                 onCancelClick: () => {
@@ -85,10 +85,10 @@ const AlgorithmSolutionCreate = () => {
             return;
         }
 
-        try{
+        try {
             const { content } = await onSubmit();
 
-            const { data: res } = await createAlgorithmSolutionAPI({
+            const data = await createAlgorithmSolutionAPI({
                 problemId: problemId,
                 data: {
                     title: title.trim(),
@@ -96,11 +96,13 @@ const AlgorithmSolutionCreate = () => {
                     ...solutionDetail,
                     content,
                 },
-            })
+            });
 
-            navigate(`/study/algorithm/problem/${problemId}/solution/${res.id}`);
-        } catch (error){
-            if(error){
+            navigate(
+                `/study/algorithm/problem/${problemId}/solution/${data.id}`,
+            );
+        } catch (error) {
+            if (error) {
                 openModal({
                     title: '게시글 작성을 실패했습니다.',
                     onCancelClick: () => {
@@ -119,7 +121,10 @@ const AlgorithmSolutionCreate = () => {
         setSummary(e.target.value);
     };
 
-    const handleSolutionDetailChange = (field: keyof SolutionDetail, value: string) => {
+    const handleSolutionDetailChange = (
+        field: keyof SolutionDetail,
+        value: string,
+    ) => {
         setSolutionDetail((prev) => ({
             ...prev,
             [field]: value,

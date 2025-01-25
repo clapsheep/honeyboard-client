@@ -71,8 +71,8 @@ const TrackProjectList = () => {
                     </div>
                 </div>
             </Header>
-
-            <section className="grid w-full grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="flex flex-col items-center">
+            <section className="grid min-w-[1400px] grid-cols-4 gap-6 p-6">
                 {/* Suspense로 로딩 상태 처리 */}
                 <Suspense fallback={<ProjectCardSkeletonList />}>
                     {projectList && projectList.length > 0 ? (
@@ -93,6 +93,7 @@ const TrackProjectList = () => {
                     )}
                 </Suspense>
             </section>
+        </div>
         </>
     );
 };

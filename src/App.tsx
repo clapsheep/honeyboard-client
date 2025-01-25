@@ -342,7 +342,7 @@ function App() {
                                     element={<BMWebConcept />}
                                 />
                                 <Route
-                                    path="web/recomend"
+                                    path="web/recommend"
                                     element={<BMWebRecommend />}
                                 />
                             </Route>

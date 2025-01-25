@@ -89,7 +89,7 @@ const StudentEditModal = ({
                             name="generation"
                             options={convertSelectType(generationList)}
                             placeholder="기수 선택"
-                            value={student.generationId}
+                            value={formData.generationId}
                             onChange={handleSelectChange}
                         />
                     </div>

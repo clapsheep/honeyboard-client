@@ -28,26 +28,28 @@ const TrackProjectCards = ({
     teams,
     boards,
 }: TrackProjectCardsProps) => {
-    const teamsId = teams.filter((team) =>
-        boards.some((board) => board.id === team.projectBoardId),
-    );
-
     const onClickPDF = (e: React.MouseEvent<HTMLButtonElement>) => {
         console.log('PDF 다운로드', e);
     };
 
     return (
-        <div className="flex w-full flex-col gap-6 p-6">
+        <div className="flex w-full flex-col gap-6 p-6 items-center">
             <div className="flex w-full justify-end">
                 <ButtonPDF onClick={onClickPDF}></ButtonPDF>
             </div>
             {boards && boards.length > 0 ? (
                 <>
-                    <ul className="grid min-w-[1400px] grid-cols-4 grid-rows-2 gap-6">
+                    <ul className="grid w-[1400px] grid-cols-4 grid-rows-2 gap-6">
                         {boards.map((board) => {
-                            const foundTeam = teamsId.find(
-                                (team) => team.projectBoardId === board.id,
-                            );
+                            const foundTeam = teams.find((team) => {
+                                // 팀의 members 배열에서 boards.members.id와 일치하는 항목이 있는지 확인
+                                return team.members.some((teamMember) =>
+                                    board.members.some(
+                                        (boardMember) =>
+                                            boardMember.id === teamMember.id,
+                                    ),
+                                );
+                            });
                             return (
                                 <li key={board.id}>
                                     <ProjectCard

@@ -114,10 +114,10 @@ const AlgoDetailCards = ({ problemId }: AlgoDetailCardsProps) => {
                     disableBorder={true}
                 />
             </div>
-            <div className="flex w-full flex-col items-center justify-center gap-6 p-6">
+            <div className="flex w-[1400px] flex-col items-center justify-center gap-6 p-6">
                 {data?.content?.length ? (
                     <>
-                        <ul className="grid w-full grid-cols-3 grid-rows-3 gap-6">
+                        <ul className="grid w-[1400px] grid-cols-3 grid-rows-3 gap-6">
                             {data.content.map((item) => (
                                 <li key={item.id}>
                                     <AlgoDetailCard
@@ -147,7 +147,9 @@ const AlgoDetailCards = ({ problemId }: AlgoDetailCardsProps) => {
                                 )
                             }
                             onClick={(e) =>
-                                handlePageChange(Number(e.currentTarget.textContent))
+                                handlePageChange(
+                                    Number(e.currentTarget.textContent),
+                                )
                             }
                         />
                     </>

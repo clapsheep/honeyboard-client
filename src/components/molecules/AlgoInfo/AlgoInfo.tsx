@@ -29,8 +29,6 @@ const AlgoInfo = ({
         (lang) => lang.id == languageId,
     );
 
-    console.log(selectedLanguage);
-
     return (
         <div className="flex gap-6">
             <div className="flex items-center gap-1">
