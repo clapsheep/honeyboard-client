@@ -18,7 +18,7 @@ const FinalListCards = ({ boards }: FinalListCardsProps) => {
         <div className="flex w-full flex-col items-center gap-6 p-6">
             {boards && boards.length > 0 ? (
                 <>
-                    <ul className="grid min-w-[1400px] grid-cols-4 grid-rows-2 gap-6">
+                    <ul className="grid min-w-[1400px] grid-cols-4 grid-rows-2 gap-6 px-6">
                         {boards.map((item) => (
                             <li key={item.id}>
                                 <ProjectCard

@@ -72,28 +72,28 @@ const TrackProjectList = () => {
                 </div>
             </Header>
             <div className="flex flex-col items-center">
-            <section className="grid min-w-[1400px] grid-cols-4 gap-6 p-6">
-                {/* Suspense로 로딩 상태 처리 */}
-                <Suspense fallback={<ProjectCardSkeletonList />}>
-                    {projectList && projectList.length > 0 ? (
-                        projectList.map((item) => (
-                            <ProjectCard
-                                key={item.id}
-                                id={item.id}
-                                title={item.title}
-                                subTitle={convertDate(item.createdAt)}
-                                img={item.thumbnail}
-                                pathname={pathname}
-                            />
-                        ))
-                    ) : (
-                        <div className="col-span-full text-center text-gray-500">
-                            <p>게시글이 없습니다.</p>
-                        </div>
-                    )}
-                </Suspense>
-            </section>
-        </div>
+                <section className="grid min-w-[1400px] grid-cols-4 gap-6 p-6">
+                    {/* Suspense로 로딩 상태 처리 */}
+                    <Suspense fallback={<ProjectCardSkeletonList />}>
+                        {projectList && projectList.length > 0 ? (
+                            projectList.map((item) => (
+                                <ProjectCard
+                                    key={item.id}
+                                    id={item.id}
+                                    title={item.title}
+                                    subTitle={convertDate(item.createdAt)}
+                                    img={item.thumbnail}
+                                    pathname={pathname}
+                                />
+                            ))
+                        ) : (
+                            <div className="col-span-full text-center text-gray-500">
+                                <p>게시글이 없습니다.</p>
+                            </div>
+                        )}
+                    </Suspense>
+                </section>
+            </div>
         </>
     );
 };

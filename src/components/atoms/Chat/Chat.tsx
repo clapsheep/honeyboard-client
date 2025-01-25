@@ -1,13 +1,17 @@
 interface ChatProps {
     children: string;
     isMe?: boolean;
-    time: string;
+    time: Date;
     name: string;
 }
 const Chat = ({ children, isMe = false, time, name }: ChatProps) => {
-    const formatTime = (time: string) => {
-        time = time.replace(/-/g, ':');
-        return time.slice(5, 10);
+    const formatTime = (time: Date) => {
+        return time.toLocaleString('ko-KR', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+            hourCycle: 'h12'
+        });
     };
     return (
         <div
