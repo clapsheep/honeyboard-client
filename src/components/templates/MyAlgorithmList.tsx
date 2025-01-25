@@ -2,13 +2,10 @@ import useMyPage from '@/hooks/useMyPage';
 
 import { AlgoDetailCard } from '../molecules';
 import { getMyAlgorithmAPI } from '@/api/mypageAPI';
-import { useAuth } from '@/hooks/useAuth';
 
 const MyAlgorithmList = () => {
-    const { userInfo } = useAuth();
-    const userId = userInfo?.userId ? userInfo?.userId : '0';
     const { data } = useMyPage({
-        queryFn: getMyAlgorithmAPI({ userId }),
+        queryFn: getMyAlgorithmAPI(),
         queryKey: 'myAlgorithm',
     });
     console.log(data);
@@ -19,16 +16,15 @@ const MyAlgorithmList = () => {
                 <>
                     <ul className="grid min-w-[1400px] grid-cols-4 gap-6">
                         {data.map((item) => (
-                            <li key={item.solutionId}>
+                            <li key={item.id}>
                                 <AlgoDetailCard
+                                    problemId={item.problemId}
+                                    solutionId={item.id}
                                     title={item.title}
-                                    subTitle={item.updatedAt}
+                                    subTitle={item.problemTitle}
                                     memory={Number(item.memory)}
                                     time={Number(item.runtime)}
                                     language={item.languageId}
-                                    isBookmarked={item.isBookmarked}
-                                    onClick={() => {}}
-                                    onBookmarkClick={() => {}}
                                 />
                             </li>
                         ))}
