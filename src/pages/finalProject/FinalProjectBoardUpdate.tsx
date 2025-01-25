@@ -11,7 +11,7 @@ import { useLocation, useNavigate, useParams } from 'react-router';
 
 const FinalProjectBoardUpdate = () => {
     const { pathname } = useLocation();
-    const { finalProjectId, boardId } = useParams();
+    const { finaleProjectId, boardId } = useParams();
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
@@ -20,7 +20,7 @@ const FinalProjectBoardUpdate = () => {
     const data = useProjectDetail({
         getAPI: getFinaleProjectBoardDetailAPI,
         requestParam:
-            finalProjectId && boardId ? { finalProjectId, boardId } : undefined,
+            finaleProjectId && boardId ? { finaleProjectId, boardId } : undefined,
     });
 
     useEffect(() => {
@@ -63,7 +63,7 @@ const FinalProjectBoardUpdate = () => {
             return;
         }
 
-        if (!finalProjectId) {
+        if (!finaleProjectId) {
             openModal({
                 title: '프로젝트가 없습니다.',
                 onCancelClick: () => {
@@ -77,7 +77,7 @@ const FinalProjectBoardUpdate = () => {
             const { content, thumbnail } = await onSubmit();
 
             const id = await updateFinaleProjectBoardAPI({
-                finalProjectId,
+                finaleProjectId,
                 boardId,
                 data: {
                     title: title.trim(),
@@ -87,7 +87,7 @@ const FinalProjectBoardUpdate = () => {
                 },
             });
 
-            navigate(`/project/final/${finalProjectId}/board/${boardId}`);
+            navigate(`/project/final/${finaleProjectId}/board/${boardId}`);
         } catch (error) {
             console.error('게시글 수정을 실패했습니다:', error);
         }
