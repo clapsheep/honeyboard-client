@@ -2,7 +2,13 @@ const calcRouteStructure = (pathname: string) => {
     const routeList = pathname
         .substring(1)
         .split('/')
-        .filter((route) => !/^\d+$/.test(route) && route !== 'team');
+        .filter(
+            (route) =>
+                !/^\d+$/.test(route) &&
+                route !== 'team' &&
+                route !== 'create' &&
+                route != 'edit',
+        );
     const routeStructure = routeList.reduce(
         (acc, route, index) => {
             let name;
