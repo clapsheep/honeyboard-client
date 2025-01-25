@@ -15,7 +15,7 @@ export type ContentType =
 export type BookmarkedResponse = {
     bookmarked: boolean;
 };
-export type BookmarkContent = {
+export type BookmarkListResponse = {
     WEB_RECOMMEND: WebRecommendListResponse[];
     WEB_GUIDE: WebGuideListResponse[];
     ALGO_SOLUTION: AlgorithmSolutionListResponse[];
