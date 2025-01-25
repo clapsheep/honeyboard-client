@@ -13,22 +13,20 @@ const BMAlgorithmGuideCards = () => {
     console.log('called PAGE', data);
     return (
         <div className="flex flex-col items-center gap-6 p-6">
-            {data?.length ? (
-                <>
-                    <ul className="grid w-[1400px] grid-cols-4 grid-rows-2 gap-6 pt-10">
-                        {data.map((item) => (
-                            <li key={item.id}>
-                                <ProjectCard
-                                    title={item.title}
-                                    subTitle={item.createdAt}
-                                    id={item.id}
-                                    img={item.thumbnail}
-                                    pathname={pathname}
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                </>
+            {data?.content?.length ? (
+                <ul className="grid w-[1400px] grid-cols-4 grid-rows-2 gap-6 pt-10">
+                    {data.content.map((item) => (
+                        <li key={item.id}>
+                            <ProjectCard
+                                title={item.title}
+                                subTitle={item.createdAt}
+                                id={item.id}
+                                img={item.thumbnail}
+                                pathname={pathname}
+                            />
+                        </li>
+                    ))}
+                </ul>
             ) : (
                 <div className="flex min-h-[200px] w-full items-center justify-center">
                     <p className="text-lg text-gray-500">

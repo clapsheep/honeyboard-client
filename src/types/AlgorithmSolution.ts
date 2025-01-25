@@ -18,7 +18,7 @@ export interface AlgorithmSolution {
 
 export type AlgorithmSolutionListResponse = Pick<
     AlgorithmSolution,
-    'id' | 'title' | 'memory' | 'runtime' | 'languageId'
+    'id' | 'title' | 'memory' | 'runtime' | 'languageId' | 'problemId'
 > & {
     subtitle: string;
     languageName: string;

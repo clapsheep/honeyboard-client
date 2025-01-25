@@ -11,7 +11,7 @@ const useGetBookmarkList = <T extends ContentType>({
     contentType,
     userId,
 }: useGetBookmarkListProps<T>) => {
-    const { data } = useSuspenseQuery<BookmarkContent[T]>({
+    const { data } = useSuspenseQuery<{ content: BookmarkContent[T] }>({
         queryKey: ['bookmark', contentType, userId],
         queryFn: () => getMyBookmarkAPI({ contentType }),
     });
