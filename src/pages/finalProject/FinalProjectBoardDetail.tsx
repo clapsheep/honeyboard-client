@@ -4,10 +4,12 @@ import {
 } from '@/api/finaleAPI';
 import { Button, ButtonPDF, NameTag } from '@/components/atoms';
 import { Header } from '@/components/organisms';
+import FinalPDF from '@/components/templates/PDF/FinalPDF';
 import { useAuth } from '@/hooks/useAuth';
 import { useProjectBoardDetail } from '@/hooks/useProjectBoardDetail';
 import ToastViewerComponent from '@/layouts/ToastViewerComponent';
 import { FinaleTeamMember } from '@/types/FinaleProject';
+import convertDate from '@/utils/convertDate';
 import { useLocation, useParams } from 'react-router';
 
 //finale
@@ -75,7 +77,10 @@ const FinalProjectBoardDetail = () => {
             </Header>
             <div className="flex flex-col p-6">
                 <div className="flex w-full justify-end">
-                    <ButtonPDF onClick={handleDownloadPDF}></ButtonPDF>
+                    <ButtonPDF
+                        document={<FinalPDF data={data} />}
+                        fileName={`[FINAL_${convertDate(data.createdAt)}]${data.members.map((i) => i.name).join(',')}_${data.title}.pdf`}
+                    />
                 </div>
                 <ToastViewerComponent
                     content={data.content}
