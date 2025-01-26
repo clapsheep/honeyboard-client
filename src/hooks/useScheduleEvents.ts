@@ -9,6 +9,7 @@ import { EventObject } from '@toast-ui/calendar/types/types/events';
 import { useEffect, useState } from 'react';
 import { ScheduleEvent } from '@/types/Schedule';
 import { useModalStore } from '@/stores/modalStore';
+import { AxiosError } from 'axios';
 
 interface UseScheduleEventsReturn {
     events: ScheduleEvent[];
@@ -50,17 +51,20 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
             setEvents(formattedEvents);
         } catch (error) {
             console.error('일정 조회 에러:', error);
-            const errorMessage = error.response?.data?.message;
 
-            if (errorMessage === '일정을 찾을 수 없습니다.') {
-                openModal({
-                    title: errorMessage,
-                    onCancelClick: () => {
-                        closeModal();
-                    },
-                });
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.message;
+
+                if (errorMessage === '일정을 찾을 수 없습니다.') {
+                    openModal({
+                        title: errorMessage,
+                        onCancelClick: () => {
+                            closeModal();
+                        },
+                    });
+                }
+                setError(errorMessage);
             }
-            setError(errorMessage);
         }
     };
 
@@ -102,17 +106,20 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
             return true;
         } catch (error) {
             console.error('일정 등록 에러:', error);
-            const errorMessage = error.response?.data?.message;
 
-            if (errorMessage === '일정 추가에 실패하였습니다.') {
-                openModal({
-                    title: errorMessage,
-                    onCancelClick: () => {
-                        closeModal();
-                    },
-                });
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.message;
+
+                if (errorMessage === '일정 추가에 실패하였습니다.') {
+                    openModal({
+                        title: errorMessage,
+                        onCancelClick: () => {
+                            closeModal();
+                        },
+                    });
+                }
+                setError(errorMessage);
             }
-            setError(errorMessage);
 
             return false;
         }
@@ -162,17 +169,20 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
             return true;
         } catch (error) {
             console.error('일정 수정 에러:', error);
-            const errorMessage = error.response?.data?.message;
 
-            if (errorMessage === '일정 수정에 실패하였습니다.') {
-                openModal({
-                    title: errorMessage,
-                    onCancelClick: () => {
-                        closeModal();
-                    },
-                });
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.message;
+
+                if (errorMessage === '일정 수정에 실패하였습니다.') {
+                    openModal({
+                        title: errorMessage,
+                        onCancelClick: () => {
+                            closeModal();
+                        },
+                    });
+                }
+                setError(errorMessage);
             }
-            setError(errorMessage);
 
             return false;
         }
@@ -192,17 +202,20 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
             return true;
         } catch (error) {
             console.error('일정 삭제 에러:', error);
-            const errorMessage = error.response?.data?.message;
 
-            if (errorMessage === '일정 삭제에 실패하였습니다.') {
-                openModal({
-                    title: errorMessage,
-                    onCancelClick: () => {
-                        closeModal();
-                    },
-                });
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.message;
+
+                if (errorMessage === '일정 삭제에 실패하였습니다.') {
+                    openModal({
+                        title: errorMessage,
+                        onCancelClick: () => {
+                            closeModal();
+                        },
+                    });
+                }
+                setError(errorMessage);
             }
-            setError(errorMessage);
 
             return false;
         }
