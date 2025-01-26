@@ -6,6 +6,7 @@ import { Header } from '@/components/organisms';
 import SearchTeamMember from '@/components/organisms/SearchTeamMember/SearchTeamMember';
 import { useAuth } from '@/hooks/useAuth';
 import { useCreateTrackProject } from '@/hooks/useTrackProject';
+import { useModalStore } from '@/stores/modalStore';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -13,6 +14,7 @@ const TrackProjectCreate = () => {
     const MAX_LENGTH = 210;
     const { pathname } = useLocation();
     const { userInfo } = useAuth();
+    const { openModal, closeModal } = useModalStore();
 
     useEffect(() => {
         if (userInfo?.role != 'ADMIN') {
@@ -22,7 +24,7 @@ const TrackProjectCreate = () => {
 
     const navigate = useNavigate();
 
-    const handleCancle = () => {
+    const handleCancel = () => {
         navigate(-1);
     };
 
@@ -58,7 +60,13 @@ const TrackProjectCreate = () => {
                 throw new Error('프로젝트 생성 실패');
             }
         } catch (error) {
-            console.error('에러 발생', error);
+            console.error('프로젝트 생성을 실패했습니다.', error);
+            openModal({
+                title: '프로젝트 생성을 실패했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
         }
     };
 
@@ -70,7 +78,7 @@ const TrackProjectCreate = () => {
             >
                 <div className="flex justify-end gap-2">
                     <Button onClick={handleForm}>관통 프로젝트 생성</Button>
-                    <Button onClick={handleCancle} color={'red'}>
+                    <Button onClick={handleCancel} color={'red'}>
                         취소
                     </Button>
                 </div>

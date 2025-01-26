@@ -64,6 +64,13 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
                     });
                 }
                 setError(errorMessage);
+            } else {
+                openModal({
+                    title: '일정 조회를 실패했습니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
             }
         }
     };
@@ -119,6 +126,13 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
                     });
                 }
                 setError(errorMessage);
+            } else {
+                openModal({
+                    title: '일정 등록을 실패했습니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
             }
 
             return false;
@@ -182,6 +196,13 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
                     });
                 }
                 setError(errorMessage);
+            } else {
+                openModal({
+                    title: '일정 수정을 실패했습니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
             }
 
             return false;
@@ -215,6 +236,13 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
                     });
                 }
                 setError(errorMessage);
+            } else {
+                openModal({
+                    title: '일정 삭제를 실패했습니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
             }
 
             return false;
