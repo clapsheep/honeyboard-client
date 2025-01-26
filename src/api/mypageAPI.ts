@@ -9,7 +9,7 @@ export const getMyTrackAPI = async (): Promise<MyTrackProjectResponse[]> => {
 
     return response.data;
 };
-export const getMyFinalAPI = async (): Promise<MyFinaleProjectResponse> => {
+export const getMyFinalAPI = async (): Promise<MyFinaleProjectResponse[]> => {
     const response = await api.get('/user/finaleproject');
     return response.data;
 };

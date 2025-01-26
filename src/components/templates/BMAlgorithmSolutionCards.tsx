@@ -10,7 +10,7 @@ const BMAlgorithmSolutionCards = () => {
     });
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center p-6">
             {data?.content?.length ? (
                 <ul className="grid w-[1400px] grid-cols-3 gap-6 pt-10">
                     {data.content.map((item) => (
