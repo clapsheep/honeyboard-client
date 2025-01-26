@@ -3,6 +3,7 @@ import AlgoProblemForm from '@/components/templates/AlgoProblemForm';
 import useAlgorithmTag from '@/hooks/useAlgorithmTag';
 import { useAuth } from '@/hooks/useAuth';
 import { useModalStore } from '@/stores/modalStore';
+import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -67,6 +68,19 @@ const AlgorithmProblemCreate = () => {
             navigate('/study/algorithm/problem');
         } catch (error) {
             console.error('문제 생성을 실패했습니다.', error);
+
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.message;
+
+                if (errorMessage === '이미 등록된 문제입니다.') {
+                    openModal({
+                        title: errorMessage,
+                        onCancelClick: () => {
+                            closeModal();
+                        },
+                    });
+                }
+            }
         }
     };
 
