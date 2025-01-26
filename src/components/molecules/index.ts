@@ -17,3 +17,4 @@ export { default as SearchBarSkeleton } from './SearchBar/SearchBarSkeleton';
 export { default as Pagination } from './Pagination/Pagination';
 export { default as AlgoInfo } from './AlgoInfo/AlgoInfo';
 export {default as FilterChip} from './FilterChip/FilterChip';
+export {default as TextAreaForm} from "./TextAreaForm/TextAreaForm";
