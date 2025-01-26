@@ -7,6 +7,7 @@ import useAlgorithmTag from '@/hooks/useAlgorithmTag';
 import { useAuth } from '@/hooks/useAuth';
 import { useModalStore } from '@/stores/modalStore';
 import { AlgorithmProblemDetailResponse } from '@/types/AlgorithmProblem';
+import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
@@ -99,6 +100,19 @@ const AlgorithmProblemUpdate = () => {
             navigate('/study/algorithm/problem');
         } catch (error) {
             console.error('문제 수정을 실패했습니다.', error);
+
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.message;
+
+                if (errorMessage === '이미 등록된 문제입니다.') {
+                    openModal({
+                        title: errorMessage,
+                        onCancelClick: () => {
+                            closeModal();
+                        },
+                    });
+                }
+            }
         }
     };
 
