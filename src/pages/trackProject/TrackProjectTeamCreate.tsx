@@ -29,7 +29,7 @@ const TrackProjectTeamCreate = () => {
             const res = await createTrackTeamAPI(req);
 
             if (res.status == 201) {
-                navigate(`/track/${trackProjectId}`);
+                navigate(`/project/track/${trackProjectId}`);
             } else {
                 throw new Error('프로젝트 생성 실패');
             }

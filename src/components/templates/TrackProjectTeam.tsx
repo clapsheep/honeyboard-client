@@ -64,7 +64,9 @@ const TrackProjectTeam = ({
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-end gap-4">
-                    <Button onClick={handleAPIButton}>팀 생성</Button>
+                    <Button onClick={handleAPIButton}>
+                        {mode === 'create' ? '팀 생성' : '팀 수정'}
+                    </Button>
                     <Button onClick={handleCancle} color={'red'}>
                         취소
                     </Button>
