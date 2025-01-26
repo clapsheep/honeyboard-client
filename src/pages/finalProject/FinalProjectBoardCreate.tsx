@@ -7,7 +7,7 @@ import { useLocation, useNavigate, useParams } from 'react-router';
 
 const FinalProjectBoardCreate = () => {
     const { pathname } = useLocation();
-    const { finalProjectId } = useParams();
+    const { finaleProjectId } = useParams();
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
@@ -36,7 +36,7 @@ const FinalProjectBoardCreate = () => {
             return;
         }
 
-        if (!finalProjectId) {
+        if (!finaleProjectId) {
             openModal({
                 title: '프로젝트가 없습니다.',
                 onCancelClick: () => {
@@ -50,7 +50,7 @@ const FinalProjectBoardCreate = () => {
             const { content, thumbnail } = await onSubmit();
 
             const id = await createFinaleProjectBoardAPI({
-                finalProjectId,
+                finaleProjectId,
                 data: {
                     title: title.trim(),
                     summary,
@@ -59,7 +59,7 @@ const FinalProjectBoardCreate = () => {
                 },
             });
 
-            navigate(`/project/final/${finalProjectId}/board/${id.data.id}`);
+            navigate(`/project/final/${finaleProjectId}/board/${id.data.id}`);
         } catch (error) {
             console.error('게시글 작성을 실패했습니다:', error);
         }

@@ -12,8 +12,8 @@ export interface User {
 
 export type AvailableUserListResponse = Pick<User, 'id' | 'name'>[];
 export type TeamMemberListRequest = {
-    leaderId: Pick<User, 'id'>;
-    memberIds: Pick<User, 'id'>[];
+    leaderId: string;
+    memberIds: string[];
 };
 export interface StudentType {
     userId: number;

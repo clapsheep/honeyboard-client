@@ -299,7 +299,6 @@ export const parseMarkdown = (content: string) => {
             </View>,
         );
     }
-    console.log(elements);
 
     return elements;
 };

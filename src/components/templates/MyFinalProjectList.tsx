@@ -5,7 +5,7 @@ import { getMyFinalAPI } from '@/api/mypageAPI';
 
 const MyFinalProjectList = () => {
     const { data } = useMyPage({
-        queryFn: getMyFinalAPI,
+        queryFn: getMyFinalAPI(),
         queryKey: 'myFinalProject',
     });
 

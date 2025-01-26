@@ -3,7 +3,13 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema, registerSchema } from '@/types/auth';
-import { sendEmailAPI, signupAPI, verifyEmailAPI } from '@/api/authAPI';
+import {
+    sendEmailAPI,
+    signupAPI,
+    verifyEmailAPI,
+    validationEmailAPI,
+} from '@/api/authAPI';
+import { AxiosError } from 'axios';
 
 export const useSignUp = () => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -16,10 +22,11 @@ export const useSignUp = () => {
         handleSubmit,
         watch,
         trigger,
+        setError,
         formState: { errors, isValid, touchedFields },
     } = useForm<RegisterSchema>({
         resolver: zodResolver(registerSchema),
-        mode: 'onTouched',
+        mode: 'onChange',
         reValidateMode: 'onChange',
     });
 
@@ -31,6 +38,7 @@ export const useSignUp = () => {
     const handleNameStep = async (e?: React.FormEvent) => {
         e?.preventDefault();
         const isNameValid = await trigger('name');
+
         if (isNameValid && !errors.name) {
             setCurrentStep(2);
         }
@@ -38,15 +46,35 @@ export const useSignUp = () => {
 
     const handleEmailStep = async (e?: React.FormEvent) => {
         e?.preventDefault();
+
         const isEmailValid = await trigger('email');
         if (isEmailValid && !errors.email) {
             try {
-                const res = await sendEmailAPI(emailValue);
-                if (res.status === 200) {
-                    setIsModalOpen(true);
+                // 이메일 중복 확인
+                const validationResponse = await validationEmailAPI(emailValue);
+                if (validationResponse.status === 200) {
+                    // 이메일 인증 요청
+                    const res = await sendEmailAPI(emailValue);
+                    if (res.status === 200) {
+                        setIsModalOpen(true); // 모달 열기
+                    }
                 }
             } catch (error) {
-                console.error('Email verification error:', error);
+                if (error instanceof AxiosError) {
+                    if (error.response?.status === 409) {
+                        // 중복된 이메일 에러 처리
+                        setError('email', {
+                            type: 'manual',
+                            message: '이미 가입된 이메일입니다.',
+                        });
+                    } else {
+                        // 기타 Axios 에러
+                        console.error('Axios error:', error.message);
+                    }
+                } else {
+                    // Axios 외의 에러 처리
+                    console.error('Unexpected error:', error);
+                }
             }
         }
     };

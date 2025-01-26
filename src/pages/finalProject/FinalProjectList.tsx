@@ -28,7 +28,7 @@ const FinalProjectList = () => {
 
     // useQuery로 데이터를 가져오기
     const { data } = useQuery({
-        queryKey: ['finalProject', generationId],
+        queryKey: ['finaleProject', generationId],
         queryFn: () => getFinaleProjectListAPI({ generationId }),
     });
 

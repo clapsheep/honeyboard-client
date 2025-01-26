@@ -12,6 +12,7 @@ export type ContentType =
     | 'ALGO_SOLUTION'
     | 'WEB_GUIDE'
     | 'WEB_RECOMMEND';
+
 export type BookmarkedResponse = {
     bookmarked: boolean;
 };
