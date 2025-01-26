@@ -10,7 +10,7 @@ const MyFinalProjectList = () => {
     });
 
     return (
-        <div className="flex flex-col items-center gap-6 p-6">
+        <div className="mt-6 flex flex-col items-center gap-6 p-6">
             {data?.length ? (
                 <>
                     <ul className="ml-40 grid min-w-[1400px] grid-cols-4 gap-6 pt-10">
@@ -21,7 +21,6 @@ const MyFinalProjectList = () => {
                                     subTitle={item.createdAt}
                                     id={item.boardId}
                                     img={item.thumbnail}
-                                    //http://localhost:5173/project/final/15/board/14
                                     pathname={`/project/final/${item.finaleProjectId}/board`}
                                 />
                             </li>

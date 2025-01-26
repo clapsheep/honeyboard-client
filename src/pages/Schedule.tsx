@@ -6,6 +6,7 @@ import { SelectCalender } from '@/components/atoms';
 import { useSchedule } from '@/hooks/useSchedule';
 import { useScheduleEvents } from '@/hooks/useScheduleEvents';
 import { useEffect } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 const Schedule = () => {
     const { calendarRef, year, month, decreaseDate, increaseDate, calendars } =
@@ -21,6 +22,9 @@ const Schedule = () => {
     useEffect(() => {
         fetchEvents(year, month);
     }, [year, month]);
+
+    const { userInfo } = useAuth();
+    const userRole = userInfo?.role;
 
     // 테마 커스텀
     const theme = {
@@ -101,13 +105,14 @@ const Schedule = () => {
                     }}
                     calendars={calendars}
                     events={events}
+                    isReadOnly={userRole !== 'ADMIN'}
                     onBeforeCreateEvent={onBeforeCreateEvent}
                     onBeforeUpdateEvent={onBeforeUpdateEvent}
                     onBeforeDeleteEvent={onBeforeDeleteEvent}
                     theme={theme}
                     template={template}
                     useFormPopup={true}
-                    useDetailPopup={true}
+                    useDetailPopup={userRole === 'ADMIN'}
                 />
             </div>
         </div>

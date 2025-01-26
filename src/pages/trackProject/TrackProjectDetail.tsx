@@ -44,7 +44,7 @@ const TrackProjectDetail = () => {
             subTitle: '정말 삭제하시겠습니까?',
             onConfirmClick: async () => {
                 await deleteTrackProjectAPI(trackProjectId!);
-                navigate(-1);
+                navigate('/project/track');
                 closeModal();
             },
             onCancelClick: () => {
