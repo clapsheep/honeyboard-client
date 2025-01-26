@@ -9,7 +9,6 @@ const MyFinalProjectList = () => {
         queryKey: 'myFinalProject',
     });
 
-    console.log(data);
     return (
         <div className="mt-6 flex flex-col items-center gap-6 p-6">
             {data?.length ? (
