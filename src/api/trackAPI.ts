@@ -123,3 +123,14 @@ export const getTrackProjectAvailableUserAPI = async (req: {
 
     return data;
 };
+
+// 5. 트랙프로젝트 제외 유저 조회 -> 프로젝트 수정을 위한 조회
+
+export const getTrackProjectExcludeMembersAPI = async (req:{
+    trackProjectId: string;
+}):Promise<AvailableUserListResponse> => {
+
+    const { data } = await api.get(`/project/track/${req.trackProjectId}/exclude-members`)
+
+    return data;
+}
