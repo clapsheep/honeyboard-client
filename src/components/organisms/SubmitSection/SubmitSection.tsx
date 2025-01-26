@@ -12,14 +12,14 @@ interface SubmitSectionProps {
         submitted: boolean;
         projectBoardId: string | null;
     }[];
-    onClick: (teamId: string, boardId: string) => void;
+    pathname: string;
 }
 
 const SubmitSection = ({
     project,
     noTeamUsers,
     teams,
-    onClick,
+    pathname,
 }: SubmitSectionProps) => {
     return (
         <div className="flex w-full flex-col gap-2 rounded border border-gray-300 bg-gray-25 px-4 pb-4 pt-3 shadow-md">
@@ -33,8 +33,10 @@ const SubmitSection = ({
                               <TeamTag
                                   team={team.members}
                                   isSubmit={team.submitted}
-                                  onClick={() =>
-                                      onClick(team.id, team.projectBoardId!)
+                                  pathname={
+                                      project === 'track'
+                                          ? `${pathname}/team/${team.id}/board/${team.projectBoardId}`
+                                          : `${pathname}/${team.projectBoardId}`
                                   }
                               />
                           </div>
