@@ -61,6 +61,12 @@ export const sendEmailAPI = async (
     return api.post('/auth/email/send', { email });
 };
 
+// email 중복 확인 요청
+export const validationEmailAPI = async (
+    email: string,): Promise<AxiosResponse<boolean>> => {
+        return api.post('/auth/email/validation', {email});
+}
+
 // email verify 요청
 export const verifyEmailAPI = async (
     email: string,
