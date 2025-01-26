@@ -58,7 +58,7 @@ const AlgorithmSolutionUpdate = () => {
             setSolutionDetail({
                 memory: data.memory,
                 runtime: data.runtime,
-                languageId: data.languageId,
+                languageId: String(data.languageId),
             });
         }
     }, [data]);
