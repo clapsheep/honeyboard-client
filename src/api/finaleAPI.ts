@@ -1,5 +1,6 @@
 import { api } from '@/utils/common/axiosInstance';
 import {
+    FinaleProject,
     FinaleProjectBoardDetailResponse,
     FinaleProjectBoardRequest,
     FinaleProjectCreate,
@@ -8,6 +9,8 @@ import {
     FinaleProjectTeamUpdate,
     FinaleProjectUpdate,
 } from '@/types/FinaleProject';
+import { AvailableUserListResponse } from '@/types/User';
+import { AxiosResponse } from 'axios';
 
 // 1. 파이널 프로젝트 리스트 조회 FinaleProjectListResponse
 export const getFinaleProjectListAPI = async (req: {
@@ -22,7 +25,9 @@ export const getFinaleProjectListAPI = async (req: {
 // 1-1. 파이널 프로젝트 생성 (팀 + 프로젝트) FinaleProjectCreate
 export const createFinaleProjectAPI = async (req: {
     data: FinaleProjectCreate;
-}): Promise<unknown> => {
+}): Promise<AxiosResponse<Pick<
+        FinaleProject,
+        'id'>>> => {
     return api.post(`/project/finale`, req.data);
 };
 
@@ -98,3 +103,15 @@ export const deleteFinaleProjectBoardAPI = async (req: {
         `/project/finale/${req.finalProjectId}/board/${req.boardId}`,
     );
 };
+
+// 파이널 팀이 없는 팀원 조회
+export const getFinaleAvailableMembersAPI = async (
+    req: {
+        generationId: number;
+    }
+):Promise<AvailableUserListResponse> => {
+
+    const {data} = await api.get(`/project/finale/available-members?generationId=${req.generationId}`);
+
+    return data;
+}
