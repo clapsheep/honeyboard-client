@@ -21,10 +21,11 @@ const WebGuideUpdate = () => {
 
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
+    const userRole = userInfo?.role;
     const generationId = userInfo?.generationId;
 
     useEffect(() => {
-        if (userId !== data?.authorId) {
+        if (userRole !== 'ADMIN') {
             openModal({
                 title: '페이지 접근 권한이 없습니다.',
                 onCancelClick: () => {
@@ -90,7 +91,13 @@ const WebGuideUpdate = () => {
 
             navigate(`/study/web/concept/${guideId}`);
         } catch (error) {
-            console.error('게시글 작성을 실패했습니다:', error);
+            console.error('게시글 수정을 실패했습니다: ', error);
+            openModal({
+                title: '게시글 수정을 실패했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
         }
     };
 

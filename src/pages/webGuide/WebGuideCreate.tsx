@@ -76,7 +76,13 @@ const WebGuideCreate = () => {
 
             navigate(`/study/web/concept/${id}`);
         } catch (error) {
-            console.error('게시글 작성을 실패했습니다:', error);
+            console.error('게시글 작성을 실패했습니다.: ', error);
+            openModal({
+                title: '게시글 작성을 실패했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
         }
     };
 

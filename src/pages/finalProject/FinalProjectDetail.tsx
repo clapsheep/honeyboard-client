@@ -1,4 +1,3 @@
-
 import { Suspense } from 'react';
 import { Header } from '@/components/organisms';
 import { Button } from '@/components/atoms';
@@ -7,9 +6,11 @@ import { useAuth } from '@/hooks/useAuth';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { useModalStore } from '@/stores/modalStore';
 import { FinalProjectDetailCards } from '@/components/templates';
-import { getFinaleProjectDetailAPI, deleteFinaleProjectAPI } from '@/api/finaleAPI';
+import {
+    getFinaleProjectDetailAPI,
+    deleteFinaleProjectAPI,
+} from '@/api/finaleAPI';
 import { useQuery } from '@tanstack/react-query';
-import { FinaleTeamMember } from '@/types/FinaleProject';
 import { NameTag } from '@/components/atoms';
 
 const FinalProjectDetail = () => {
@@ -23,8 +24,8 @@ const FinalProjectDetail = () => {
         queryKey: ['finaleProject', finaleProjectId],
         queryFn: async () => {
             if (!finaleProjectId) throw new Error('Project ID is required');
-            const data = await getFinaleProjectDetailAPI({ 
-                finaleProjectId
+            const data = await getFinaleProjectDetailAPI({
+                finaleProjectId,
             });
             return data;
         },
@@ -32,22 +33,22 @@ const FinalProjectDetail = () => {
     });
 
     const isTeamMember = data?.members?.some(
-        member => member.id === userInfo?.userId
+        (member) => member.id === userInfo?.userId,
     );
     const isTeamLeader = data?.members?.some(
-        member => member.id === userInfo?.userId && member.role === 'LEADER'
+        (member) => member.id === userInfo?.userId && member.role === 'LEADER',
     );
 
     const handleProjectDelete = () => {
         if (!finaleProjectId) return;
-        
+
         openModal({
             icon: 'warning',
             title: '프로젝트 삭제',
             subTitle: '정말 삭제하시겠습니까?',
             onConfirmClick: async () => {
-                await deleteFinaleProjectAPI({ 
-                    finaleProjectId
+                await deleteFinaleProjectAPI({
+                    finaleProjectId,
                 });
                 navigate(-1);
                 closeModal();
@@ -75,7 +76,7 @@ const FinalProjectDetail = () => {
     return (
         <>
             <Header
-                titleProps={{ 
+                titleProps={{
                     title: data.title,
                     subTitle: { '프로젝트 목표': data.description },
                     description: { 'Git 주소': data.url },
@@ -84,25 +85,25 @@ const FinalProjectDetail = () => {
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-between">
-                <div className="flex gap-3">
-                    {data.members.map(
-                        (
-                            member: Pick<
-                                FinaleTeamMember,
-                                'id' | 'name' | 'role'
-                            >,
-                        ) => (
+                    <div className="flex gap-3">
+                        {data.members.map((member) => (
                             <NameTag key={member.id} isLeader={member.role}>
                                 {member.name}
                             </NameTag>
-                        ),
-                    )}
-                </div>
-                    {(userInfo?.role === 'ADMIN' || isTeamMember || isTeamLeader) && (
+                        ))}
+                    </div>
+                    {(userInfo?.role === 'ADMIN' ||
+                        isTeamMember ||
+                        isTeamLeader) && (
                         <section className="flex gap-4">
-                            {(userInfo?.role === 'ADMIN' || isTeamLeader || isTeamMember) && (
+                            {(userInfo?.role === 'ADMIN' ||
+                                isTeamLeader ||
+                                isTeamMember) && (
                                 <>
-                                    <Button color="red" onClick={handleProjectDelete}>
+                                    <Button
+                                        color="red"
+                                        onClick={handleProjectDelete}
+                                    >
                                         프로젝트 삭제
                                     </Button>
                                     <Button onClick={handleProjectEdit}>
@@ -131,6 +132,5 @@ const FinalProjectDetail = () => {
         </>
     );
 };
-
 
 export default FinalProjectDetail;
