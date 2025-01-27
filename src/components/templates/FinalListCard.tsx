@@ -14,25 +14,25 @@ interface FinalListCardsProps {
 
 const FinalListCards = ({ boards }: FinalListCardsProps) => {
     const { pathname } = useLocation();
+    console.log(boards);
+
     return (
         <div className="flex w-full flex-col items-center gap-6 p-6">
             {boards && boards.length > 0 ? (
-                <>
-                    <ul className="grid min-w-[1400px] grid-cols-4 grid-rows-2 gap-6">
-                        {boards.map((item) => (
-                            <li key={item.id}>
-                                <ProjectCard
-                                    title={item.title}
-                                    subTitle={item.description}
-                                    id={item.id}
-                                    img={item.thumbnail}
-                                    teams={item.members}
-                                    pathname={pathname}
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                </>
+                <ul className="grid min-w-[1400px] grid-cols-4 grid-rows-2 gap-6 px-6">
+                    {boards.map((item) => (
+                        <li key={item.id}>
+                            <ProjectCard
+                                title={item.title}
+                                subTitle={item.description}
+                                id={item.id}
+                                img={item.thumbnail}
+                                teams={item.members}
+                                pathname={pathname}
+                            />
+                        </li>
+                    ))}
+                </ul>
             ) : (
                 <div className="flex min-h-[200px] w-full items-center justify-center">
                     <p className="items-center justify-center text-center text-lg text-gray-500">

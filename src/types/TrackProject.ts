@@ -78,10 +78,13 @@ export type TrackProjectBoardDetailResponse = Pick<
 // 나의 트랙프로젝트 조회 응답 타입
 export type MyTrackProjectResponse = Pick<
     TrackProject,
-    'id' | 'title' | 'thumbnail'
+    'title' | 'thumbnail'
 > & {
     trackTeam: Pick<TrackTeamMember, 'id' | 'name' | 'role'>[];
+    trackTeamId: string;
     trackProjectName: string;
+    trackProjectId: string;
+    boardId: string;
 };
 
 // [REQUEST]

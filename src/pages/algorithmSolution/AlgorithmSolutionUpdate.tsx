@@ -41,8 +41,13 @@ const AlgorithmSolutionUpdate = () => {
         languageId: '1',
     });
 
+    const { userInfo } = useAuth();
+    const userId = userInfo?.userId;
+    const userRole = userInfo?.role;
+    const generationId = userInfo?.generationId;
+
     useEffect(() => {
-        if (userId != data?.authorId) {
+        if (userId != data?.authorId && userRole !== 'ADMIN') {
             openModal({
                 title: '페이지 접근 권한이 없습니다.',
                 onCancelClick: () => {
@@ -58,14 +63,10 @@ const AlgorithmSolutionUpdate = () => {
             setSolutionDetail({
                 memory: data.memory,
                 runtime: data.runtime,
-                languageId: data.languageId,
+                languageId: String(data.languageId),
             });
         }
     }, [data]);
-
-    const { userInfo } = useAuth();
-    const userId = userInfo?.userId;
-    const generationId = userInfo?.generationId;
 
     const { onSubmit, onCancel, editorRef } = useToastEditor({
         editorId: 'algorithmSolutionEditor',

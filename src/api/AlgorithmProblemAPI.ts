@@ -16,7 +16,6 @@ export const getAlgorithmProblemListAPI = async ({
 }: AlgorithmProblemRequestParams<'tag' | 'title'>): Promise<
     PageResponse<AlgorithmProblemListResponse>
 > => {
-    console.log({ ...pageRequest, ...searchRequest });
     const { data } = await api.get(`/algorithm/problem`, {
         params: { ...pageRequest, ...searchRequest },
     });

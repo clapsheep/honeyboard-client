@@ -63,7 +63,7 @@ export const parseMarkdown = (content: string) => {
             } else {
                 // 테이블 종료
                 elements.push(
-                    <View style={PDFStyles.table}>
+                    <View key={`table-${currentIndex}`} style={PDFStyles.table}>
                         <View style={PDFStyles.tableRow}>
                             {tableHeaders.map((header, i) => (
                                 <Text
@@ -213,28 +213,40 @@ export const parseMarkdown = (content: string) => {
                 .map((part) => {
                     if (part.startsWith('<bold>')) {
                         return (
-                            <Text style={PDFStyles.bold}>
+                            <Text
+                                key={`bold-${currentIndex}`}
+                                style={PDFStyles.bold}
+                            >
                                 {part.slice(6, -7)}
                             </Text>
                         );
                     }
                     if (part.startsWith('<italic>')) {
                         return (
-                            <Text style={PDFStyles.italic}>
+                            <Text
+                                key={`italic-${currentIndex}`}
+                                style={PDFStyles.italic}
+                            >
                                 {part.slice(8, -9)}
                             </Text>
                         );
                     }
                     if (part.startsWith('<strikethrough>')) {
                         return (
-                            <Text style={PDFStyles.strikethrough}>
+                            <Text
+                                key={`strikethrough-${currentIndex}`}
+                                style={PDFStyles.strikethrough}
+                            >
                                 {part.slice(14, -15)}
                             </Text>
                         );
                     }
                     if (part.startsWith('<code>')) {
                         return (
-                            <Text style={PDFStyles.inlineCode}>
+                            <Text
+                                key={`inlineCode-${currentIndex}`}
+                                style={PDFStyles.inlineCode}
+                            >
                                 {part.slice(6, -7)}
                             </Text>
                         );
@@ -244,13 +256,22 @@ export const parseMarkdown = (content: string) => {
                         const content =
                             part.match(/">(.*?)<\/link>/)?.[1] || '';
                         return (
-                            <Link style={PDFStyles.link} src={href}>
+                            <Link
+                                key={`link-${currentIndex}`}
+                                style={PDFStyles.link}
+                                src={href}
+                            >
                                 {content}
                             </Link>
                         );
                     }
                     return part ? (
-                        <Text style={PDFStyles.paragraph}>{part}</Text>
+                        <Text
+                            key={`paragraph-${currentIndex}`}
+                            style={PDFStyles.paragraph}
+                        >
+                            {part}
+                        </Text>
                     ) : null;
                 });
 
@@ -270,7 +291,7 @@ export const parseMarkdown = (content: string) => {
     // 마지막 테이블 처리
     if (isInTable && tableRows.length > 0) {
         elements.push(
-            <View style={PDFStyles.table}>
+            <View key={`tableEnd-${currentIndex}`} style={PDFStyles.table}>
                 <View style={PDFStyles.tableRow}>
                     {tableHeaders.map((header, i) => (
                         <Text
@@ -299,7 +320,6 @@ export const parseMarkdown = (content: string) => {
             </View>,
         );
     }
-    console.log(elements);
 
     return elements;
 };

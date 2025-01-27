@@ -1,35 +1,23 @@
 import { MyAlgorithmSolutionResponse } from '@/types/AlgorithmSolution';
-import { BookmarkContent, ContentType } from '@/types/Bookmark';
+import { ContentType, BookmarkContent } from '@/types/Bookmark';
 import { MyFinaleProjectResponse } from '@/types/FinaleProject';
 import { MyTrackProjectResponse } from '@/types/TrackProject';
 import { api } from '@/utils/common/axiosInstance';
 
-export const getMyTrackAPI = async (
-    userId: string | null,
-): Promise<MyTrackProjectResponse> => {
-    const response = await api.get('/user/trackProject', {
-        params: { userId },
-    });
+export const getMyTrackAPI = async (): Promise<MyTrackProjectResponse[]> => {
+    const response = await api.get('/user/trackProject');
 
     return response.data;
 };
-export const getMyFinalAPI = async (
-    userId: string | null,
-): Promise<MyFinaleProjectResponse> => {
-    const response = await api.get('/user/finaleproject', {
-        params: { userId },
-    });
-    console.log(userId);
-
+export const getMyFinalAPI = async (): Promise<MyFinaleProjectResponse[]> => {
+    const response = await api.get('/user/finaleproject');
     return response.data;
 };
 
-export const getMyAlgorithmAPI = async (
-    userId: string,
-): Promise<MyAlgorithmSolutionResponse> => {
-    const response = await api.get('/user/algorithm', {
-        params: { userId },
-    });
+export const getMyAlgorithmAPI = async (): Promise<
+    MyAlgorithmSolutionResponse[]
+> => {
+    const response = await api.get('/user/algorithmSolution');
     return response.data;
 };
 

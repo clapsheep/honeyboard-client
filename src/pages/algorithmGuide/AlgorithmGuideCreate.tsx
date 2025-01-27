@@ -39,7 +39,7 @@ const AlgorithmGuideCreate = () => {
             return;
         }
 
-        if(!userId || !generationId) {
+        if (!userId || !generationId) {
             openModal({
                 title: '로그인 후 이용해주세요.',
                 onCancelClick: () => {
@@ -50,19 +50,20 @@ const AlgorithmGuideCreate = () => {
             return;
         }
 
-        try{
-            const{ content, thumbnail } = await onSubmit();
+        try {
+            const { content, thumbnail } = await onSubmit();
 
-            const{ data: res } = await createAlgorithmGuideAPI({
+            const { id } = await createAlgorithmGuideAPI({
                 data: {
                     title: title.trim(),
                     content,
                     thumbnail,
-                }
+                },
             });
 
-            navigate(`/study/algorithm/concept/${res.id}`);
-        } catch (e) {
+            navigate(`/study/algorithm/concept/${id}`);
+        } catch (error) {
+            console.log(error);
             openModal({
                 title: '게시글 작성을 실패했습니다.',
                 onCancelClick: () => {
@@ -70,11 +71,11 @@ const AlgorithmGuideCreate = () => {
                 },
             });
         }
-    }
+    };
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
-    }
+    };
 
     const mode = 'create' as const;
     const props = {
@@ -85,7 +86,7 @@ const AlgorithmGuideCreate = () => {
         handleCancel,
         handleSubmit,
         title,
-    }
+    };
     return <AlgorithmGuideForm {...props} />;
 };
 

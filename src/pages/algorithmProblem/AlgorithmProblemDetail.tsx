@@ -28,7 +28,9 @@ const AlgorithmProblemDetail = () => {
     });
 
     const { userInfo } = useAuth();
-    const userRole = userInfo?.role;
+    const userId = userInfo?.userId;
+    const isAdmin = userInfo?.role === 'ADMIN';
+    const isAuthor = data?.authorId === userId;
 
     if (!data) return null;
 
@@ -58,7 +60,7 @@ const AlgorithmProblemDetail = () => {
                         <TabNavigation routes={ROUTES} />
                     </div>
                     <div className="flex items-end gap-4">
-                        {userRole === 'ADMIN' && (
+                        {(isAdmin || isAuthor) && (
                             <div className="flex items-end gap-4">
                                 <Button color="red" onClick={handleDelete}>
                                     문제 삭제

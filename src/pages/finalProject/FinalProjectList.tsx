@@ -28,13 +28,9 @@ const FinalProjectList = () => {
 
     // useQuery로 데이터를 가져오기
     const { data } = useQuery({
-        queryKey: ['finalProject', generationId],
+        queryKey: ['finaleProject', generationId],
         queryFn: () => getFinaleProjectListAPI({ generationId }),
     });
-
-    const boardDetailNav = (finaleProjectId: string) => {
-        navigate(`${finaleProjectId}`);
-    };
 
     const isUserWithoutTeam = data?.noTeamUsers?.some(
         (user) => user.id === userInfo?.userId,
@@ -80,7 +76,7 @@ const FinalProjectList = () => {
                         project="final"
                         teams={data?.teams}
                         noTeamUsers={data?.noTeamUsers}
-                        onClick={boardDetailNav}
+                        pathname={`/project/final`}
                     />
                 </section>
             </section>

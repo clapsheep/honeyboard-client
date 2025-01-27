@@ -10,7 +10,6 @@ const WebGuideDetail = () => {
     const { pathname } = useLocation();
     const { guideId } = useParams();
     const { userInfo } = useAuth();
-    const userId = userInfo?.userId;
     const userRole = userInfo?.role;
 
     const { data, handleDelete, handleEdit, handleLike } = useContentDetail({
@@ -41,7 +40,7 @@ const WebGuideDetail = () => {
                             </Button>
                         )}
 
-                        {userId === data.authorId && (
+                        {userRole === 'ADMIN' && (
                             <Button onClick={handleEdit}>글 수정</Button>
                         )}
                     </div>

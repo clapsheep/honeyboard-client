@@ -44,6 +44,7 @@ const TrackProjectBoardDetail = () => {
                 titleProps={{
                     title: data.title,
                     subTitle: { 'Git 주소': data.url },
+                    isLink: true,
                 }}
                 BreadcrumbProps={{ pathname }}
             >
