@@ -80,6 +80,13 @@ const AlgorithmProblemCreate = () => {
                         },
                     });
                 }
+            } else {
+                openModal({
+                    title: '게시글 작성을 실패했습니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
             }
         }
     };

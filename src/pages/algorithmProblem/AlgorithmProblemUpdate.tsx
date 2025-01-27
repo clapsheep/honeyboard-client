@@ -112,6 +112,13 @@ const AlgorithmProblemUpdate = () => {
                         },
                     });
                 }
+            } else {
+                openModal({
+                    title: '게시글 수정을 실패했습니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
             }
         }
     };

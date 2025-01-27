@@ -65,21 +65,6 @@ const TrackProjectDetail = () => {
         navigate(`team/${teamId}/board`);
     };
 
-    const onClick = (teamId: string, boardId: string) => {
-        if (!boardId) {
-            openModal({
-                title: '게시글이 없습니다.',
-                onCancelClick: () => {
-                    closeModal();
-                },
-            });
-        } else {
-            navigate(
-                `/project/track/${trackProjectId}/team/${teamId}/board/${boardId}`,
-            );
-        }
-    };
-
     return (
         <div className="flex flex-col items-center">
             <Header
@@ -125,7 +110,7 @@ const TrackProjectDetail = () => {
                         project="track"
                         teams={data?.teams}
                         noTeamUsers={data?.noTeamUsers}
-                        onClick={onClick}
+                        pathname={`/project/track/${trackProjectId}`}
                     />
                 </section>
             </section>
