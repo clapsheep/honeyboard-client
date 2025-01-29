@@ -1,10 +1,14 @@
 import {
     getFinaleProjectDetailAPI,
     updateFinaleProjectAPI,
+    updateFinaleTeamAPI,
 } from '@/api/finaleAPI';
 import FinaleProjectTeam from '@/components/templates/FinaleProjectTeam';
 import { useFinaleProject } from '@/hooks/useFinaleProject';
-import { FinaleProjectUpdate } from '@/types/FinaleProject';
+import {
+    FinaleProjectTeamUpdate,
+    FinaleProjectUpdate,
+} from '@/types/FinaleProject';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
@@ -12,7 +16,7 @@ const FinalProjectUpdate = () => {
     const props = useFinaleProject();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const navigate = useNavigate();
-    const { finalProjectId } = useParams();
+    const { finaleProjectId } = useParams();
     const [teamId, setTeamId] = useState<string>('');
     const {
         title,
@@ -21,8 +25,8 @@ const FinalProjectUpdate = () => {
         setTitle,
         setObjective,
         setGit,
-        //       teamLeader,
-        //      teamMember,
+        teamLeader,
+        teamMember,
         setTeamLeader,
         setTeamMember,
     } = props;
@@ -30,14 +34,14 @@ const FinalProjectUpdate = () => {
     useEffect(() => {
         const getDetail = async () => {
             try {
-                console.log(finalProjectId);
+                console.log(finaleProjectId);
 
-                if (!finalProjectId) {
+                if (!finaleProjectId) {
                     return;
                 }
 
                 const data = await getFinaleProjectDetailAPI({
-                    finaleProjectId: finalProjectId,
+                    finaleProjectId: finaleProjectId,
                 });
 
                 console.log(data);
@@ -68,18 +72,24 @@ const FinalProjectUpdate = () => {
             url: git,
         };
 
-        // const teamData: FinaleProjectTeamUpdate = {
-        //     leaderId: teamLeader[0].id,
-        //     memberIds: teamMember.map((member) => member.id),
-        // };
+        const teamData: FinaleProjectTeamUpdate = {
+            id: teamId,
+            leaderId: teamLeader[0].id,
+            memberIds: teamMember.map((member) => member.id),
+        };
 
         try {
             await updateFinaleProjectAPI({
-                finaleProjectId: finalProjectId!,
+                finaleProjectId: finaleProjectId!,
                 data: projectData,
             });
 
-            navigate(`/project/final/${finalProjectId}`);
+            await updateFinaleTeamAPI({
+                teamId: teamId,
+                data: teamData,
+            });
+
+            navigate(`/project/final/${finaleProjectId}`);
         } catch (error) {
             console.error(`에러 발생`, error);
         }

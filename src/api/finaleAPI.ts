@@ -73,6 +73,14 @@ export const createFinaleProjectBoardAPI = async (req: {
 }): Promise<unknown> => {
     return api.post(`/project/finale/${req.finaleProjectId}/board`, req.data);
 };
+
+export const updateFinaleTeamAPI = async ( req: {
+    teamId: string;
+    data: FinaleProjectTeamUpdate;
+}): Promise<unknown> => {
+    return api.put(`/project/finale/team/${req.teamId}`, req.data);
+}
+
 // 3. 파이널 프로젝트 보드 조회
 export const getFinaleProjectBoardDetailAPI = async (req: {
     finaleProjectId: string;
