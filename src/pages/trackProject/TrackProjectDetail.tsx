@@ -44,7 +44,7 @@ const TrackProjectDetail = () => {
             subTitle: '정말 삭제하시겠습니까?',
             onConfirmClick: async () => {
                 await deleteTrackProjectAPI(trackProjectId!);
-                navigate(-1);
+                navigate('/project/track');
                 closeModal();
             },
             onCancelClick: () => {
@@ -63,21 +63,6 @@ const TrackProjectDetail = () => {
 
     const handleCreateBoard = (teamId: string) => {
         navigate(`team/${teamId}/board`);
-    };
-
-    const onClick = (teamId: string, boardId: string) => {
-        if (!boardId) {
-            openModal({
-                title: '게시글이 없습니다.',
-                onCancelClick: () => {
-                    closeModal();
-                },
-            });
-        } else {
-            navigate(
-                `/project/track/${trackProjectId}/team/${teamId}/board/${boardId}`,
-            );
-        }
     };
 
     return (
@@ -125,7 +110,7 @@ const TrackProjectDetail = () => {
                         project="track"
                         teams={data?.teams}
                         noTeamUsers={data?.noTeamUsers}
-                        onClick={onClick}
+                        pathname={`/project/track/${trackProjectId}`}
                     />
                 </section>
             </section>

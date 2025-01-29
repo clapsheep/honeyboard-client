@@ -25,6 +25,8 @@ const AlgorithmSolutionDetail = () => {
 
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
+    const isAdmin = userInfo?.role === 'ADMIN';
+    const isAuthor = data?.authorId === userId;
 
     if (!data) return null;
 
@@ -48,7 +50,7 @@ const AlgorithmSolutionDetail = () => {
                         readOnly={true}
                     />
                     <div className="flex gap-4">
-                        {userId == data.authorId && (
+                        {(isAdmin || isAuthor) && (
                             <div className="flex gap-4">
                                 <Button color="red" onClick={handleDelete}>
                                     풀이 삭제

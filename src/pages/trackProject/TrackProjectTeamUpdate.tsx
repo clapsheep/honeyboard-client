@@ -1,4 +1,4 @@
-import { createTrackTeamAPI, updateTrackTeamAPI } from '@/api/trackAPI';
+import { updateTrackTeamAPI } from '@/api/trackAPI';
 import { TrackProjectTeam } from '@/components/templates';
 import { useCreateTrackTeam } from '@/hooks/useTrackProject';
 import { useQueryClient } from '@tanstack/react-query';

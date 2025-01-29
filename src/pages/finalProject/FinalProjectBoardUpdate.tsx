@@ -15,12 +15,14 @@ const FinalProjectBoardUpdate = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
-    const { openModal } = useModalStore();
+    const { openModal, closeModal } = useModalStore();
 
     const data = useProjectDetail({
         getAPI: getFinaleProjectBoardDetailAPI,
         requestParam:
-            finaleProjectId && boardId ? { finaleProjectId, boardId } : undefined,
+            finaleProjectId && boardId
+                ? { finaleProjectId, boardId }
+                : undefined,
     });
 
     useEffect(() => {
@@ -76,7 +78,7 @@ const FinalProjectBoardUpdate = () => {
         try {
             const { content, thumbnail } = await onSubmit();
 
-            const id = await updateFinaleProjectBoardAPI({
+            await updateFinaleProjectBoardAPI({
                 finaleProjectId,
                 boardId,
                 data: {
@@ -90,6 +92,12 @@ const FinalProjectBoardUpdate = () => {
             navigate(`/project/final/${finaleProjectId}/board/${boardId}`);
         } catch (error) {
             console.error('게시글 수정을 실패했습니다:', error);
+            openModal({
+                title: '게시글 수정을 실패했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
         }
     };
 

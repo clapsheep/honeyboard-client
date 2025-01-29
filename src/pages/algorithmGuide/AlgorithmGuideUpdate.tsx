@@ -4,11 +4,11 @@ import { useAuth } from '@/hooks/useAuth';
 import { useModalStore } from '@/stores/modalStore';
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
-import { 
+import {
     updateAlgorithmGuideAPI,
     getAlgorithmGuideDetailAPI,
     deleteAlgorithmGuideAPI,
- } from '@/api/AlgorithmGuideAPI';
+} from '@/api/AlgorithmGuideAPI';
 import { useContentDetail } from '@/hooks/useContentDetail';
 
 const AlgorithmGuideUpdate = () => {
@@ -61,7 +61,7 @@ const AlgorithmGuideUpdate = () => {
             return;
         }
 
-        if(!userId || !generationId) {
+        if (!userId || !generationId) {
             openModal({
                 title: '로그인 후 이용해주세요.',
                 onCancelClick: () => {
@@ -72,32 +72,33 @@ const AlgorithmGuideUpdate = () => {
             return;
         }
 
-        try{
-            const{ content, thumbnail } = await onSubmit();
+        try {
+            const { content, thumbnail } = await onSubmit();
 
-            const{ data: res } = await updateAlgorithmGuideAPI({
+            await updateAlgorithmGuideAPI({
                 guideId: guideId!,
                 data: {
                     title: title.trim(),
                     content,
                     thumbnail,
-                }
+                },
             });
 
             navigate(`/study/algorithm/concept/${guideId}`);
-        } catch (e) {
+        } catch (error) {
+            console.log(error);
             openModal({
-                title: '게시글 작성을 실패했습니다.',
+                title: '게시글 수정을 실패했습니다.',
                 onCancelClick: () => {
                     closeModal();
                 },
             });
         }
-    }
+    };
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
-    }
+    };
 
     const mode = 'edit' as const;
     const props = {
@@ -108,7 +109,7 @@ const AlgorithmGuideUpdate = () => {
         handleCancel,
         handleSubmit,
         title: title ?? '',
-    }
+    };
     return <AlgorithmGuideForm {...props} />;
 };
 

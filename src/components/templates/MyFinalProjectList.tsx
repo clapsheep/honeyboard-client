@@ -13,14 +13,13 @@ const MyFinalProjectList = () => {
         <div className="mt-6 flex flex-col items-center gap-6 p-6">
             {data?.length ? (
                 <>
-                    <ul className="ml-40 grid min-w-[1400px] grid-cols-4 gap-6">
+                    <ul className="ml-40 grid min-w-[1400px] grid-cols-4 gap-6 pt-10">
                         {data.map((item) => (
                             <li key={item.boardId}>
                                 <ProjectCard
                                     title={item.title}
                                     subTitle={item.createdAt}
                                     id={item.boardId}
-                                    teams={item.trackTeam}
                                     img={item.thumbnail}
                                     pathname={`/project/final/${item.finaleProjectId}/board`}
                                 />

@@ -7,13 +7,11 @@ import {
 
 import { EventObject } from '@toast-ui/calendar/types/types/events';
 import { useEffect, useState } from 'react';
-import { useAuth } from './useAuth';
 import { ScheduleEvent } from '@/types/Schedule';
 import { useModalStore } from '@/stores/modalStore';
 
 interface UseScheduleEventsReturn {
     events: ScheduleEvent[];
-    error: string | null;
     fetchEvents: (year: number, month: number) => Promise<void>;
     onBeforeCreateEvent: (event: EventObject) => Promise<boolean>;
     onBeforeUpdateEvent: (event: EventObject) => Promise<boolean>;
@@ -21,15 +19,8 @@ interface UseScheduleEventsReturn {
 }
 
 export const useScheduleEvents = (): UseScheduleEventsReturn => {
-    const { userInfo } = useAuth();
-    const userId = userInfo?.userId;
-    const generationId = userInfo?.generationId;
-    const userRole = userInfo?.role;
-
     const { openModal, closeModal } = useModalStore();
-
     const [events, setEvents] = useState<EventObject[]>([]);
-    const [error, setError] = useState<string | null>(null);
 
     // 일정 조회
     const fetchEvents = async (year: number, month: number) => {
@@ -40,7 +31,7 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
             const events = Array.isArray(data) ? data : [];
 
             const formattedEvents = events.map((event) => ({
-                id: event.scheduleId,
+                id: event.id,
                 calendarId: event.scheduleType,
                 title: event.content,
                 start: new Date(event.startDate),
@@ -55,8 +46,14 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
 
             setEvents(formattedEvents);
         } catch (error) {
-            console.error('일정 조회 실패:', error);
-            setError('일정 조회를 실패했습니다.');
+            console.error('일정 조회 에러:', error);
+
+            openModal({
+                title: '일정을 찾을 수 없습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
         }
     };
 
@@ -69,24 +66,12 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
     // 일정 등록
     const onBeforeCreateEvent = async (eventData: EventObject) => {
         try {
-            if (userRole !== 'ADMIN') {
-                openModal({
-                    title: '일정 등록 권한이 없습니다.',
-                    onCancelClick: () => {
-                        closeModal();
-                    },
-                });
-                return false;
-            }
-
             const newEvent: ScheduleEvent = {
                 content: eventData.title,
-                startDate: new Date(eventData.start),
-                endDate: new Date(eventData.end),
+                startDate: eventData.start.d.d.toISOString(),
+                endDate: eventData.end.d.d.toISOString(),
                 scheduleType: eventData.calendarId,
                 publicAccess: !eventData.isPrivate,
-                userId: userId!,
-                generationId: generationId!,
             };
 
             if (newEvent.scheduleType === 'TRACK') {
@@ -110,7 +95,14 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
             return true;
         } catch (error) {
             console.error('일정 등록 에러:', error);
-            setError('일정 등록을 실패했습니다.');
+
+            openModal({
+                title: '일정 추가에 실패하였습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
+
             return false;
         }
     };
@@ -118,30 +110,35 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
     // 일정 수정
     const onBeforeUpdateEvent = async (eventData: EventObject) => {
         try {
-            if (userRole !== 'ADMIN') {
+            // 변경사항 유무에 따라 변경 값 혹은 기존 값 사용
+            const changes = eventData.changes;
+            const event = eventData.event;
+
+            const updatedEvent: ScheduleEvent = {
+                id: event.id,
+                content: changes?.title || event.title,
+                startDate: changes?.start
+                    ? changes.start.d.d.toISOString()
+                    : event.start.d.d.toISOString(),
+                endDate: changes?.end
+                    ? changes.end.d.d.toISOString()
+                    : event.end.d.d.toISOString(),
+                scheduleType: changes?.calendarId || event.calendarId,
+                publicAccess: !(changes?.isPrivate ?? event.isPrivate),
+            };
+
+            if (
+                event.calendarId !== 'TRACK' &&
+                changes?.calendarId === 'TRACK'
+            ) {
                 openModal({
-                    title: '일정 수정 권한이 없습니다.',
+                    title: '관통 프로젝트 일정은 자동 등록됩니다.',
                     onCancelClick: () => {
                         closeModal();
                     },
                 });
                 return false;
             }
-
-            // 변경사항 유무에 따라 변경 값 혹은 기존 값 사용
-            const changes = eventData.changes;
-            const event = eventData.event;
-
-            const updatedEvent: ScheduleEvent = {
-                scheduleId: event.id,
-                content: changes?.title || event.title,
-                startDate: new Date(changes?.start || event.start),
-                endDate: new Date(changes?.end || event.end),
-                scheduleType: changes?.calendarId || event.calendarId,
-                publicAccess: !(changes?.isPrivate ?? event.isPrivate),
-                userId: userId!,
-                generationId: generationId!,
-            };
 
             await updateScheduleEventsAPI(updatedEvent);
 
@@ -154,7 +151,14 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
             return true;
         } catch (error) {
             console.error('일정 수정 에러:', error);
-            setError('일정 수정을 실패했습니다.');
+
+            openModal({
+                title: '일정 수정에 실패하였습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
+
             return false;
         }
     };
@@ -162,16 +166,6 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
     // 일정 삭제
     const onBeforeDeleteEvent = async (eventData: EventObject) => {
         try {
-            if (userRole !== 'ADMIN') {
-                openModal({
-                    title: '일정 삭제 권한이 없습니다.',
-                    onCancelClick: () => {
-                        closeModal();
-                    },
-                });
-                return false;
-            }
-
             await deleteScheduleEventsAPI(eventData.id as string);
 
             const currentDate = new Date();
@@ -182,15 +176,21 @@ export const useScheduleEvents = (): UseScheduleEventsReturn => {
 
             return true;
         } catch (error) {
-            console.error(error);
-            setError('일정 삭제를 실패했습니다.');
+            console.error('일정 삭제 에러:', error);
+
+            openModal({
+                title: '일정 삭제에 실패하였습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
+
             return false;
         }
     };
 
     return {
         events,
-        error,
         fetchEvents,
         onBeforeCreateEvent,
         onBeforeUpdateEvent,

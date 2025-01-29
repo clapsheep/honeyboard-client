@@ -26,6 +26,7 @@ const WebRecommendDetail = () => {
     
     const userId = userInfo?.userId;
     const isAuthor = data.authorId === userId;
+    const isAdmin = userInfo?.role === 'ADMIN';
 
     return (
         <>
@@ -39,7 +40,7 @@ const WebRecommendDetail = () => {
                 }}
                 BreadcrumbProps={{ pathname }}
             >
-                {isAuthor && (
+                {(isAdmin || isAuthor) && (
                     <div className="flex justify-end">
                         <div className="flex gap-4">
                             <Button color="red" onClick={handleDelete}>

@@ -32,10 +32,6 @@ const FinalProjectList = () => {
         queryFn: () => getFinaleProjectListAPI({ generationId }),
     });
 
-    const boardDetailNav = (finaleProjectId: string) => {
-        navigate(`${finaleProjectId}`);
-    };
-
     const isUserWithoutTeam = data?.noTeamUsers?.some(
         (user) => user.id === userInfo?.userId,
     );
@@ -80,7 +76,7 @@ const FinalProjectList = () => {
                         project="final"
                         teams={data?.teams}
                         noTeamUsers={data?.noTeamUsers}
-                        onClick={boardDetailNav}
+                        pathname={`/project/final`}
                     />
                 </section>
             </section>

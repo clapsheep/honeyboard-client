@@ -11,7 +11,7 @@ const FinalProjectBoardCreate = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
-    const { openModal } = useModalStore();
+    const { openModal, closeModal } = useModalStore();
 
     const { onSubmit, onCancel, editorRef } = useToastEditor({
         editorId: 'finaleProjectBoardEditor',
@@ -59,9 +59,15 @@ const FinalProjectBoardCreate = () => {
                 },
             });
 
-            navigate(`/project/final/${finaleProjectId}/board/${id.data.id}`);
+            navigate(`/project/final/${finaleProjectId}/board/${id}`);
         } catch (error) {
             console.error('게시글 작성을 실패했습니다:', error);
+            openModal({
+                title: '게시글 작성을 실패했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
         }
     };
 

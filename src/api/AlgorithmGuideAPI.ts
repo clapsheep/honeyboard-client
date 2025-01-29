@@ -5,7 +5,7 @@ import {
     AlgorithmGuideListResponse,
     AlgorithmGuideRequest,
 } from '@/types/AlgorithmGuide';
-import { PageRequest, PageResponse } from '@/types/common';
+import { CreateResponse, PageRequest, PageResponse } from '@/types/common';
 
 export interface AlgorithmGuideRequestParams {
     pageRequest?: PageRequest;
@@ -34,15 +34,17 @@ export const getAlgorithmGuideDetailAPI = async (req: {
 
 export const createAlgorithmGuideAPI = async (req: {
     data: AlgorithmGuideRequest;
-}): Promise<unknown> => {
-    return api.post(`/algorithm/guide`, req.data);
+}): Promise<CreateResponse> => {
+    const { data } = await api.post(`/algorithm/guide`, req.data);
+    return data;
 };
 
 export const updateAlgorithmGuideAPI = async (req: {
     guideId: string;
     data: AlgorithmGuideRequest;
-}): Promise<unknown> => {
-    return api.put(`/algorithm/guide/${req.guideId}`, req.data);
+}): Promise<CreateResponse> => {
+    const { data } = await api.put(`/algorithm/guide/${req.guideId}`, req.data);
+    return data;
 };
 
 export const deleteAlgorithmGuideAPI = async (req: {
