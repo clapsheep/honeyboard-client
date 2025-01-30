@@ -37,7 +37,7 @@ const ChangePassword = () => {
 
         try {
             emailSchema.parse(email);
-        } catch (error) {
+        } catch {
             openModal({
                 title: '올바른 이메일 형식이 아닙니다',
                 onCancelClick: () => {
