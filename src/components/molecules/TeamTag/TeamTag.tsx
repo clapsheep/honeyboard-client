@@ -1,21 +1,21 @@
 import { NameTag } from '@/components/atoms';
 import { TrackTeamMember } from '@/types/TrackProject';
+import { Link } from 'react-router';
 
 interface TeamTagProps {
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    pathname: string;
     isSubmit?: boolean;
     team?: Pick<TrackTeamMember, 'id' | 'name' | 'role'>[];
 }
 
-const TeamTag = ({ isSubmit = false, team = [], onClick }: TeamTagProps) => {
+const TeamTag = ({ isSubmit = false, team = [], pathname }: TeamTagProps) => {
     const tagColor = isSubmit ? 'green' : 'red';
     const leader = team.find((member) => member.role === 'LEADER');
     const members = team.filter((member) => member.role === 'MEMBER');
 
     return (
-        <button
-            type="button"
-            onClick={onClick}
+        <Link
+            to={pathname}
             className="flex items-center gap-2 rounded-md border border-gray-300 bg-gray-25 px-3 py-2"
         >
             {leader && (
@@ -33,7 +33,7 @@ const TeamTag = ({ isSubmit = false, team = [], onClick }: TeamTagProps) => {
                         {member.name}
                     </NameTag>
                 ))}
-        </button>
+        </Link>
     );
 };
 

@@ -1,7 +1,7 @@
-import ToastEditorComponent from "@/layouts/ToastEditorComponent";
-import { Button } from "../atoms";
-import { InputForm } from "../molecules";
-import { Header } from "../organisms";
+import ToastEditorComponent from '@/layouts/ToastEditorComponent';
+import { Button } from '../atoms';
+import { InputForm } from '../molecules';
+import { Header } from '../organisms';
 
 interface AlgorithmGuideFormProps {
     mode: 'create' | 'edit';
@@ -41,7 +41,7 @@ const AlgorithmGuideForm = ({
                     </div>
                 </div>
             </Header>
-            <div className="flex flex-col flex-1 gap-4 p-6">
+            <div className="flex flex-1 flex-col gap-4 p-6">
                 <InputForm
                     id="algorithmConceptTitle"
                     label="제목"
@@ -59,6 +59,6 @@ const AlgorithmGuideForm = ({
             </div>
         </>
     );
-}
+};
 
 export default AlgorithmGuideForm;

@@ -1,10 +1,8 @@
 export type ScheduleEvent = {
-    scheduleId?: number;
+    id?: number;
     content: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string;
     scheduleType: string;
     publicAccess: boolean;
-    userId: string;
-    generationId: string;
 };

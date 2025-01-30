@@ -19,15 +19,26 @@ const WebGuideUpdate = () => {
     const { openModal, closeModal } = useModalStore();
     const [title, setTitle] = useState('');
 
+    const { userInfo } = useAuth();
+    const userId = userInfo?.userId;
+    const userRole = userInfo?.role;
+    const generationId = userInfo?.generationId;
+
     useEffect(() => {
+        if (userRole !== 'ADMIN') {
+            openModal({
+                title: '페이지 접근 권한이 없습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                    navigate(-1);
+                },
+            });
+        }
+
         if (data) {
             setTitle(data.title);
         }
     }, [data]);
-
-    const { userInfo } = useAuth();
-    const userId = userInfo?.userId;
-    const generationId = userInfo?.generationId;
 
     const { onSubmit, onCancel, editorRef } = useToastEditor({
         editorId: 'webConceptEditor',
@@ -78,9 +89,15 @@ const WebGuideUpdate = () => {
                 },
             });
 
-            navigate(`/study/web/guide/${guideId}`);
+            navigate(`/study/web/concept/${guideId}`);
         } catch (error) {
-            console.error('게시글 작성을 실패했습니다:', error);
+            console.error('게시글 수정을 실패했습니다: ', error);
+            openModal({
+                title: '게시글 수정을 실패했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
         }
     };
 

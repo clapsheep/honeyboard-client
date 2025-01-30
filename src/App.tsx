@@ -131,29 +131,29 @@ function App() {
                             />
 
                             <Route
-                                path="final/:finalProjectId"
+                                path="final/:finaleProjectId"
                                 element={<FinalProjectDetail />}
                             />
 
                             <Route
-                                path="final/:finalProjectId/edit"
+                                path="final/:finaleProjectId/edit"
                                 element={<FinalProjectUpdate />}
                             />
                             <Route
-                                path="final/:finalProjectId/team/:finaleTeamId/edit"
+                                path="final/:finaleProjectId/team/:finaleTeamId/edit"
                                 element={<FinalProjectTeamUpdate />}
                             />
                             <Route
-                                path="final/:finalProjectId/board/create"
+                                path="final/:finaleProjectId/board/create"
                                 element={<FinalProjectBoardCreate />}
                             />
                             <Route
-                                path="final/:finalProjectId/board/:boardId/edit"
+                                path="final/:finaleProjectId/board/:boardId/edit"
                                 element={<FinalProjectBoardUpdate />}
                             />
 
                             <Route
-                                path="final/:finalProjectId/board/:boardId"
+                                path="final/:finaleProjectId/board/:boardId"
                                 element={<FinalProjectBoardDetail />}
                             />
                         </Route>
@@ -342,7 +342,7 @@ function App() {
                                     element={<BMWebConcept />}
                                 />
                                 <Route
-                                    path="web/recomend"
+                                    path="web/recommend"
                                     element={<BMWebRecommend />}
                                 />
                             </Route>

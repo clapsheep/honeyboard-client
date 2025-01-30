@@ -8,3 +8,4 @@ export { default as StudentEditModal } from './StudentEditModal/StudentEditModal
 export { default as PlayListSection } from './PlayListSection/PlayListSection';
 export { default as ChatSection } from './ChatSection/ChatSection';
 export { default as SubmitSection } from './SubmitSection/SubmitSection';
+export { default as SearchTeamMember} from "./SearchTeamMember/SearchTeamMember";

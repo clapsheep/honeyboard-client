@@ -5,6 +5,7 @@ import { useModalStore } from '@/stores/modalStore';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { createWebRecommendAPI } from '@/api/WebRecommendAPI';
+import { AxiosError } from 'axios';
 
 const WebRecommendCreate = () => {
     const { pathname } = useLocation();
@@ -64,7 +65,7 @@ const WebRecommendCreate = () => {
         try {
             const { content } = await onSubmit();
 
-            const { data: res } = await createWebRecommendAPI({
+            const { id } = await createWebRecommendAPI({
                 data: {
                     title: title.trim(),
                     content,
@@ -72,15 +73,19 @@ const WebRecommendCreate = () => {
                 },
             });
 
-            navigate(`/study/web/recommend/${res.id}`);
-        } catch (error: any) {
-            if (error.response?.data?.message === "이미 등록된 URL입니다.") {
-                openModal({
-                    title: '이미 등록된 URL입니다.',
-                    onCancelClick: () => {
-                        closeModal();
-                    },
-                });
+            navigate(`/study/web/recommend/${id}`);
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.message;
+
+                if (errorMessage === '이미 등록된 문제입니다.') {
+                    openModal({
+                        title: errorMessage,
+                        onCancelClick: () => {
+                            closeModal();
+                        },
+                    });
+                }
             } else {
                 openModal({
                     title: '게시글 작성을 실패했습니다.',

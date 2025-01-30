@@ -18,7 +18,7 @@ const TrackProjectBoardUpdate = () => {
 
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
-    const { openModal } = useModalStore();
+    const { openModal, closeModal } = useModalStore();
 
     const data = useProjectDetail({
         getAPI: getTrackProjectBoardDetailAPI,
@@ -89,7 +89,7 @@ const TrackProjectBoardUpdate = () => {
         try {
             const { content, thumbnail } = await onSubmit();
 
-            const id = await updateTrackProjectBoardAPI({
+            await updateTrackProjectBoardAPI({
                 trackProjectId,
                 trackTeamId,
                 boardId,
@@ -102,10 +102,16 @@ const TrackProjectBoardUpdate = () => {
             });
 
             navigate(
-                `/project/track/${trackProjectId}/team/${trackTeamId}/board/${id}`,
+                `/project/track/${trackProjectId}/team/${trackTeamId}/board/${boardId}`,
             );
         } catch (error) {
             console.error('게시글 수정을 실패했습니다:', error);
+            openModal({
+                title: '게시글 수정을 실패했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
         }
     };
 

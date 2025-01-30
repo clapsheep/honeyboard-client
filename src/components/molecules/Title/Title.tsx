@@ -62,9 +62,24 @@ const Title = ({
                             <h3 className="whitespace-nowrap text-xl font-semibold text-gray-900">
                                 {key}
                             </h3>
-                            <p className="break-words text-xl font-medium text-gray-900">
-                                {value}
-                            </p>
+                            {isLink ? (
+                                <a
+                                    href={
+                                        value.startsWith('http')
+                                            ? value
+                                            : `https://${value}`
+                                    }
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xl block truncate font-medium text-blue-600"
+                                >
+                                    {value}
+                                </a>
+                            ) : (
+                                <p className="text-xl break-words font-medium text-gray-900">
+                                    {value}
+                                </p>
+                            )}
                         </div>
                     ))}
 
@@ -77,18 +92,24 @@ const Title = ({
                             <span className="text-md whitespace-nowrap font-semibold text-gray-900">
                                 {key}
                             </span>
-                            {isLink? <a
-                                href={
-                                    value.startsWith('http') ? value : `https://${value}`
-                                }
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="block truncate text-md font-medium text-blue-600"
-                            >
-                                {value}
-                            </a> :<p className="text-md break-words font-medium text-gray-900">
-                                {value}
-                            </p>}
+                            {isLink ? (
+                                <a
+                                    href={
+                                        value.startsWith('http')
+                                            ? value
+                                            : `https://${value}`
+                                    }
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-md block truncate font-medium text-blue-600"
+                                >
+                                    {value}
+                                </a>
+                            ) : (
+                                <p className="text-md break-words font-medium text-gray-900">
+                                    {value}
+                                </p>
+                            )}
                         </div>
                     ))}
                 </div>

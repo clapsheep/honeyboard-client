@@ -10,6 +10,7 @@ import {
     deleteWebRecommendAPI,
 } from '@/api/WebRecommendAPI';
 import { useContentDetail } from '@/hooks/useContentDetail';
+import { AxiosError } from 'axios';
 
 const WebRecommendUpdate = () => {
     const { pathname } = useLocation();
@@ -29,16 +30,27 @@ const WebRecommendUpdate = () => {
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
 
+    const { userInfo } = useAuth();
+    const userId = userInfo?.userId;
+    const userRole = userInfo?.role;
+    const generationId = userInfo?.generationId;
+
     useEffect(() => {
         if (data) {
             setTitle(data.title);
             setUrl(data.url);
         }
-    }, [data]);
 
-    const { userInfo } = useAuth();
-    const userId = userInfo?.userId;
-    const generationId = userInfo?.generationId;
+        if (userId !== data?.authorId && userRole !== 'ADMIN') {
+            openModal({
+                title: '페이지 접근 권한이 없습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                    navigate(-1);
+                },
+            });
+        }
+    }, [data]);
 
     const { onSubmit, onCancel, editorRef } = useToastEditor({
         editorId: 'webRecommendEditor',
@@ -73,6 +85,16 @@ const WebRecommendUpdate = () => {
             return;
         }
 
+        if (!recommendId) {
+            openModal({
+                title: '게시글을 불러오지 못했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
+            return;
+        }
+
         if (!userId || !generationId) {
             openModal({
                 title: '로그인 후 이용해주세요.',
@@ -86,9 +108,6 @@ const WebRecommendUpdate = () => {
         try {
             const { content } = await onSubmit();
 
-            if (!recommendId) {
-                throw new Error('recommendId is required');
-            }
             await updateWebRecommendAPI({
                 recommendId: recommendId,
                 data: {
@@ -99,14 +118,18 @@ const WebRecommendUpdate = () => {
             });
 
             navigate(`/study/web/recommend/${recommendId}`);
-        } catch (error: any) {
-            if (error.response?.data?.message === '이미 등록된 URL입니다.') {
-                openModal({
-                    title: '이미 등록된 URL입니다.',
-                    onCancelClick: () => {
-                        closeModal();
-                    },
-                });
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.message;
+
+                if (errorMessage === '이미 등록된 문제입니다.') {
+                    openModal({
+                        title: errorMessage,
+                        onCancelClick: () => {
+                            closeModal();
+                        },
+                    });
+                }
             } else {
                 openModal({
                     title: '게시글 작성을 실패했습니다.',

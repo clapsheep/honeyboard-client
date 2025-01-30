@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import SelectOption from './SelectOption';
-import { SelectOptionType } from '@/services/common/generation';
+import { SelectOptionType } from '@/types/common';
 
 const meta = {
     title: 'Components/Atoms/SelectOption',
@@ -25,7 +25,7 @@ export const Default: Story = {
         name: 'selectGisu',
         options: gisuOptions,
         placeholder: '기수 선택',
-        defaultValue: gisuOptions[0].value,
+        value: gisuOptions[0].value,
         onChange: (e: React.ChangeEvent<HTMLSelectElement>) => {
             console.log(e.target.value);
         },

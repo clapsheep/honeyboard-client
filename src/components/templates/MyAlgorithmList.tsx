@@ -5,7 +5,7 @@ import { getMyAlgorithmAPI } from '@/api/mypageAPI';
 
 const MyAlgorithmList = () => {
     const { data } = useMyPage({
-        queryFn: getMyAlgorithmAPI,
+        queryFn: getMyAlgorithmAPI(),
         queryKey: 'myAlgorithm',
     });
 
@@ -15,16 +15,15 @@ const MyAlgorithmList = () => {
                 <>
                     <ul className="grid min-w-[1400px] grid-cols-4 gap-6">
                         {data.map((item) => (
-                            <li key={item.solutionId}>
+                            <li key={item.id}>
                                 <AlgoDetailCard
+                                    problemId={item.problemId}
+                                    solutionId={item.id}
                                     title={item.title}
-                                    subTitle={item.updatedAt}
+                                    subTitle={item.problemTitle}
                                     memory={Number(item.memory)}
                                     time={Number(item.runtime)}
-                                    language={item.languageId}
-                                    isBookmarked={item.isBookmarked}
-                                    onClick={() => {}}
-                                    onBookmarkClick={() => {}}
+                                    language={item.languageName}
                                 />
                             </li>
                         ))}

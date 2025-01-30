@@ -18,8 +18,8 @@ export const useProjectDetail = <U, T>({
                     return;
                 }
 
-                const response = await getAPI(requestParam);
-                setData(response.data);
+                const data = await getAPI(requestParam);
+                setData(data);
             } catch (error) {
                 console.error('프로젝트 조회에 실패했습니다.', error);
             }

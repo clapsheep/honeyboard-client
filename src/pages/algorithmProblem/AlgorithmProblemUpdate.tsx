@@ -7,7 +7,7 @@ import useAlgorithmTag from '@/hooks/useAlgorithmTag';
 import { useAuth } from '@/hooks/useAuth';
 import { useModalStore } from '@/stores/modalStore';
 import { AlgorithmProblemDetailResponse } from '@/types/AlgorithmProblem';
-import { TagResponse } from '@/types/Tag';
+import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
@@ -18,7 +18,6 @@ const AlgorithmProblemUpdate = () => {
 
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
-    const [tags, setTags] = useState<TagResponse[]>([]);
     const [data, setData] = useState<AlgorithmProblemDetailResponse>();
     const { openModal, closeModal } = useModalStore();
 
@@ -35,7 +34,6 @@ const AlgorithmProblemUpdate = () => {
                 setData(response);
                 setTitle(response.title || '');
                 setUrl(response.url || '');
-                setTags(response.tags);
             } catch (error) {
                 console.error('알고리즘 문제 조회에 실패했습니다.', error);
             }
@@ -59,7 +57,18 @@ const AlgorithmProblemUpdate = () => {
     });
 
     const handleCancel = () => {
-        navigate(-1);
+        openModal({
+            icon: 'warning',
+            title: '수정 취소',
+            subTitle: '정말 취소하시겠습니까?',
+            onConfirmClick: () => {
+                navigate(-1);
+                closeModal();
+            },
+            onCancelClick: () => {
+                closeModal();
+            },
+        });
     };
 
     const handleSubmit = async () => {
@@ -91,6 +100,26 @@ const AlgorithmProblemUpdate = () => {
             navigate('/study/algorithm/problem');
         } catch (error) {
             console.error('문제 수정을 실패했습니다.', error);
+
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.message;
+
+                if (errorMessage === '이미 등록된 문제입니다.') {
+                    openModal({
+                        title: errorMessage,
+                        onCancelClick: () => {
+                            closeModal();
+                        },
+                    });
+                }
+            } else {
+                openModal({
+                    title: '게시글 수정을 실패했습니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
+            }
         }
     };
 
@@ -118,7 +147,7 @@ const AlgorithmProblemUpdate = () => {
         onKeyDown,
         onDelete,
         value,
-        algoSearch: tags,
+        algoSearch,
         searchResult,
     };
 

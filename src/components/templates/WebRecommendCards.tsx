@@ -12,8 +12,6 @@ interface WebRecommendCardsProps {
 }
 
 const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
-    console.log(generationId);
-
     const {
         handlePageChange,
         currentPage: page,
@@ -56,7 +54,7 @@ const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
             </div>
             {data?.content?.length ? (
                 <>
-                    <ul className="grid min-w-[1600px] grid-cols-4 grid-rows-4 gap-6">
+                    <ul className="grid min-w-[1400px] grid-cols-4 grid-rows-4 gap-6">
                         {data.content.map((i) => (
                             <li key={i.id}>
                                 <WebSiteCard
@@ -80,7 +78,9 @@ const WebRecommendCards = ({ generationId }: WebRecommendCardsProps) => {
                             )
                         }
                         onClick={(e) =>
-                            handlePageChange(Number(e.currentTarget.value))
+                            handlePageChange(
+                                Number(e.currentTarget.textContent),
+                            )
                         }
                     />
                 </>

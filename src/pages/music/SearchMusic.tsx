@@ -66,7 +66,6 @@ const SearchMusic = () => {
 
     // 플리에 등록된 노래 목록 조회
     const { data: musicList } = useGetYoutubeList();
-    console.log(musicList);
 
     // 노래 추가 삭제
     const handleAddMusic = (
@@ -91,7 +90,7 @@ const SearchMusic = () => {
     }, [isQuotaExceeded]);
 
     return (
-        <>
+        <div className="flex flex-col items-center">
             <Header
                 titleProps={{ title: '노래 신청' }}
                 BreadcrumbProps={{ pathname }}
@@ -106,7 +105,7 @@ const SearchMusic = () => {
                     onChange={handleChange}
                 />
             </div>
-            <div className="grid grid-cols-3 gap-4 px-[85px]">
+            <div className="grid w-[1400px] grid-cols-3 gap-4 px-[85px]">
                 {data ? (
                     data.pages.map((page) =>
                         page.items.map((item) => (
@@ -158,7 +157,7 @@ const SearchMusic = () => {
                         )}
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -18,15 +18,15 @@ export interface AlgorithmSolution {
 
 export type AlgorithmSolutionListResponse = Pick<
     AlgorithmSolution,
-    'id' | 'title' | 'memory' | 'runtime' | 'languageId'
+    'id' | 'title' | 'memory' | 'runtime' | 'languageId' | 'problemId'
 > & {
     subtitle: string;
     languageName: string;
 };
 export type MyAlgorithmSolutionResponse = Pick<
     AlgorithmSolution,
-    'id' | 'title' | 'memory' | 'runtime' | 'languageId'
-> & { problemTitle: string };
+    'problemId' | 'id' | 'title' | 'memory' | 'runtime' | 'languageId'
+> & { problemTitle: string; languageName: string };
 
 export type AlgorithmSolutionDetailResponse = Pick<
     AlgorithmSolution,
@@ -40,7 +40,7 @@ export type AlgorithmSolutionDetailResponse = Pick<
     | 'createdAt'
 > & {
     authorId: AlgorithmSolution['userId'];
-    authorName: string;
+    name: string;
     languageName: string;
 } & BookmarkedResponse;
 

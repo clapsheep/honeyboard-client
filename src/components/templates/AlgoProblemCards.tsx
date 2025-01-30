@@ -66,7 +66,7 @@ const AlgoProblemCards = () => {
             </div>
             {data?.content?.length ? (
                 <>
-                    <ul className="grid w-full grid-cols-4 grid-rows-4 gap-6">
+                    <ul className="grid w-[1400px] grid-cols-4 grid-rows-4 gap-6">
                         {data.content.map((item) => (
                             <li key={item.id}>
                                 <AlgoProblemCard
@@ -83,15 +83,15 @@ const AlgoProblemCards = () => {
                         total={data.pageInfo.totalPages}
                         now={page}
                         onClickLeft={() =>
-                            handlePageChange(Math.max(1, page - 1))
+                            handlePageChange(Math.max(1, page - 5))
                         }
                         onClickRight={() =>
                             handlePageChange(
-                                Math.min(data.pageInfo.totalPages, page + 1),
+                                Math.min(data.pageInfo.totalPages, page + 5),
                             )
                         }
                         onClick={(e) =>
-                            handlePageChange(Number(e.currentTarget.value))
+                            handlePageChange(Number(e.currentTarget.textContent))
                         }
                     />
                 </>

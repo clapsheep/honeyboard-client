@@ -8,6 +8,7 @@ import {
     getAlgorithmSolutionDetailAPI,
     deleteAlgorithmSolutionAPI,
 } from '@/api/AlgorithmSolutionAPI';
+import { useAuth } from '@/hooks/useAuth';
 
 const AlgorithmSolutionDetail = () => {
     const { pathname } = useLocation();
@@ -19,19 +20,23 @@ const AlgorithmSolutionDetail = () => {
         requestParam: { problemId: problemId!, solutionId: solutionId! },
         getDetailAPI: getAlgorithmSolutionDetailAPI,
         deleteAPI: deleteAlgorithmSolutionAPI,
-        navigateAfterDelete: `/study/algorithm/problem/${problemId}/solution`,
+        navigateAfterDelete: `/study/algorithm/problem/${problemId}`,
     });
 
-    console.log(data);
+    const { userInfo } = useAuth();
+    const userId = userInfo?.userId;
+    const isAdmin = userInfo?.role === 'ADMIN';
+    const isAuthor = data?.authorId === userId;
 
     if (!data) return null;
+
     return (
         <>
             <Header
                 titleProps={{
                     title: data.title,
                     description: { '풀이 설명': data.summary },
-                    author: data.authorName,
+                    author: data.name,
                     bookmarked: data.bookmarked,
                     onClickLike: handleLike,
                 }}
@@ -45,10 +50,14 @@ const AlgorithmSolutionDetail = () => {
                         readOnly={true}
                     />
                     <div className="flex gap-4">
-                        <Button color="red" onClick={handleDelete}>
-                            풀이 삭제
-                        </Button>
-                        <Button onClick={handleEdit}>풀이 수정</Button>
+                        {(isAdmin || isAuthor) && (
+                            <div className="flex gap-4">
+                                <Button color="red" onClick={handleDelete}>
+                                    풀이 삭제
+                                </Button>
+                                <Button onClick={handleEdit}>풀이 수정</Button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </Header>

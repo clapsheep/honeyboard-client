@@ -1,6 +1,7 @@
 import { updateStudentAPI } from '@/api/adminAPI';
 import { StudentType } from '@/types/User';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { queryClient } from '@/utils/common/queryClient';
+import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 
 export const useStudentEdit = (generationId: number | null) => {
@@ -8,7 +9,6 @@ export const useStudentEdit = (generationId: number | null) => {
     const [selectedStudent, setSelectedStudent] = useState<StudentType | null>(
         null,
     );
-    const queryClient = useQueryClient();
 
     const { mutateAsync: updateStudent, isPending } = useMutation({
         mutationFn: (formData: StudentType) => {

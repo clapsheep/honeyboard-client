@@ -13,7 +13,7 @@ const TrackProjectBoardCreate = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
-    const { openModal } = useModalStore();
+    const { openModal, closeModal } = useModalStore();
 
     const members = useTeamStore(
         useShallow(
@@ -59,10 +59,10 @@ const TrackProjectBoardCreate = () => {
         try {
             const { content, thumbnail } = await onSubmit();
 
-            const id = await createTrackProjectBoardAPI({
+            const data = await createTrackProjectBoardAPI({
                 trackProjectId,
                 trackTeamId,
-                data: {
+                board: {
                     title: title.trim(),
                     url,
                     content,
@@ -70,11 +70,19 @@ const TrackProjectBoardCreate = () => {
                 },
             });
 
+            const boardId = data.id;
+
             navigate(
-                `/project/track/${trackProjectId}/team/${trackTeamId}/board/${id}`,
+                `/project/track/${trackProjectId}/team/${trackTeamId}/board/${boardId}`,
             );
         } catch (error) {
             console.error('게시글 작성을 실패했습니다:', error);
+            openModal({
+                title: '게시글 작성을 실패했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
         }
     };
 

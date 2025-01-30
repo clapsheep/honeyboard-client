@@ -49,7 +49,7 @@ const ChatSection = () => {
                 {messages.map((message) => (
                     <Chat
                         key={message.id}
-                        time={message.createdAt}
+                        time={new Date(message.createdAt)}
                         name={message.sender}
                         isMe={message.userId === userInfo!.userId}
                     >

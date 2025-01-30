@@ -1,5 +1,6 @@
 import { AlgorithmSolutionListResponse } from './AlgorithmSolution';
-import { TagRequest, TagResponse } from './Tag';
+import { BookmarkedResponse } from './common';
+import { TagResponse } from './Tag';
 
 export interface AlgorithmProblem {
     id: string;
@@ -21,9 +22,9 @@ export type AlgorithmProblemDetailResponse = Pick<
     'id' | 'title' | 'url' | 'createdAt'
 > & { algorithmSolutionList: AlgorithmSolutionListResponse[] } & {
     tags: TagResponse[];
-};
+} & BookmarkedResponse;
 
 export type AlgorithmProblemRequest = Pick<
     AlgorithmProblem,
     'title' | 'url'
-> & { tags: TagRequest[] };
+> & { tags: TagResponse[] };

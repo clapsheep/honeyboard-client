@@ -9,10 +9,13 @@ import {
 } from '@/api/AlgorithmGuideAPI.ts';
 import { AlgorithmGuideDetailResponse } from '@/types/AlgorithmGuide';
 import { useLocation, useParams } from 'react-router';
+import { useAuth } from '@/hooks/useAuth';
 const AlgorithmGuideDetail = () => {
     const { pathname } = useLocation();
-
     const { guideId } = useParams();
+    const { userInfo } = useAuth();
+    const userId = userInfo?.userId;
+    const userRole = userInfo?.role;
 
     const { data, handleDelete, handleEdit, handleLike } = useContentDetail<
         {
@@ -29,6 +32,7 @@ const AlgorithmGuideDetail = () => {
     });
 
     if (!data) return null;
+
     return (
         <>
             <Header
@@ -40,12 +44,14 @@ const AlgorithmGuideDetail = () => {
                 BreadcrumbProps={{ pathname }}
             >
                 <div className="flex justify-end">
-                    <div className="flex gap-4">
-                        <Button color="red" onClick={handleDelete}>
-                            글 삭제
-                        </Button>
-                        <Button onClick={handleEdit}>글 수정</Button>
-                    </div>
+                    {(userId === data.authorId || userRole === 'ADMIN') && (
+                        <div className="flex gap-4">
+                            <Button color="red" onClick={handleDelete}>
+                                글 삭제
+                            </Button>
+                            <Button onClick={handleEdit}>글 수정</Button>
+                        </div>
+                    )}
                 </div>
             </Header>
 

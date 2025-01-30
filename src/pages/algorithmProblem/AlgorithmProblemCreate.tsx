@@ -3,6 +3,7 @@ import AlgoProblemForm from '@/components/templates/AlgoProblemForm';
 import useAlgorithmTag from '@/hooks/useAlgorithmTag';
 import { useAuth } from '@/hooks/useAuth';
 import { useModalStore } from '@/stores/modalStore';
+import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -29,7 +30,18 @@ const AlgorithmProblemCreate = () => {
     });
 
     const handleCancel = () => {
-        navigate(-1);
+        openModal({
+            icon: 'warning',
+            title: '작성 취소',
+            subTitle: '정말 취소하시겠습니까?',
+            onConfirmClick: () => {
+                navigate(-1);
+                closeModal();
+            },
+            onCancelClick: () => {
+                closeModal();
+            },
+        });
     };
 
     const handleSubmit = async () => {
@@ -56,6 +68,26 @@ const AlgorithmProblemCreate = () => {
             navigate('/study/algorithm/problem');
         } catch (error) {
             console.error('문제 생성을 실패했습니다.', error);
+
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.message;
+
+                if (errorMessage === '이미 등록된 문제입니다.') {
+                    openModal({
+                        title: errorMessage,
+                        onCancelClick: () => {
+                            closeModal();
+                        },
+                    });
+                }
+            } else {
+                openModal({
+                    title: '게시글 작성을 실패했습니다.',
+                    onCancelClick: () => {
+                        closeModal();
+                    },
+                });
+            }
         }
     };
 

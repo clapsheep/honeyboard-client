@@ -3,7 +3,7 @@ import WebGuideForm from '@/components/templates/WebGuideForm';
 import { useAuth } from '@/hooks/useAuth';
 import useToastEditor from '@/hooks/useToastEditor';
 import { useModalStore } from '@/stores/modalStore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 const WebGuideCreate = () => {
@@ -15,6 +15,19 @@ const WebGuideCreate = () => {
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
     const generationId = userInfo?.generationId;
+    const userRole = userInfo?.role;
+
+    useEffect(() => {
+        if (userRole !== 'ADMIN') {
+            openModal({
+                title: '페이지 접근 권한이 없습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                    navigate(-1);
+                },
+            });
+        }
+    }, []);
 
     const { onSubmit, onCancel, editorRef } = useToastEditor({
         editorId: 'webConceptEditor',
@@ -53,7 +66,7 @@ const WebGuideCreate = () => {
         try {
             const { content, thumbnail } = await onSubmit();
 
-            const { data: res } = await createWebGuideAPI({
+            const id = await createWebGuideAPI({
                 data: {
                     title: title.trim(),
                     content,
@@ -61,9 +74,15 @@ const WebGuideCreate = () => {
                 },
             });
 
-            navigate(`/study/web/guide/${res.id}`);
+            navigate(`/study/web/concept/${id}`);
         } catch (error) {
-            console.error('게시글 작성을 실패했습니다:', error);
+            console.error('게시글 작성을 실패했습니다.: ', error);
+            openModal({
+                title: '게시글 작성을 실패했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
         }
     };
 

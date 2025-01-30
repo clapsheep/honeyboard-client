@@ -69,7 +69,7 @@ const ROUTES = [
                 isActive: false,
             },
             {
-                path: 'mypage/bookmark/web/recomend',
+                path: 'mypage/bookmark/web/recommend',
                 name: '웹 추천',
                 isActive: false,
             },

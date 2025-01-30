@@ -1,5 +1,14 @@
 const calcRouteStructure = (pathname: string) => {
-    const routeList = pathname.substring(1).split('/');
+    const routeList = pathname
+        .substring(1)
+        .split('/')
+        .filter(
+            (route) =>
+                !/^\d+$/.test(route) &&
+                route !== 'team' &&
+                route !== 'create' &&
+                route != 'edit',
+        );
     const routeStructure = routeList.reduce(
         (acc, route, index) => {
             let name;
@@ -46,6 +55,21 @@ const calcRouteStructure = (pathname: string) => {
                 case 'search':
                     name = '검색';
                     break;
+                case 'board':
+                    name = '일지';
+                    break;
+                case 'solution':
+                    name = '상세';
+                    break;
+                case 'admin':
+                    name = '관리자';
+                    break;
+                case 'student':
+                    name = '학생관리';
+                    break;
+                case 'generation':
+                    name = '기수관리';
+                    break;
             }
 
             const path = routeList
@@ -65,7 +89,7 @@ const calcRouteStructure = (pathname: string) => {
             isActive: boolean;
         }>,
     );
-    return routeStructure.slice(0, -1);
+    return routeStructure;
 };
 
 export default calcRouteStructure;
