@@ -4,6 +4,7 @@ import {
     updateFinaleTeamAPI,
 } from '@/api/finaleAPI';
 import FinaleProjectTeam from '@/components/templates/FinaleProjectTeam';
+import { useAuth } from '@/hooks/useAuth';
 import { useFinaleProject } from '@/hooks/useFinaleProject';
 import {
     FinaleProjectTeamUpdate,
@@ -15,6 +16,7 @@ import { useNavigate, useParams } from 'react-router';
 const FinalProjectUpdate = () => {
     const props = useFinaleProject();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const { userInfo } = useAuth();
     const navigate = useNavigate();
     const { finaleProjectId } = useParams();
     const [teamId, setTeamId] = useState<string>('');
@@ -34,8 +36,6 @@ const FinalProjectUpdate = () => {
     useEffect(() => {
         const getDetail = async () => {
             try {
-                console.log(finaleProjectId);
-
                 if (!finaleProjectId) {
                     return;
                 }
@@ -44,7 +44,15 @@ const FinalProjectUpdate = () => {
                     finaleProjectId: finaleProjectId,
                 });
 
-                console.log(data);
+                if (userInfo?.role !== 'ADMIN') {
+                    if (
+                        !data.members.some(
+                            (member) => member.id === userInfo?.userId,
+                        )
+                    ) {
+                        navigate(-1);
+                    }
+                }
 
                 setTitle(data.title);
                 setObjective(data.description);
@@ -66,6 +74,16 @@ const FinalProjectUpdate = () => {
 
     // 보류
     const handleAPIButton = async () => {
+        if (userInfo?.role !== 'ADMIN') {
+            if (
+                teamLeader[0].id !== userInfo?.userId &&
+                !teamMember.some((member) => member.id === userInfo?.userId)
+            ) {
+                setModalOpen(true);
+                return;
+            }
+        }
+
         const projectData: FinaleProjectUpdate = {
             title: title,
             description: objective,
