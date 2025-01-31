@@ -89,6 +89,12 @@ const SearchMusic = () => {
         }
     }, [isQuotaExceeded]);
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
+
     return (
         <div className="flex flex-col items-center">
             <Header
@@ -103,6 +109,7 @@ const SearchMusic = () => {
                     inputValue={inputKeyword}
                     onClickSearch={handleSearch}
                     onChange={handleChange}
+                    onKeyDown={handleKeyDown}
                 />
             </div>
             <div className="grid w-[1400px] grid-cols-3 gap-4 px-[85px]">
@@ -120,10 +127,15 @@ const SearchMusic = () => {
                                         '_blank',
                                     );
                                 }}
-                                isAdded={musicList?.some(
-                                    (music) =>
-                                        music.videoId === item.id.videoId,
-                                )}
+                                isAdded={
+                                    musicList && Array.isArray(musicList)
+                                        ? musicList.some(
+                                              (music) =>
+                                                  music.videoId ===
+                                                  item.id.videoId,
+                                          )
+                                        : false
+                                }
                                 onAddClick={(e) => {
                                     e.stopPropagation();
                                     handleAddMusic(
