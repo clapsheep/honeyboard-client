@@ -14,7 +14,6 @@ interface FinalListCardsProps {
 
 const FinalListCards = ({ boards }: FinalListCardsProps) => {
     const { pathname } = useLocation();
-    console.log(boards);
 
     return (
         <div className="flex w-full flex-col items-center gap-6 p-6">

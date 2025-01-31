@@ -46,16 +46,20 @@ const ChatSection = () => {
                 value={chatMessage}
             />
             <ul className="flex h-[786px] w-full flex-col-reverse gap-4 overflow-y-auto pb-2">
-                {messages.map((message) => (
-                    <Chat
-                        key={message.id}
-                        time={new Date(message.createdAt)}
-                        name={message.sender}
-                        isMe={message.userId === userInfo!.userId}
-                    >
-                        {message.content}
-                    </Chat>
-                ))}
+                {messages.length > 0 ? (
+                    messages.map((message) => (
+                        <Chat
+                            key={message.id}
+                            time={new Date(message.createdAt)}
+                            name={message.sender}
+                            isMe={message.userId === userInfo!.userId}
+                        >
+                            {message.content}
+                        </Chat>
+                    ))
+                ) : (
+                    <li></li>
+                )}
                 <div ref={observerRef} className="h-10 w-full p-1">
                     {''}
                 </div>
