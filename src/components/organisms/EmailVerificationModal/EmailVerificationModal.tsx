@@ -56,7 +56,6 @@ const EmailVerificationModal = ({
         setIsLoading(true);
         const res = await sendEmailAPI(email);
         if (res.status === 200) {
-            console.log('reSendCode');
             setCode(['', '', '', '']);
             setIsLoading(false);
         }

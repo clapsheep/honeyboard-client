@@ -43,7 +43,7 @@ const ChangePassword = () => {
     } = useForm({
         resolver: zodResolver(passwordSchema),
     });
-    console.log(errors);
+
     const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };

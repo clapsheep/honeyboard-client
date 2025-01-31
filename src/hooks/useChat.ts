@@ -23,6 +23,8 @@ export const useChat = (generationId: string) => {
             },
             getNextPageParam: (lastPage) => {
                 const { pageInfo } = lastPage;
+
+                if (!pageInfo.currentPage) return;
                 const nextPage =
                     pageInfo.currentPage < pageInfo.totalPages
                         ? pageInfo.currentPage + 1
