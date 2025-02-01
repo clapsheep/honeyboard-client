@@ -8,11 +8,11 @@ import { useNavigate } from 'react-router';
 const FinalProjectCreate = () => {
     const props = useFinaleProject();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalText, setModalText] = useState<string>('');
     const navigate = useNavigate();
 
     const { title, objective, git, teamLeader, teamMember } = props;
 
-    // 보류
     const handleAPIButton = async () => {
         const projectData: FinaleProjectCreate = {
             title: title,
@@ -29,6 +29,8 @@ const FinalProjectCreate = () => {
 
             navigate(`/project/final/${res.data.id}`);
         } catch (error) {
+            setModalText('생성에 실패했습니다.');
+            setModalOpen(true);
             console.error(`에러 발생`, error);
         }
     };
@@ -37,6 +39,7 @@ const FinalProjectCreate = () => {
         <FinaleProjectTeam
             mode={'create'}
             modalOpen={modalOpen}
+            modalText={modalText}
             setModalOpen={setModalOpen}
             handleAPIButton={handleAPIButton}
             {...props}

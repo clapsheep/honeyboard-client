@@ -16,6 +16,7 @@ import { useNavigate, useParams } from 'react-router';
 const FinalProjectUpdate = () => {
     const props = useFinaleProject();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalText, setModalText] = useState<string>('');
     const { userInfo } = useAuth();
     const navigate = useNavigate();
     const { finaleProjectId } = useParams();
@@ -65,6 +66,8 @@ const FinalProjectUpdate = () => {
                 );
                 setTeamId(data.finaleTeamId);
             } catch (error) {
+                setModalText('팀 정보 불러오기가 실패했습니다.');
+                setModalOpen(true);
                 console.error(error);
             }
         };
@@ -72,13 +75,13 @@ const FinalProjectUpdate = () => {
         getDetail();
     }, []);
 
-    // 보류
     const handleAPIButton = async () => {
         if (userInfo?.role !== 'ADMIN') {
             if (
-                teamLeader[0].id !== userInfo?.userId &&
-                !teamMember.some((member) => member.id === userInfo?.userId)
+                teamLeader[0].id != userInfo?.userId &&
+                !teamMember.some((member) => member.id == userInfo?.userId)
             ) {
+                setModalText('해당 팀에 본인이 없습니다.');
                 setModalOpen(true);
                 return;
             }
@@ -109,6 +112,8 @@ const FinalProjectUpdate = () => {
 
             navigate(`/project/final/${finaleProjectId}`);
         } catch (error) {
+            setModalText('수정에 실패했습니다.');
+            setModalOpen(true);
             console.error(`에러 발생`, error);
         }
     };
@@ -116,6 +121,7 @@ const FinalProjectUpdate = () => {
     return (
         <FinaleProjectTeam
             mode={'edit'}
+            modalText={modalText}
             modalOpen={modalOpen}
             setModalOpen={setModalOpen}
             handleAPIButton={handleAPIButton}

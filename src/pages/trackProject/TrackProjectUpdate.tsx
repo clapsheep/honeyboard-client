@@ -14,6 +14,7 @@ const TrackProjectUpdate = () => {
     const navigate = useNavigate();
     const { trackProjectId } = useParams();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalText, setModalText] = useState<string>('');
 
     useEffect(() => {
         if (userInfo?.role != 'ADMIN') {
@@ -48,6 +49,8 @@ const TrackProjectUpdate = () => {
                 setObjective(data.objective);
                 setDescription(data.description);
             } catch (error) {
+                setModalText('프로젝트 조회에 실패했습니다.');
+                setModalOpen(true);
                 console.error('프로젝트 조회에 실패했습니다.', error);
             }
         };
@@ -66,6 +69,8 @@ const TrackProjectUpdate = () => {
 
                 setWeedingMember([...data]);
             } catch (error) {
+                setModalText('제외 유저 조회에 실패했습니다.');
+                setModalOpen(true);
                 console.error('제외 유저 조회에 실패했습니다.', error);
             }
         };
@@ -93,6 +98,7 @@ const TrackProjectUpdate = () => {
 
             navigate(`/project/track/${trackProjectId}`);
         } catch (error) {
+            setModalText('수정에 실패했습니다.');
             setModalOpen(true);
             console.error('에러 발생', error);
         }
@@ -101,6 +107,7 @@ const TrackProjectUpdate = () => {
     return (
         <TrackProject
             modalOpen={modalOpen}
+            modalText={modalText}
             setModalOpen={setModalOpen}
             mode="edit"
             handleForm={handleForm}

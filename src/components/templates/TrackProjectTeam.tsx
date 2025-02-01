@@ -22,6 +22,7 @@ interface TrackProjectTeamProps {
     handleAPIButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
     modalOpen: boolean;
     setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    modalText: string;
 }
 
 const TrackProjectTeam = ({
@@ -41,12 +42,12 @@ const TrackProjectTeam = ({
     handleAPIButton,
     modalOpen,
     setModalOpen,
+    modalText,
 }: TrackProjectTeamProps) => {
     const { pathname } = useLocation();
 
     const navigate = useNavigate();
 
-    const MODAL_TEXT = '해당 팀에 본인이 없습니다.';
     const handleConfirm = () => {
         setModalOpen(false);
     };
@@ -94,7 +95,7 @@ const TrackProjectTeam = ({
             </section>
             <BasicModal
                 isOpen={modalOpen}
-                title={MODAL_TEXT}
+                title={modalText}
                 onConfirmClick={handleConfirm}
             />
         </>

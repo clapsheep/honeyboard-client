@@ -29,7 +29,7 @@ const TrackProjectBoardDetail = () => {
             getDetailAPI: getTrackProjectBoardDetailAPI,
             deleteAPI: deleteTrackProjectBoardAPI,
             navigateAfterDelete: `/project/track/${trackProjectId}`,
-            navigateToEditTeam: `/project/track/${trackProjectId}/team/${trackTeamId}/edit`,
+            navigateToEditTeam: `/project/track/${trackProjectId}/team/${trackTeamId}/${boardId}/edit`,
         });
 
     const members = data?.members.sort((a, b) =>

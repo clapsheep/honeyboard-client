@@ -8,10 +8,12 @@ const TrackProjectTeamCreate = () => {
     const props = useCreateTrackTeam();
     const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalText, setModalText] = useState<string>('');
 
     const { trackProjectId } = useParams();
     const handleAPIButton = async () => {
         if (!props.contain) {
+            setModalText('해당 팀에 본인이 없습니다.');
             setModalOpen(true);
             return;
         }
@@ -34,6 +36,8 @@ const TrackProjectTeamCreate = () => {
                 throw new Error('프로젝트 생성 실패');
             }
         } catch (error) {
+            setModalText('생성에 실패했습니다.');
+            setModalOpen(true);
             console.error('에러 발생', error);
         }
     };
@@ -42,6 +46,7 @@ const TrackProjectTeamCreate = () => {
         <TrackProjectTeam
             mode={'create'}
             modalOpen={modalOpen}
+            modalText={modalText}
             setModalOpen={setModalOpen}
             handleAPIButton={handleAPIButton}
             {...props}
