@@ -1,6 +1,7 @@
 import { MusicTrack } from '@/components/molecules';
 import { useGetYoutubeList, useMusicMutation } from '@/hooks/useYoutube';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 const PlayListSection = () => {
     const { deleteMusic } = useMusicMutation();
@@ -31,8 +32,6 @@ const PlayListSection = () => {
     };
 
     return (
-        // 여기서 서스펜스 사용시 새로고침하면 에러가 나는데 왜그러는지 모르겠음
-        // <Suspense fallback={<MusicTrackSkeletonList />}>
         <div className="my-6 flex w-[464px] flex-col items-center rounded-xl border border-gray-300 bg-gray-25 p-4 shadow-md">
             <div className="flex h-full w-full flex-col">
                 <div className="relative h-[243px] w-[432px]">
@@ -43,7 +42,7 @@ const PlayListSection = () => {
                             src={`https://www.youtube.com/embed/${selectedVideoId}`}
                         />
                     ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-gray-300">
+                        <div className="flex h-full w-full items-center justify-center bg-gray-100">
                             <p>재생할 영상이 없습니다.</p>
                         </div>
                     )}
@@ -54,18 +53,32 @@ const PlayListSection = () => {
                     </h3>
 
                     <ul className="flex h-[550px] flex-col gap-2 overflow-y-auto py-2">
-                        {musicList?.map((music) => (
-                            <li key={music.id}>
-                                <MusicTrack
-                                    id={music.id}
-                                    videoId={music.videoId}
-                                    title={music.title}
-                                    channel={music.channel}
-                                    onClick={onSelectVideo}
-                                    onDelete={onDeleteVideo}
-                                />
+                        {musicList?.length === 0 ? (
+                            <li className="mt-20 flex flex-col items-center gap-4 self-center">
+                                <Link
+                                    to="/music/search"
+                                    className="flex w-full justify-center rounded-md bg-blue-500 px-4 py-2 text-white transition duration-200 hover:bg-blue-600"
+                                >
+                                    노래 검색 하러가기
+                                </Link>
+                                <p className="text-xs text-gray-600">
+                                    재생할 음악이 없습니다.
+                                </p>
                             </li>
-                        ))}
+                        ) : (
+                            musicList?.map((music) => (
+                                <li key={music.id}>
+                                    <MusicTrack
+                                        id={music.id}
+                                        videoId={music.videoId}
+                                        title={music.title}
+                                        channel={music.channel}
+                                        onClick={onSelectVideo}
+                                        onDelete={onDeleteVideo}
+                                    />
+                                </li>
+                            ))
+                        )}
                     </ul>
                 </div>
             </div>

@@ -26,6 +26,7 @@ const SignUp = () => {
         onSubmit,
         setIsModalOpen,
         isValid,
+        isLoading,
     } = useSignUp();
 
     return (
@@ -97,7 +98,9 @@ const SignUp = () => {
                                     handleKeyDown(
                                         e,
                                         handleEmailStep,
-                                        !emailValue || !!errors.email?.message,
+                                        !emailValue ||
+                                            !!errors.email?.message ||
+                                            isLoading,
                                     )
                                 }
                                 {...register('email')}
@@ -106,8 +109,11 @@ const SignUp = () => {
                                 <Button
                                     type="button"
                                     onClick={handleEmailStep}
+                                    isLoading={isLoading}
                                     disabled={
-                                        !emailValue || !!errors.email?.message
+                                        !emailValue ||
+                                        !!errors.email?.message ||
+                                        isLoading
                                     }
                                 >
                                     인증코드 발송

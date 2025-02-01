@@ -1,5 +1,10 @@
-import { changePasswordAPI, sendEmailAPI, verifyEmailAPI } from '@/api/authAPI';
-import { Button } from '@/components/atoms';
+import {
+    changePasswordAPI,
+    existEmailAPI,
+    sendEmailAPI,
+    verifyEmailAPI,
+} from '@/api/authAPI';
+import { Button, ErrorMessage } from '@/components/atoms';
 import { InputForm } from '@/components/molecules';
 import { EmailVerificationModal } from '@/components/organisms';
 import { useState } from 'react';
@@ -8,16 +13,36 @@ import logo from '/assets/images/logo.png';
 import { submitKeyDownEnter } from '@/utils/submitKeyDownEnter';
 import { useModalStore } from '@/stores/modalStore';
 import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const passwordSchema = z
+    .object({
+        password: z
+            .string()
+            .min(8, '비밀번호는 8자 이상이어야 합니다')
+            .regex(/^(?=.*[A-Za-z])(?=.*\d)/, '영문과 숫자를 포함해야 합니다'),
+        confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        message: '비밀번호가 일치하지 않습니다',
+        path: ['confirmPassword'],
+    });
 
 const ChangePassword = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [freeze, setFreeze] = useState(false);
     const { openModal, closeModal } = useModalStore();
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm({
+        resolver: zodResolver(passwordSchema),
+    });
 
     const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
@@ -37,7 +62,7 @@ const ChangePassword = () => {
 
         try {
             emailSchema.parse(email);
-        } catch (error) {
+        } catch {
             openModal({
                 title: '올바른 이메일 형식이 아닙니다',
                 onCancelClick: () => {
@@ -46,7 +71,16 @@ const ChangePassword = () => {
             });
             return;
         }
-
+        const res1 = await existEmailAPI(email);
+        if (res1.status !== 200) {
+            openModal({
+                title: '이메일이 존재하지 않습니다',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
+            return;
+        }
         setIsLoading(true);
         const res = await sendEmailAPI(email);
         if (res.status === 200) {
@@ -63,10 +97,9 @@ const ChangePassword = () => {
         }
         setIsLoading(false);
     };
-    const handleChangePassword = async () => {
+    const onSubmit = handleSubmit(async (data) => {
         setIsLoading(true);
-        const res = await changePasswordAPI(email, password);
-
+        const res = await changePasswordAPI(email, data.password);
         if (res.status === 200) {
             openModal({
                 title: '비밀번호 변경 완료',
@@ -77,7 +110,7 @@ const ChangePassword = () => {
             });
         }
         setIsLoading(false);
-    };
+    });
 
     return (
         <main className="mx-auto flex h-screen w-full min-w-[418px] items-center justify-center bg-gray-50">
@@ -95,10 +128,7 @@ const ChangePassword = () => {
 
                 <form
                     className="flex w-full flex-col items-center gap-6 py-3"
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        handleChangePassword();
-                    }}
+                    onSubmit={onSubmit}
                 >
                     <div className="w-full translate-y-0 transform opacity-100 transition-all duration-500 ease-in-out">
                         <div className="flex flex-col items-center gap-4">
@@ -129,23 +159,25 @@ const ChangePassword = () => {
                                 id="password"
                                 label="비밀번호"
                                 type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                {...register('password')}
                                 placeholder="8자 이상 + 영문 + 숫자"
-                                errorMessage={undefined}
                             />
                             <InputForm
                                 id="confirmPassword"
                                 label="비밀번호 확인"
                                 type="password"
-                                value={confirmPassword}
-                                onChange={(e) =>
-                                    setConfirmPassword(e.target.value)
-                                }
+                                {...register('confirmPassword')}
                                 placeholder="비밀번호 확인"
-                                errorMessage={undefined}
                                 onKeyDown={submitKeyDownEnter}
                             />
+                            {(errors.password || errors.confirmPassword) && (
+                                <ErrorMessage>
+                                    {(
+                                        errors.password?.message ||
+                                        errors.confirmPassword?.message
+                                    )?.toString()}
+                                </ErrorMessage>
+                            )}
                             <Button type="submit">비밀번호 변경</Button>
                         </div>
                     )}

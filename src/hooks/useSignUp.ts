@@ -15,6 +15,7 @@ export const useSignUp = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [isEmailVerified, setIsEmailVerified] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     const {
@@ -50,6 +51,7 @@ export const useSignUp = () => {
         const isEmailValid = await trigger('email');
         if (isEmailValid && !errors.email) {
             try {
+                setIsLoading(true);
                 // 이메일 중복 확인
                 const validationResponse = await validationEmailAPI(emailValue);
                 if (validationResponse.status === 200) {
@@ -75,12 +77,15 @@ export const useSignUp = () => {
                     // Axios 외의 에러 처리
                     console.error('Unexpected error:', error);
                 }
+            } finally {
+                setIsLoading(false);
             }
         }
     };
 
     const handleVerification = async (email: string, code: string) => {
         try {
+            setIsLoading(true);
             const res = await verifyEmailAPI(email, code);
             if (res.status === 200) {
                 setIsModalOpen(false);
@@ -89,6 +94,8 @@ export const useSignUp = () => {
             }
         } catch (error) {
             console.error('Email verification error:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -116,6 +123,7 @@ export const useSignUp = () => {
     const onSubmit = async (data: RegisterSchema) => {
         if (isEmailVerified && isValid) {
             try {
+                setIsLoading(true);
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const { confirmPassword, ...newData } = data;
                 const res = await signupAPI(newData);
@@ -124,6 +132,8 @@ export const useSignUp = () => {
                 }
             } catch (e) {
                 console.error(e);
+            } finally {
+                setIsLoading(false);
             }
         }
     };
@@ -148,5 +158,6 @@ export const useSignUp = () => {
         onSubmit,
         setIsModalOpen,
         isValid,
+        isLoading,
     };
 };

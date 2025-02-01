@@ -5,12 +5,12 @@ import { OAuthDomainType } from '@/types/auth';
 import { additionalInfoSchema, type AdditionalInfoSchema } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { Navigate, useParams } from 'react-router';
+import { Navigate, useNavigate, useParams } from 'react-router';
 import logo from '/assets/images/logo.png';
 
 const AdditionalInfoOAuth = () => {
     const { domain } = useParams();
-
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -28,6 +28,7 @@ const AdditionalInfoOAuth = () => {
     const onSubmit: SubmitHandler<AdditionalInfoSchema> = async ({ name }) => {
         try {
             await OAuthAPI(domain as OAuthDomainType, name);
+            navigate('/login');
         } catch {
             setError('root', {
                 message: '추가 정보 입력에 실패했습니다',

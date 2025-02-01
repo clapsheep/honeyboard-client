@@ -1,30 +1,19 @@
-import { Result } from '@/components/atoms/SearchDropDown/SearchDropDown';
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { useAuth } from './useAuth';
-import { getStudentsAPI } from '@/api/adminAPI';
-import { AvailableUserListResponse, StudentType } from '@/types/User';
-import { useParams } from 'react-router';
-import { getTrackProjectAvailableUserAPI } from '@/api/trackAPI';
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useAuth } from "./useAuth";
+import { AvailableUserListResponse } from "@/types/User";
+import { Result } from "@/components/atoms/SearchDropDown/SearchDropDown";
+import { getFinaleAvailableMembersAPI } from "@/api/finaleAPI";
 
 interface DatasetType extends DOMStringMap {
   id: string;
   name: string;
 }
 
-// 관통 프로젝트 생성 훅 함수 
-export const useCreateTrackProject = () => {
+// 관통 팀 생성 커스텀 훅 함수
+export const useFinaleProject = () => {
 
-    const MAX_LENGTH = 210;
-
-    // 유저 정보
-    const {userInfo} = useAuth();
-
-    // 모든 학생을 받아오는 useQuery 함수
-    const {data : response} = useQuery<StudentType[]>({
-      queryKey: ["track-students", userInfo?.generationId],
-      queryFn: () => getStudentsAPI(Number(userInfo?.generationId))
-    })
+  const MAX_LENGTH = 210;
 
     // 프로젝트 이름
     const [title, setTitle] = useState('');
@@ -39,108 +28,28 @@ export const useCreateTrackProject = () => {
     };
 
     // 프로젝트 설명
-    const [description, setDescription] = useState('');
-    const handleDescriptionInput = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+    const [git, setGit] = useState('');
+    const handleGitInput = (e:React.ChangeEvent<HTMLInputElement>) => {
 
       const inputValue = e.target.value;
 
       if(inputValue.length > MAX_LENGTH){
-        setDescription(inputValue.slice(0, MAX_LENGTH));
+        setGit(inputValue.slice(0, MAX_LENGTH));
       }else{
-        setDescription(inputValue);
+        setGit(inputValue);
       }
     };
 
-    // 제외 인원
-    const [weedingMember, setWeedingMember] = useState<Result[]>([]);
-    const [search, setSearch] = useState<Result[]>([]);
-    const [searchInput, setSearchInput] = useState('');
-
-    useEffect(() => {
-
-      if(!response){
-          return;
-      }
-
-      const processed = response.map(user => ({
-        id: String(user.userId),
-        name: user.name
-      }));
-
-      const filteredSearch = processed.filter(user => {
-        const isInWeedingMember = weedingMember.some((member) => member.id === user.id);
-
-        if(searchInput === ""){
-          return false;
-        }
-
-        return (!isInWeedingMember && user.name.includes(searchInput));
-      })
-
-      setSearch(filteredSearch);
-
-    }, [response, searchInput, weedingMember]);
-
-    const handleSearchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchInput(e.target.value);
-    };
-
-    const handleSearchOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-
-      const button = e.currentTarget as HTMLButtonElement & {
-        dataset: DatasetType;
-      };
-      const memberId = button.dataset.id;
-      const memberName = button.dataset.name;
-
-      setSearchInput('');
-
-      setWeedingMember([...weedingMember, { id: memberId, name: memberName }]);
-
-    };
-
-    const handleWeedingMember  = (e: React.MouseEvent<HTMLButtonElement>) => {
-      const button = e.currentTarget as HTMLButtonElement & {
-        dataset: DatasetType;
-      };
-      const memberId = button.dataset.id;
-
-      setWeedingMember(weedingMember.filter((item) => item.id !== memberId));
-    };
-
-
-    return {
-      title,
-      objective,
-      description, 
-      weedingMember, 
-      search, 
-      searchInput,
-      handleTitleInput,
-      handleObjectiveInput,
-      handleDescriptionInput,
-      handleSearchOnChange, 
-      handleWeedingMember, 
-      handleSearchOnClick,
-      setTitle,
-      setWeedingMember,
-      setObjective,
-      setDescription
-    }
-}
-
-// 관통 팀 생성 커스텀 훅 함수
-export const useCreateTrackTeam = () => {
   // 유저 정보
   const { userInfo } = useAuth();
-  const { trackProjectId } = useParams();
 
+  // 여기 수정 ~~~~~
   // 팀원이 정해지지 않은 유저를 받아오는 useQuery 함수
   const { data: response } = useQuery<AvailableUserListResponse, Error>({
-    queryKey: ['remained-users', userInfo?.generationId],
-    queryFn: () => getTrackProjectAvailableUserAPI({ trackProjectId: trackProjectId! }),
-    enabled: !!trackProjectId && !!userInfo?.generationId,
-});
+    queryKey: ['finale-remained-users', userInfo?.generationId],
+    queryFn: () => getFinaleAvailableMembersAPI({ generationId: Number(userInfo?.generationId ?? 0) }),
+    enabled: !!userInfo?.generationId,
+  });
 
   // 팀장 관리에 대한 상태
   const [teamLeader, setTeamLeader] = useState<Result[]>([]);
@@ -175,6 +84,7 @@ export const useCreateTrackTeam = () => {
 
   // TeamLeader에 대한 검색어 관련 useEffect
   useEffect(() => {
+
       if (!response) {
           return;
       }
@@ -295,6 +205,15 @@ export const useCreateTrackTeam = () => {
   };
   return {
       contain,
+      title,
+      objective,
+      git,
+      setTitle,
+      setObjective,
+      setGit, 
+      handleTitleInput,
+      handleObjectiveInput,
+      handleGitInput,
       teamLeader,
       setTeamLeader,
       leaderInputValue,
