@@ -27,6 +27,7 @@ interface FinaleProjectTeamProps {
     handleAPIButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
     modalOpen: boolean;
     setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    modalText: string;
 }
 
 const FinaleProjectTeam = ({
@@ -52,13 +53,13 @@ const FinaleProjectTeam = ({
     handleAPIButton,
     modalOpen,
     setModalOpen,
+    modalText,
 }: FinaleProjectTeamProps) => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
     const gitUrlPattern =
         /^(https:\/\/|git@)(?:[\w\d-]+@)?(?:[\w\d\-.]+)[:|/]([\w\d\-/]+)(?:\/([\w\d-]+))?(?:\.git)?$/;
-    const MODAL_TEXT = '해당 팀에 본인이 없습니다.';
     const handleConfirm = () => {
         setModalOpen(false);
     };
@@ -146,7 +147,7 @@ const FinaleProjectTeam = ({
             </section>
             <BasicModal
                 isOpen={modalOpen}
-                title={MODAL_TEXT}
+                title={modalText}
                 onConfirmClick={handleConfirm}
             />
         </>
