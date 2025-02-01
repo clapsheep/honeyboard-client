@@ -78,7 +78,7 @@ const WebRecommendCreate = () => {
             if (error instanceof AxiosError) {
                 const errorMessage = error.response?.data?.message;
 
-                if (errorMessage === '이미 등록된 문제입니다.') {
+                if (errorMessage === '이미 등록된 URL입니다.') {
                     openModal({
                         title: errorMessage,
                         onCancelClick: () => {
