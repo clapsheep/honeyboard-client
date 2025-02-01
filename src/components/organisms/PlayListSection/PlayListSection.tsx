@@ -40,6 +40,8 @@ const PlayListSection = () => {
                             allowFullScreen
                             className="h-full w-full"
                             src={`https://www.youtube.com/embed/${selectedVideoId}`}
+                            title="YouTube 음악 플레이어"
+                            tabIndex={0}
                         />
                     ) : (
                         <div className="flex h-full w-full items-center justify-center bg-gray-100">
