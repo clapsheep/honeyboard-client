@@ -31,7 +31,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         ref,
     ) => {
         return (
-            <div className="relative w-full">
+            <section className="relative w-full">
                 <section>
                     {iconId && (
                         <div className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-600">
@@ -60,7 +60,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                     placeholder={placeholder}
                     disabled={disabled}
                 />
-            </div>
+            </section>
         );
     },
 );
