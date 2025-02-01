@@ -19,7 +19,6 @@ export { default as FinalProjectBoardUpdate } from './finalProject/FinalProjectB
 export { default as FinalProjectCreate } from './finalProject/FinalProjectCreate';
 export { default as FinalProjectDetail } from './finalProject/FinalProjectDetail';
 export { default as FinalProjectList } from './finalProject/FinalProjectList';
-export { default as FinalProjectTeamUpdate } from './finalProject/FinalProjectTeamUpdate';
 export { default as FinalProjectUpdate } from './finalProject/FinalProjectUpdate';
 export { default as Login } from './Login';
 export { default as LoginCallback } from './LoginCallback';

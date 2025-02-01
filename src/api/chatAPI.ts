@@ -10,6 +10,18 @@ export const getChatMessagesAPI = async ({
     const { data } = await api.get(`${VITE_BASE_API}/chat`, {
         params: { currentPage, pageSize },
     });
+    if (!data.pageInfo) {
+        return {
+            content: [],
+            pageInfo: {
+                currentPage: 0,
+                totalPages: 0,
+                totalElements: 0,
+                pageSize: 0,
+            },
+        };
+    }
+
     return {
         content: data.content,
         pageInfo: data.pageInfo,

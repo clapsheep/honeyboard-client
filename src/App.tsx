@@ -26,7 +26,6 @@ import {
     FinalProjectCreate,
     FinalProjectDetail,
     FinalProjectList,
-    FinalProjectTeamUpdate,
     FinalProjectUpdate,
     GenerationManagement,
     Login,
@@ -138,10 +137,6 @@ function App() {
                             <Route
                                 path="final/:finaleProjectId/edit"
                                 element={<FinalProjectUpdate />}
-                            />
-                            <Route
-                                path="final/:finaleProjectId/team/:finaleTeamId/edit"
-                                element={<FinalProjectTeamUpdate />}
                             />
                             <Route
                                 path="final/:finaleProjectId/board/create"
