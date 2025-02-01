@@ -18,18 +18,17 @@ const FinalProjectBoardDetail = () => {
     const { userInfo } = useAuth();
     const userId = userInfo?.userId;
 
-    const { data, handleDelete, handleEdit } =
-        useProjectBoardDetail({
-            projectType: 'final',
+    const { data, handleDelete, handleEdit } = useProjectBoardDetail({
+        projectType: 'final',
+        boardId: boardId!,
+        requestParam: {
+            finaleProjectId: finaleProjectId!,
             boardId: boardId!,
-            requestParam: {
-                finaleProjectId: finaleProjectId!,
-                boardId: boardId!,
-            },
-            getDetailAPI: getFinaleProjectBoardDetailAPI,
-            deleteAPI: deleteFinaleProjectBoardAPI,
-            navigateAfterDelete: `/project/final/${finaleProjectId}`
-        });
+        },
+        getDetailAPI: getFinaleProjectBoardDetailAPI,
+        deleteAPI: deleteFinaleProjectBoardAPI,
+        navigateAfterDelete: `/project/final/${finaleProjectId}`,
+    });
 
     if (!data) return null;
 
@@ -57,7 +56,10 @@ const FinalProjectBoardDetail = () => {
                             ),
                         )}
                     </div>
-                    {(userInfo?.role === 'ADMIN' || data.members.some((member)=> member.id===userId)) && (
+                    {(userInfo?.role === 'ADMIN' ||
+                        data.members.some(
+                            (member) => member.id === userId,
+                        )) && (
                         <div className="flex gap-4">
                             <Button onClick={handleDelete} color="red">
                                 일지 삭제

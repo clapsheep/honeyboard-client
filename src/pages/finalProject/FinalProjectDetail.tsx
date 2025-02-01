@@ -38,9 +38,10 @@ const FinalProjectDetail = () => {
     const isTeamLeader = data?.members?.some(
         (member) => member.id === userInfo?.userId && member.role === 'LEADER',
     );
+    const finaleTeamId = data?.finaleTeamId;
 
     const handleProjectDelete = () => {
-        if (!finaleProjectId) return;
+        if (!finaleProjectId || !finaleTeamId) return;
 
         openModal({
             icon: 'warning',
@@ -49,6 +50,7 @@ const FinalProjectDetail = () => {
             onConfirmClick: async () => {
                 await deleteFinaleProjectAPI({
                     finaleProjectId,
+                    finaleTeamId,
                 });
                 navigate(-1);
                 closeModal();
