@@ -32,13 +32,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     ) => {
         return (
             <div className="relative w-full">
-                <section>
-                    {iconId && (
-                        <div className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-600">
-                            <Icon id={iconId} size={20} aria-hidden="true" />
-                        </div>
-                    )}
-                </section>
+                {iconId && (
+                    <section className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-600">
+                        <Icon id={iconId} size={20} aria-hidden="true" />
+                    </section>
+                )}
 
                 <input
                     ref={ref}
