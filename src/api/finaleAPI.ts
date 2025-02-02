@@ -11,6 +11,7 @@ import {
 } from '@/types/FinaleProject';
 import { AvailableUserListResponse } from '@/types/User';
 import { AxiosResponse } from 'axios';
+import { CreateResponse } from '@/types/common';
 
 // 1. 파이널 프로젝트 리스트 조회 FinaleProjectListResponse
 export const getFinaleProjectListAPI = async (req: {
@@ -71,8 +72,12 @@ export const deleteFinaleProjectAPI = async (req: {
 export const createFinaleProjectBoardAPI = async (req: {
     finaleProjectId: string;
     data: FinaleProjectBoardRequest;
-}): Promise<unknown> => {
-    return api.post(`/project/finale/${req.finaleProjectId}/board`, req.data);
+}): Promise<CreateResponse> => {
+    const { data } = await api.post(
+        `/project/finale/${req.finaleProjectId}/board`,
+        req.data,
+    );
+    return data;
 };
 
 export const updateFinaleTeamAPI = async (req: {
