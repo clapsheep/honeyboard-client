@@ -33,7 +33,9 @@ const SearchMusic = () => {
             openModal({
                 title: '경고',
                 subTitle: '검색어를 입력해주세요.',
-                onCancelClick: () => {},
+                onCancelClick: () => {
+                    closeModal();
+                },
             });
         }
     };
