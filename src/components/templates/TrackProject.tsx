@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router';
 import { Result } from '../atoms/SearchDropDown/SearchDropDown';
-import { BasicModal, Header, SearchTeamMember } from '@/components/organisms';
+import { Header, SearchTeamMember } from '@/components/organisms';
 import { Button } from '@/components/atoms';
 import { InputForm, TextAreaForm } from '@/components/molecules';
 
@@ -19,9 +19,6 @@ interface TrackProjectProps {
     handleSearchOnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     handleSearchOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleForm: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    modalOpen: boolean;
-    setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    modalText: string;
 }
 
 const TrackProject = ({
@@ -39,9 +36,6 @@ const TrackProject = ({
     handleSearchOnClick,
     handleSearchOnChange,
     handleForm,
-    modalOpen,
-    setModalOpen,
-    modalText,
 }: TrackProjectProps) => {
     const MAX_LENGTH = 210;
 
@@ -51,10 +45,6 @@ const TrackProject = ({
 
     const handleCancle = () => {
         navigate(-1);
-    };
-
-    const handleConfirm = () => {
-        setModalOpen(false);
     };
 
     return (
@@ -126,11 +116,6 @@ const TrackProject = ({
                     onClick={handleWeedingMember}
                 />
             </section>
-            <BasicModal
-                isOpen={modalOpen}
-                title={modalText}
-                onConfirmClick={handleConfirm}
-            />
         </>
     );
 };

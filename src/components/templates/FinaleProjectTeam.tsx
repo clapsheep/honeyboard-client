@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router';
-import { BasicModal, Header, SearchTeamMember } from '@/components/organisms';
+import { Header, SearchTeamMember } from '@/components/organisms';
 import { Button } from '@/components/atoms';
 import { InputForm } from '../molecules';
 import { Result } from '../atoms/SearchDropDown/SearchDropDown';
@@ -25,9 +25,6 @@ interface FinaleProjectTeamProps {
     handleMemberSearch: (e: React.MouseEvent<HTMLButtonElement>) => void;
     handleMemberOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleAPIButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    modalOpen: boolean;
-    setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    modalText: string;
 }
 
 const FinaleProjectTeam = ({
@@ -51,22 +48,16 @@ const FinaleProjectTeam = ({
     handleMemberSearch,
     handleMemberOnChange,
     handleAPIButton,
-    modalOpen,
-    setModalOpen,
-    modalText,
 }: FinaleProjectTeamProps) => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
-    const gitUrlPattern =
-        /^(https:\/\/|git@)(?:[\w\d-]+@)?(?:[\w\d\-.]+)[:|/]([\w\d\-/]+)(?:\/([\w\d-]+))?(?:\.git)?$/;
-    const handleConfirm = () => {
-        setModalOpen(false);
-    };
-
     const handleCancle = () => {
         navigate(-1);
     };
+
+    const gitUrlPattern =
+        /^(https:\/\/|git@)(?:[\w\d-]+@)?(?:[\w\d\-.]+)[:|/]([\w\d\-/]+)(?:\/([\w\d-]+))?(?:\.git)?$/;
 
     return (
         <>
@@ -145,11 +136,6 @@ const FinaleProjectTeam = ({
                     onClick={handleTeamMember}
                 />
             </section>
-            <BasicModal
-                isOpen={modalOpen}
-                title={modalText}
-                onConfirmClick={handleConfirm}
-            />
         </>
     );
 };
