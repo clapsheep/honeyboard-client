@@ -228,5 +228,7 @@ export const useFinaleProject = () => {
       handleTeamMember,
       handleMemberSearch,
       handleMemberOnChange,
+      setMemberSearch,
+      setLeaderSearch,
   };
 };
