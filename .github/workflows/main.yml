@@ -37,14 +37,20 @@ jobs:
           username: ${{ secrets.DEPLOY_USERNAME }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
+            # PATH 설정 (Docker 경로 명시적 추가)
+            export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
+            
+            # Docker 확인
+            /usr/local/bin/docker --version
+            
             # honeyBoard 프로젝트 디렉토리로 이동
             cd ~/docker-server/projects/honeyBoard
             
             # Frontend Docker 이미지 pull
-            docker compose pull frontend
+            /usr/local/bin/docker compose pull frontend
             
             # Frontend 컨테이너 재시작
-            docker compose up -d frontend
+            /usr/local/bin/docker compose up -d frontend
             
             # 이전 이미지 정리 (선택사항)
-            docker image prune -f
+            /usr/local/bin/docker image prune -f
