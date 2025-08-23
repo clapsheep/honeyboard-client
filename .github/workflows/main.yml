@@ -26,16 +26,25 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+          tags: honeyboard/frontend:latest
 
-      # EC2 배포
-      - name: Deploy to EC2
+      # 배포 서버 배포
+      - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.DEPLOY_HOST }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
-            cd /home/ubuntu/deploy
+            # honeyBoard 프로젝트 디렉토리로 이동
+            cd ~/docker-server/projects/honeyBoard
+            
+            # Frontend Docker 이미지 pull
             docker compose pull frontend
+            
+            # Frontend 컨테이너 재시작
             docker compose up -d frontend
+            
+            # 이전 이미지 정리 (선택사항)
+            docker image prune -f

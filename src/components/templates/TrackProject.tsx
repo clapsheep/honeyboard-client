@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router';
 import { Result } from '../atoms/SearchDropDown/SearchDropDown';
-import { BasicModal, Header, SearchTeamMember } from '@/components/organisms';
+import { Header, SearchTeamMember } from '@/components/organisms';
 import { Button } from '@/components/atoms';
 import { InputForm, TextAreaForm } from '@/components/molecules';
 
@@ -19,8 +19,6 @@ interface TrackProjectProps {
     handleSearchOnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     handleSearchOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleForm: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    modalOpen: boolean;
-    setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TrackProject = ({
@@ -38,24 +36,15 @@ const TrackProject = ({
     handleSearchOnClick,
     handleSearchOnChange,
     handleForm,
-    modalOpen,
-    setModalOpen,
 }: TrackProjectProps) => {
     const MAX_LENGTH = 210;
-    const MODAL_TEXT =
-        mode === 'create'
-            ? '프로젝트 생성에 실패했습니다.'
-            : '프로젝트 수정에 실패했습니다';
+
     const { pathname } = useLocation();
 
     const navigate = useNavigate();
 
     const handleCancle = () => {
         navigate(-1);
-    };
-
-    const handleConfirm = () => {
-        setModalOpen(false);
     };
 
     return (
@@ -127,11 +116,6 @@ const TrackProject = ({
                     onClick={handleWeedingMember}
                 />
             </section>
-            <BasicModal
-                isOpen={modalOpen}
-                title={MODAL_TEXT}
-                onConfirmClick={handleConfirm}
-            />
         </>
     );
 };

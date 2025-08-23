@@ -49,7 +49,7 @@ const FinalProjectBoardCreate = () => {
         try {
             const { content, thumbnail } = await onSubmit();
 
-            const id = await createFinaleProjectBoardAPI({
+            const data = await createFinaleProjectBoardAPI({
                 finaleProjectId,
                 data: {
                     title: title.trim(),
@@ -59,7 +59,7 @@ const FinalProjectBoardCreate = () => {
                 },
             });
 
-            navigate(`/project/final/${finaleProjectId}/board/${id}`);
+            navigate(`/project/final/${finaleProjectId}/board/${data.id}`);
         } catch (error) {
             console.error('게시글 작성을 실패했습니다:', error);
             openModal({

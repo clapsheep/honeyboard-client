@@ -1,4 +1,4 @@
-import { BasicModal, Header } from '@/components/organisms';
+import { Header } from '@/components/organisms';
 import { useLocation, useNavigate } from 'react-router';
 import { Button } from '@/components/atoms';
 import { SearchTeamMember } from '@/components/organisms';
@@ -20,8 +20,6 @@ interface TrackProjectTeamProps {
     handleMemberSearch: (e: React.MouseEvent<HTMLButtonElement>) => void;
     handleMemberOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleAPIButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    modalOpen: boolean;
-    setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TrackProjectTeam = ({
@@ -39,17 +37,10 @@ const TrackProjectTeam = ({
     handleMemberSearch,
     handleMemberOnChange,
     handleAPIButton,
-    modalOpen,
-    setModalOpen,
 }: TrackProjectTeamProps) => {
     const { pathname } = useLocation();
 
     const navigate = useNavigate();
-
-    const MODAL_TEXT = '해당 팀에 본인이 없습니다.';
-    const handleConfirm = () => {
-        setModalOpen(false);
-    };
 
     const handleCancle = () => {
         navigate(-1);
@@ -92,11 +83,6 @@ const TrackProjectTeam = ({
                     onClick={handleTeamMember}
                 />
             </section>
-            <BasicModal
-                isOpen={modalOpen}
-                title={MODAL_TEXT}
-                onConfirmClick={handleConfirm}
-            />
         </>
     );
 };

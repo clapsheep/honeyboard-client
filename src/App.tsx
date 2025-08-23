@@ -103,7 +103,7 @@ function App() {
                                 element={<TrackProjectTeamCreate />}
                             />
                             <Route
-                                path="track/:trackProjectId/team/:trackTeamId/edit"
+                                path="track/:trackProjectId/team/:trackTeamId/:boardId/edit"
                                 element={<TrackProjectTeamUpdate />}
                             />
                             <Route

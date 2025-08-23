@@ -11,6 +11,7 @@ import {
 } from '@/types/FinaleProject';
 import { AvailableUserListResponse } from '@/types/User';
 import { AxiosResponse } from 'axios';
+import { CreateResponse } from '@/types/common';
 
 // 1. 파이널 프로젝트 리스트 조회 FinaleProjectListResponse
 export const getFinaleProjectListAPI = async (req: {
@@ -25,9 +26,7 @@ export const getFinaleProjectListAPI = async (req: {
 // 1-1. 파이널 프로젝트 생성 (팀 + 프로젝트) FinaleProjectCreate
 export const createFinaleProjectAPI = async (req: {
     data: FinaleProjectCreate;
-}): Promise<AxiosResponse<Pick<
-        FinaleProject,
-        'id'>>> => {
+}): Promise<AxiosResponse<Pick<FinaleProject, 'id'>>> => {
     return api.post(`/project/finale`, req.data);
 };
 
@@ -62,24 +61,31 @@ export const updateFinaleProjectAPI = async (req: {
 // 2-3. 파이널 프로젝트 삭제 -> 팀원만 가능
 export const deleteFinaleProjectAPI = async (req: {
     finaleProjectId: string;
+    finaleTeamId: string;
 }): Promise<unknown> => {
-    return api.delete(`/project/finale/${req.finaleProjectId}`);
+    return api.delete(
+        `/project/finale/${req.finaleProjectId}/team/${req.finaleTeamId}`,
+    );
 };
 
 // 2-4. 파이널 프로젝트 보드 작성 -> 팀원만 가능
 export const createFinaleProjectBoardAPI = async (req: {
     finaleProjectId: string;
     data: FinaleProjectBoardRequest;
-}): Promise<unknown> => {
-    return api.post(`/project/finale/${req.finaleProjectId}/board`, req.data);
+}): Promise<CreateResponse> => {
+    const { data } = await api.post(
+        `/project/finale/${req.finaleProjectId}/board`,
+        req.data,
+    );
+    return data;
 };
 
-export const updateFinaleTeamAPI = async ( req: {
+export const updateFinaleTeamAPI = async (req: {
     teamId: string;
     data: FinaleProjectTeamUpdate;
 }): Promise<unknown> => {
     return api.put(`/project/finale/team/${req.teamId}`, req.data);
-}
+};
 
 // 3. 파이널 프로젝트 보드 조회
 export const getFinaleProjectBoardDetailAPI = async (req: {
@@ -113,13 +119,12 @@ export const deleteFinaleProjectBoardAPI = async (req: {
 };
 
 // 파이널 팀이 없는 팀원 조회
-export const getFinaleAvailableMembersAPI = async (
-    req: {
-        generationId: number;
-    }
-):Promise<AvailableUserListResponse> => {
-
-    const {data} = await api.get(`/project/finale/available-members?generationId=${req.generationId}`);
+export const getFinaleAvailableMembersAPI = async (req: {
+    generationId: number;
+}): Promise<AvailableUserListResponse> => {
+    const { data } = await api.get(
+        `/project/finale/available-members?generationId=${req.generationId}`,
+    );
 
     return data;
-}
+};

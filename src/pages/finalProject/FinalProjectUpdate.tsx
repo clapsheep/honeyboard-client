@@ -6,6 +6,7 @@ import {
 import FinaleProjectTeam from '@/components/templates/FinaleProjectTeam';
 import { useAuth } from '@/hooks/useAuth';
 import { useFinaleProject } from '@/hooks/useFinaleProject';
+import { useModalStore } from '@/stores/modalStore';
 import {
     FinaleProjectTeamUpdate,
     FinaleProjectUpdate,
@@ -15,9 +16,9 @@ import { useNavigate, useParams } from 'react-router';
 
 const FinalProjectUpdate = () => {
     const props = useFinaleProject();
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
     const { userInfo } = useAuth();
     const navigate = useNavigate();
+    const { openModal, closeModal } = useModalStore();
     const { finaleProjectId } = useParams();
     const [teamId, setTeamId] = useState<string>('');
     const {
@@ -31,6 +32,10 @@ const FinalProjectUpdate = () => {
         teamMember,
         setTeamLeader,
         setTeamMember,
+        leaderSearch,
+        setLeaderSearch,
+        memberSearch,
+        setMemberSearch,
     } = props;
 
     useEffect(() => {
@@ -60,11 +65,20 @@ const FinalProjectUpdate = () => {
                 setTeamLeader(
                     data.members.filter((member) => member.role === 'LEADER'),
                 );
+                setLeaderSearch([...leaderSearch, ...teamLeader]);
                 setTeamMember(
                     data.members.filter((member) => member.role === 'MEMBER'),
                 );
+                setMemberSearch([...memberSearch, ...teamMember]);
                 setTeamId(data.finaleTeamId);
             } catch (error) {
+                openModal({
+                    title: '프로젝트 데이터를 불러오는 것을 실패했습니다.',
+                    onCancelClick: () => {
+                        navigate(-1);
+                    },
+                });
+
                 console.error(error);
             }
         };
@@ -72,14 +86,12 @@ const FinalProjectUpdate = () => {
         getDetail();
     }, []);
 
-    // 보류
     const handleAPIButton = async () => {
         if (userInfo?.role !== 'ADMIN') {
             if (
-                teamLeader[0].id !== userInfo?.userId &&
-                !teamMember.some((member) => member.id === userInfo?.userId)
+                teamLeader[0].id != userInfo?.userId &&
+                !teamMember.some((member) => member.id == userInfo?.userId)
             ) {
-                setModalOpen(true);
                 return;
             }
         }
@@ -109,6 +121,12 @@ const FinalProjectUpdate = () => {
 
             navigate(`/project/final/${finaleProjectId}`);
         } catch (error) {
+            openModal({
+                title: '프로젝트 수정을 실패했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
             console.error(`에러 발생`, error);
         }
     };
@@ -116,8 +134,6 @@ const FinalProjectUpdate = () => {
     return (
         <FinaleProjectTeam
             mode={'edit'}
-            modalOpen={modalOpen}
-            setModalOpen={setModalOpen}
             handleAPIButton={handleAPIButton}
             {...props}
         />

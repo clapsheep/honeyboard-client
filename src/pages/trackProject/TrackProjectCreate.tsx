@@ -9,6 +9,7 @@ const TrackProjectCreate = () => {
     const { userInfo } = useAuth();
     const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalText, setModalText] = useState<string>('');
 
     useEffect(() => {
         if (userInfo?.role != 'ADMIN') {
@@ -33,6 +34,7 @@ const TrackProjectCreate = () => {
 
             navigate(`/project/track/${res.data.id}`);
         } catch (error) {
+            setModalText('생성에 실패했습니다.');
             setModalOpen(true);
             console.error('에러 발생', error);
         }
@@ -42,6 +44,7 @@ const TrackProjectCreate = () => {
         <TrackProject
             modalOpen={modalOpen}
             setModalOpen={setModalOpen}
+            modalText={modalText}
             mode="create"
             handleForm={handleForm}
             {...props}

@@ -1,18 +1,17 @@
 import { createFinaleProjectAPI } from '@/api/finaleAPI';
 import FinaleProjectTeam from '@/components/templates/FinaleProjectTeam';
 import { useFinaleProject } from '@/hooks/useFinaleProject';
+import { useModalStore } from '@/stores/modalStore';
 import { FinaleProjectCreate } from '@/types/FinaleProject';
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 const FinalProjectCreate = () => {
     const props = useFinaleProject();
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const { openModal, closeModal } = useModalStore();
     const navigate = useNavigate();
 
     const { title, objective, git, teamLeader, teamMember } = props;
 
-    // 보류
     const handleAPIButton = async () => {
         const projectData: FinaleProjectCreate = {
             title: title,
@@ -29,6 +28,12 @@ const FinalProjectCreate = () => {
 
             navigate(`/project/final/${res.data.id}`);
         } catch (error) {
+            openModal({
+                title: '프로젝트 생성을 실패했습니다.',
+                onCancelClick: () => {
+                    closeModal();
+                },
+            });
             console.error(`에러 발생`, error);
         }
     };
@@ -36,8 +41,6 @@ const FinalProjectCreate = () => {
     return (
         <FinaleProjectTeam
             mode={'create'}
-            modalOpen={modalOpen}
-            setModalOpen={setModalOpen}
             handleAPIButton={handleAPIButton}
             {...props}
         />
